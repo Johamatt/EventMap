@@ -1,14 +1,13 @@
 import { StyleSheet } from "react-native";
 
-import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
+import { View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
-import Map from "../components/Map";
+import MapContainer from "../components/Map/MapContainer";
 
 export default function MapScreen({ navigation }: RootTabScreenProps<"Map">) {
   return (
     <View style={styles.container}>
-      <Map />
+      <MapContainer />
     </View>
   );
 }

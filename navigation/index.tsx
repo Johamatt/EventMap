@@ -4,11 +4,8 @@
  *
  */
 import { Fontisto } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-
 import { Ionicons } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
@@ -22,15 +19,10 @@ import { ColorSchemeName, Pressable, Touchable, View } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
-import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/MapScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
-import {
-  RootStackParamList,
-  RootTabParamList,
-  RootTabScreenProps,
-} from "../types";
-import LinkingConfiguration from "./LinkingConfiguration";
+import { RootStackParamList, RootTabParamList } from "../types";
+import LandingScreen from "../screens/LandingScreen";
 
 export default function Navigation({
   colorScheme,
@@ -39,7 +31,6 @@ export default function Navigation({
 }) {
   return (
     <NavigationContainer
-      linking={LinkingConfiguration}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
       <RootNavigator />
@@ -57,6 +48,7 @@ function RootNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
+        // headerShown: false,
         headerStyle: {
           backgroundColor: Colors.light.tint,
         },
@@ -68,6 +60,14 @@ function RootNavigator() {
       }}
     >
       <Stack.Screen
+        name="Landing"
+        component={LandingScreen}
+        options={{
+          title: "Landing",
+        }}
+      />
+
+      <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
         options={{
@@ -78,11 +78,6 @@ function RootNavigator() {
             </View>
           ),
         }}
-      />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
