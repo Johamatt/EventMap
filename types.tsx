@@ -3,9 +3,13 @@
  * https://reactnavigation.org/docs/typescript/
  */
 
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import {
+  CompositeScreenProps,
+  NavigatorScreenParams,
+} from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Float } from "react-native/Libraries/Types/CodegenTypes";
 
 declare global {
   namespace ReactNavigation {
@@ -19,17 +23,64 @@ export type RootStackParamList = {
   NotFound: undefined;
 };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
-  RootStackParamList,
-  Screen
->;
+export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
+  NativeStackScreenProps<RootStackParamList, Screen>;
 
 export type RootTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  Map: undefined;
+  Favourites: undefined;
 };
 
-export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
-  BottomTabScreenProps<RootTabParamList, Screen>,
-  NativeStackScreenProps<RootStackParamList>
->;
+export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
+  CompositeScreenProps<
+    BottomTabScreenProps<RootTabParamList, Screen>,
+    NativeStackScreenProps<RootStackParamList>
+  >;
+
+export type Event = {
+  id: string;
+  name: {
+    fi: string;
+    en?: string;
+  };
+  description: {
+    title: string;
+    body: string;
+  };
+
+  event_date: {
+    starting_day: Date;
+    ending_day: Date;
+  };
+
+  location: {
+    lat: Float;
+    lon: Float;
+  };
+  address: {
+    street_address: string;
+    postal_code?: string;
+    locality?: string;
+  };
+  tags?: [
+    {
+      id: string;
+      name: string;
+    }
+  ];
+  images?: [
+    {
+      url: string;
+      license_type: number;
+      license_name: string;
+    }
+  ];
+  modified_at?: Date;
+};
+
+export type User = {
+  id: string;
+  name: string;
+  imageUri?: string;
+  attending?: [Event];
+};

@@ -3,6 +3,9 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
+import { Fontisto } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
@@ -14,13 +17,13 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName, Pressable, View } from "react-native";
+import { ColorSchemeName, Pressable, Touchable, View } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/TabOneScreen";
+import TabOneScreen from "../screens/MapScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import {
   RootStackParamList,
@@ -57,6 +60,7 @@ function RootNavigator() {
         headerStyle: {
           backgroundColor: Colors.light.tint,
         },
+
         headerTintColor: Colors.light.background,
         headerTitleStyle: {
           fontWeight: "bold",
@@ -98,37 +102,37 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Map"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors[colorScheme].background,
+        tabBarActiveBackgroundColor: Colors[colorScheme].tint,
+        tabBarLabelStyle: {
+          fontWeight: "bold",
+          fontSize: 12,
+        },
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
+        name="Map"
         component={TabOneScreen}
         options={{
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerShown: false,
+          title: "Map",
+          tabBarIcon: ({ color }) => (
+            <Fontisto name="map" size={24} color="black" />
+          ),
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="Favourites"
         component={TabTwoScreen}
         options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Favourites",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="star-border" size={24} color="black" />
+          ),
         }}
       />
     </BottomTab.Navigator>
   );
-}
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
