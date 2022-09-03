@@ -58,7 +58,6 @@ export const styles = StyleSheet.create({
   },
 
   //Util
-
   separator: {
     marginVertical: 20,
     height: 1,
