@@ -19,10 +19,13 @@ import { ColorSchemeName, Pressable, Touchable, View } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
-import TabOneScreen from "../screens/MapScreen";
+
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { RootStackParamList, RootTabParamList } from "../types";
-import LandingScreen from "../screens/LandingScreen";
+
+import { MapScreen } from "../screens/MapScreen";
+import { LandingLocationScreen } from "../screens/LandingStack/LandingLocationScreen";
+import { LandingPreferenceScreen } from "../screens/LandingStack/LandingPreferenceScreen";
 
 export default function Navigation({
   colorScheme,
@@ -48,7 +51,7 @@ function RootNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        // headerShown: false,
+        headerShown: false, //
         headerStyle: {
           backgroundColor: Colors.light.tint,
         },
@@ -59,13 +62,31 @@ function RootNavigator() {
         },
       }}
     >
+      {/* new Stack */}
       <Stack.Screen
-        name="Landing"
-        component={LandingScreen}
+        name="LandingLocationScreen"
+        component={LandingLocationScreen}
         options={{
-          title: "Landing",
+          title: "Landing Location",
         }}
       />
+
+      <Stack.Screen
+        name="LandingPreferenceScreen"
+        component={LandingPreferenceScreen}
+        options={{
+          title: "Landing Preference",
+        }}
+      />
+      {/* <Stack.Screen
+        name="LandingLocationScreen"
+        component={LandingScreen}
+        options={{
+          title: "Landing Location",
+        }}
+      /> */}
+
+      {/* new Stack ends */}
 
       <Stack.Screen
         name="Root"
@@ -109,7 +130,7 @@ function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="Map"
-        component={TabOneScreen}
+        component={MapScreen}
         options={{
           headerShown: false,
           title: "Map",

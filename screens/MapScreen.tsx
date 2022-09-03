@@ -4,13 +4,15 @@ import { View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import MapContainer from "../components/Map/MapContainer";
 
-export default function MapScreen({ navigation }: RootTabScreenProps<"Map">) {
+
+export const MapScreen: React.FC = (props) => {
+  console.log(props);
   return (
-    <View style={styles.container}>
+    <View >
       <MapContainer />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
