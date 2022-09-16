@@ -1,29 +1,27 @@
 import { Picker } from "@react-native-picker/picker";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Button,
-  SafeAreaView,
-  StyleSheet,
   TouchableOpacity,
-  FlatList,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
-import * as Location from "expo-location";
-import { Text, View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
+import { Text, View } from "react-native";
 import { LocationObject } from "expo-location";
-import LottieView from "lottie-react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
-import { Espoo, Helsinki, Vantaa } from "../../util/data/cityGeoData";
-import { activityTags } from "../../util/data/activityTags";
 import { ActivityTagsList } from "../../components/List/ActivityTagsList";
-
+import { ApplicationState, UserState } from "../../Store";
 import { styles } from "./styles";
+import { connect } from "react-redux";
 
-export const LandingPreferenceScreen: React.FC = () => {
+interface LandingPreferenceProps {
+  userReducer: UserState;
+}
+
+export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
+  props
+) => {
+  const userReducer = props.userReducer;
+
   const [location, setLocation] = useState<LocationObject>();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -42,11 +40,7 @@ export const LandingPreferenceScreen: React.FC = () => {
       {/* Content Starts */}
       <View style={styles.content}>
         <ActivityTagsList />
-        <View
-          style={styles.separator}
-          lightColor="#eee"
-          darkColor="rgba(255,255,255,0.1)"
-        />
+        <View style={styles.separator} />
       </View>
       {/* Content Ends */}
 
@@ -66,3 +60,13 @@ export const LandingPreferenceScreen: React.FC = () => {
     </View>
   );
 };
+
+const mapToStateProps = (state: ApplicationState) => ({
+  userReducer: state.UserReducer,
+});
+
+const LandingLocationScreen = connect(mapToStateProps)(
+  _LandingPreferenceScreen
+);
+
+export default LandingLocationScreen;

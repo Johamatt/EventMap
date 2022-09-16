@@ -1,14 +1,13 @@
 import { StyleSheet } from "react-native";
 
-import { View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 import MapContainer from "../components/Map/MapContainer";
-
+import { View } from "react-native";
 
 export const MapScreen: React.FC = (props) => {
   console.log(props);
   return (
-    <View >
+    <View>
       <MapContainer />
     </View>
   );

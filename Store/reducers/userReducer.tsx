@@ -1,5 +1,6 @@
 import { LocationGeocodedLocation } from "expo-location";
-import { UserAction } from "../types";
+import { UserAction } from "../actions/userAction";
+
 import { UserState } from "../types";
 
 const initialState: UserState = {

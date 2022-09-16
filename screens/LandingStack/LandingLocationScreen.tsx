@@ -4,7 +4,7 @@ import { Button, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import * as Location from "expo-location";
-import { Text, View } from "../../components/Themed";
+import { Text, View } from "react-native";
 import Colors from "../../constants/Colors";
 import { LocationObject } from "expo-location";
 import LottieView from "lottie-react-native";
@@ -13,11 +13,24 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";
 import { Espoo, Helsinki, Vantaa } from "../../util/data/cityGeoData";
 import { styles } from "./styles";
+import { UserState } from "../../Store/types";
+import { ApplicationState, ON_UPDATE_LOCATION } from "../../Store";
+import { connect } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const LandingLocationScreen: React.FC = () => {
+interface LandingLocationProps {
+  userReducer: UserState;
+  ON_UPDATE_LOCATION: Function;
+}
+
+const _LandingLocationScreen: React.FC<LandingLocationProps> = (props) => {
+  const { ON_UPDATE_LOCATION, userReducer } = props;
+
   const [location, setLocation] = useState<LocationObject>(Helsinki);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  console.log(props.userReducer.location);
   async function requestlocation() {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -25,10 +38,17 @@ export const LandingLocationScreen: React.FC = () => {
     }
     let location = await Location.getCurrentPositionAsync({});
     setLocation(location);
-    navigation.navigate("LandingPreferenceScreen");
+    await nextScreen();
   }
 
-  console.log(location);
+  // !!! korjaa, ei päivitä. !!!!!!!!!!!!!!!!
+  // !!! korjaa, ei päivitä. !!!!!!!!!!!!!!!!
+  // !!! korjaa, ei päivitä. !!!!!!!!!!!!!!!!
+  async function nextScreen() {
+    await AsyncStorage.setItem("user_location", JSON.stringify(location));
+    await ON_UPDATE_LOCATION(location);
+    navigation.navigate("LandingPreferenceScreen");
+  }
 
   return (
     // Header starts
@@ -73,11 +93,7 @@ export const LandingLocationScreen: React.FC = () => {
             <Text>Current Location</Text>
           </View>
         </TouchableOpacity>
-        <View
-          style={styles.separator}
-          lightColor="#eee"
-          darkColor="rgba(255,255,255,0.1)"
-        />
+        <View style={styles.separator} />
       </View>
       {/* Content Ends */}
 
@@ -85,7 +101,7 @@ export const LandingLocationScreen: React.FC = () => {
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.footerButton}
-          onPress={() => navigation.navigate("LandingPreferenceScreen")}
+          onPress={() => nextScreen()}
         >
           <Text style={styles.footerButtonText}>Next</Text>
         </TouchableOpacity>
@@ -94,3 +110,13 @@ export const LandingLocationScreen: React.FC = () => {
     </View>
   );
 };
+
+const mapToStateProps = (state: ApplicationState) => ({
+  userReducer: state.UserReducer,
+});
+
+const LandingLocationScreen = connect(mapToStateProps, {
+  ON_UPDATE_LOCATION,
+})(_LandingLocationScreen);
+
+export default LandingLocationScreen;
