@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import Text from "../../constants/Text";
 
 export const styles = StyleSheet.create({
   container: {
@@ -14,6 +13,7 @@ export const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "RationaleRegular",
   },
 
   headerText: {

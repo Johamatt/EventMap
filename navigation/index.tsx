@@ -27,6 +27,7 @@ import { MapScreen } from "../screens/MapScreen";
 
 import LandingPreferenceScreen from "../screens/LandingStack/LandingPreferenceScreen";
 import LandingLocationScreen from "../screens/LandingStack/LandingLocationScreen";
+import SplashScreen from "../screens/SplashScreen";
 
 export default function Navigation({
   colorScheme,
@@ -63,6 +64,9 @@ function RootNavigator() {
         },
       }}
     >
+      {/* new Stack */}
+      <Stack.Screen name="Splash" component={SplashScreen} />
+
       {/* new Stack */}
       <Stack.Screen
         name="LandingLocationScreen"
