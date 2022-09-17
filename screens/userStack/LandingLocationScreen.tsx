@@ -7,7 +7,6 @@ import * as Location from "expo-location";
 import { Text, View } from "react-native";
 import Colors from "../../constants/Colors";
 import { LocationObject } from "expo-location";
-import LottieView from "lottie-react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types";

@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: "bold",
     textAlign: "center",
-    fontFamily: "RationaleRegular",
+    fontFamily: "Rationale-Regular",
   },
 
   headerText: {

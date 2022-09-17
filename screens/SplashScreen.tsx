@@ -7,13 +7,12 @@ import Layout from "../constants/Layout";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
+import * as Font from "expo-font";
+import useCachedResources from "../hooks/useCachedResources";
 
 export default function SplashScreen() {
   const animation = useRef(null);
-  const [appIsReady] = useFonts({
-    "Rationale-Regular": require("../assets/fonts/Rationale-Regular.ttf"),
-    "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
-  });
+  const appIsReady = useCachedResources();
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -29,7 +28,6 @@ export default function SplashScreen() {
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await Splash.hideAsync();
-
       await new Promise((resolve) => setTimeout(resolve, 1000));
       navigation.navigate("LandingLocationScreen");
       //

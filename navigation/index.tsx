@@ -25,9 +25,9 @@ import { RootStackParamList, RootTabParamList } from "../types";
 
 import { MapScreen } from "../screens/MapScreen";
 
-import LandingPreferenceScreen from "../screens/LandingStack/LandingPreferenceScreen";
-import LandingLocationScreen from "../screens/LandingStack/LandingLocationScreen";
 import SplashScreen from "../screens/SplashScreen";
+import LandingLocationScreen from "../screens/userStack/LandingLocationScreen";
+import LandingPreferenceScreen from "../screens/userStack/LandingPreferenceScreen";
 
 export default function Navigation({
   colorScheme,

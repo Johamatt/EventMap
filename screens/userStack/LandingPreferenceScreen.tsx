@@ -1,8 +1,6 @@
 import { Picker } from "@react-native-picker/picker";
-import React, { useEffect, useState } from "react";
-import {
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
 import { LocationObject } from "expo-location";
 import { useNavigation } from "@react-navigation/native";
