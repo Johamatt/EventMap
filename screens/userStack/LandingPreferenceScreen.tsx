@@ -20,12 +20,14 @@ import { AgeGroup, AgeGroups } from "../../util/data/ageGroups";
 
 interface LandingPreferenceProps {
   userReducer: UserState;
+  ON_UPDATE_TAGS: Function;
+  ON_UPDATE_AGEGROUP: Function;
 }
 
 export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
   props
 ) => {
-  const userReducer = props.userReducer;
+  const { ON_UPDATE_AGEGROUP, ON_UPDATE_TAGS, userReducer } = props;
 
   const [selectedTags, setSelectedTags] = useState<Array<Activity>>([]);
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<AgeGroups>(
@@ -34,11 +36,9 @@ export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  async function nextScreen() {
-    await AsyncStorage.setItem("user_tags", JSON.stringify(selectedTags));
-
-    await ON_UPDATE_TAGS(selectedTags);
-    await ON_UPDATE_AGEGROUP(selectedAgeGroup);
+  function nextScreen() {
+    ON_UPDATE_TAGS(selectedTags);
+    ON_UPDATE_AGEGROUP(selectedAgeGroup);
 
     navigation.navigate("UserRoot"); //
   }

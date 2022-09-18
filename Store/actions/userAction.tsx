@@ -48,7 +48,9 @@ export const ON_UPDATE_LOCATION = (location: LocationGeocodedLocation) => {
 };
 
 export const ON_UPDATE_AGEGROUP = (ageGroup: AgeGroups) => {
-  return async (dispatch: Dispatch<UserAction>) => {
+  console.log(ageGroup);
+  return (dispatch: Dispatch<UserAction>) => {
+    console.log(ageGroup);
     try {
       dispatch({
         type: "ON_UPDATE_AGEGROUP",
@@ -64,7 +66,8 @@ export const ON_UPDATE_AGEGROUP = (ageGroup: AgeGroups) => {
 };
 
 export const ON_UPDATE_TAGS = (tags: Array<Activity>) => {
-  return async (dispatch: Dispatch<UserAction>) => {
+  return (dispatch: Dispatch<UserAction>) => {
+    console.log(tags);
     try {
       dispatch({
         type: "ON_UPDATE_TAGS",

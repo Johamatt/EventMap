@@ -8,7 +8,12 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { ApplicationState, ON_UPDATE_AGEGROUP, ON_UPDATE_TAGS, UserState } from "../Store";
+import {
+  ApplicationState,
+  ON_UPDATE_AGEGROUP,
+  ON_UPDATE_TAGS,
+  UserState,
+} from "../Store";
 import { RootStackParamList } from "../types";
 import { Activity, activityTags } from "../util/data/activityTags";
 import { AgeGroup, AgeGroups } from "../util/data/ageGroups";
@@ -40,22 +45,19 @@ import { styles } from "./userStack/styles";
 //   },
 // });
 
-
-
 interface TabTwoScreenProps {
   userReducer: UserState;
 }
 
-export const _TabTwoScreen: React.FC<TabTwoScreenProps> = (
-  props
-) => {
-
-  
+export const _TabTwoScreen: React.FC<TabTwoScreenProps> = (props) => {
   const userReducer = props.userReducer;
   const [selectedTags, setSelectedTags] = useState<Array<Activity>>([]);
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<AgeGroups>(
     AgeGroup[0]
   );
+
+  console.log(userReducer);
+
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -67,6 +69,9 @@ export const _TabTwoScreen: React.FC<TabTwoScreenProps> = (
 
     navigation.navigate("UserRoot"); //
   }
+
+  console.log(selectedTags);
+  console.log(selectedAgeGroup);
 
   const handleSelectionMultiple = (item: Activity) => {
     if (selectedTags.includes(item)) {

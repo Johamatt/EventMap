@@ -29,7 +29,6 @@ const _LandingLocationScreen: React.FC<LandingLocationProps> = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  console.log(props.userReducer.location);
   async function requestlocation() {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
