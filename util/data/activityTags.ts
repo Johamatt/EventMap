@@ -1,54 +1,59 @@
-export let activityTags: any = [
+export let activityTags: Array<Activity> = [
   {
-    id: "Children and families",
-    title: "Children and families",
+    id: "1",
+    name: "Children and families",
   },
   {
-    id: "Concerts",
-    title: "Concerts",
+    id: "2",
+    name: "Concerts",
   },
   {
-    id: "Clubs",
-    title: "Clubs",
+    id: "3",
+    name: "Clubs",
   },
   {
-    id: "Music Festivals",
-    title: "Music Festivals",
+    id: "4",
+    name: "Music Festivals",
   },
   {
-    id: "Festivals",
-    title: "Festivals",
+    id: "5",
+    name: "Festivals",
   },
   {
-    id: "Career & Business",
-    title: "Career & Business",
+    id: "6",
+    name: "Career & Business",
   },
   {
-    id: "Pets & Animals",
-    title: "Pets & Animals",
+    id: "7",
+    name: "Pets & Animals",
   },
   {
-    id: "Sports & Fitness",
-    title: "Sports & Fitness",
+    id: "8",
+    name: "Sports & Fitness",
   },
   {
-    id: "Technology",
-    title: "Technology",
+    id: "9",
+    name: "Technology",
   },
   {
-    id: "Art & Culture",
-    title: "Art & Culture",
+    id: "10",
+    name: "Art & Culture",
   },
   {
-    id: "Health and Wellbeing",
-    title: "Health and Wellbeing",
+    id: "11",
+    name: "Health and Wellbeing",
   },
   {
-    id: "Sport Matches",
-    title: "Sport Matches",
+    id: "12",
+    name: "Sport Matches",
   },
   {
-    id: "Dance (performing arts)",
-    title: "Dance (performing arts)",
+    id: "13",
+    name: "Dance (performing arts)",
   },
 ];
+
+export type Activity = {
+  id: string;
+  name: string;
+};

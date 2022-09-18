@@ -40,6 +40,7 @@ const _LandingLocationScreen: React.FC<LandingLocationProps> = (props) => {
     await nextScreen();
   }
 
+  // redux thunk ??
   // !!! korjaa, ei päivitä. !!!!!!!!!!!!!!!!
   // !!! korjaa, ei päivitä. !!!!!!!!!!!!!!!!
   // !!! korjaa, ei päivitä. !!!!!!!!!!!!!!!!
@@ -53,7 +54,7 @@ const _LandingLocationScreen: React.FC<LandingLocationProps> = (props) => {
     // Header starts
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Choose your location</Text>
+        <Text style={styles.headerTitle}>Location</Text>
         <Text style={styles.headerText}>
           Select city where you want find events from or tap Current Location
         </Text>

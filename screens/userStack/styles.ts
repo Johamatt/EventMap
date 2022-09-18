@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Layout from "../../constants/Layout";
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,8 +11,8 @@ export const styles = StyleSheet.create({
   header: { paddingTop: 50 },
 
   headerTitle: {
-    fontSize: 26,
-    fontWeight: "bold",
+    fontSize: 64,
+
     textAlign: "center",
     fontFamily: "Rationale-Regular",
   },
@@ -35,6 +36,10 @@ export const styles = StyleSheet.create({
 
   nearbyBox: {
     padding: 5,
+    flexDirection: "row",
+  },
+
+  list: {
     flexDirection: "row",
   },
 
@@ -62,5 +67,15 @@ export const styles = StyleSheet.create({
   separator: {
     marginVertical: 20,
     height: 1,
+  },
+
+  selectedListItem: {
+    backgroundColor: "#2f95dc",
+    alignItems: "center",
+    width: Layout.window.width / 2.5,
+  },
+
+  unSelectedListItem: {
+    width: Layout.window.width / 2.2,
   },
 });

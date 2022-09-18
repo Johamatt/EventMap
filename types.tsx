@@ -18,11 +18,13 @@ declare global {
 }
 
 export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined;
+  UserRoot: NavigatorScreenParams<RootTabParamList> | undefined;
   Splash: undefined;
   Modal: undefined;
   LandingLocationScreen: undefined;
   LandingPreferenceScreen: undefined;
+  Login: undefined;
+  UserProfileScreen: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

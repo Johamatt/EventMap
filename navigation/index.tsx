@@ -23,11 +23,12 @@ import ModalScreen from "../screens/ModalScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { RootStackParamList, RootTabParamList } from "../types";
 
-import { MapScreen } from "../screens/MapScreen";
+
 
 import SplashScreen from "../screens/SplashScreen";
 import LandingLocationScreen from "../screens/userStack/LandingLocationScreen";
 import LandingPreferenceScreen from "../screens/userStack/LandingPreferenceScreen";
+import MapScreen from "../screens/MapScreen";
 
 export default function Navigation({
   colorScheme,
@@ -94,7 +95,7 @@ function RootNavigator() {
       {/* new Stack ends */}
 
       <Stack.Screen
-        name="Root"
+        name="UserRoot"
         component={BottomTabNavigator}
         options={{
           title: "EventMap",

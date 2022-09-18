@@ -3,8 +3,18 @@ import { StyleSheet } from "react-native";
 import { RootTabScreenProps } from "../types";
 import MapContainer from "../components/Map/MapContainer";
 import { View } from "react-native";
+import { ApplicationState, UserState } from "../Store";
+import { connect } from "react-redux";
 
-export const MapScreen: React.FC = (props) => {
+interface MapProps {
+  userReducer: UserState;
+}
+
+const _MapScreen: React.FC<MapProps> = (props) => {
+  const { userReducer } = props;
+
+  console.log(userReducer);
+
   console.log(props);
   return (
     <View>
@@ -13,19 +23,10 @@ export const MapScreen: React.FC = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
+const mapToStateProps = (state: ApplicationState) => ({
+  userReducer: state.UserReducer,
 });
+
+const MapScreen = connect(mapToStateProps)(_MapScreen);
+
+export default MapScreen;
