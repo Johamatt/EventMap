@@ -6,7 +6,7 @@ import { UserAction } from "../actions/userAction";
 import { UserState } from "../types";
 
 const initialState: UserState = {
-  ageGroup: {} as AgeGroups,
+  ageGroup: [],
   location: {} as LocationGeocodedLocation,
 
   tags: [] as Array<Activity>,

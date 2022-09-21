@@ -15,7 +15,6 @@ const _MapScreen: React.FC<MapProps> = (props) => {
 
   console.log(userReducer);
 
-  console.log(props);
   return (
     <View>
       <MapContainer />

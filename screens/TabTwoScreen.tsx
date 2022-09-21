@@ -52,11 +52,9 @@ interface TabTwoScreenProps {
 export const _TabTwoScreen: React.FC<TabTwoScreenProps> = (props) => {
   const userReducer = props.userReducer;
   const [selectedTags, setSelectedTags] = useState<Array<Activity>>([]);
-  const [selectedAgeGroup, setSelectedAgeGroup] = useState<AgeGroups>(
-    AgeGroup[0]
-  );
-
-  console.log(userReducer);
+  // const [selectedAgeGroup, setSelectedAgeGroup] = useState<AgeGroups>(
+  //   AgeGroup[0]
+  // );
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -65,13 +63,10 @@ export const _TabTwoScreen: React.FC<TabTwoScreenProps> = (props) => {
     await AsyncStorage.setItem("user_tags", JSON.stringify(selectedTags));
 
     await ON_UPDATE_TAGS(selectedTags);
-    await ON_UPDATE_AGEGROUP(selectedAgeGroup);
+    // await ON_UPDATE_AGEGROUP(selectedAgeGroup);
 
     navigation.navigate("UserRoot"); //
   }
-
-  console.log(selectedTags);
-  console.log(selectedAgeGroup);
 
   const handleSelectionMultiple = (item: Activity) => {
     if (selectedTags.includes(item)) {
@@ -91,7 +86,7 @@ export const _TabTwoScreen: React.FC<TabTwoScreenProps> = (props) => {
 
       {/* Content Starts */}
       <View style={styles.content}>
-        <Picker
+        {/* <Picker
           selectedValue={selectedAgeGroup}
           onValueChange={(itemValue, itemIndex) =>
             setSelectedAgeGroup(itemValue)
@@ -100,7 +95,7 @@ export const _TabTwoScreen: React.FC<TabTwoScreenProps> = (props) => {
           {AgeGroup.map((_agegroup, key) => (
             <Picker.Item key={key} label={_agegroup.name} value={_agegroup} />
           ))}
-        </Picker>
+        </Picker> */}
 
         <FlatList
           style={styles.list}

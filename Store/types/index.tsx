@@ -5,6 +5,6 @@ import { AgeGroups } from "../../util/data/ageGroups";
 export type UserState = {
   location: LocationGeocodedLocation;
   error: String | undefined;
-  ageGroup: AgeGroups;
-  tags: Array<Activity>,
+  ageGroup: Array<any>;
+  tags: Array<Activity>;
 };

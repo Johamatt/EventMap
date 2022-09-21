@@ -11,7 +11,7 @@ export interface UpdateLocationAction {
 //
 export interface UpdateAgeGroupAction {
   readonly type: "ON_UPDATE_AGEGROUP";
-  payload: AgeGroups;
+  payload: Array<any>;
 }
 
 export interface UpdateTagsAction {
@@ -47,10 +47,8 @@ export const ON_UPDATE_LOCATION = (location: LocationGeocodedLocation) => {
   };
 };
 
-export const ON_UPDATE_AGEGROUP = (ageGroup: AgeGroups) => {
-  console.log(ageGroup);
+export const ON_UPDATE_AGEGROUP = (ageGroup: Array<any>) => {
   return (dispatch: Dispatch<UserAction>) => {
-    console.log(ageGroup);
     try {
       dispatch({
         type: "ON_UPDATE_AGEGROUP",

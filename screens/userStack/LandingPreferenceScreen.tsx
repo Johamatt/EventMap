@@ -17,6 +17,7 @@ import { connect } from "react-redux";
 import { Activity, activityTags } from "../../util/data/activityTags";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AgeGroup, AgeGroups } from "../../util/data/ageGroups";
+import DropDownPicker from "react-native-dropdown-picker";
 
 interface LandingPreferenceProps {
   userReducer: UserState;
@@ -30,15 +31,25 @@ export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
   const { ON_UPDATE_AGEGROUP, ON_UPDATE_TAGS, userReducer } = props;
 
   const [selectedTags, setSelectedTags] = useState<Array<Activity>>([]);
-  const [selectedAgeGroup, setSelectedAgeGroup] = useState<AgeGroups>(
-    AgeGroup[0]
-  );
+  // const [selectedAgeGroup, setSelectedAgeGroup] = useState<AgeGroups>(
+  //   AgeGroup[0]
+  // );
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState([]);
+  const [selectedAgeGroup, setSelectedAgeGroup] = useState([
+    { label: "Kids", value: "kid" },
+    { label: "Teens", value: "teen" },
+    { label: "Adults", value: "adult" },
+    { label: "Seniors", value: "senior" },
+    { label: "Kids & Families", value: "kidsAndFamilies" },
+  ]);
+
   function nextScreen() {
     ON_UPDATE_TAGS(selectedTags);
-    ON_UPDATE_AGEGROUP(selectedAgeGroup);
+    ON_UPDATE_AGEGROUP(value);
 
     navigation.navigate("UserRoot"); //
   }
@@ -61,7 +72,7 @@ export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
 
       {/* Content Starts */}
       <View style={styles.content}>
-        <Picker
+        {/* <Picker
           selectedValue={selectedAgeGroup}
           onValueChange={(itemValue, itemIndex) =>
             setSelectedAgeGroup(itemValue)
@@ -70,7 +81,20 @@ export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
           {AgeGroup.map((_agegroup, key) => (
             <Picker.Item key={key} label={_agegroup.name} value={_agegroup} />
           ))}
-        </Picker>
+        </Picker> */}
+
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={selectedAgeGroup}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setSelectedAgeGroup}
+          multiple={true}
+          min={0}
+          max={5}
+          placeholder="Select Age Group(s)"
+        />
 
         <FlatList
           style={styles.list}

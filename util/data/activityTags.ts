@@ -1,23 +1,23 @@
 export let activityTags: Array<Activity> = [
   {
     id: "1",
-    name: "Children and families",
-  },
-  {
-    id: "2",
     name: "Concerts",
   },
   {
-    id: "3",
+    id: "2",
     name: "Clubs",
   },
   {
-    id: "4",
+    id: "3",
     name: "Music Festivals",
   },
   {
-    id: "5",
+    id: "4",
     name: "Festivals",
+  },
+  {
+    id: "5",
+    name: "Nightlife",
   },
   {
     id: "6",
@@ -49,7 +49,7 @@ export let activityTags: Array<Activity> = [
   },
   {
     id: "13",
-    name: "Dance (performing arts)",
+    name: "Dance",
   },
 ];
 
