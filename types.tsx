@@ -10,6 +10,7 @@ import {
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Float } from "react-native/Libraries/Types/CodegenTypes";
+import { AgeGroups } from "./util/data/ageGroups";
 
 declare global {
   namespace ReactNavigation {
@@ -25,6 +26,7 @@ export type RootStackParamList = {
   LandingPreferenceScreen: undefined;
   Login: undefined;
   UserProfileScreen: undefined;
+  EventScreen: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -43,37 +45,43 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
 
 // models
 
-export type Event = {
+export type LiveEvent = {
   id: string;
   name: {
     fi: string;
-    en?: string;
+    en?: string | null;
   };
+
+  source: string;
+  infoUrl: string | null;
+
   description: {
     title: string;
     body: string;
   };
 
-  event_date: {
-    starting_day: Date;
-    ending_day: Date;
+  eventDates: {
+    // starting_day: Date;
+    // ending_day: Date;
+    starting_day: string;
+    ending_day: string;
   };
 
   location: {
     lat: Float;
     lon: Float;
+
+    address: {
+      streetAddress: string;
+      postalCode?: string;
+      locality?: string;
+    };
   };
-  address: {
-    street_address: string;
-    postal_code?: string;
-    locality?: string;
-  };
-  tags?: [
-    {
-      id: string;
-      name: string;
-    }
-  ];
+
+  tags: Tag[];
+
+  ageGroup: AgeGroups[];
+
   images?: [
     {
       url: string;
@@ -89,4 +97,9 @@ export type User = {
   name: string;
   imageUri?: string;
   attending?: [Event];
+};
+
+export type Tag = {
+  id: string;
+  name: string;
 };

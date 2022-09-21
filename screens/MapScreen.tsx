@@ -1,10 +1,12 @@
 import { StyleSheet } from "react-native";
 
-import { RootTabScreenProps } from "../types";
+import { RootStackParamList, RootTabScreenProps } from "../types";
 import MapContainer from "../components/Map/MapContainer";
 import { View } from "react-native";
 import { ApplicationState, UserState } from "../Store";
 import { connect } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 interface MapProps {
   userReducer: UserState;
@@ -13,7 +15,8 @@ interface MapProps {
 const _MapScreen: React.FC<MapProps> = (props) => {
   const { userReducer } = props;
 
-  console.log(userReducer);
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <View>

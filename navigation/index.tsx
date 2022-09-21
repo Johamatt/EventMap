@@ -23,12 +23,11 @@ import ModalScreen from "../screens/ModalScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { RootStackParamList, RootTabParamList } from "../types";
 
-
-
 import SplashScreen from "../screens/SplashScreen";
 import LandingLocationScreen from "../screens/userStack/LandingLocationScreen";
 import LandingPreferenceScreen from "../screens/userStack/LandingPreferenceScreen";
 import MapScreen from "../screens/MapScreen";
+import EventScreen from "../screens/userStack/EventScreen";
 
 export default function Navigation({
   colorScheme,
@@ -67,6 +66,12 @@ function RootNavigator() {
     >
       {/* new Stack */}
       <Stack.Screen name="Splash" component={SplashScreen} />
+
+      <Stack.Screen
+        name="EventScreen"
+        component={EventScreen}
+        options={{ headerShown: true, headerTitle: "" }}
+      />
 
       {/* new Stack */}
       <Stack.Screen

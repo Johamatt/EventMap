@@ -31,9 +31,6 @@ export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
   const { ON_UPDATE_AGEGROUP, ON_UPDATE_TAGS, userReducer } = props;
 
   const [selectedTags, setSelectedTags] = useState<Array<Activity>>([]);
-  // const [selectedAgeGroup, setSelectedAgeGroup] = useState<AgeGroups>(
-  //   AgeGroup[0]
-  // );
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -51,7 +48,9 @@ export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
     ON_UPDATE_TAGS(selectedTags);
     ON_UPDATE_AGEGROUP(value);
 
-    navigation.navigate("UserRoot"); //
+    // navigation.navigate("UserRoot");
+
+    navigation.navigate("EventScreen");
   }
 
   const handleSelectionMultiple = (item: Activity) => {
@@ -72,17 +71,6 @@ export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
 
       {/* Content Starts */}
       <View style={styles.content}>
-        {/* <Picker
-          selectedValue={selectedAgeGroup}
-          onValueChange={(itemValue, itemIndex) =>
-            setSelectedAgeGroup(itemValue)
-          }
-        >
-          {AgeGroup.map((_agegroup, key) => (
-            <Picker.Item key={key} label={_agegroup.name} value={_agegroup} />
-          ))}
-        </Picker> */}
-
         <DropDownPicker
           open={open}
           value={value}

@@ -66,7 +66,8 @@ export const styles = StyleSheet.create({
   //Util
   separator: {
     marginVertical: 20,
-    height: 1,
+    height: 2,
+    color: "#000",
   },
 
   selectedListItem: {
