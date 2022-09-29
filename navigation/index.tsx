@@ -4,8 +4,7 @@
  *
  */
 import { Fontisto } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons, Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
@@ -74,8 +73,6 @@ function RootNavigator() {
         options={{ headerShown: true, headerTitle: "" }}
       />
 
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-
       {/* new Stack */}
       <Stack.Screen
         name="LandingLocationScreen"
@@ -136,12 +133,21 @@ function BottomTabNavigator() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].background,
         tabBarActiveBackgroundColor: Colors[colorScheme].tint,
-        tabBarLabelStyle: {
-          fontWeight: "bold",
-          fontSize: 12,
-        },
+        tabBarShowLabel: false,
       }}
     >
+      <BottomTab.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          title: "Home",
+          tabBarIcon: ({ color }) => (
+            <Feather name="home" size={24} color="black" />
+          ),
+        }}
+      />
+
       <BottomTab.Screen
         name="Map"
         component={MapScreen}
@@ -149,7 +155,7 @@ function BottomTabNavigator() {
           headerShown: false,
           title: "Map",
           tabBarIcon: ({ color }) => (
-            <Fontisto name="map" size={24} color="black" />
+            <Feather name="map" size={24} color="black" />
           ),
         }}
       />
@@ -159,7 +165,18 @@ function BottomTabNavigator() {
         options={{
           title: "Favourites",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="star-border" size={24} color="black" />
+            <Feather name="heart" size={24} color="black" />
+          ),
+        }}
+      />
+
+      <BottomTab.Screen
+        name="Profile"
+        component={TabTwoScreen}
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color }) => (
+            <Feather name="user" size={24} color="black" />
           ),
         }}
       />

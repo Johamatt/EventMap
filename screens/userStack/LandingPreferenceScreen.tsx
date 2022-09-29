@@ -48,9 +48,7 @@ export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
     ON_UPDATE_TAGS(selectedTags);
     ON_UPDATE_AGEGROUP(value);
 
-    // navigation.navigate("UserRoot");
-
-    navigation.navigate("HomeScreen");
+    navigation.navigate("UserRoot");
   }
 
   const handleSelectionMultiple = (item: Activity) => {
