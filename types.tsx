@@ -27,6 +27,7 @@ export type RootStackParamList = {
   Login: undefined;
   UserProfileScreen: undefined;
   EventScreen: undefined;
+  HomeScreen: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

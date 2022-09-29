@@ -11,7 +11,6 @@ export let eventSamples: Array<LiveEvent> = [
 
     infoUrl: null,
     location: {
-      
       lat: 60.17396926879883,
       lon: 24.93815803527832,
       address: {
@@ -61,6 +60,61 @@ export let eventSamples: Array<LiveEvent> = [
   },
 
   {
+    id: "helmet:2341254",
+    name: {
+      fi: "Musiikkisatu",
+      en: null,
+    },
+
+    source: "LinkedEvents",
+    infoUrl: null,
+    location: {
+      lat: 60.26133728027344,
+      lon: 24.853647232055664,
+      address: {
+        streetAddress: "Paalutori 3",
+        postalCode: "01600",
+        locality: "Vantaa",
+      },
+    },
+
+    ageGroup: [
+      {
+        id: "1",
+        name: "Kids",
+      },
+      {
+        id: "2",
+        name: "Adults",
+      },
+    ],
+
+    description: {
+      title:
+        "Tervetuloa Myyrmäen kirjaston musiikkisatutunnille! Toiminnallisella musiikkisatutunnilla sukelletaan kirjojen ja tarinoiden maailmaan musiikin avulla.",
+      body: "<p>Tervetuloa Myyrmäen kirjaston musiikkisatutunnille! Toiminnallisella musiikkisatutunnilla sukelletaan kirjojen ja tarinoiden maailmaan musiikin avulla. Satuhetken aikana soitetaan, lauletaan ja liikutaan, tai vain kuunnellaan ja katsellaan. Satu vaihtuu joka viikko.</p><p>Musiikkisatutunnin ikäsuositus on 2–7 vuotta. Tapahtuma on avoin kaikille. Satutunnin pituus on noin 30 minuuttia.</p><p>Lisätietoja: elina.simes@vantaa.fi</p><p>*******</p><p>Kuva: Elina Simes / Vantaan kaupunginkirjasto. Helmet-logo: Karkki Havaste / Vantaan kaupunginkirjasto<br><br> Asiasana: Lastenkulttuuri</p>",
+    },
+
+    tags: [
+      {
+        id: "linkedevents:helmet:11193",
+        name: "Literature",
+      },
+      {
+        id: "linkedevents:helmet:11777",
+        name: "Story hours",
+      },
+      {
+        id: "linkedevents:yso:p4354",
+        name: "children (age groups)",
+      },
+    ],
+    eventDates: {
+      starting_day: "2023-05-23T14:00:00.000Z",
+      ending_day: "2023-05-23T14:30:00.000Z",
+    },
+  },
+  {
     id: "helmet:236917",
     name: {
       fi: "Musiikkisatu",
@@ -96,13 +150,60 @@ export let eventSamples: Array<LiveEvent> = [
       body: "<p>Tervetuloa Myyrmäen kirjaston musiikkisatutunnille! Toiminnallisella musiikkisatutunnilla sukelletaan kirjojen ja tarinoiden maailmaan musiikin avulla. Satuhetken aikana soitetaan, lauletaan ja liikutaan, tai vain kuunnellaan ja katsellaan. Satu vaihtuu joka viikko.</p><p>Musiikkisatutunnin ikäsuositus on 2–7 vuotta. Tapahtuma on avoin kaikille. Satutunnin pituus on noin 30 minuuttia.</p><p>Lisätietoja: elina.simes@vantaa.fi</p><p>*******</p><p>Kuva: Elina Simes / Vantaan kaupunginkirjasto. Helmet-logo: Karkki Havaste / Vantaan kaupunginkirjasto<br><br> Asiasana: Lastenkulttuuri</p>",
     },
 
-    images: [
+    tags: [
       {
-        url: "https://www.helmet.fi/download/noname/{C390C0ED-DA73-4E97-BAB5-7E3C1B5B4DEB}/94671",
-        license_type: 1,
-        license_name: "All rights reserved.",
+        id: "linkedevents:helmet:11193",
+        name: "Literature",
+      },
+      {
+        id: "linkedevents:helmet:11777",
+        name: "Story hours",
+      },
+      {
+        id: "linkedevents:yso:p4354",
+        name: "children (age groups)",
       },
     ],
+    eventDates: {
+      starting_day: "2023-05-23T14:00:00.000Z",
+      ending_day: "2023-05-23T14:30:00.000Z",
+    },
+  },
+  {
+    id: "helmet:23612412",
+    name: {
+      fi: "Musiikkisatu",
+      en: null,
+    },
+
+    source: "LinkedEvents",
+    infoUrl: null,
+    location: {
+      lat: 60.26133728027344,
+      lon: 24.853647232055664,
+      address: {
+        streetAddress: "Paalutori 3",
+        postalCode: "01600",
+        locality: "Vantaa",
+      },
+    },
+
+    ageGroup: [
+      {
+        id: "1",
+        name: "Kids",
+      },
+      {
+        id: "2",
+        name: "Adults",
+      },
+    ],
+
+    description: {
+      title:
+        "Tervetuloa Myyrmäen kirjaston musiikkisatutunnille! Toiminnallisella musiikkisatutunnilla sukelletaan kirjojen ja tarinoiden maailmaan musiikin avulla.",
+      body: "<p>Tervetuloa Myyrmäen kirjaston musiikkisatutunnille! Toiminnallisella musiikkisatutunnilla sukelletaan kirjojen ja tarinoiden maailmaan musiikin avulla. Satuhetken aikana soitetaan, lauletaan ja liikutaan, tai vain kuunnellaan ja katsellaan. Satu vaihtuu joka viikko.</p><p>Musiikkisatutunnin ikäsuositus on 2–7 vuotta. Tapahtuma on avoin kaikille. Satutunnin pituus on noin 30 minuuttia.</p><p>Lisätietoja: elina.simes@vantaa.fi</p><p>*******</p><p>Kuva: Elina Simes / Vantaan kaupunginkirjasto. Helmet-logo: Karkki Havaste / Vantaan kaupunginkirjasto<br><br> Asiasana: Lastenkulttuuri</p>",
+    },
 
     tags: [
       {

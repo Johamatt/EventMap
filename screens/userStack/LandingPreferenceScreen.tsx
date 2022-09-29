@@ -50,7 +50,7 @@ export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
 
     // navigation.navigate("UserRoot");
 
-    navigation.navigate("EventScreen");
+    navigation.navigate("HomeScreen");
   }
 
   const handleSelectionMultiple = (item: Activity) => {

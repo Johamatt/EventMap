@@ -28,6 +28,7 @@ import LandingLocationScreen from "../screens/userStack/LandingLocationScreen";
 import LandingPreferenceScreen from "../screens/userStack/LandingPreferenceScreen";
 import MapScreen from "../screens/MapScreen";
 import EventScreen from "../screens/userStack/EventScreen";
+import HomeScreen from "../screens/userStack/HomeScreen";
 
 export default function Navigation({
   colorScheme,
@@ -72,6 +73,8 @@ function RootNavigator() {
         component={EventScreen}
         options={{ headerShown: true, headerTitle: "" }}
       />
+
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
 
       {/* new Stack */}
       <Stack.Screen

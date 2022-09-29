@@ -1,8 +1,8 @@
 export let AgeGroup: Array<AgeGroups> = [
-  {
-    id: "1",
-    name: "Kids",
-  },
+    {
+        id: "1",
+        name: "Kids",
+      },
   {
     id: "2",
     name: "Adults",
