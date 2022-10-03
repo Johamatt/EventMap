@@ -13,6 +13,12 @@ import SplashScreen from "./screens/SplashScreen";
 import { store } from "./Store";
 import { RootStackParamList } from "./types";
 
+import { Amplify } from "aws-amplify";
+import awsconfig from "./src/aws-exports";
+Amplify.configure(awsconfig);
+
+// Amplify.configure(awsconfig);
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
