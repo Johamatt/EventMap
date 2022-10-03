@@ -5,11 +5,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { RootStackParamList, RootTabScreenProps } from "../../types";
+import { LiveEvent, RootStackParamList, RootTabScreenProps } from "../../types";
 import { View, Text, Image } from "react-native";
 import { ApplicationState, UserState } from "../../Store";
 import { connect } from "react-redux";
-import { eventSamples } from "../../util/data/eventSample";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { styles } from "./styles";
@@ -20,23 +19,17 @@ import MapView, { Marker } from "react-native-maps";
 
 interface EventScreenProps {
   userReducer: UserState;
+  navigation: any;
+  route: any;
 }
 
 const _EventScreen: React.FC<EventScreenProps> = (props) => {
-  const { userReducer } = props;
-
-  console.log(userReducer);
-
-  const event = eventSamples[0];
-
-  console.log(event);
-
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  function nextScreen() {
-    navigation.navigate("EventScreen");
-  }
+  const event: LiveEvent = props.route.params.liveEvent;
+
+  console.log(event);
 
   return (
     // Header starts
@@ -54,7 +47,7 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
             fontFamily: "Rationale-Regular",
           }}
         >
-          {eventSamples[0].description.title}
+          {event.description.title}
         </Text>
       </View>
       {/* Header ends */}
@@ -65,26 +58,30 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
           <Image
             style={{ width: 105, height: 105 }}
             source={{
-              uri: eventSamples[0].images[0].url,
+              uri:
+                event.images !== undefined
+                  ? event.images[0].url
+                  : "../../assets/images/broken-link.png",
             }}
           />
+
           <View style={{ padding: 10 }}>
             <View>
-              <Text>{eventSamples[0].eventDates.starting_day}</Text>
-              <Text>{eventSamples[0].eventDates.ending_day}</Text>
+              <Text>{event.eventDates.starting_day}</Text>
+              <Text>{event.eventDates.ending_day}</Text>
             </View>
 
             <View>
-              <Text>{eventSamples[0].location.address.locality}</Text>
-              <Text>{eventSamples[0].location.address.streetAddress}</Text>
-              <Text>{eventSamples[0].location.address.postalCode}</Text>
+              <Text>{event.location.address.locality}</Text>
+              <Text>{event.location.address.streetAddress}</Text>
+              <Text>{event.location.address.postalCode}</Text>
             </View>
           </View>
         </View>
 
         <View style={{ padding: 5, flexDirection: "row" }}>
           <View style={{ justifyContent: "center" }}>
-            <Text>{eventSamples[0].description.body}</Text>
+            <Text>{event.description.body}</Text>
           </View>
         </View>
 
@@ -102,16 +99,16 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
               height: 300,
             }}
             initialRegion={{
-              latitude: eventSamples[0].location.lat,
-              longitude: eventSamples[0].location.lon,
+              latitude: event.location.lat,
+              longitude: event.location.lon,
               latitudeDelta: 0.00922,
               longitudeDelta: 0.00421,
             }}
           >
             <Marker
               coordinate={{
-                latitude: eventSamples[0].location.lat,
-                longitude: eventSamples[0].location.lon,
+                latitude: event.location.lat,
+                longitude: event.location.lon,
               }}
             ></Marker>
           </MapView>
@@ -119,7 +116,7 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
 
         <View>
           <>
-            {eventSamples[0].tags.map((a) => {
+            {event.tags.map((a) => {
               //renderää muualla
               <Text>{a.name}</Text>;
             })}

@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import {
   StyleSheet,
@@ -7,7 +9,7 @@ import {
   TouchableOpacity,
   ListRenderItemInfo,
 } from "react-native";
-import { LiveEvent } from "../types";
+import { LiveEvent, RootStackParamList } from "../types";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,11 +19,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.26,
     elevation: 8,
     backgroundColor: "white",
-    padding: 20,
+    padding: 5,
     borderRadius: 10,
     marginVertical: 5,
     marginHorizontal: 10,
     flexDirection: "row",
+    display: "flex",
   },
   image: {
     width: 70,
@@ -42,20 +45,57 @@ const styles = StyleSheet.create({
 const EventCard: React.FC<ListRenderItemInfo<LiveEvent>> = (
   props: ListRenderItemInfo<LiveEvent>
 ) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => console.log("ok")}>
-        <Image
-          defaultSource={require("../assets/images/broken-link.png")}
-          source={{ uri: props.item.images?.[0].url }}
-          style={styles.image}
-        />
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{props.item.description.title}</Text>
-        </View>
-      </TouchableOpacity>
+      {props.item.images !== undefined ? (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("EventScreen", { liveEvent: props.item })
+          }
+        >
+          <Image
+            defaultSource={require("../assets/images/broken-link.png")}
+            source={{
+              uri: props.item.images[0].url,
+            }}
+            style={styles.image}
+          />
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{props.item.description.title}</Text>
+          </View>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("EventScreen", { liveEvent: props.item });
+          }}
+        >
+          <Image
+            defaultSource={require("../assets/images/broken-link.png")}
+            source={require("../assets/images/broken-link.png")}
+            style={styles.image}
+          />
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{props.item.description.title}</Text>
+          </View>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
 
 export default EventCard;
+
+// eventSamples[0].images !== undefined
+// ? eventSamples[0].images[0].url
+// : "../../assets/images/broken-link.png",
+
+// uri:
+// props.item.images !== undefined
+//   ? props.item.images[0].url
+//   : "../assets/images/broken-link.png",
+// }}
+
+//           source={{ uri: props.item.images?.[0].url }}

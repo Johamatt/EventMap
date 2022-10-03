@@ -29,6 +29,8 @@ interface HomeScreenProps {
 }
 
 const _HomeScreen: React.FC<HomeScreenProps> = () => {
+    const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("today");
   const [selectedTiming, setSelectedTiming] = useState([
@@ -47,11 +49,11 @@ const _HomeScreen: React.FC<HomeScreenProps> = () => {
       <View
         style={{
           display: "flex",
-
           flexDirection: "row-reverse",
         }}
       >
         <TouchableOpacity
+          onPress={() => navigation.navigate("LandingPreferenceScreen")}
           style={{
             alignItems: "center",
             backgroundColor: "#2f95dc",
@@ -71,6 +73,8 @@ const _HomeScreen: React.FC<HomeScreenProps> = () => {
 
       <View style={{ margin: 10 }}>
         <DropDownPicker
+          dropDownDirection="AUTO"
+          bottomOffset={150}
           open={open}
           value={value}
           items={selectedTiming}
@@ -118,24 +122,25 @@ const _HomeScreen: React.FC<HomeScreenProps> = () => {
         // style={styles.list}
         data={eventSamples}
         renderItem={({ item }: { item: LiveEvent }) => (
-          <EventCard
-            item={item}
-            index={0}
-            separators={{
-              highlight: function (): void {
-                throw new Error("Function not implemented.");
-              },
-              unhighlight: function (): void {
-                throw new Error("Function not implemented.");
-              },
-              updateProps: function (
-                select: "leading" | "trailing",
-                newProps: any
-              ): void {
-                throw new Error("Function not implemented.");
-              },
-            }}
-          />
+
+            <EventCard
+              item={item}
+              index={0}
+              separators={{
+                highlight: function (): void {
+                  throw new Error("Function not implemented.");
+                },
+                unhighlight: function (): void {
+                  throw new Error("Function not implemented.");
+                },
+                updateProps: function (
+                  select: "leading" | "trailing",
+                  newProps: any
+                ): void {
+                  throw new Error("Function not implemented.");
+                },
+              }}
+            />
         )}
       />
     </View>

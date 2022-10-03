@@ -67,12 +67,6 @@ function RootNavigator() {
       {/* new Stack */}
       <Stack.Screen name="Splash" component={SplashScreen} />
 
-      <Stack.Screen
-        name="EventScreen"
-        component={EventScreen}
-        options={{ headerShown: true, headerTitle: "" }}
-      />
-
       {/* new Stack */}
       <Stack.Screen
         name="LandingLocationScreen"
@@ -111,8 +105,8 @@ function RootNavigator() {
           ),
         }}
       />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
+      <Stack.Group screenOptions={{ presentation: "modal", headerShown: true }}>
+        <Stack.Screen name="EventScreen" component={EventScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -131,8 +125,8 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Map"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].background,
-        tabBarActiveBackgroundColor: Colors[colorScheme].tint,
+        // tabBarActiveTintColor: Colors[colorScheme].background,
+        // tabBarActiveBackgroundColor: Colors[colorScheme].tint,
         tabBarShowLabel: false,
       }}
     >
@@ -142,9 +136,11 @@ function BottomTabNavigator() {
         options={{
           headerShown: false,
           title: "Home",
-          tabBarIcon: ({ color }) => (
-            <Feather name="home" size={24} color="black" />
-          ),
+
+          tabBarIcon: ({ focused }) => {
+            const color = focused ? Colors.light.tint : "black";
+            return <Feather name="home" size={24} color={color} />;
+          },
         }}
       />
 
@@ -154,19 +150,23 @@ function BottomTabNavigator() {
         options={{
           headerShown: false,
           title: "Map",
-          tabBarIcon: ({ color }) => (
-            <Feather name="map" size={24} color="black" />
-          ),
+          tabBarIcon: ({ focused, color, size }) => {
+            const icon = focused ? Colors.light.tint : "black";
+            return <Feather name="map" size={24} color={icon} />;
+          },
         }}
       />
       <BottomTab.Screen
         name="Favourites"
         component={TabTwoScreen}
         options={{
+          headerShown: false,
           title: "Favourites",
-          tabBarIcon: ({ color }) => (
-            <Feather name="heart" size={24} color="black" />
-          ),
+
+          tabBarIcon: ({ focused }) => {
+            const color = focused ? Colors.light.tint : "black";
+            return <Feather name="heart" size={24} color={color} />;
+          },
         }}
       />
 
@@ -174,10 +174,12 @@ function BottomTabNavigator() {
         name="Profile"
         component={TabTwoScreen}
         options={{
+          headerShown: false,
           title: "Profile",
-          tabBarIcon: ({ color }) => (
-            <Feather name="user" size={24} color="black" />
-          ),
+          tabBarIcon: ({ focused }) => {
+            const color = focused ? Colors.light.tint : "black";
+            return <Feather name="user" size={24} color={color} />;
+          },
         }}
       />
     </BottomTab.Navigator>
