@@ -23,11 +23,12 @@ import TabTwoScreen from "../screens/TabTwoScreen";
 import { RootStackParamList, RootTabParamList } from "../types";
 
 import SplashScreen from "../screens/SplashScreen";
-import LandingLocationScreen from "../screens/userStack/LandingLocationScreen";
-import LandingPreferenceScreen from "../screens/userStack/LandingPreferenceScreen";
+import LandingLocationScreen from "../screens/User/LandingLocationScreen";
+import LandingPreferenceScreen from "../screens/User/LandingPreferenceScreen";
 import MapScreen from "../screens/MapScreen";
-import EventScreen from "../screens/userStack/EventScreen";
-import HomeScreen from "../screens/userStack/HomeScreen";
+import EventScreen from "../screens/User/EventScreen";
+import HomeScreen from "../screens/User/HomeScreen";
+import { UserLogin } from "../screens/Authentication/userAuthentication/UserLogin";
 
 export default function Navigation({
   colorScheme,
@@ -49,65 +50,69 @@ export default function Navigation({
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+function AuthenticationNavigator() {}
+
 function RootNavigator() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false, //
-        headerStyle: {
-          backgroundColor: Colors.light.tint,
-        },
-
-        headerTintColor: Colors.light.background,
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
-      }}
-    >
-      {/* new Stack */}
-      <Stack.Screen name="Splash" component={SplashScreen} />
-
-      {/* new Stack */}
-      <Stack.Screen
-        name="LandingLocationScreen"
-        component={LandingLocationScreen}
-        options={{
-          title: "Landing Location",
-        }}
-      />
-
-      <Stack.Screen
-        name="LandingPreferenceScreen"
-        component={LandingPreferenceScreen}
-        options={{
-          title: "Landing Preference",
-        }}
-      />
-      {/* <Stack.Screen
-        name="LandingLocationScreen"
-        component={LandingScreen}
-        options={{
-          title: "Landing Location",
-        }}
-      /> */}
-
-      {/* new Stack ends */}
-
-      <Stack.Screen
-        name="UserRoot"
-        component={BottomTabNavigator}
-        options={{
-          title: "EventMap",
-          headerRight: () => (
-            <View>
-              <Ionicons name="filter-sharp" size={24} color="black" />
-            </View>
-          ),
-        }}
-      />
-      <Stack.Group screenOptions={{ presentation: "modal", headerShown: true }}>
-        <Stack.Screen name="EventScreen" component={EventScreen} />
+    <Stack.Navigator>
+      <Stack.Group screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="UserLogin" component={UserLogin} />
       </Stack.Group>
+
+      {/* USER STACK GROUP  */}
+      <Stack.Group
+        screenOptions={{
+          headerShown: false, //
+          headerStyle: {
+            backgroundColor: Colors.light.tint,
+          },
+          headerTintColor: Colors.light.background,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
+        <Stack.Screen
+          name="LandingLocationScreen"
+          component={LandingLocationScreen}
+          options={{
+            title: "Landing Location",
+          }}
+        />
+
+        <Stack.Screen
+          name="LandingPreferenceScreen"
+          component={LandingPreferenceScreen}
+          options={{
+            title: "Landing Preference",
+          }}
+        />
+
+        <Stack.Screen
+          name="UserRoot"
+          component={BottomTabNavigator}
+          options={{
+            title: "EventMap",
+            headerRight: () => (
+              <View>
+                <Ionicons name="filter-sharp" size={24} color="black" />
+              </View>
+            ),
+          }}
+        />
+        <Stack.Group
+          screenOptions={{ presentation: "modal", headerShown: true }}
+        >
+          <Stack.Screen name="EventScreen" component={EventScreen} />
+        </Stack.Group>
+      </Stack.Group>
+      {/* USER STACK GROUP ENDS  */}
+
+      {/* UTIL */}
+      <Stack.Group screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Splash" component={SplashScreen} />
+      </Stack.Group>
+      {/* UTIL ENDS*/}
     </Stack.Navigator>
   );
 }
@@ -119,14 +124,10 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-
   return (
     <BottomTab.Navigator
       initialRouteName="Map"
       screenOptions={{
-        // tabBarActiveTintColor: Colors[colorScheme].background,
-        // tabBarActiveBackgroundColor: Colors[colorScheme].tint,
         tabBarShowLabel: false,
       }}
     >
@@ -143,7 +144,6 @@ function BottomTabNavigator() {
           },
         }}
       />
-
       <BottomTab.Screen
         name="Map"
         component={MapScreen}
@@ -169,7 +169,6 @@ function BottomTabNavigator() {
           },
         }}
       />
-
       <BottomTab.Screen
         name="Profile"
         component={TabTwoScreen}

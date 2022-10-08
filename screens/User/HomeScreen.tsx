@@ -21,7 +21,7 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 import MapView, { Marker } from "react-native-maps";
 import Layout from "../../constants/Layout";
 import { eventScheduleDayWeek } from "../../util/data/eventSchedules";
-import EventCard from "../../components/EventCard";
+import EventCard from "../../components/Cards/EventCard";
 import DropDownPicker from "react-native-dropdown-picker";
 
 interface HomeScreenProps {

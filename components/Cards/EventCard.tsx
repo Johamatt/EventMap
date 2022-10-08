@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   ListRenderItemInfo,
 } from "react-native";
-import { LiveEvent, RootStackParamList } from "../types";
+import { LiveEvent, RootStackParamList } from "../../types";
 
 const styles = StyleSheet.create({
   container: {
@@ -56,7 +56,7 @@ const EventCard: React.FC<ListRenderItemInfo<LiveEvent>> = (
           }
         >
           <Image
-            defaultSource={require("../assets/images/broken-link.png")}
+            defaultSource={require("../../assets/images/broken-link.png")}
             source={{
               uri: props.item.images[0].url,
             }}
@@ -73,8 +73,8 @@ const EventCard: React.FC<ListRenderItemInfo<LiveEvent>> = (
           }}
         >
           <Image
-            defaultSource={require("../assets/images/broken-link.png")}
-            source={require("../assets/images/broken-link.png")}
+            defaultSource={require("../../assets/images/broken-link.png")}
+            source={require("../../assets/images/broken-link.png")}
             style={styles.image}
           />
           <View style={styles.titleContainer}>

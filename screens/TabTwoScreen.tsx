@@ -17,7 +17,7 @@ import {
 import { RootStackParamList } from "../types";
 import { Activity, activityTags } from "../util/data/activityTags";
 import { AgeGroup, AgeGroups } from "../util/data/ageGroups";
-import { styles } from "./userStack/styles";
+import { styles } from "./User/styles";
 
 // export default function TabTwoScreen() {
 //   return (

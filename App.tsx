@@ -1,28 +1,28 @@
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
-
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import SplashScreen from "./screens/SplashScreen";
 import { store } from "./Store";
-import { RootStackParamList } from "./types";
-
-import { Amplify } from "aws-amplify";
+import { Amplify, Auth } from "aws-amplify";
 import awsconfig from "./src/aws-exports";
+import { withAuthenticator, AmplifyTheme } from "aws-amplify-react-native";
+import { signUpConfig } from "./amplify/backend/auth/eventmap72c53487/build/signUpConfig";
+import { Authenticator } from "@aws-amplify/ui-react";
+import Colors from "./constants/Colors";
+
 Amplify.configure(awsconfig);
 
-// Amplify.configure(awsconfig);
+const App: React.FC = () => {
+  // Auth.signOut();
 
-export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
-
   if (!isLoadingComplete) {
     return (
       <View>
@@ -41,4 +41,6 @@ export default function App() {
       </Provider>
     );
   }
-}
+};
+
+export default App;

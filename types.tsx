@@ -24,9 +24,10 @@ export type RootStackParamList = {
   Modal: undefined;
   LandingLocationScreen: undefined;
   LandingPreferenceScreen: undefined;
-  Login: undefined;
   UserProfileScreen: undefined;
   EventScreen: { liveEvent: LiveEvent };
+
+  UserLogin: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
