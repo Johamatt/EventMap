@@ -10,7 +10,7 @@ import {
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Float } from "react-native/Libraries/Types/CodegenTypes";
-import { AgeGroups } from "./util/data/ageGroups";
+import { AgeGroups } from "./src/util/data/ageGroups";
 
 declare global {
   namespace ReactNavigation {
