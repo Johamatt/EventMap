@@ -26,9 +26,13 @@ import LandingLocationScreen from "../screens/User/LandingLocationScreen";
 import MapScreen from "../screens/User/BottomNav/MapScreen";
 import EventScreen from "../screens/User/EventScreen";
 import HomeScreen from "../screens/User/BottomNav/HomeScreen";
-import { UserLogin } from "../screens/Authentication/userAuthentication/UserLogin";
+import { UserLoginScreen } from "../screens/Authentication/userAuthentication/UserLoginScreen";
 import TabTwoScreen from "../screens/User/BottomNav/TabTwoScreen";
 import LandingPreferenceScreen from "../screens/User/LandingPreferenceScreen";
+import { UserRegisterScreen } from "../screens/Authentication/userAuthentication/UserRegisterScreen";
+import { UserConfirmEmailScreen } from "../screens/Authentication/userAuthentication/UserConfirmEmailScreen";
+import { UserNewPasswordScreen } from "../screens/Authentication/userAuthentication/UserNewPasswordScreen";
+import { UserForgotPasswordScreen } from "../screens/Authentication/userAuthentication/UserForgotPasswordScreen";
 
 export default function Navigation({
   colorScheme,
@@ -56,7 +60,23 @@ function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Group screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="UserLogin" component={UserLogin} />
+        <Stack.Screen name="UserLoginScreen" component={UserLoginScreen} />
+        <Stack.Screen
+          name="UserRegisterScreen"
+          component={UserRegisterScreen}
+        />
+        <Stack.Screen
+          name="UserConfirmEmailScreen"
+          component={UserConfirmEmailScreen}
+        />
+        <Stack.Screen
+          name="UserNewPasswordScreen"
+          component={UserNewPasswordScreen}
+        />
+        <Stack.Screen
+          name="UserForgotPasswordScreen"
+          component={UserForgotPasswordScreen}
+        />
       </Stack.Group>
 
       {/* USER STACK GROUP  */}

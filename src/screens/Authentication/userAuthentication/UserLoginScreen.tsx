@@ -4,6 +4,7 @@ import {
   StyleSheet,
   useWindowDimensions,
   ScrollView,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import CustomInput from "../../../components/Inputs/CustomInput";
@@ -12,27 +13,41 @@ import SocialSignInButtons from "../../../components/Buttons/SocialSignInButtons
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../../types";
 import Layout from "../../../constants/Layout";
+import { Auth } from "aws-amplify";
 
-export const UserLogin: React.FC = (props) => {
+export const UserLoginScreen: React.FC = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { height } = useWindowDimensions();
+  const onSignInPressed = async () => {
+    if (loading) {
+      return;
+    }
 
-  const onSignInPressed = () => {
-    // validate user
-    navigation.navigate("UserRoot"); //
+    setLoading(true);
+
+    try {
+      const response = await Auth.signIn(username, password);
+      console.log(response);
+    } catch (e) {
+      Alert.alert("Oops!", "Incorrect username or password.");
+    }
+
+    setLoading(false);
+
+    // navigation.navigate("UserRoot"); //
   };
 
   const onForgotPasswordPressed = () => {
-    //   navigation.navigate("ForgotPassword");
+    navigation.navigate("UserForgotPasswordScreen");
   };
 
   const onSignUpPress = () => {
-    //   navigation.navigate("SignUp");
+    navigation.navigate("UserRegisterScreen");
   };
 
   return (
@@ -49,7 +64,10 @@ export const UserLogin: React.FC = (props) => {
           setValue={setPassword}
           secureTextEntry
         />
-        <CustomButton text="Sign In" onPress={onSignInPressed} />
+        <CustomButton
+          text={loading ? "Loading..." : "Sign In"}
+          onPress={onSignInPressed}
+        />
         <CustomButton
           text="Forgot password?"
           onPress={onForgotPasswordPressed}

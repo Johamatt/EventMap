@@ -27,7 +27,11 @@ export type RootStackParamList = {
   UserProfileScreen: undefined;
   EventScreen: { liveEvent: LiveEvent };
 
-  UserLogin: undefined;
+  UserNewPasswordScreen: { username: string };
+  UserRegisterScreen: undefined;
+  UserLoginScreen: undefined;
+  UserConfirmEmailScreen: { username: string };
+  UserForgotPasswordScreen: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
