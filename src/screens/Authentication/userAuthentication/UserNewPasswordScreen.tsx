@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import { RouteProp, useNavigation } from "@react-navigation/native";
 import CustomInput from "../../../components/Inputs/CustomInput";
 import CustomButton from "../../../components/Buttons/CustomButton";
@@ -26,8 +26,8 @@ export const UserNewPasswordScreen: React.FC<Props> = (props) => {
     try {
       await Auth.forgotPasswordSubmit(username, code, newPassword);
       navigation.navigate("UserLoginScreen");
-    } catch (e) {
-      console.log(e);
+    } catch (error: any) {
+      Alert.alert("Oops!", error.message);
     }
   };
 

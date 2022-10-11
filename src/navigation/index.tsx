@@ -18,7 +18,11 @@ import { ColorSchemeName, Pressable, Touchable, View } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 
-import { RootStackParamList, RootTabParamList } from "../../types";
+import {
+  AuthStackParamList,
+  RootStackParamList,
+  RootTabParamList,
+} from "../../types";
 
 import SplashScreen from "../screens/SplashScreen";
 import LandingLocationScreen from "../screens/User/LandingLocationScreen";
@@ -33,17 +37,44 @@ import { UserRegisterScreen } from "../screens/Authentication/userAuthentication
 import { UserConfirmEmailScreen } from "../screens/Authentication/userAuthentication/UserConfirmEmailScreen";
 import { UserNewPasswordScreen } from "../screens/Authentication/userAuthentication/UserNewPasswordScreen";
 import { UserForgotPasswordScreen } from "../screens/Authentication/userAuthentication/UserForgotPasswordScreen";
+import { useEffect, useState } from "react";
+import { Auth } from "aws-amplify";
 
 export default function Navigation({
   colorScheme,
 }: {
   colorScheme: ColorSchemeName;
 }) {
+  const [user, setUser] = useState<undefined | null>(undefined);
+
+  const checkUser = async () => {
+    try {
+      const authUser = await Auth.currentAuthenticatedUser({
+        bypassCache: true,
+      });
+      setUser(authUser);
+    } catch (e) {
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, [setUser]);
+
+  if (user === undefined) {
+    return (
+      <NavigationContainer>
+        <SplashScreen />
+      </NavigationContainer>
+    );
+  }
+
   return (
     <NavigationContainer
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
-      <RootNavigator />
+      {user ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 }
@@ -54,12 +85,41 @@ export default function Navigation({
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-function AuthenticationNavigator() {}
+const AuthStack = createNativeStackNavigator<AuthStackParamList>();
+
+function AuthNavigator() {
+  return (
+    <AuthStack.Navigator>
+      {/* <AuthStack.Group screenOptions={{ headerShown: false }}>
+        <AuthStack.Screen name="Splash" component={SplashScreen} />
+      </AuthStack.Group> */}
+      <AuthStack.Group screenOptions={{ headerShown: false }}>
+        <AuthStack.Screen name="UserLoginScreen" component={UserLoginScreen} />
+        <AuthStack.Screen
+          name="UserRegisterScreen"
+          component={UserRegisterScreen}
+        />
+        <AuthStack.Screen
+          name="UserConfirmEmailScreen"
+          component={UserConfirmEmailScreen}
+        />
+        <AuthStack.Screen
+          name="UserNewPasswordScreen"
+          component={UserNewPasswordScreen}
+        />
+        <AuthStack.Screen
+          name="UserForgotPasswordScreen"
+          component={UserForgotPasswordScreen}
+        />
+      </AuthStack.Group>
+    </AuthStack.Navigator>
+  );
+}
 
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Group screenOptions={{ headerShown: false }}>
+      {/* <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="UserLoginScreen" component={UserLoginScreen} />
         <Stack.Screen
           name="UserRegisterScreen"
@@ -77,7 +137,7 @@ function RootNavigator() {
           name="UserForgotPasswordScreen"
           component={UserForgotPasswordScreen}
         />
-      </Stack.Group>
+      </Stack.Group> */}
 
       {/* USER STACK GROUP  */}
       <Stack.Group
@@ -93,6 +153,18 @@ function RootNavigator() {
         }}
       >
         <Stack.Screen
+          name="UserRoot"
+          component={BottomTabNavigator}
+          options={{
+            title: "EventMap",
+            headerRight: () => (
+              <View>
+                <Ionicons name="filter-sharp" size={24} color="black" />
+              </View>
+            ),
+          }}
+        />
+        <Stack.Screen
           name="LandingLocationScreen"
           component={LandingLocationScreen}
           options={{
@@ -107,19 +179,6 @@ function RootNavigator() {
             title: "Landing Preference",
           }}
         />
-
-        <Stack.Screen
-          name="UserRoot"
-          component={BottomTabNavigator}
-          options={{
-            title: "EventMap",
-            headerRight: () => (
-              <View>
-                <Ionicons name="filter-sharp" size={24} color="black" />
-              </View>
-            ),
-          }}
-        />
         <Stack.Group
           screenOptions={{ presentation: "modal", headerShown: true }}
         >
@@ -129,9 +188,9 @@ function RootNavigator() {
       {/* USER STACK GROUP ENDS  */}
 
       {/* UTIL */}
-      <Stack.Group screenOptions={{ headerShown: false }}>
+      {/* <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Splash" component={SplashScreen} />
-      </Stack.Group>
+      </Stack.Group> */}
       {/* UTIL ENDS*/}
     </Stack.Navigator>
   );

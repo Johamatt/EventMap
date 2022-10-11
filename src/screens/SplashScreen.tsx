@@ -29,7 +29,7 @@ export default function SplashScreen() {
     if (appIsReady) {
       await Splash.hideAsync();
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      navigation.navigate("LandingLocationScreen");
+      navigation.goBack();
       //
     }
   }, [appIsReady]);

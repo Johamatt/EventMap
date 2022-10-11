@@ -33,12 +33,10 @@ export const UserLoginScreen: React.FC = (props) => {
     try {
       const response = await Auth.signIn(username, password);
       console.log(response);
-    } catch (e) {
-      Alert.alert("Oops!", "Incorrect username or password.");
+    } catch (error: any) {
+      Alert.alert("Oops!", error.message);
     }
-
     setLoading(false);
-
     // navigation.navigate("UserRoot"); //
   };
 

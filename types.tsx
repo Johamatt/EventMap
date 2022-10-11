@@ -20,7 +20,7 @@ declare global {
 
 export type RootStackParamList = {
   UserRoot: NavigatorScreenParams<RootTabParamList> | undefined;
-  Splash: undefined;
+  Splash: { nextScreen: string };
   Modal: undefined;
   LandingLocationScreen: undefined;
   LandingPreferenceScreen: undefined;
@@ -32,6 +32,15 @@ export type RootStackParamList = {
   UserLoginScreen: undefined;
   UserConfirmEmailScreen: { username: string };
   UserForgotPasswordScreen: undefined;
+};
+
+export type AuthStackParamList = {
+  UserNewPasswordScreen: { username: string };
+  UserRegisterScreen: undefined;
+  UserLoginScreen: undefined;
+  UserConfirmEmailScreen: { username: string };
+  UserForgotPasswordScreen: undefined;
+  Splash: { nextScreen: string };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

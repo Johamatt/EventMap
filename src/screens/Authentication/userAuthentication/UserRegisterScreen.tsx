@@ -15,14 +15,14 @@ export const UserRegisterScreen: React.FC = (props) => {
   const navigation = useNavigation();
   const onRegisterPressed = async () => {
     try {
-      const response = await Auth.signUp({
+      await Auth.signUp({
         username,
         password,
         attributes: { email, preferred_username: username },
       });
       navigation.navigate("UserConfirmEmailScreen", { username });
-    } catch (e) {
-      console.log(e);
+    } catch (error: any) {
+      Alert.alert("Oops!", error.message);
     }
   };
 

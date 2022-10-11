@@ -26,8 +26,8 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
     try {
       await Auth.confirmSignUp(username, code);
       navigation.navigate("UserLoginScreen");
-    } catch (e) {
-      console.log(e);
+    } catch (error: any) {
+      Alert.alert("Oops!", error.message);
     }
   };
 
@@ -39,8 +39,8 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
     try {
       await Auth.resendSignUp(username);
       Alert.alert("Success", "Code was resent to your email");
-    } catch (e) {
-      console.log(e);
+    } catch (error: any) {
+      Alert.alert("Oops!", error);
     }
   };
 
