@@ -1,6 +1,9 @@
 import { StyleSheet } from "react-native";
 
-import { RootStackParamList, RootTabScreenProps } from "../../../../types";
+import
+ { RootStackParamList, 
+  // RootTabScreenProps 
+} from "../../../../types";
 import MapContainer from "../../../components/Map/MapContainer";
 import { View } from "react-native";
 import { ApplicationState, UserState } from "../../../Store";

@@ -1,6 +1,6 @@
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
@@ -11,10 +11,12 @@ import SplashScreen from "./src/screens/SplashScreen";
 import { store } from "./src/Store";
 import { Amplify, Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
-import { withAuthenticator, AmplifyTheme } from "aws-amplify-react-native";
 import { signUpConfig } from "./amplify/backend/auth/eventmap72c53487/build/signUpConfig";
 import { Authenticator } from "@aws-amplify/ui-react";
 import Colors from "./src/constants/Colors";
+
+// TEMPORARY SOLUTION //
+import { withAuthenticator } from "aws-amplify-react-native";
 
 Amplify.configure(awsconfig);
 
@@ -35,7 +37,7 @@ const App: React.FC = () => {
     return (
       <Provider store={store}>
         <SafeAreaProvider>
-          <Navigation colorScheme={colorScheme} />
+          <Navigation />
           <StatusBar />
         </SafeAreaProvider>
       </Provider>
@@ -43,4 +45,4 @@ const App: React.FC = () => {
   }
 };
 
-export default App;
+export default withAuthenticator(App, true);

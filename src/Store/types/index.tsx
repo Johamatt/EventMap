@@ -7,6 +7,5 @@ export type UserState = {
   error: String | undefined;
   ageGroup: Array<any>;
   tags: Array<Activity>;
+  userAuth: Array<any>;
 };
-
-

@@ -19,7 +19,7 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 
 import {
-  AuthStackParamList,
+  // AuthStackParamList,
   RootStackParamList,
   RootTabParamList,
 } from "../../types";
@@ -30,7 +30,7 @@ import LandingLocationScreen from "../screens/User/LandingLocationScreen";
 import MapScreen from "../screens/User/BottomNav/MapScreen";
 import EventScreen from "../screens/User/EventScreen";
 import HomeScreen from "../screens/User/BottomNav/HomeScreen";
-import { UserLoginScreen } from "../screens/Authentication/userAuthentication/UserLoginScreen";
+import UserLoginScreen from "../screens/Authentication/userAuthentication/UserLoginScreen";
 import TabTwoScreen from "../screens/User/BottomNav/TabTwoScreen";
 import LandingPreferenceScreen from "../screens/User/LandingPreferenceScreen";
 import { UserRegisterScreen } from "../screens/Authentication/userAuthentication/UserRegisterScreen";
@@ -39,30 +39,36 @@ import { UserNewPasswordScreen } from "../screens/Authentication/userAuthenticat
 import { UserForgotPasswordScreen } from "../screens/Authentication/userAuthentication/UserForgotPasswordScreen";
 import { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
+import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
+import { ApplicationState, ON_UPDATE_USERLOGIN, UserState } from "../Store";
+import { connect } from "react-redux";
+import { userReducer } from "../Store/reducers/userReducer";
+import { Authenticator } from "aws-amplify-react-native";
 
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
+interface NavigationProps {
+  userReducer: UserState;
+  ON_UPDATE_USERLOGIN: Function;
+}
+
+const _Navigation: React.FC<NavigationProps> = (props) => {
   const [user, setUser] = useState<undefined | null>(undefined);
 
-  const checkUser = async () => {
-    try {
-      const authUser = await Auth.currentAuthenticatedUser({
-        bypassCache: true,
-      });
-      setUser(authUser);
-    } catch (e) {
-      setUser(null);
-    }
-  };
-
   useEffect(() => {
+    const checkUser = async () => {
+      try {
+        const authUser = await Auth.currentAuthenticatedUser({
+          bypassCache: true,
+        });
+        ON_UPDATE_USERLOGIN(authUser);
+        setUser(authUser);
+      } catch (e) {
+        setUser(null);
+      }
+    };
     checkUser();
-  }, [setUser]);
+  }, [user]);
 
-  if (user === undefined) {
+  if (props === undefined) {
     return (
       <NavigationContainer>
         <SplashScreen />
@@ -71,130 +77,93 @@ export default function Navigation({
   }
 
   return (
-    <NavigationContainer
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
-      {user ? <RootNavigator /> : <AuthNavigator />}
+    <NavigationContainer>
+      <Stack.Navigator>
+        {user === null || undefined ? AuthNavigator() : MainNavigation()}
+      </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-/**
- * A root stack navigator is often used for displaying modals on top of all other content.
- * https://reactnavigation.org/docs/modal
- */
+const mapToStateProps = (state: ApplicationState) => ({
+  userReducer: state.UserReducer,
+});
+
+const Navigation = connect(mapToStateProps, { ON_UPDATE_USERLOGIN })(
+  _Navigation
+);
+export default Navigation;
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const AuthStack = createNativeStackNavigator<AuthStackParamList>();
-
-function AuthNavigator() {
+const AuthNavigator = () => {
   return (
-    <AuthStack.Navigator>
-      {/* <AuthStack.Group screenOptions={{ headerShown: false }}>
-        <AuthStack.Screen name="Splash" component={SplashScreen} />
-      </AuthStack.Group> */}
-      <AuthStack.Group screenOptions={{ headerShown: false }}>
-        <AuthStack.Screen name="UserLoginScreen" component={UserLoginScreen} />
-        <AuthStack.Screen
-          name="UserRegisterScreen"
-          component={UserRegisterScreen}
-        />
-        <AuthStack.Screen
-          name="UserConfirmEmailScreen"
-          component={UserConfirmEmailScreen}
-        />
-        <AuthStack.Screen
-          name="UserNewPasswordScreen"
-          component={UserNewPasswordScreen}
-        />
-        <AuthStack.Screen
-          name="UserForgotPasswordScreen"
-          component={UserForgotPasswordScreen}
-        />
-      </AuthStack.Group>
-    </AuthStack.Navigator>
+    <Stack.Group screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="UserLoginScreen" component={UserLoginScreen} />
+      <Stack.Screen name="UserRegisterScreen" component={UserRegisterScreen} />
+      <Stack.Screen
+        name="UserConfirmEmailScreen"
+        component={UserConfirmEmailScreen}
+      />
+      <Stack.Screen
+        name="UserNewPasswordScreen"
+        component={UserNewPasswordScreen}
+      />
+      <Stack.Screen
+        name="UserForgotPasswordScreen"
+        component={UserForgotPasswordScreen}
+      />
+    </Stack.Group>
   );
-}
+};
 
-function RootNavigator() {
+const MainNavigation = () => {
   return (
-    <Stack.Navigator>
-      {/* <Stack.Group screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="UserLoginScreen" component={UserLoginScreen} />
-        <Stack.Screen
-          name="UserRegisterScreen"
-          component={UserRegisterScreen}
-        />
-        <Stack.Screen
-          name="UserConfirmEmailScreen"
-          component={UserConfirmEmailScreen}
-        />
-        <Stack.Screen
-          name="UserNewPasswordScreen"
-          component={UserNewPasswordScreen}
-        />
-        <Stack.Screen
-          name="UserForgotPasswordScreen"
-          component={UserForgotPasswordScreen}
-        />
-      </Stack.Group> */}
-
-      {/* USER STACK GROUP  */}
-      <Stack.Group
-        screenOptions={{
-          headerShown: false, //
-          headerStyle: {
-            backgroundColor: Colors.light.tint,
-          },
-          headerTintColor: Colors.light.background,
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
+    <Stack.Group
+      screenOptions={{
+        headerShown: false, //
+        headerStyle: {
+          backgroundColor: Colors.light.tint,
+        },
+        headerTintColor: Colors.light.background,
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
+      <Stack.Screen
+        name="UserRoot"
+        component={BottomTabNavigator}
+        options={{
+          title: "EventMap",
+          headerRight: () => (
+            <View>
+              <Ionicons name="filter-sharp" size={24} color="black" />
+            </View>
+          ),
         }}
-      >
-        <Stack.Screen
-          name="UserRoot"
-          component={BottomTabNavigator}
-          options={{
-            title: "EventMap",
-            headerRight: () => (
-              <View>
-                <Ionicons name="filter-sharp" size={24} color="black" />
-              </View>
-            ),
-          }}
-        />
-        <Stack.Screen
-          name="LandingLocationScreen"
-          component={LandingLocationScreen}
-          options={{
-            title: "Landing Location",
-          }}
-        />
+      />
+      <Stack.Screen
+        name="LandingLocationScreen"
+        component={LandingLocationScreen}
+        options={{
+          title: "Landing Location",
+        }}
+      />
 
-        <Stack.Screen
-          name="LandingPreferenceScreen"
-          component={LandingPreferenceScreen}
-          options={{
-            title: "Landing Preference",
-          }}
-        />
-        <Stack.Group
-          screenOptions={{ presentation: "modal", headerShown: true }}
-        >
-          <Stack.Screen name="EventScreen" component={EventScreen} />
-        </Stack.Group>
+      <Stack.Screen
+        name="LandingPreferenceScreen"
+        component={LandingPreferenceScreen}
+        options={{
+          title: "Landing Preference",
+        }}
+      />
+      <Stack.Group screenOptions={{ presentation: "modal", headerShown: true }}>
+        <Stack.Screen name="EventScreen" component={EventScreen} />
       </Stack.Group>
-      {/* USER STACK GROUP ENDS  */}
-
-      {/* UTIL */}
-      {/* <Stack.Group screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Splash" component={SplashScreen} />
-      </Stack.Group> */}
-      {/* UTIL ENDS*/}
-    </Stack.Navigator>
+    </Stack.Group>
   );
-}
+};
 
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
@@ -250,7 +219,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Profile"
-        component={TabTwoScreen}
+        component={UserProfileScreen}
         options={{
           headerShown: false,
           title: "Profile",

@@ -8,13 +8,19 @@ import { UserState } from "../types";
 const initialState: UserState = {
   ageGroup: [],
   location: {} as LocationGeocodedLocation,
-
+  userAuth: [],
   tags: [] as Array<Activity>,
   error: undefined,
 };
 
 const userReducer = (state: UserState = initialState, action: UserAction) => {
   switch (action.type) {
+    case "ON_UPDATE_USERLOGIN":
+      return {
+        ...state,
+        loggedIn: action.payload,
+      };
+
     case "ON_UPDATE_LOCATION":
       return {
         ...state,

@@ -10,6 +10,7 @@ import {
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Float } from "react-native/Libraries/Types/CodegenTypes";
+import { UserState } from "./src/Store";
 import { AgeGroups } from "./src/util/data/ageGroups";
 
 declare global {
@@ -18,9 +19,15 @@ declare global {
   }
 }
 
+interface UserLoginScreenProps {
+  userReducer: UserState;
+  ON_UPDATE_USERLOGIN: Function;
+}
+
 export type RootStackParamList = {
   UserRoot: NavigatorScreenParams<RootTabParamList> | undefined;
-  Splash: { nextScreen: string };
+  // UserAuth: NavigatorScreenParams<AuthStackParamList> | undefined;
+  Splash: undefined;
   Modal: undefined;
   LandingLocationScreen: undefined;
   LandingPreferenceScreen: undefined;
@@ -34,17 +41,16 @@ export type RootStackParamList = {
   UserForgotPasswordScreen: undefined;
 };
 
-export type AuthStackParamList = {
-  UserNewPasswordScreen: { username: string };
-  UserRegisterScreen: undefined;
-  UserLoginScreen: undefined;
-  UserConfirmEmailScreen: { username: string };
-  UserForgotPasswordScreen: undefined;
-  Splash: { nextScreen: string };
-};
+// export type AuthStackParamList = {
+//   UserNewPasswordScreen: { username: string };
+//   UserRegisterScreen: undefined;
+//   UserLoginScreen: UserLoginScreenProps;
+//   UserConfirmEmailScreen: { username: string };
+//   UserForgotPasswordScreen: undefined;
+// };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
-  NativeStackScreenProps<RootStackParamList, Screen>;
+// export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
+//   NativeStackScreenProps<RootStackParamList, Screen>;
 
 export type RootTabParamList = {
   Map: undefined;

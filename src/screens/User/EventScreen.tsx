@@ -8,7 +8,7 @@ import {
 import {
   LiveEvent,
   RootStackParamList,
-  RootTabScreenProps,
+  // RootTabScreenProps,
 } from "../../../types";
 import { View, Text, Image } from "react-native";
 import { ApplicationState, UserState } from "../../Store";
