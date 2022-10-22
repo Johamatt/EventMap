@@ -18,7 +18,6 @@ import {
   ON_UPDATE_USERLOGIN,
   UserState,
 } from "../../../Store";
-
 import { Activity, activityTags } from "../../../util/data/activityTags";
 import { styles } from "../styles";
 

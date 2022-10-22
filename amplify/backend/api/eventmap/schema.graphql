@@ -3,7 +3,7 @@
 # input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 
-type Event @model {
+type Event @model @auth(rules: [{allow: public}])  {
   id: ID!
   name: String
   source: String
@@ -17,14 +17,14 @@ type Event @model {
   Category: [Category]! @hasMany
 }
 
-type Location @model {
+type Location @model @auth(rules: [{allow: public}]) {
   lat: Float!, 
   lon: Float!, 
   streetAddress: String,
   postalCode: Int
 }
 
-type Images @model {
+type Images @model @auth(rules: [{allow: public}]) {
   id: ID!
   url: AWSURL!
   license_type: Int
@@ -32,7 +32,7 @@ type Images @model {
   event: Event @belongsTo
 }
 
-type Category @model {
+type Category @model @auth(rules: [{allow: public}]) {
   id: ID!
   event: Event @belongsTo
   category: [String]! 

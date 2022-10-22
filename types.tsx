@@ -93,11 +93,9 @@ export type LiveEvent = {
     lat: Float;
     lon: Float;
 
-
-      streetAddress: string;
-      postalCode?: string;
-      locality?: string;
-
+    streetAddress: string;
+    postalCode?: string;
+    locality?: string;
   };
 
   tags: Tag[];
@@ -125,3 +123,35 @@ export type Tag = {
   id: string;
   name: string;
 };
+
+export type Event = {
+  id: Number;
+  name: String;
+  source: String;
+  infoUrl: String;
+  title: String;
+  description: String;
+  startingDay: Date;
+  endingDay: Date;
+};
+
+export type Location = {
+  lat: Float;
+  lon: Float;
+  streetAddress: String;
+  postalCode: Number;
+  id: Number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type Category = {
+  category: [String];
+  format: [String];
+  tags: [String];
+  createdAt: Date;
+  updatedAt: Date;
+  eventCategoryId: Number;
+};
+
+export type Images = {};

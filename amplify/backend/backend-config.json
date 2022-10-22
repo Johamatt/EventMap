@@ -47,7 +47,16 @@
               "userPoolId": "autheventmap72c53487"
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 7,
+                "apiKeyExpirationDate": "2022-10-29T16:08:29.424Z",
+                "description": ""
+              }
+            }
+          ]
         }
       }
     }

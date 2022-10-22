@@ -9,20 +9,23 @@ import useColorScheme from "./src/hooks/useColorScheme";
 import Navigation from "./src/navigation";
 import SplashScreen from "./src/screens/SplashScreen";
 import { store } from "./src/Store";
-import { Amplify, Auth } from "aws-amplify";
+import { Amplify, API, graphqlOperation } from "aws-amplify";
 import awsconfig from "./aws-exports";
-import { signUpConfig } from "./amplify/backend/auth/eventmap72c53487/build/signUpConfig";
-import { Authenticator } from "@aws-amplify/ui-react";
-import Colors from "./src/constants/Colors";
+import Auth from "@aws-amplify/auth";
 
 // TEMPORARY SOLUTION //
 import { withAuthenticator } from "aws-amplify-react-native";
+import { listEvents } from "./src/graphql/queries";
 
 Amplify.configure(awsconfig);
 
 const App: React.FC = () => {
   // Auth.signOut();
 
+  //
+  //
+  //
+  //
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
   if (!isLoadingComplete) {
