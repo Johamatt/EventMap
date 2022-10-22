@@ -93,11 +93,11 @@ export type LiveEvent = {
     lat: Float;
     lon: Float;
 
-    address: {
+
       streetAddress: string;
       postalCode?: string;
       locality?: string;
-    };
+
   };
 
   tags: Tag[];

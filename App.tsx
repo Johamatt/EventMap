@@ -45,4 +45,10 @@ const App: React.FC = () => {
   }
 };
 
-export default withAuthenticator(App, true);
+export default withAuthenticator(App, {
+  // Render a sign out button once logged in
+  includeGreetings: false,
+  // Show only certain components
+});
+
+//https://ui.docs.amplify.aws/react/connected-components/authenticator

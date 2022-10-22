@@ -79,7 +79,8 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {user === null || undefined ? AuthNavigator() : MainNavigation()}
+        {/* {user === null || undefined ? AuthNavigator() : MainNavigation()} */}
+        {MainNavigation()}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -13,7 +13,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^3.5.4",
+    "@aws-amplify/ui-react": "^3.5.8",
     "@expo/vector-icons": "^13.0.0",
     "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-native-community/netinfo": "^9.3.3",
@@ -22,7 +22,7 @@
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
     "@reduxjs/toolkit": "^1.8.5",
-    "aws-amplify": "^4.3.37",
+    "aws-amplify": "^4.3.39",
     "aws-amplify-react-native": "^6.0.5",
     "expo": "~46.0.9",
     "expo-asset": "~8.6.1",
