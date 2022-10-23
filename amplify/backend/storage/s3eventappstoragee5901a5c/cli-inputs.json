@@ -1,0 +1,13 @@
+{
+  "resourceName": "s3eventappstoragee5901a5c",
+  "bucketName": "eventapp-storage-e5901a5c",
+  "policyUUID": "2f1e8a97",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "READ",
+    "CREATE_AND_UPDATE"
+  ]
+}

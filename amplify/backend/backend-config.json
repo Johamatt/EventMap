@@ -47,5 +47,12 @@
         }
       }
     }
+  },
+  "storage": {
+    "s3eventappstoragee5901a5c": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }

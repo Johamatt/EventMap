@@ -83,15 +83,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "name": {
-                    "name": "name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "source": {
-                    "name": "source",
+                "title": {
+                    "name": "title",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -104,11 +97,11 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "title": {
-                    "name": "title",
+                "intro": {
+                    "name": "intro",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "description": {
@@ -129,20 +122,6 @@ export const schema = {
                     "name": "endingDatetime",
                     "isArray": false,
                     "type": "AWSDateTime",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "images": {
-                    "name": "images",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "category": {
-                    "name": "category",
-                    "isArray": false,
-                    "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -192,6 +171,13 @@ export const schema = {
                     "name": "organizerID",
                     "isArray": false,
                     "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "source": {
+                    "name": "source",
+                    "isArray": false,
+                    "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -529,5 +515,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "7f0b8e637398cc96a753546b4f21c6a5"
+    "version": "5230b075df34ccc04d5311884b3d9d3d"
 };

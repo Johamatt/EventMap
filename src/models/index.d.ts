@@ -48,19 +48,17 @@ export declare class Organizer {
 
 export declare class Event {
   readonly id: string;
-  readonly name: string;
-  readonly source: string;
-  readonly infoUrl?: string | null;
   readonly title: string;
+  readonly infoUrl?: string | null;
+  readonly intro?: string | null;
   readonly description: string;
   readonly startingDatetime: string;
   readonly endingDatetime: string;
-  readonly images?: string | null;
-  readonly category: string;
   readonly Location?: Location | null;
   readonly Images?: (Images | null)[] | null;
   readonly Category?: Category | null;
   readonly organizerID: string;
+  readonly source: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly eventLocationId?: string | null;
