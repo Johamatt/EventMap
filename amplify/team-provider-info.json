@@ -1,22 +1,22 @@
 {
-  "dev": {
+  "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-eventmap-dev-173720-authRole",
-      "UnauthRoleArn": "arn:aws:iam::773034789363:role/amplify-eventmap-dev-173720-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::773034789363:role/amplify-eventmap-dev-173720-authRole",
+      "AuthRoleName": "amplify-eventapp-staging-111757-authRole",
+      "UnauthRoleArn": "arn:aws:iam::773034789363:role/amplify-eventapp-staging-111757-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::773034789363:role/amplify-eventapp-staging-111757-authRole",
       "Region": "eu-north-1",
-      "DeploymentBucketName": "amplify-eventmap-dev-173720-deployment",
-      "UnauthRoleName": "amplify-eventmap-dev-173720-unauthRole",
-      "StackName": "amplify-eventmap-dev-173720",
-      "StackId": "arn:aws:cloudformation:eu-north-1:773034789363:stack/amplify-eventmap-dev-173720/e2abb4d0-4328-11ed-a3e7-067f81f1e174",
-      "AmplifyAppId": "d3ijbw7d2bv1x"
+      "DeploymentBucketName": "amplify-eventapp-staging-111757-deployment",
+      "UnauthRoleName": "amplify-eventapp-staging-111757-unauthRole",
+      "StackName": "amplify-eventapp-staging-111757",
+      "StackId": "arn:aws:cloudformation:eu-north-1:773034789363:stack/amplify-eventapp-staging-111757/592b7000-52c4-11ed-82e3-06638fd0c4e0",
+      "AmplifyAppId": "d29r855yn7nmno"
     },
     "categories": {
       "auth": {
-        "eventmap72c53487": {}
+        "eventApp": {}
       },
       "api": {
-        "eventmap": {}
+        "eventapp": {}
       }
     }
   }

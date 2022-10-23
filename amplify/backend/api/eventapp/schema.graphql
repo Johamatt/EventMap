@@ -1,3 +1,9 @@
+type Organizer @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  Events: [Event] @hasMany(indexName: "byOrganizer", fields: ["id"])
+}
+
 enum CATEGORY {
   MUSIC
   FESTIVAL
@@ -51,4 +57,6 @@ type Event @model @auth(rules: [{allow: public}]) {
   Location: Location @hasOne
   Images: [Images] @hasMany(indexName: "byEvent", fields: ["id"])
   Category: Category @hasOne
+  organizerID: ID! @index(name: "byOrganizer")
 }
+ 

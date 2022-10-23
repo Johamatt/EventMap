@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { API, graphqlOperation } from "aws-amplify";
-import { listEvents } from "../../../graphql/queries";
+// import { listEvents } from "../../../graphql/queries";
 import { useEffect, useState } from "react";
 
 interface MapProps {
@@ -23,19 +23,19 @@ const _MapScreen: React.FC<MapProps> = (props) => {
 
   const [eventData, setEventData] = useState<any>();
 
-  useEffect(() => {
-    fetchSongs();
-  });
+  // useEffect(() => {
+  //   fetchSongs();
+  // });
 
-  const fetchSongs = async () => {
-    try {
-      const eventdata = await API.graphql(graphqlOperation(listEvents));
+  // const fetchSongs = async () => {
+  //   try {
+  //     const eventdata = await API.graphql(graphqlOperation(listEvents));
 
-      setEventData(eventdata);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     setEventData(eventdata);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   console.log(eventData);
 

@@ -2,6 +2,147 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createCategory = /* GraphQL */ `
+  mutation CreateCategory(
+    $input: CreateCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    createCategory(input: $input, condition: $condition) {
+      id
+      category
+      format
+      tags
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCategory = /* GraphQL */ `
+  mutation UpdateCategory(
+    $input: UpdateCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    updateCategory(input: $input, condition: $condition) {
+      id
+      category
+      format
+      tags
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCategory = /* GraphQL */ `
+  mutation DeleteCategory(
+    $input: DeleteCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    deleteCategory(input: $input, condition: $condition) {
+      id
+      category
+      format
+      tags
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createImages = /* GraphQL */ `
+  mutation CreateImages(
+    $input: CreateImagesInput!
+    $condition: ModelImagesConditionInput
+  ) {
+    createImages(input: $input, condition: $condition) {
+      id
+      url
+      lisenceType
+      lisenceName
+      eventID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateImages = /* GraphQL */ `
+  mutation UpdateImages(
+    $input: UpdateImagesInput!
+    $condition: ModelImagesConditionInput
+  ) {
+    updateImages(input: $input, condition: $condition) {
+      id
+      url
+      lisenceType
+      lisenceName
+      eventID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteImages = /* GraphQL */ `
+  mutation DeleteImages(
+    $input: DeleteImagesInput!
+    $condition: ModelImagesConditionInput
+  ) {
+    deleteImages(input: $input, condition: $condition) {
+      id
+      url
+      lisenceType
+      lisenceName
+      eventID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createLocation = /* GraphQL */ `
+  mutation CreateLocation(
+    $input: CreateLocationInput!
+    $condition: ModelLocationConditionInput
+  ) {
+    createLocation(input: $input, condition: $condition) {
+      id
+      lat
+      lon
+      streetAddess
+      postalCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateLocation = /* GraphQL */ `
+  mutation UpdateLocation(
+    $input: UpdateLocationInput!
+    $condition: ModelLocationConditionInput
+  ) {
+    updateLocation(input: $input, condition: $condition) {
+      id
+      lat
+      lon
+      streetAddess
+      postalCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteLocation = /* GraphQL */ `
+  mutation DeleteLocation(
+    $input: DeleteLocationInput!
+    $condition: ModelLocationConditionInput
+  ) {
+    deleteLocation(input: $input, condition: $condition) {
+      id
+      lat
+      lon
+      streetAddess
+      postalCode
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createEvent = /* GraphQL */ `
   mutation CreateEvent(
     $input: CreateEventInput!
@@ -14,43 +155,43 @@ export const createEvent = /* GraphQL */ `
       infoUrl
       title
       description
-      startingDay
-      endingDay
-      location {
+      startingDatetime
+      endingDatetime
+      images
+      category
+      Location {
+        id
         lat
         lon
-        streetAddress
+        streetAddess
         postalCode
-        id
         createdAt
         updatedAt
       }
-      images {
+      Images {
         items {
           id
           url
-          license_type
-          license_name
+          lisenceType
+          lisenceName
+          eventID
           createdAt
           updatedAt
-          eventImagesId
         }
         nextToken
       }
       Category {
-        items {
-          id
-          category
-          format
-          tags
-          createdAt
-          updatedAt
-          eventCategoryId
-        }
-        nextToken
+        id
+        category
+        format
+        tags
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
+      eventLocationId
+      eventCategoryId
     }
   }
 `;
@@ -66,43 +207,43 @@ export const updateEvent = /* GraphQL */ `
       infoUrl
       title
       description
-      startingDay
-      endingDay
-      location {
+      startingDatetime
+      endingDatetime
+      images
+      category
+      Location {
+        id
         lat
         lon
-        streetAddress
+        streetAddess
         postalCode
-        id
         createdAt
         updatedAt
       }
-      images {
+      Images {
         items {
           id
           url
-          license_type
-          license_name
+          lisenceType
+          lisenceName
+          eventID
           createdAt
           updatedAt
-          eventImagesId
         }
         nextToken
       }
       Category {
-        items {
-          id
-          category
-          format
-          tags
-          createdAt
-          updatedAt
-          eventCategoryId
-        }
-        nextToken
+        id
+        category
+        format
+        tags
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
+      eventLocationId
+      eventCategoryId
     }
   }
 `;
@@ -118,348 +259,42 @@ export const deleteEvent = /* GraphQL */ `
       infoUrl
       title
       description
-      startingDay
-      endingDay
-      location {
+      startingDatetime
+      endingDatetime
+      images
+      category
+      Location {
+        id
         lat
         lon
-        streetAddress
+        streetAddess
         postalCode
-        id
         createdAt
         updatedAt
       }
-      images {
+      Images {
         items {
           id
           url
-          license_type
-          license_name
+          lisenceType
+          lisenceName
+          eventID
           createdAt
           updatedAt
-          eventImagesId
         }
         nextToken
       }
       Category {
-        items {
-          id
-          category
-          format
-          tags
-          createdAt
-          updatedAt
-          eventCategoryId
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createLocation = /* GraphQL */ `
-  mutation CreateLocation(
-    $input: CreateLocationInput!
-    $condition: ModelLocationConditionInput
-  ) {
-    createLocation(input: $input, condition: $condition) {
-      lat
-      lon
-      streetAddress
-      postalCode
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateLocation = /* GraphQL */ `
-  mutation UpdateLocation(
-    $input: UpdateLocationInput!
-    $condition: ModelLocationConditionInput
-  ) {
-    updateLocation(input: $input, condition: $condition) {
-      lat
-      lon
-      streetAddress
-      postalCode
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteLocation = /* GraphQL */ `
-  mutation DeleteLocation(
-    $input: DeleteLocationInput!
-    $condition: ModelLocationConditionInput
-  ) {
-    deleteLocation(input: $input, condition: $condition) {
-      lat
-      lon
-      streetAddress
-      postalCode
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createImages = /* GraphQL */ `
-  mutation CreateImages(
-    $input: CreateImagesInput!
-    $condition: ModelImagesConditionInput
-  ) {
-    createImages(input: $input, condition: $condition) {
-      id
-      url
-      license_type
-      license_name
-      event {
         id
-        name
-        source
-        infoUrl
-        title
-        description
-        startingDay
-        endingDay
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          id
-          createdAt
-          updatedAt
-        }
-        images {
-          nextToken
-        }
-        Category {
-          nextToken
-        }
+        category
+        format
+        tags
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
-      eventImagesId
-    }
-  }
-`;
-export const updateImages = /* GraphQL */ `
-  mutation UpdateImages(
-    $input: UpdateImagesInput!
-    $condition: ModelImagesConditionInput
-  ) {
-    updateImages(input: $input, condition: $condition) {
-      id
-      url
-      license_type
-      license_name
-      event {
-        id
-        name
-        source
-        infoUrl
-        title
-        description
-        startingDay
-        endingDay
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          id
-          createdAt
-          updatedAt
-        }
-        images {
-          nextToken
-        }
-        Category {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      eventImagesId
-    }
-  }
-`;
-export const deleteImages = /* GraphQL */ `
-  mutation DeleteImages(
-    $input: DeleteImagesInput!
-    $condition: ModelImagesConditionInput
-  ) {
-    deleteImages(input: $input, condition: $condition) {
-      id
-      url
-      license_type
-      license_name
-      event {
-        id
-        name
-        source
-        infoUrl
-        title
-        description
-        startingDay
-        endingDay
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          id
-          createdAt
-          updatedAt
-        }
-        images {
-          nextToken
-        }
-        Category {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      eventImagesId
-    }
-  }
-`;
-export const createCategory = /* GraphQL */ `
-  mutation CreateCategory(
-    $input: CreateCategoryInput!
-    $condition: ModelCategoryConditionInput
-  ) {
-    createCategory(input: $input, condition: $condition) {
-      id
-      event {
-        id
-        name
-        source
-        infoUrl
-        title
-        description
-        startingDay
-        endingDay
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          id
-          createdAt
-          updatedAt
-        }
-        images {
-          nextToken
-        }
-        Category {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      category
-      format
-      tags
-      createdAt
-      updatedAt
-      eventCategoryId
-    }
-  }
-`;
-export const updateCategory = /* GraphQL */ `
-  mutation UpdateCategory(
-    $input: UpdateCategoryInput!
-    $condition: ModelCategoryConditionInput
-  ) {
-    updateCategory(input: $input, condition: $condition) {
-      id
-      event {
-        id
-        name
-        source
-        infoUrl
-        title
-        description
-        startingDay
-        endingDay
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          id
-          createdAt
-          updatedAt
-        }
-        images {
-          nextToken
-        }
-        Category {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      category
-      format
-      tags
-      createdAt
-      updatedAt
-      eventCategoryId
-    }
-  }
-`;
-export const deleteCategory = /* GraphQL */ `
-  mutation DeleteCategory(
-    $input: DeleteCategoryInput!
-    $condition: ModelCategoryConditionInput
-  ) {
-    deleteCategory(input: $input, condition: $condition) {
-      id
-      event {
-        id
-        name
-        source
-        infoUrl
-        title
-        description
-        startingDay
-        endingDay
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          id
-          createdAt
-          updatedAt
-        }
-        images {
-          nextToken
-        }
-        Category {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      category
-      format
-      tags
-      createdAt
-      updatedAt
+      eventLocationId
       eventCategoryId
     }
   }

@@ -76,9 +76,9 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
             </View>
 
             <View>
-              <Text>{event.location.address.locality}</Text>
-              <Text>{event.location.address.streetAddress}</Text>
-              <Text>{event.location.address.postalCode}</Text>
+              <Text>{event.location.locality}</Text>
+              <Text>{event.location.streetAddress}</Text>
+              <Text>{event.location.postalCode}</Text>
             </View>
           </View>
         </View>
