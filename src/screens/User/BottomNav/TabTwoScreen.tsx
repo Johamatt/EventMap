@@ -9,14 +9,10 @@ import React, { useState } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { RootStackParamList } from "../../../../types";
-import {
-  ApplicationState,
-  ON_UPDATE_AGEGROUP,
-  ON_UPDATE_TAGS,
-  UserState,
-} from "../../../Store";
+import { ApplicationState, ON_UPDATE_TAGS, UserState } from "../../../Store";
 
-import { Activity, activityTags } from "../../../util/data/activityTags";
+import { activityTags } from "../../../util/data/activityTags";
+import { Activity } from "../../../util/data/types";
 import { styles } from "../styles";
 
 interface TabTwoScreenProps {
@@ -24,21 +20,13 @@ interface TabTwoScreenProps {
 }
 
 export const _TabTwoScreen: React.FC<TabTwoScreenProps> = (props) => {
-  const userReducer = props.userReducer;
   const [selectedTags, setSelectedTags] = useState<Array<Activity>>([]);
-  // const [selectedAgeGroup, setSelectedAgeGroup] = useState<AgeGroups>(
-  //   AgeGroup[0]
-  // );
-
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   async function nextScreen() {
     await AsyncStorage.setItem("user_tags", JSON.stringify(selectedTags));
-
-    await ON_UPDATE_TAGS(selectedTags);
-    // await ON_UPDATE_AGEGROUP(selectedAgeGroup);
-
+    ON_UPDATE_TAGS(selectedTags);
     navigation.navigate("UserRoot"); //
   }
 
@@ -60,17 +48,6 @@ export const _TabTwoScreen: React.FC<TabTwoScreenProps> = (props) => {
 
       {/* Content Starts */}
       <View style={styles.content}>
-        {/* <Picker
-          selectedValue={selectedAgeGroup}
-          onValueChange={(itemValue, itemIndex) =>
-            setSelectedAgeGroup(itemValue)
-          }
-        >
-          {AgeGroup.map((_agegroup, key) => (
-            <Picker.Item key={key} label={_agegroup.name} value={_agegroup} />
-          ))}
-        </Picker> */}
-
         <FlatList
           style={styles.list}
           data={activityTags}
@@ -116,7 +93,6 @@ const mapToStateProps = (state: ApplicationState) => ({
 });
 
 const TabTwoScreen = connect(mapToStateProps, {
-  ON_UPDATE_AGEGROUP,
   ON_UPDATE_TAGS,
 })(_TabTwoScreen);
 

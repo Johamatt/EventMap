@@ -1,29 +1,16 @@
-import {
-  Dimensions,
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { TouchableOpacity } from "react-native";
 
 import {
-  LiveEvent,
   RootStackParamList,
   // RootTabScreenProps,
 } from "../../../../types";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
 import { ApplicationState, UserState } from "../../../Store";
 import { connect } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { styles } from "../styles";
 import React, { useState } from "react";
-import { Feather, Ionicons } from "@expo/vector-icons";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import MapView, { Marker } from "react-native-maps";
-import Layout from "../../../constants/Layout";
-import EventCard from "../../../components/Cards/EventCard";
+import { Ionicons } from "@expo/vector-icons";
 import DropDownPicker from "react-native-dropdown-picker";
 
 interface HomeScreenProps {

@@ -10,12 +10,13 @@ import { LocationObject } from "expo-location";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../types";
-import { Espoo, Helsinki, Vantaa } from "../../util/data/cityGeoData";
+
 import { styles } from "./styles";
 import { UserState } from "../../Store/types";
 import { ApplicationState, ON_UPDATE_LOCATION } from "../../Store";
 import { connect } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Espoo, Helsinki, Vantaa } from "../../util/data";
 
 interface LandingLocationProps {
   userReducer: UserState;

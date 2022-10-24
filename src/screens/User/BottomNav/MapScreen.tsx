@@ -13,29 +13,28 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { API, graphqlOperation } from "aws-amplify";
 // import { listEvents } from "../../../graphql/queries";
 import { useEffect, useState } from "react";
+import { listEvents } from "../../../graphql/queries";
 
 interface MapProps {
   userReducer: UserState;
 }
 
 const _MapScreen: React.FC<MapProps> = (props) => {
-  const { userReducer } = props;
-
   const [eventData, setEventData] = useState<any>();
 
-  // useEffect(() => {
-  //   fetchSongs();
-  // });
+  useEffect(() => {
+    fetchSongs();
+  });
 
-  // const fetchSongs = async () => {
-  //   try {
-  //     const eventdata = await API.graphql(graphqlOperation(listEvents));
+  const fetchSongs = async () => {
+    try {
+      const eventdata = await API.graphql(graphqlOperation(listEvents));
 
-  //     setEventData(eventdata);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      setEventData(eventdata);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   console.log(eventData);
 
