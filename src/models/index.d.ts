@@ -1,19 +1,41 @@
 import { ModelInit, MutableModel } from "@aws-amplify/datastore";
 
+export enum Format {
+  SEMINARTALK = "SEMINARTALK",
+  EXPO = "EXPO",
+  PERFORMANCELIVESHOW = "PERFORMANCELIVESHOW",
+  CLASSTRAINING = "CLASSTRAINING",
+  NETWORKINGMEETING = "NETWORKINGMEETING",
+  SOCIALGATHERING = "SOCIALGATHERING",
+  TOURNAMENTCOMPETITION = "TOURNAMENTCOMPETITION",
+  TOURSWALKS = "TOURSWALKS",
+  CAMPTRIP = "CAMPTRIP",
+  EXHIBITION = "EXHIBITION"
+}
+
 export enum Category {
   MUSIC = "MUSIC",
   FESTIVAL = "FESTIVAL",
-  NIGHTLIFE = "NIGHTLIFE",
-  SPORTFITNESS = "SPORTFITNESS",
+  PARTIESNIGHTLIFE = "PARTIESNIGHTLIFE",
+  SPORT = "SPORT",
   KIDS = "KIDS",
   HEALTH = "HEALTH",
   TRIP = "TRIP",
-  WORKSHOPDIY = "WORKSHOPDIY",
-  FOODDRINK = "FOODDRINK",
+  WORKSHOP = "WORKSHOP",
+  COOKING = "COOKING",
   BUSINESS = "BUSINESS",
   ACTIVITY = "ACTIVITY",
   CULTURE = "CULTURE",
-  OTHER = "OTHER"
+  COMEDY = "COMEDY",
+  CONCERT = "CONCERT",
+  PERFORMANCE = "PERFORMANCE",
+  FINEARTS = "FINEARTS",
+  THEATRE = "THEATRE",
+  LITERATURE = "LITERATURE",
+  PHOTOGRAPHY = "PHOTOGRAPHY",
+  TECHNOLOGY = "TECHNOLOGY",
+  OTHER = "OTHER",
+  UNTITLEDVALUE = "UNTITLEDVALUE"
 }
 
 type CategoryMetaData = {
@@ -35,7 +57,7 @@ type EventMetaData = {
 export declare class Category {
   readonly id: string;
   readonly category?: Category[] | keyof typeof Category | null;
-  readonly format?: string[] | null;
+  readonly format?: (Format | null)[] | keyof typeof Format | null;
   readonly tags?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

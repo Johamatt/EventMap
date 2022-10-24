@@ -23,8 +23,10 @@ export const schema = {
                 "format": {
                     "name": "format",
                     "isArray": true,
-                    "type": "String",
-                    "isRequired": true,
+                    "type": {
+                        "enum": "Format"
+                    },
+                    "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
                 },
@@ -406,25 +408,49 @@ export const schema = {
         }
     },
     "enums": {
+        "Format": {
+            "name": "Format",
+            "values": [
+                "SEMINARTALK",
+                "EXPO",
+                "PERFORMANCELIVESHOW",
+                "CLASSTRAINING",
+                "NETWORKINGMEETING",
+                "SOCIALGATHERING",
+                "TOURNAMENTCOMPETITION",
+                "TOURSWALKS",
+                "CAMPTRIP",
+                "EXHIBITION"
+            ]
+        },
         "Category": {
             "name": "Category",
             "values": [
                 "MUSIC",
                 "FESTIVAL",
-                "NIGHTLIFE",
-                "SPORTFITNESS",
+                "PARTIESNIGHTLIFE",
+                "SPORT",
                 "KIDS",
                 "HEALTH",
                 "TRIP",
-                "WORKSHOPDIY",
-                "FOODDRINK",
+                "WORKSHOP",
+                "COOKING",
                 "BUSINESS",
                 "ACTIVITY",
                 "CULTURE",
-                "OTHER"
+                "COMEDY",
+                "CONCERT",
+                "PERFORMANCE",
+                "FINEARTS",
+                "THEATRE",
+                "LITERATURE",
+                "PHOTOGRAPHY",
+                "TECHNOLOGY",
+                "OTHER",
+                "UNTITLEDVALUE"
             ]
         }
     },
     "nonModels": {},
-    "version": "8e8748c0e9a6b2c5aef3d6464e551844"
+    "version": "722c900f2a6b9ed62f72e2ec56cfdbe2"
 };
