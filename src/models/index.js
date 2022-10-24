@@ -18,13 +18,12 @@ const Category = {
   "OTHER": "OTHER"
 };
 
-const { Organizer, Event, Location, Images, Category } = initSchema(schema);
+const { Category, Images, Location, Event } = initSchema(schema);
 
 export {
-  Organizer,
-  Event,
-  Location,
-  Images,
   Category,
+  Images,
+  Location,
+  Event,
   Category
 };

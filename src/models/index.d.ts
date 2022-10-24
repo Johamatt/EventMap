@@ -16,15 +16,7 @@ export enum Category {
   OTHER = "OTHER"
 }
 
-type OrganizerMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
-type EventMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
-type LocationMetaData = {
+type CategoryMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -32,51 +24,23 @@ type ImagesMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type CategoryMetaData = {
+type LocationMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class Organizer {
-  readonly id: string;
-  readonly name: string;
-  readonly Events?: (Event | null)[] | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-  constructor(init: ModelInit<Organizer, OrganizerMetaData>);
-  static copyOf(source: Organizer, mutator: (draft: MutableModel<Organizer, OrganizerMetaData>) => MutableModel<Organizer, OrganizerMetaData> | void): Organizer;
+type EventMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class Event {
+export declare class Category {
   readonly id: string;
-  readonly title: string;
-  readonly infoUrl?: string | null;
-  readonly intro?: string | null;
-  readonly description: string;
-  readonly startingDatetime: string;
-  readonly endingDatetime: string;
-  readonly Location?: Location | null;
-  readonly Images?: (Images | null)[] | null;
-  readonly Category?: Category | null;
-  readonly organizerID: string;
-  readonly source: string;
+  readonly category?: Category[] | keyof typeof Category | null;
+  readonly format?: string[] | null;
+  readonly tags?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly eventLocationId?: string | null;
-  readonly eventCategoryId?: string | null;
-  constructor(init: ModelInit<Event, EventMetaData>);
-  static copyOf(source: Event, mutator: (draft: MutableModel<Event, EventMetaData>) => MutableModel<Event, EventMetaData> | void): Event;
-}
-
-export declare class Location {
-  readonly id: string;
-  readonly lat: number;
-  readonly lon: number;
-  readonly streetAddess: string;
-  readonly postalCode?: number | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-  constructor(init: ModelInit<Location, LocationMetaData>);
-  static copyOf(source: Location, mutator: (draft: MutableModel<Location, LocationMetaData>) => MutableModel<Location, LocationMetaData> | void): Location;
+  constructor(init: ModelInit<Category, CategoryMetaData>);
+  static copyOf(source: Category, mutator: (draft: MutableModel<Category, CategoryMetaData>) => MutableModel<Category, CategoryMetaData> | void): Category;
 }
 
 export declare class Images {
@@ -91,13 +55,34 @@ export declare class Images {
   static copyOf(source: Images, mutator: (draft: MutableModel<Images, ImagesMetaData>) => MutableModel<Images, ImagesMetaData> | void): Images;
 }
 
-export declare class Category {
+export declare class Location {
   readonly id: string;
-  readonly category?: Category[] | keyof typeof Category | null;
-  readonly format?: string[] | null;
-  readonly tags?: (string | null)[] | null;
+  readonly lat: number;
+  readonly lon: number;
+  readonly streetAddess: string;
+  readonly postalCode?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  constructor(init: ModelInit<Category, CategoryMetaData>);
-  static copyOf(source: Category, mutator: (draft: MutableModel<Category, CategoryMetaData>) => MutableModel<Category, CategoryMetaData> | void): Category;
+  constructor(init: ModelInit<Location, LocationMetaData>);
+  static copyOf(source: Location, mutator: (draft: MutableModel<Location, LocationMetaData>) => MutableModel<Location, LocationMetaData> | void): Location;
+}
+
+export declare class Event {
+  readonly id: string;
+  readonly title: string;
+  readonly infoUrl?: string | null;
+  readonly intro?: string | null;
+  readonly description: string;
+  readonly startingDatetime: string;
+  readonly endingDatetime: string;
+  readonly Location?: Location | null;
+  readonly Images?: (Images | null)[] | null;
+  readonly Category?: Category | null;
+  readonly source: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly eventLocationId?: string | null;
+  readonly eventCategoryId?: string | null;
+  constructor(init: ModelInit<Event, EventMetaData>);
+  static copyOf(source: Event, mutator: (draft: MutableModel<Event, EventMetaData>) => MutableModel<Event, EventMetaData> | void): Event;
 }

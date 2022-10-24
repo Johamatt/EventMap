@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "Organizer": {
-            "name": "Organizer",
+        "Category": {
+            "name": "Category",
             "fields": {
                 "id": {
                     "name": "id",
@@ -10,26 +10,31 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "name": {
-                    "name": "name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "Events": {
-                    "name": "Events",
+                "category": {
+                    "name": "category",
                     "isArray": true,
                     "type": {
-                        "model": "Event"
+                        "enum": "Category"
                     },
+                    "isRequired": true,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "format": {
+                    "name": "format",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "tags": {
+                    "name": "tags",
+                    "isArray": true,
+                    "type": "String",
                     "isRequired": false,
                     "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "organizerID"
-                    }
+                    "isArrayNullable": true
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -49,7 +54,176 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Organizers",
+            "pluralName": "Categories",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Images": {
+            "name": "Images",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "url": {
+                    "name": "url",
+                    "isArray": false,
+                    "type": "AWSURL",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "lisenceType": {
+                    "name": "lisenceType",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "lisenceName": {
+                    "name": "lisenceName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "eventID": {
+                    "name": "eventID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Images",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byEvent",
+                        "fields": [
+                            "eventID"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Location": {
+            "name": "Location",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "lat": {
+                    "name": "lat",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "lon": {
+                    "name": "lon",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "streetAddess": {
+                    "name": "streetAddess",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "postalCode": {
+                    "name": "postalCode",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Locations",
             "attributes": [
                 {
                     "type": "model",
@@ -167,13 +341,6 @@ export const schema = {
                         "targetName": "eventCategoryId"
                     }
                 },
-                "organizerID": {
-                    "name": "organizerID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "source": {
                     "name": "source",
                     "isArray": false,
@@ -220,262 +387,6 @@ export const schema = {
                     "properties": {}
                 },
                 {
-                    "type": "key",
-                    "properties": {
-                        "name": "byOrganizer",
-                        "fields": [
-                            "organizerID"
-                        ]
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Location": {
-            "name": "Location",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "lat": {
-                    "name": "lat",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "lon": {
-                    "name": "lon",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "streetAddess": {
-                    "name": "streetAddess",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "postalCode": {
-                    "name": "postalCode",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Locations",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Images": {
-            "name": "Images",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "url": {
-                    "name": "url",
-                    "isArray": false,
-                    "type": "AWSURL",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "lisenceType": {
-                    "name": "lisenceType",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "lisenceName": {
-                    "name": "lisenceName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "eventID": {
-                    "name": "eventID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Images",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byEvent",
-                        "fields": [
-                            "eventID"
-                        ]
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Category": {
-            "name": "Category",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "category": {
-                    "name": "category",
-                    "isArray": true,
-                    "type": {
-                        "enum": "Category"
-                    },
-                    "isRequired": true,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "format": {
-                    "name": "format",
-                    "isArray": true,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "tags": {
-                    "name": "tags",
-                    "isArray": true,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Categories",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -515,5 +426,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "5230b075df34ccc04d5311884b3d9d3d"
+    "version": "8e8748c0e9a6b2c5aef3d6464e551844"
 };
