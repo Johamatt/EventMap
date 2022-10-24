@@ -1,7 +1,8 @@
 import { Auth } from "aws-amplify";
 import { LocationGeocodedLocation } from "expo-location";
 import { Dispatch } from "react";
-import { Activity } from "../../util/data/activityTags";
+import { Activity } from "../../util/data/types";
+
 
 export interface UpdateLocationAction {
   readonly type: "ON_UPDATE_LOCATION";
@@ -11,12 +12,6 @@ export interface UpdateLocationAction {
 export interface UpdateUserLoginAction {
   readonly type: "ON_UPDATE_USERLOGIN";
   payload: Array<any> | null;
-}
-
-//
-export interface UpdateAgeGroupAction {
-  readonly type: "ON_UPDATE_AGEGROUP";
-  payload: Array<any>;
 }
 
 export interface UpdateTagsAction {
@@ -32,7 +27,6 @@ export interface UserErrorAction {
 
 export type UserAction =
   | UpdateLocationAction
-  | UpdateAgeGroupAction
   | UpdateTagsAction
   | UserErrorAction
   | UpdateUserLoginAction;
@@ -43,22 +37,6 @@ export const ON_UPDATE_LOCATION = (location: LocationGeocodedLocation) => {
       dispatch({
         type: "ON_UPDATE_LOCATION",
         payload: location,
-      });
-    } catch (error) {
-      dispatch({
-        type: "ON_USER_ERROR",
-        payload: error,
-      });
-    }
-  };
-};
-
-export const ON_UPDATE_AGEGROUP = (ageGroup: Array<any>) => {
-  return (dispatch: Dispatch<UserAction>) => {
-    try {
-      dispatch({
-        type: "ON_UPDATE_AGEGROUP",
-        payload: ageGroup,
       });
     } catch (error) {
       dispatch({

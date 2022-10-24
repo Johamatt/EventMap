@@ -1,12 +1,10 @@
 import { LocationGeocodedLocation } from "expo-location";
-import { Activity } from "../../util/data/activityTags";
-import { AgeGroups } from "../../util/data/ageGroups";
+import { Activity } from "../../util/data/types";
 import { UserAction } from "../actions/userAction";
 
 import { UserState } from "../types";
 
 const initialState: UserState = {
-  ageGroup: [],
   location: {} as LocationGeocodedLocation,
   userAuth: [],
   tags: [] as Array<Activity>,
@@ -25,12 +23,6 @@ const userReducer = (state: UserState = initialState, action: UserAction) => {
       return {
         ...state,
         location: action.payload,
-      };
-
-    case "ON_UPDATE_AGEGROUP":
-      return {
-        ...state,
-        ageGroup: action.payload,
       };
 
     case "ON_UPDATE_TAGS":

@@ -43,7 +43,7 @@ import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
 import { ApplicationState, ON_UPDATE_USERLOGIN, UserState } from "../Store";
 import { connect } from "react-redux";
 import { userReducer } from "../Store/reducers/userReducer";
-import { Authenticator } from "aws-amplify-react-native";
+// import { Authenticator } from "aws-amplify-react-native";
 
 interface NavigationProps {
   userReducer: UserState;
@@ -156,7 +156,9 @@ const MainNavigation = () => {
         name="LandingPreferenceScreen"
         component={LandingPreferenceScreen}
         options={{
-          title: "Landing Preference",
+          headerShown: true,
+
+          title: "",
         }}
       />
       <Stack.Group screenOptions={{ presentation: "modal", headerShown: true }}>

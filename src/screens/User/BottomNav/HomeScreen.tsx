@@ -15,7 +15,6 @@ import {
 import { View, Text, Image } from "react-native";
 import { ApplicationState, UserState } from "../../../Store";
 import { connect } from "react-redux";
-import { eventSamples } from "../../../util/data/eventSample";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { styles } from "../styles";
@@ -24,7 +23,6 @@ import { Feather, Ionicons } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import MapView, { Marker } from "react-native-maps";
 import Layout from "../../../constants/Layout";
-import { eventScheduleDayWeek } from "../../../util/data/eventSchedules";
 import EventCard from "../../../components/Cards/EventCard";
 import DropDownPicker from "react-native-dropdown-picker";
 
@@ -121,7 +119,7 @@ const _HomeScreen: React.FC<HomeScreenProps> = () => {
         })}
       </View> */}
 
-      <FlatList
+      {/* <FlatList
         contentContainerStyle={{ flexGrow: 1 }}
         // style={styles.list}
         data={eventSamples}
@@ -145,7 +143,7 @@ const _HomeScreen: React.FC<HomeScreenProps> = () => {
             }}
           />
         )}
-      />
+      /> */}
     </View>
   );
 };

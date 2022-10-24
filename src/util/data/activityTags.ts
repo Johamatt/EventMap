@@ -1,3 +1,5 @@
+import { Activity } from "./types";
+
 export let activityTags: Array<Activity> = [
   {
     id: "1",
@@ -52,8 +54,3 @@ export let activityTags: Array<Activity> = [
     name: "Dance",
   },
 ];
-
-export type Activity = {
-  id: string;
-  name: string;
-};
