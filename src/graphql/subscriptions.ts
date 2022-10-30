@@ -3,44 +3,47 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateCategory = /* GraphQL */ `
-  subscription OnCreateCategory {
-    onCreateCategory {
+  subscription OnCreateCategory($owner: String) {
+    onCreateCategory(owner: $owner) {
       id
       category
       format
       tags
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateCategory = /* GraphQL */ `
-  subscription OnUpdateCategory {
-    onUpdateCategory {
+  subscription OnUpdateCategory($owner: String) {
+    onUpdateCategory(owner: $owner) {
       id
       category
       format
       tags
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteCategory = /* GraphQL */ `
-  subscription OnDeleteCategory {
-    onDeleteCategory {
+  subscription OnDeleteCategory($owner: String) {
+    onDeleteCategory(owner: $owner) {
       id
       category
       format
       tags
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const onCreateImages = /* GraphQL */ `
-  subscription OnCreateImages {
-    onCreateImages {
+export const onCreateEventImage = /* GraphQL */ `
+  subscription OnCreateEventImage($owner: String) {
+    onCreateEventImage(owner: $owner) {
       id
       url
       lisenceType
@@ -48,12 +51,13 @@ export const onCreateImages = /* GraphQL */ `
       eventID
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const onUpdateImages = /* GraphQL */ `
-  subscription OnUpdateImages {
-    onUpdateImages {
+export const onUpdateEventImage = /* GraphQL */ `
+  subscription OnUpdateEventImage($owner: String) {
+    onUpdateEventImage(owner: $owner) {
       id
       url
       lisenceType
@@ -61,12 +65,13 @@ export const onUpdateImages = /* GraphQL */ `
       eventID
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const onDeleteImages = /* GraphQL */ `
-  subscription OnDeleteImages {
-    onDeleteImages {
+export const onDeleteEventImage = /* GraphQL */ `
+  subscription OnDeleteEventImage($owner: String) {
+    onDeleteEventImage(owner: $owner) {
       id
       url
       lisenceType
@@ -74,12 +79,13 @@ export const onDeleteImages = /* GraphQL */ `
       eventID
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onCreateLocation = /* GraphQL */ `
-  subscription OnCreateLocation {
-    onCreateLocation {
+  subscription OnCreateLocation($owner: String) {
+    onCreateLocation(owner: $owner) {
       id
       lat
       lon
@@ -87,12 +93,13 @@ export const onCreateLocation = /* GraphQL */ `
       postalCode
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateLocation = /* GraphQL */ `
-  subscription OnUpdateLocation {
-    onUpdateLocation {
+  subscription OnUpdateLocation($owner: String) {
+    onUpdateLocation(owner: $owner) {
       id
       lat
       lon
@@ -100,12 +107,13 @@ export const onUpdateLocation = /* GraphQL */ `
       postalCode
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteLocation = /* GraphQL */ `
-  subscription OnDeleteLocation {
-    onDeleteLocation {
+  subscription OnDeleteLocation($owner: String) {
+    onDeleteLocation(owner: $owner) {
       id
       lat
       lon
@@ -113,22 +121,20 @@ export const onDeleteLocation = /* GraphQL */ `
       postalCode
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onCreateEvent = /* GraphQL */ `
-  subscription OnCreateEvent {
-    onCreateEvent {
+  subscription OnCreateEvent($owner: String) {
+    onCreateEvent(owner: $owner) {
       id
-      name
-      source
-      infoUrl
       title
+      infoUrl
+      intro
       description
       startingDatetime
       endingDatetime
-      images
-      category
       Location {
         id
         lat
@@ -137,18 +143,7 @@ export const onCreateEvent = /* GraphQL */ `
         postalCode
         createdAt
         updatedAt
-      }
-      Images {
-        items {
-          id
-          url
-          lisenceType
-          lisenceName
-          eventID
-          createdAt
-          updatedAt
-        }
-        nextToken
+        owner
       }
       Category {
         id
@@ -157,27 +152,40 @@ export const onCreateEvent = /* GraphQL */ `
         tags
         createdAt
         updatedAt
+        owner
+      }
+      source
+      EventImage {
+        items {
+          id
+          url
+          lisenceType
+          lisenceName
+          eventID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
       eventLocationId
       eventCategoryId
+      owner
     }
   }
 `;
 export const onUpdateEvent = /* GraphQL */ `
-  subscription OnUpdateEvent {
-    onUpdateEvent {
+  subscription OnUpdateEvent($owner: String) {
+    onUpdateEvent(owner: $owner) {
       id
-      name
-      source
-      infoUrl
       title
+      infoUrl
+      intro
       description
       startingDatetime
       endingDatetime
-      images
-      category
       Location {
         id
         lat
@@ -186,18 +194,7 @@ export const onUpdateEvent = /* GraphQL */ `
         postalCode
         createdAt
         updatedAt
-      }
-      Images {
-        items {
-          id
-          url
-          lisenceType
-          lisenceName
-          eventID
-          createdAt
-          updatedAt
-        }
-        nextToken
+        owner
       }
       Category {
         id
@@ -206,27 +203,40 @@ export const onUpdateEvent = /* GraphQL */ `
         tags
         createdAt
         updatedAt
+        owner
+      }
+      source
+      EventImage {
+        items {
+          id
+          url
+          lisenceType
+          lisenceName
+          eventID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
       eventLocationId
       eventCategoryId
+      owner
     }
   }
 `;
 export const onDeleteEvent = /* GraphQL */ `
-  subscription OnDeleteEvent {
-    onDeleteEvent {
+  subscription OnDeleteEvent($owner: String) {
+    onDeleteEvent(owner: $owner) {
       id
-      name
-      source
-      infoUrl
       title
+      infoUrl
+      intro
       description
       startingDatetime
       endingDatetime
-      images
-      category
       Location {
         id
         lat
@@ -235,18 +245,7 @@ export const onDeleteEvent = /* GraphQL */ `
         postalCode
         createdAt
         updatedAt
-      }
-      Images {
-        items {
-          id
-          url
-          lisenceType
-          lisenceName
-          eventID
-          createdAt
-          updatedAt
-        }
-        nextToken
+        owner
       }
       Category {
         id
@@ -255,11 +254,27 @@ export const onDeleteEvent = /* GraphQL */ `
         tags
         createdAt
         updatedAt
+        owner
+      }
+      source
+      EventImage {
+        items {
+          id
+          url
+          lisenceType
+          lisenceName
+          eventID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
       eventLocationId
       eventCategoryId
+      owner
     }
   }
 `;

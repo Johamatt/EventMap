@@ -6,10 +6,11 @@ import {
 } from "react-native";
 
 import {
-  LiveEvent,
   RootStackParamList,
   // RootTabScreenProps,
-} from "../../../types";
+} from "../../navigation/types";
+
+import { Event as LiveEvent } from "../../API";
 import { View, Text, Image } from "react-native";
 import { ApplicationState, UserState } from "../../Store";
 import { connect } from "react-redux";
@@ -51,7 +52,7 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
             fontFamily: "Rationale-Regular",
           }}
         >
-          {event.description.title}
+          {event.title}
         </Text>
       </View>
       {/* Header ends */}
@@ -59,33 +60,32 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
       {/* Content Starts */}
       <View style={{ padding: 20, margin: "auto" }}>
         <View style={{ padding: 5, flexDirection: "row" }}>
-          <Image
+          {/* <Image
             style={{ width: 105, height: 105 }}
             source={{
               uri:
-                event.images !== undefined
-                  ? event.images[0].url
+                event.EventImage !== undefined
+                  ? event.EventImage[0].url
                   : "../../assets/images/broken-link.png",
             }}
-          />
+          /> */}
 
           <View style={{ padding: 10 }}>
             <View>
-              <Text>{event.eventDates.starting_day}</Text>
-              <Text>{event.eventDates.ending_day}</Text>
+              <Text>{event.startingDatetime}</Text>
+              <Text>{event.endingDatetime}</Text>
             </View>
 
             <View>
-              <Text>{event.location.locality}</Text>
-              <Text>{event.location.streetAddress}</Text>
-              <Text>{event.location.postalCode}</Text>
+              <Text>{event.Location?.streetAddess}</Text>
+              <Text>{event.Location?.postalCode}</Text>
             </View>
           </View>
         </View>
 
         <View style={{ padding: 5, flexDirection: "row" }}>
           <View style={{ justifyContent: "center" }}>
-            <Text>{event.description.body}</Text>
+            <Text>{event.description}</Text>
           </View>
         </View>
 
@@ -97,36 +97,33 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
             justifyContent: "center",
           }}
         >
-          <MapView
-            style={{
-              width: Dimensions.get("window").width,
-              height: 300,
-            }}
-            initialRegion={{
-              latitude: event.location.lat,
-              longitude: event.location.lon,
-              latitudeDelta: 0.00922,
-              longitudeDelta: 0.00421,
-            }}
-          >
-            <Marker
-              coordinate={{
-                latitude: event.location.lat,
-                longitude: event.location.lon,
+          {event.Location?.lat !== undefined &&
+          event.Location?.lon !== undefined ? (
+            <MapView
+              style={{
+                width: Dimensions.get("window").width,
+                height: 300,
               }}
-            ></Marker>
-          </MapView>
+              initialRegion={{
+                latitude: event.Location.lat,
+                longitude: event.Location.lon,
+                latitudeDelta: 0.00922,
+                longitudeDelta: 0.00421,
+              }}
+            >
+              <Marker
+                coordinate={{
+                  latitude: event.Location.lat,
+                  longitude: event.Location.lon,
+                }}
+              ></Marker>
+            </MapView>
+          ) : (
+            <View />
+          )}
         </View>
 
-        <View>
-          <>
-            {event.tags.map((a) => {
-              //renderää muualla
-              <Text>{a.name}</Text>;
-            })}
-          </>
-          <Text>ok</Text>
-        </View>
+        <View></View>
 
         <View style={styles.separator} />
       </View>

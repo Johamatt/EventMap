@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   ListRenderItemInfo,
 } from "react-native";
-import { LiveEvent, RootStackParamList } from "../../../types";
+import { RootStackParamList } from "../../navigation/types";
+
+import { Event as LiveEvent } from "../../API";
 
 const styles = StyleSheet.create({
   container: {
@@ -49,7 +51,7 @@ const EventCard: React.FC<ListRenderItemInfo<LiveEvent>> = (
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={styles.container}>
-      {props.item.images !== undefined ? (
+      {props.item.EventImage?.items[0] !== null ? (
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("EventScreen", { liveEvent: props.item })
@@ -58,12 +60,12 @@ const EventCard: React.FC<ListRenderItemInfo<LiveEvent>> = (
           <Image
             defaultSource={require("../../assets/images/broken-link.png")}
             source={{
-              uri: props.item.images[0].url,
+              uri: props.item.EventImage?.items[0].url,
             }}
             style={styles.image}
           />
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>{props.item.description.title}</Text>
+            <Text style={styles.title}>{props.item.title}</Text>
           </View>
         </TouchableOpacity>
       ) : (
@@ -78,7 +80,7 @@ const EventCard: React.FC<ListRenderItemInfo<LiveEvent>> = (
             style={styles.image}
           />
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>{props.item.description.title}</Text>
+            <Text style={styles.title}>{props.item.intro}</Text>
           </View>
         </TouchableOpacity>
       )}

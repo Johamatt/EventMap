@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/core";
 import CustomInput from "../../../components/Inputs/CustomInput";
 import CustomButton from "../../../components/Buttons/CustomButton";
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { RootStackParamList } from "../../../../types";
+import { RootStackParamList } from "../../../navigation/types";
 import { Auth } from "aws-amplify";
 
 type UserConfirmEmailScreenProp = RouteProp<

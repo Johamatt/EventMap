@@ -5,30 +5,53 @@
 export type CreateCategoryInput = {
   id?: string | null,
   category?: Array< CATEGORY > | null,
-  format?: Array< string > | null,
+  format?: Array< FORMAT | null > | null,
   tags?: Array< string | null > | null,
 };
 
 export enum CATEGORY {
   MUSIC = "MUSIC",
   FESTIVAL = "FESTIVAL",
-  NIGHTLIFE = "NIGHTLIFE",
-  SPORTFITNESS = "SPORTFITNESS",
+  PARTIESNIGHTLIFE = "PARTIESNIGHTLIFE",
+  SPORT = "SPORT",
   KIDS = "KIDS",
   HEALTH = "HEALTH",
   TRIP = "TRIP",
-  WORKSHOPDIY = "WORKSHOPDIY",
-  FOODDRINK = "FOODDRINK",
+  WORKSHOP = "WORKSHOP",
+  COOKING = "COOKING",
   BUSINESS = "BUSINESS",
   ACTIVITY = "ACTIVITY",
   CULTURE = "CULTURE",
+  COMEDY = "COMEDY",
+  CONCERT = "CONCERT",
+  PERFORMANCE = "PERFORMANCE",
+  FINEARTS = "FINEARTS",
+  THEATRE = "THEATRE",
+  LITERATURE = "LITERATURE",
+  PHOTOGRAPHY = "PHOTOGRAPHY",
+  TECHNOLOGY = "TECHNOLOGY",
+  OTHER = "OTHER",
+}
+
+
+export enum FORMAT {
+  SEMINARTALK = "SEMINARTALK",
+  EXPO = "EXPO",
+  PERFORMANCELIVESHOW = "PERFORMANCELIVESHOW",
+  CLASSTRAINING = "CLASSTRAINING",
+  NETWORKINGMEETING = "NETWORKINGMEETING",
+  SOCIALGATHERING = "SOCIALGATHERING",
+  TOURNAMENTCOMPETITION = "TOURNAMENTCOMPETITION",
+  TOURSWALKS = "TOURSWALKS",
+  CAMPTRIP = "CAMPTRIP",
+  EXHIBITION = "EXHIBITION",
   OTHER = "OTHER",
 }
 
 
 export type ModelCategoryConditionInput = {
   category?: ModelCATEGORYListInput | null,
-  format?: ModelStringInput | null,
+  format?: ModelFORMATListInput | null,
   tags?: ModelStringInput | null,
   and?: Array< ModelCategoryConditionInput | null > | null,
   or?: Array< ModelCategoryConditionInput | null > | null,
@@ -40,6 +63,13 @@ export type ModelCATEGORYListInput = {
   ne?: Array< CATEGORY | null > | null,
   contains?: CATEGORY | null,
   notContains?: CATEGORY | null,
+};
+
+export type ModelFORMATListInput = {
+  eq?: Array< FORMAT | null > | null,
+  ne?: Array< FORMAT | null > | null,
+  contains?: FORMAT | null,
+  notContains?: FORMAT | null,
 };
 
 export type ModelStringInput = {
@@ -86,16 +116,17 @@ export type Category = {
   __typename: "Category",
   id: string,
   category?: Array< CATEGORY > | null,
-  format?: Array< string > | null,
+  format?: Array< FORMAT | null > | null,
   tags?: Array< string | null > | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateCategoryInput = {
   id: string,
   category?: Array< CATEGORY > | null,
-  format?: Array< string > | null,
+  format?: Array< FORMAT | null > | null,
   tags?: Array< string | null > | null,
 };
 
@@ -103,7 +134,7 @@ export type DeleteCategoryInput = {
   id: string,
 };
 
-export type CreateImagesInput = {
+export type CreateEventImageInput = {
   id?: string | null,
   url: string,
   lisenceType?: number | null,
@@ -111,14 +142,14 @@ export type CreateImagesInput = {
   eventID: string,
 };
 
-export type ModelImagesConditionInput = {
+export type ModelEventImageConditionInput = {
   url?: ModelStringInput | null,
   lisenceType?: ModelIntInput | null,
   lisenceName?: ModelStringInput | null,
   eventID?: ModelIDInput | null,
-  and?: Array< ModelImagesConditionInput | null > | null,
-  or?: Array< ModelImagesConditionInput | null > | null,
-  not?: ModelImagesConditionInput | null,
+  and?: Array< ModelEventImageConditionInput | null > | null,
+  or?: Array< ModelEventImageConditionInput | null > | null,
+  not?: ModelEventImageConditionInput | null,
 };
 
 export type ModelIntInput = {
@@ -149,8 +180,8 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type Images = {
-  __typename: "Images",
+export type EventImage = {
+  __typename: "EventImage",
   id: string,
   url: string,
   lisenceType?: number | null,
@@ -158,9 +189,10 @@ export type Images = {
   eventID: string,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
-export type UpdateImagesInput = {
+export type UpdateEventImageInput = {
   id: string,
   url?: string | null,
   lisenceType?: number | null,
@@ -168,7 +200,7 @@ export type UpdateImagesInput = {
   eventID?: string | null,
 };
 
-export type DeleteImagesInput = {
+export type DeleteEventImageInput = {
   id: string,
 };
 
@@ -211,6 +243,7 @@ export type Location = {
   postalCode?: number | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateLocationInput = {
@@ -227,29 +260,25 @@ export type DeleteLocationInput = {
 
 export type CreateEventInput = {
   id?: string | null,
-  name: string,
-  source: string,
-  infoUrl?: string | null,
   title: string,
+  infoUrl?: string | null,
+  intro?: string | null,
   description: string,
   startingDatetime: string,
   endingDatetime: string,
-  images?: string | null,
-  category: string,
+  source: string,
   eventLocationId?: string | null,
   eventCategoryId?: string | null,
 };
 
 export type ModelEventConditionInput = {
-  name?: ModelStringInput | null,
-  source?: ModelStringInput | null,
-  infoUrl?: ModelStringInput | null,
   title?: ModelStringInput | null,
+  infoUrl?: ModelStringInput | null,
+  intro?: ModelStringInput | null,
   description?: ModelStringInput | null,
   startingDatetime?: ModelStringInput | null,
   endingDatetime?: ModelStringInput | null,
-  images?: ModelStringInput | null,
-  category?: ModelStringInput | null,
+  source?: ModelStringInput | null,
   and?: Array< ModelEventConditionInput | null > | null,
   or?: Array< ModelEventConditionInput | null > | null,
   not?: ModelEventConditionInput | null,
@@ -260,41 +289,38 @@ export type ModelEventConditionInput = {
 export type Event = {
   __typename: "Event",
   id: string,
-  name: string,
-  source: string,
-  infoUrl?: string | null,
   title: string,
+  infoUrl?: string | null,
+  intro?: string | null,
   description: string,
   startingDatetime: string,
   endingDatetime: string,
-  images?: string | null,
-  category: string,
   Location?: Location | null,
-  Images?: ModelImagesConnection | null,
   Category?: Category | null,
+  source: string,
+  EventImage?: ModelEventImageConnection | null,
   createdAt: string,
   updatedAt: string,
   eventLocationId?: string | null,
   eventCategoryId?: string | null,
+  owner?: string | null,
 };
 
-export type ModelImagesConnection = {
-  __typename: "ModelImagesConnection",
-  items:  Array<Images | null >,
+export type ModelEventImageConnection = {
+  __typename: "ModelEventImageConnection",
+  items:  Array<EventImage | null >,
   nextToken?: string | null,
 };
 
 export type UpdateEventInput = {
   id: string,
-  name?: string | null,
-  source?: string | null,
-  infoUrl?: string | null,
   title?: string | null,
+  infoUrl?: string | null,
+  intro?: string | null,
   description?: string | null,
   startingDatetime?: string | null,
   endingDatetime?: string | null,
-  images?: string | null,
-  category?: string | null,
+  source?: string | null,
   eventLocationId?: string | null,
   eventCategoryId?: string | null,
 };
@@ -306,7 +332,7 @@ export type DeleteEventInput = {
 export type ModelCategoryFilterInput = {
   id?: ModelIDInput | null,
   category?: ModelCATEGORYListInput | null,
-  format?: ModelStringInput | null,
+  format?: ModelFORMATListInput | null,
   tags?: ModelStringInput | null,
   and?: Array< ModelCategoryFilterInput | null > | null,
   or?: Array< ModelCategoryFilterInput | null > | null,
@@ -319,15 +345,15 @@ export type ModelCategoryConnection = {
   nextToken?: string | null,
 };
 
-export type ModelImagesFilterInput = {
+export type ModelEventImageFilterInput = {
   id?: ModelIDInput | null,
   url?: ModelStringInput | null,
   lisenceType?: ModelIntInput | null,
   lisenceName?: ModelStringInput | null,
   eventID?: ModelIDInput | null,
-  and?: Array< ModelImagesFilterInput | null > | null,
-  or?: Array< ModelImagesFilterInput | null > | null,
-  not?: ModelImagesFilterInput | null,
+  and?: Array< ModelEventImageFilterInput | null > | null,
+  or?: Array< ModelEventImageFilterInput | null > | null,
+  not?: ModelEventImageFilterInput | null,
 };
 
 export type ModelLocationFilterInput = {
@@ -349,15 +375,13 @@ export type ModelLocationConnection = {
 
 export type ModelEventFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  source?: ModelStringInput | null,
-  infoUrl?: ModelStringInput | null,
   title?: ModelStringInput | null,
+  infoUrl?: ModelStringInput | null,
+  intro?: ModelStringInput | null,
   description?: ModelStringInput | null,
   startingDatetime?: ModelStringInput | null,
   endingDatetime?: ModelStringInput | null,
-  images?: ModelStringInput | null,
-  category?: ModelStringInput | null,
+  source?: ModelStringInput | null,
   and?: Array< ModelEventFilterInput | null > | null,
   or?: Array< ModelEventFilterInput | null > | null,
   not?: ModelEventFilterInput | null,
@@ -381,10 +405,11 @@ export type CreateCategoryMutation = {
     __typename: "Category",
     id: string,
     category?: Array< CATEGORY > | null,
-    format?: Array< string > | null,
+    format?: Array< FORMAT | null > | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -398,10 +423,11 @@ export type UpdateCategoryMutation = {
     __typename: "Category",
     id: string,
     category?: Array< CATEGORY > | null,
-    format?: Array< string > | null,
+    format?: Array< FORMAT | null > | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -415,21 +441,22 @@ export type DeleteCategoryMutation = {
     __typename: "Category",
     id: string,
     category?: Array< CATEGORY > | null,
-    format?: Array< string > | null,
+    format?: Array< FORMAT | null > | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type CreateImagesMutationVariables = {
-  input: CreateImagesInput,
-  condition?: ModelImagesConditionInput | null,
+export type CreateEventImageMutationVariables = {
+  input: CreateEventImageInput,
+  condition?: ModelEventImageConditionInput | null,
 };
 
-export type CreateImagesMutation = {
-  createImages?:  {
-    __typename: "Images",
+export type CreateEventImageMutation = {
+  createEventImage?:  {
+    __typename: "EventImage",
     id: string,
     url: string,
     lisenceType?: number | null,
@@ -437,17 +464,18 @@ export type CreateImagesMutation = {
     eventID: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type UpdateImagesMutationVariables = {
-  input: UpdateImagesInput,
-  condition?: ModelImagesConditionInput | null,
+export type UpdateEventImageMutationVariables = {
+  input: UpdateEventImageInput,
+  condition?: ModelEventImageConditionInput | null,
 };
 
-export type UpdateImagesMutation = {
-  updateImages?:  {
-    __typename: "Images",
+export type UpdateEventImageMutation = {
+  updateEventImage?:  {
+    __typename: "EventImage",
     id: string,
     url: string,
     lisenceType?: number | null,
@@ -455,17 +483,18 @@ export type UpdateImagesMutation = {
     eventID: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type DeleteImagesMutationVariables = {
-  input: DeleteImagesInput,
-  condition?: ModelImagesConditionInput | null,
+export type DeleteEventImageMutationVariables = {
+  input: DeleteEventImageInput,
+  condition?: ModelEventImageConditionInput | null,
 };
 
-export type DeleteImagesMutation = {
-  deleteImages?:  {
-    __typename: "Images",
+export type DeleteEventImageMutation = {
+  deleteEventImage?:  {
+    __typename: "EventImage",
     id: string,
     url: string,
     lisenceType?: number | null,
@@ -473,6 +502,7 @@ export type DeleteImagesMutation = {
     eventID: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -491,6 +521,7 @@ export type CreateLocationMutation = {
     postalCode?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -509,6 +540,7 @@ export type UpdateLocationMutation = {
     postalCode?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -527,6 +559,7 @@ export type DeleteLocationMutation = {
     postalCode?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -539,15 +572,12 @@ export type CreateEventMutation = {
   createEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
-    source: string,
-    infoUrl?: string | null,
     title: string,
+    infoUrl?: string | null,
+    intro?: string | null,
     description: string,
     startingDatetime: string,
     endingDatetime: string,
-    images?: string | null,
-    category: string,
     Location?:  {
       __typename: "Location",
       id: string,
@@ -557,11 +587,23 @@ export type CreateEventMutation = {
       postalCode?: number | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    Images?:  {
-      __typename: "ModelImagesConnection",
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      category?: Array< CATEGORY > | null,
+      format?: Array< FORMAT | null > | null,
+      tags?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    source: string,
+    EventImage?:  {
+      __typename: "ModelEventImageConnection",
       items:  Array< {
-        __typename: "Images",
+        __typename: "EventImage",
         id: string,
         url: string,
         lisenceType?: number | null,
@@ -569,22 +611,15 @@ export type CreateEventMutation = {
         eventID: string,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
-    } | null,
-    Category?:  {
-      __typename: "Category",
-      id: string,
-      category?: Array< CATEGORY > | null,
-      format?: Array< string > | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     eventLocationId?: string | null,
     eventCategoryId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -597,15 +632,12 @@ export type UpdateEventMutation = {
   updateEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
-    source: string,
-    infoUrl?: string | null,
     title: string,
+    infoUrl?: string | null,
+    intro?: string | null,
     description: string,
     startingDatetime: string,
     endingDatetime: string,
-    images?: string | null,
-    category: string,
     Location?:  {
       __typename: "Location",
       id: string,
@@ -615,11 +647,23 @@ export type UpdateEventMutation = {
       postalCode?: number | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    Images?:  {
-      __typename: "ModelImagesConnection",
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      category?: Array< CATEGORY > | null,
+      format?: Array< FORMAT | null > | null,
+      tags?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    source: string,
+    EventImage?:  {
+      __typename: "ModelEventImageConnection",
       items:  Array< {
-        __typename: "Images",
+        __typename: "EventImage",
         id: string,
         url: string,
         lisenceType?: number | null,
@@ -627,22 +671,15 @@ export type UpdateEventMutation = {
         eventID: string,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
-    } | null,
-    Category?:  {
-      __typename: "Category",
-      id: string,
-      category?: Array< CATEGORY > | null,
-      format?: Array< string > | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     eventLocationId?: string | null,
     eventCategoryId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -655,15 +692,12 @@ export type DeleteEventMutation = {
   deleteEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
-    source: string,
-    infoUrl?: string | null,
     title: string,
+    infoUrl?: string | null,
+    intro?: string | null,
     description: string,
     startingDatetime: string,
     endingDatetime: string,
-    images?: string | null,
-    category: string,
     Location?:  {
       __typename: "Location",
       id: string,
@@ -673,11 +707,23 @@ export type DeleteEventMutation = {
       postalCode?: number | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    Images?:  {
-      __typename: "ModelImagesConnection",
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      category?: Array< CATEGORY > | null,
+      format?: Array< FORMAT | null > | null,
+      tags?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    source: string,
+    EventImage?:  {
+      __typename: "ModelEventImageConnection",
       items:  Array< {
-        __typename: "Images",
+        __typename: "EventImage",
         id: string,
         url: string,
         lisenceType?: number | null,
@@ -685,22 +731,15 @@ export type DeleteEventMutation = {
         eventID: string,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
-    } | null,
-    Category?:  {
-      __typename: "Category",
-      id: string,
-      category?: Array< CATEGORY > | null,
-      format?: Array< string > | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     eventLocationId?: string | null,
     eventCategoryId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -713,10 +752,11 @@ export type GetCategoryQuery = {
     __typename: "Category",
     id: string,
     category?: Array< CATEGORY > | null,
-    format?: Array< string > | null,
+    format?: Array< FORMAT | null > | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -733,22 +773,23 @@ export type ListCategoriesQuery = {
       __typename: "Category",
       id: string,
       category?: Array< CATEGORY > | null,
-      format?: Array< string > | null,
+      format?: Array< FORMAT | null > | null,
       tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
 };
 
-export type GetImagesQueryVariables = {
+export type GetEventImageQueryVariables = {
   id: string,
 };
 
-export type GetImagesQuery = {
-  getImages?:  {
-    __typename: "Images",
+export type GetEventImageQuery = {
+  getEventImage?:  {
+    __typename: "EventImage",
     id: string,
     url: string,
     lisenceType?: number | null,
@@ -756,20 +797,21 @@ export type GetImagesQuery = {
     eventID: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type ListImagesQueryVariables = {
-  filter?: ModelImagesFilterInput | null,
+export type ListEventImagesQueryVariables = {
+  filter?: ModelEventImageFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListImagesQuery = {
-  listImages?:  {
-    __typename: "ModelImagesConnection",
+export type ListEventImagesQuery = {
+  listEventImages?:  {
+    __typename: "ModelEventImageConnection",
     items:  Array< {
-      __typename: "Images",
+      __typename: "EventImage",
       id: string,
       url: string,
       lisenceType?: number | null,
@@ -777,6 +819,7 @@ export type ListImagesQuery = {
       eventID: string,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -796,6 +839,7 @@ export type GetLocationQuery = {
     postalCode?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -817,6 +861,7 @@ export type ListLocationsQuery = {
       postalCode?: number | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -830,15 +875,12 @@ export type GetEventQuery = {
   getEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
-    source: string,
-    infoUrl?: string | null,
     title: string,
+    infoUrl?: string | null,
+    intro?: string | null,
     description: string,
     startingDatetime: string,
     endingDatetime: string,
-    images?: string | null,
-    category: string,
     Location?:  {
       __typename: "Location",
       id: string,
@@ -848,11 +890,23 @@ export type GetEventQuery = {
       postalCode?: number | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    Images?:  {
-      __typename: "ModelImagesConnection",
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      category?: Array< CATEGORY > | null,
+      format?: Array< FORMAT | null > | null,
+      tags?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    source: string,
+    EventImage?:  {
+      __typename: "ModelEventImageConnection",
       items:  Array< {
-        __typename: "Images",
+        __typename: "EventImage",
         id: string,
         url: string,
         lisenceType?: number | null,
@@ -860,22 +914,15 @@ export type GetEventQuery = {
         eventID: string,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
-    } | null,
-    Category?:  {
-      __typename: "Category",
-      id: string,
-      category?: Array< CATEGORY > | null,
-      format?: Array< string > | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     eventLocationId?: string | null,
     eventCategoryId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -891,15 +938,12 @@ export type ListEventsQuery = {
     items:  Array< {
       __typename: "Event",
       id: string,
-      name: string,
-      source: string,
-      infoUrl?: string | null,
       title: string,
+      infoUrl?: string | null,
+      intro?: string | null,
       description: string,
       startingDatetime: string,
       endingDatetime: string,
-      images?: string | null,
-      category: string,
       Location?:  {
         __typename: "Location",
         id: string,
@@ -909,27 +953,35 @@ export type ListEventsQuery = {
         postalCode?: number | null,
         createdAt: string,
         updatedAt: string,
-      } | null,
-      Images?:  {
-        __typename: "ModelImagesConnection",
-        nextToken?: string | null,
+        owner?: string | null,
       } | null,
       Category?:  {
         __typename: "Category",
         id: string,
         category?: Array< CATEGORY > | null,
-        format?: Array< string > | null,
+        format?: Array< FORMAT | null > | null,
         tags?: Array< string | null > | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
+      } | null,
+      source: string,
+      EventImage?:  {
+        __typename: "ModelEventImageConnection",
+        nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
       eventLocationId?: string | null,
       eventCategoryId?: string | null,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
+};
+
+export type OnCreateCategorySubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateCategorySubscription = {
@@ -937,11 +989,16 @@ export type OnCreateCategorySubscription = {
     __typename: "Category",
     id: string,
     category?: Array< CATEGORY > | null,
-    format?: Array< string > | null,
+    format?: Array< FORMAT | null > | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdateCategorySubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateCategorySubscription = {
@@ -949,11 +1006,16 @@ export type OnUpdateCategorySubscription = {
     __typename: "Category",
     id: string,
     category?: Array< CATEGORY > | null,
-    format?: Array< string > | null,
+    format?: Array< FORMAT | null > | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeleteCategorySubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteCategorySubscription = {
@@ -961,16 +1023,21 @@ export type OnDeleteCategorySubscription = {
     __typename: "Category",
     id: string,
     category?: Array< CATEGORY > | null,
-    format?: Array< string > | null,
+    format?: Array< FORMAT | null > | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type OnCreateImagesSubscription = {
-  onCreateImages?:  {
-    __typename: "Images",
+export type OnCreateEventImageSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateEventImageSubscription = {
+  onCreateEventImage?:  {
+    __typename: "EventImage",
     id: string,
     url: string,
     lisenceType?: number | null,
@@ -978,12 +1045,17 @@ export type OnCreateImagesSubscription = {
     eventID: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type OnUpdateImagesSubscription = {
-  onUpdateImages?:  {
-    __typename: "Images",
+export type OnUpdateEventImageSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateEventImageSubscription = {
+  onUpdateEventImage?:  {
+    __typename: "EventImage",
     id: string,
     url: string,
     lisenceType?: number | null,
@@ -991,12 +1063,17 @@ export type OnUpdateImagesSubscription = {
     eventID: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type OnDeleteImagesSubscription = {
-  onDeleteImages?:  {
-    __typename: "Images",
+export type OnDeleteEventImageSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteEventImageSubscription = {
+  onDeleteEventImage?:  {
+    __typename: "EventImage",
     id: string,
     url: string,
     lisenceType?: number | null,
@@ -1004,7 +1081,12 @@ export type OnDeleteImagesSubscription = {
     eventID: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnCreateLocationSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateLocationSubscription = {
@@ -1017,7 +1099,12 @@ export type OnCreateLocationSubscription = {
     postalCode?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdateLocationSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateLocationSubscription = {
@@ -1030,7 +1117,12 @@ export type OnUpdateLocationSubscription = {
     postalCode?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeleteLocationSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteLocationSubscription = {
@@ -1043,22 +1135,24 @@ export type OnDeleteLocationSubscription = {
     postalCode?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnCreateEventSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateEventSubscription = {
   onCreateEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
-    source: string,
-    infoUrl?: string | null,
     title: string,
+    infoUrl?: string | null,
+    intro?: string | null,
     description: string,
     startingDatetime: string,
     endingDatetime: string,
-    images?: string | null,
-    category: string,
     Location?:  {
       __typename: "Location",
       id: string,
@@ -1068,11 +1162,23 @@ export type OnCreateEventSubscription = {
       postalCode?: number | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    Images?:  {
-      __typename: "ModelImagesConnection",
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      category?: Array< CATEGORY > | null,
+      format?: Array< FORMAT | null > | null,
+      tags?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    source: string,
+    EventImage?:  {
+      __typename: "ModelEventImageConnection",
       items:  Array< {
-        __typename: "Images",
+        __typename: "EventImage",
         id: string,
         url: string,
         lisenceType?: number | null,
@@ -1080,38 +1186,32 @@ export type OnCreateEventSubscription = {
         eventID: string,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
-    } | null,
-    Category?:  {
-      __typename: "Category",
-      id: string,
-      category?: Array< CATEGORY > | null,
-      format?: Array< string > | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     eventLocationId?: string | null,
     eventCategoryId?: string | null,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdateEventSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateEventSubscription = {
   onUpdateEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
-    source: string,
-    infoUrl?: string | null,
     title: string,
+    infoUrl?: string | null,
+    intro?: string | null,
     description: string,
     startingDatetime: string,
     endingDatetime: string,
-    images?: string | null,
-    category: string,
     Location?:  {
       __typename: "Location",
       id: string,
@@ -1121,11 +1221,23 @@ export type OnUpdateEventSubscription = {
       postalCode?: number | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    Images?:  {
-      __typename: "ModelImagesConnection",
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      category?: Array< CATEGORY > | null,
+      format?: Array< FORMAT | null > | null,
+      tags?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    source: string,
+    EventImage?:  {
+      __typename: "ModelEventImageConnection",
       items:  Array< {
-        __typename: "Images",
+        __typename: "EventImage",
         id: string,
         url: string,
         lisenceType?: number | null,
@@ -1133,38 +1245,32 @@ export type OnUpdateEventSubscription = {
         eventID: string,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
-    } | null,
-    Category?:  {
-      __typename: "Category",
-      id: string,
-      category?: Array< CATEGORY > | null,
-      format?: Array< string > | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     eventLocationId?: string | null,
     eventCategoryId?: string | null,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeleteEventSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteEventSubscription = {
   onDeleteEvent?:  {
     __typename: "Event",
     id: string,
-    name: string,
-    source: string,
-    infoUrl?: string | null,
     title: string,
+    infoUrl?: string | null,
+    intro?: string | null,
     description: string,
     startingDatetime: string,
     endingDatetime: string,
-    images?: string | null,
-    category: string,
     Location?:  {
       __typename: "Location",
       id: string,
@@ -1174,11 +1280,23 @@ export type OnDeleteEventSubscription = {
       postalCode?: number | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
-    Images?:  {
-      __typename: "ModelImagesConnection",
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      category?: Array< CATEGORY > | null,
+      format?: Array< FORMAT | null > | null,
+      tags?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    source: string,
+    EventImage?:  {
+      __typename: "ModelEventImageConnection",
       items:  Array< {
-        __typename: "Images",
+        __typename: "EventImage",
         id: string,
         url: string,
         lisenceType?: number | null,
@@ -1186,21 +1304,14 @@ export type OnDeleteEventSubscription = {
         eventID: string,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null >,
       nextToken?: string | null,
-    } | null,
-    Category?:  {
-      __typename: "Category",
-      id: string,
-      category?: Array< CATEGORY > | null,
-      format?: Array< string > | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
     } | null,
     createdAt: string,
     updatedAt: string,
     eventLocationId?: string | null,
     eventCategoryId?: string | null,
+    owner?: string | null,
   } | null,
 };

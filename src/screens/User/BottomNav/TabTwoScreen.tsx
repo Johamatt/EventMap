@@ -8,7 +8,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { RootStackParamList } from "../../../../types";
+import { RootStackParamList } from "../../../navigation/types";
 import { ApplicationState, ON_UPDATE_TAGS, UserState } from "../../../Store";
 
 import { activityTags } from "../../../util/data/activityTags";

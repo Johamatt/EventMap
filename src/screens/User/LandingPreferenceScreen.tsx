@@ -5,7 +5,7 @@ import { Text, View, FlatList } from "react-native";
 import { LocationObject } from "expo-location";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../../types";
+import { RootStackParamList } from "../../navigation/types";
 import { ApplicationState, ON_UPDATE_TAGS, UserState } from "../../Store";
 import { styles } from "./styles";
 import { connect } from "react-redux";

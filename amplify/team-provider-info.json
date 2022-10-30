@@ -15,11 +15,11 @@
       "auth": {
         "eventApp": {}
       },
-      "api": {
-        "eventapp": {}
-      },
       "storage": {
         "s3eventappstoragee5901a5c": {}
+      },
+      "api": {
+        "eventapp": {}
       }
     }
   }

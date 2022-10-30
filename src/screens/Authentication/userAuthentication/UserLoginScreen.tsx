@@ -11,7 +11,7 @@ import CustomInput from "../../../components/Inputs/CustomInput";
 import CustomButton from "../../../components/Buttons/CustomButton";
 import SocialSignInButtons from "../../../components/Buttons/SocialSignInButtons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../../../types";
+import { RootStackParamList } from "../../../navigation/types";
 import Layout from "../../../constants/Layout";
 import { Auth } from "aws-amplify";
 import useColorScheme from "../../../hooks/useColorScheme";
@@ -57,7 +57,7 @@ const _UserLoginScreen: React.FC<UserLoginScreenProps> = (props) => {
     } catch (error: any) {
       Alert.alert("Oops!", error.message);
     }
-    
+
     setLoading(false);
   };
 

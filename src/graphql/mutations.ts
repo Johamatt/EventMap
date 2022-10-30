@@ -14,6 +14,7 @@ export const createCategory = /* GraphQL */ `
       tags
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -29,6 +30,7 @@ export const updateCategory = /* GraphQL */ `
       tags
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -44,15 +46,16 @@ export const deleteCategory = /* GraphQL */ `
       tags
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const createImages = /* GraphQL */ `
-  mutation CreateImages(
-    $input: CreateImagesInput!
-    $condition: ModelImagesConditionInput
+export const createEventImage = /* GraphQL */ `
+  mutation CreateEventImage(
+    $input: CreateEventImageInput!
+    $condition: ModelEventImageConditionInput
   ) {
-    createImages(input: $input, condition: $condition) {
+    createEventImage(input: $input, condition: $condition) {
       id
       url
       lisenceType
@@ -60,15 +63,16 @@ export const createImages = /* GraphQL */ `
       eventID
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const updateImages = /* GraphQL */ `
-  mutation UpdateImages(
-    $input: UpdateImagesInput!
-    $condition: ModelImagesConditionInput
+export const updateEventImage = /* GraphQL */ `
+  mutation UpdateEventImage(
+    $input: UpdateEventImageInput!
+    $condition: ModelEventImageConditionInput
   ) {
-    updateImages(input: $input, condition: $condition) {
+    updateEventImage(input: $input, condition: $condition) {
       id
       url
       lisenceType
@@ -76,15 +80,16 @@ export const updateImages = /* GraphQL */ `
       eventID
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const deleteImages = /* GraphQL */ `
-  mutation DeleteImages(
-    $input: DeleteImagesInput!
-    $condition: ModelImagesConditionInput
+export const deleteEventImage = /* GraphQL */ `
+  mutation DeleteEventImage(
+    $input: DeleteEventImageInput!
+    $condition: ModelEventImageConditionInput
   ) {
-    deleteImages(input: $input, condition: $condition) {
+    deleteEventImage(input: $input, condition: $condition) {
       id
       url
       lisenceType
@@ -92,6 +97,7 @@ export const deleteImages = /* GraphQL */ `
       eventID
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -108,6 +114,7 @@ export const createLocation = /* GraphQL */ `
       postalCode
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -124,6 +131,7 @@ export const updateLocation = /* GraphQL */ `
       postalCode
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -140,6 +148,7 @@ export const deleteLocation = /* GraphQL */ `
       postalCode
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -150,15 +159,12 @@ export const createEvent = /* GraphQL */ `
   ) {
     createEvent(input: $input, condition: $condition) {
       id
-      name
-      source
-      infoUrl
       title
+      infoUrl
+      intro
       description
       startingDatetime
       endingDatetime
-      images
-      category
       Location {
         id
         lat
@@ -167,18 +173,7 @@ export const createEvent = /* GraphQL */ `
         postalCode
         createdAt
         updatedAt
-      }
-      Images {
-        items {
-          id
-          url
-          lisenceType
-          lisenceName
-          eventID
-          createdAt
-          updatedAt
-        }
-        nextToken
+        owner
       }
       Category {
         id
@@ -187,11 +182,27 @@ export const createEvent = /* GraphQL */ `
         tags
         createdAt
         updatedAt
+        owner
+      }
+      source
+      EventImage {
+        items {
+          id
+          url
+          lisenceType
+          lisenceName
+          eventID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
       eventLocationId
       eventCategoryId
+      owner
     }
   }
 `;
@@ -202,15 +213,12 @@ export const updateEvent = /* GraphQL */ `
   ) {
     updateEvent(input: $input, condition: $condition) {
       id
-      name
-      source
-      infoUrl
       title
+      infoUrl
+      intro
       description
       startingDatetime
       endingDatetime
-      images
-      category
       Location {
         id
         lat
@@ -219,18 +227,7 @@ export const updateEvent = /* GraphQL */ `
         postalCode
         createdAt
         updatedAt
-      }
-      Images {
-        items {
-          id
-          url
-          lisenceType
-          lisenceName
-          eventID
-          createdAt
-          updatedAt
-        }
-        nextToken
+        owner
       }
       Category {
         id
@@ -239,11 +236,27 @@ export const updateEvent = /* GraphQL */ `
         tags
         createdAt
         updatedAt
+        owner
+      }
+      source
+      EventImage {
+        items {
+          id
+          url
+          lisenceType
+          lisenceName
+          eventID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
       eventLocationId
       eventCategoryId
+      owner
     }
   }
 `;
@@ -254,15 +267,12 @@ export const deleteEvent = /* GraphQL */ `
   ) {
     deleteEvent(input: $input, condition: $condition) {
       id
-      name
-      source
-      infoUrl
       title
+      infoUrl
+      intro
       description
       startingDatetime
       endingDatetime
-      images
-      category
       Location {
         id
         lat
@@ -271,18 +281,7 @@ export const deleteEvent = /* GraphQL */ `
         postalCode
         createdAt
         updatedAt
-      }
-      Images {
-        items {
-          id
-          url
-          lisenceType
-          lisenceName
-          eventID
-          createdAt
-          updatedAt
-        }
-        nextToken
+        owner
       }
       Category {
         id
@@ -291,11 +290,27 @@ export const deleteEvent = /* GraphQL */ `
         tags
         createdAt
         updatedAt
+        owner
+      }
+      source
+      EventImage {
+        items {
+          id
+          url
+          lisenceType
+          lisenceName
+          eventID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
       eventLocationId
       eventCategoryId
+      owner
     }
   }
 `;

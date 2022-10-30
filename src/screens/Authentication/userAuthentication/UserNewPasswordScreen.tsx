@@ -4,7 +4,7 @@ import { RouteProp, useNavigation } from "@react-navigation/native";
 import CustomInput from "../../../components/Inputs/CustomInput";
 import CustomButton from "../../../components/Buttons/CustomButton";
 import { Auth } from "aws-amplify";
-import { RootStackParamList } from "../../../../types";
+import { RootStackParamList } from "../../../navigation/types";
 
 type UserNewPasswordScreenProp = RouteProp<
   RootStackParamList,

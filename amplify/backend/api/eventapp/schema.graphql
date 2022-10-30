@@ -9,6 +9,7 @@ enum FORMAT {
   TOURSWALKS
   CAMPTRIP
   EXHIBITION
+  OTHER
 }
 
 enum CATEGORY {
@@ -33,17 +34,34 @@ enum CATEGORY {
   PHOTOGRAPHY
   TECHNOLOGY
   OTHER
-  UNTITLEDVALUE
 }
 
-type Category @model @auth(rules: [{allow: public}]) {
+type Category @model   @auth(rules: [
+    # Defaults to use the "owner" field.
+    { allow: owner, operations: [create, read, update, delete] },
+
+    # Admin users can access any operation.
+    { allow: groups, groups: ["Admin"] }
+
+    # Each record may specify which groups may read them.
+    { allow: public, operations: [read] }
+  ]) {
   id: ID!
   category: [CATEGORY!]
   format: [FORMAT]
   tags: [String]
 }
 
-type Images @model @auth(rules: [{allow: public}]) {
+type EventImage @model @auth(rules: [
+    # Defaults to use the "owner" field.
+    { allow: owner, operations: [create, read, update, delete] },
+
+    # Admin users can access any operation.
+    { allow: groups, groups: ["Admin"] }
+
+    # Each record may specify which groups may read them.
+    { allow: public, operations: [read] }
+  ]) {
   id: ID!
   url: AWSURL!
   lisenceType: Int
@@ -51,7 +69,16 @@ type Images @model @auth(rules: [{allow: public}]) {
   eventID: ID! @index(name: "byEvent")
 }
 
-type Location @model @auth(rules: [{allow: public}]) {
+type Location @model @auth(rules: [
+    # Defaults to use the "owner" field.
+    { allow: owner, operations: [create, read, update, delete] },
+
+    # Admin users can access any operation.
+    { allow: groups, groups: ["Admin"] }
+
+    # Each record may specify which groups may read them.
+    { allow: public, operations: [read] }
+  ]) {
   id: ID!
   lat: Float!
   lon: Float!
@@ -59,7 +86,16 @@ type Location @model @auth(rules: [{allow: public}]) {
   postalCode: Int
 }
 
-type Event @model @auth(rules: [{allow: public}]) {
+type Event @model @auth(rules: [
+    # Defaults to use the "owner" field.
+    { allow: owner, operations: [create, read, update, delete] },
+
+    # Admin users can access any operation.
+    { allow: groups, groups: ["Admin"] }
+
+    # Each record may specify which groups may read them.
+    { allow: public, operations: [read] }
+  ]) {
   id: ID!
   title: String!
   infoUrl: String
@@ -68,8 +104,7 @@ type Event @model @auth(rules: [{allow: public}]) {
   startingDatetime: AWSDateTime!
   endingDatetime: AWSDateTime!
   Location: Location @hasOne
-  Images: [Images] @hasMany(indexName: "byEvent", fields: ["id"])
   Category: Category @hasOne
   source: String!
+  EventImage: [EventImage] @hasMany(indexName: "byEvent", fields: ["id"])
 }
- 

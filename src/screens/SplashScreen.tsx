@@ -6,7 +6,7 @@ import LottieView from "lottie-react-native";
 import Layout from "../constants/Layout";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../types";
+import { RootStackParamList } from "../navigation/types";
 import * as Font from "expo-font";
 import useCachedResources from "../hooks/useCachedResources";
 
@@ -60,16 +60,6 @@ export default function SplashScreen() {
         >
           EventMap
         </Text>
-        <Text
-          style={{
-            fontSize: 16,
-            color: "white",
-            alignSelf: "flex-end",
-            fontFamily: "Rationale-Regular",
-          }}
-        >
-          Event finding made easy
-        </Text>
       </View>
 
       <View
@@ -90,19 +80,10 @@ export default function SplashScreen() {
             width: Layout.window.width,
             height: Layout.window.height,
           }}
-          //   loop={true} //
-          // Find more Lottie files at https://lottiefiles.com/featured
+          loop={true}
           source={require("../assets/lottie/splash.json")}
         ></LottieView>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  animationContainer: {
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

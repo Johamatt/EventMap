@@ -22,7 +22,7 @@ import {
   // AuthStackParamList,
   RootStackParamList,
   RootTabParamList,
-} from "../../types";
+} from "./types";
 
 import SplashScreen from "../screens/SplashScreen";
 import LandingLocationScreen from "../screens/User/LandingLocationScreen";

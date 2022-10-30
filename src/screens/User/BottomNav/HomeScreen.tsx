@@ -3,7 +3,7 @@ import { TouchableOpacity } from "react-native";
 import {
   RootStackParamList,
   // RootTabScreenProps,
-} from "../../../../types";
+} from "../../../navigation/types";
 import { View, Text } from "react-native";
 import { ApplicationState, UserState } from "../../../Store";
 import { connect } from "react-redux";

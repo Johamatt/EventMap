@@ -11,6 +11,7 @@ export const getCategory = /* GraphQL */ `
       tags
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -28,14 +29,15 @@ export const listCategories = /* GraphQL */ `
         tags
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
   }
 `;
-export const getImages = /* GraphQL */ `
-  query GetImages($id: ID!) {
-    getImages(id: $id) {
+export const getEventImage = /* GraphQL */ `
+  query GetEventImage($id: ID!) {
+    getEventImage(id: $id) {
       id
       url
       lisenceType
@@ -43,16 +45,17 @@ export const getImages = /* GraphQL */ `
       eventID
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const listImages = /* GraphQL */ `
-  query ListImages(
-    $filter: ModelImagesFilterInput
+export const listEventImages = /* GraphQL */ `
+  query ListEventImages(
+    $filter: ModelEventImageFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listImages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listEventImages(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         url
@@ -61,6 +64,7 @@ export const listImages = /* GraphQL */ `
         eventID
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -76,6 +80,7 @@ export const getLocation = /* GraphQL */ `
       postalCode
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -94,6 +99,7 @@ export const listLocations = /* GraphQL */ `
         postalCode
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -103,15 +109,12 @@ export const getEvent = /* GraphQL */ `
   query GetEvent($id: ID!) {
     getEvent(id: $id) {
       id
-      name
-      source
-      infoUrl
       title
+      infoUrl
+      intro
       description
       startingDatetime
       endingDatetime
-      images
-      category
       Location {
         id
         lat
@@ -120,18 +123,7 @@ export const getEvent = /* GraphQL */ `
         postalCode
         createdAt
         updatedAt
-      }
-      Images {
-        items {
-          id
-          url
-          lisenceType
-          lisenceName
-          eventID
-          createdAt
-          updatedAt
-        }
-        nextToken
+        owner
       }
       Category {
         id
@@ -140,11 +132,27 @@ export const getEvent = /* GraphQL */ `
         tags
         createdAt
         updatedAt
+        owner
+      }
+      source
+      EventImage {
+        items {
+          id
+          url
+          lisenceType
+          lisenceName
+          eventID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
       eventLocationId
       eventCategoryId
+      owner
     }
   }
 `;
@@ -157,15 +165,12 @@ export const listEvents = /* GraphQL */ `
     listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
-        source
-        infoUrl
         title
+        infoUrl
+        intro
         description
         startingDatetime
         endingDatetime
-        images
-        category
         Location {
           id
           lat
@@ -174,9 +179,7 @@ export const listEvents = /* GraphQL */ `
           postalCode
           createdAt
           updatedAt
-        }
-        Images {
-          nextToken
+          owner
         }
         Category {
           id
@@ -185,11 +188,17 @@ export const listEvents = /* GraphQL */ `
           tags
           createdAt
           updatedAt
+          owner
+        }
+        source
+        EventImage {
+          nextToken
         }
         createdAt
         updatedAt
         eventLocationId
         eventCategoryId
+        owner
       }
       nextToken
     }

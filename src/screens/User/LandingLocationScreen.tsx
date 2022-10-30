@@ -9,7 +9,7 @@ import Colors from "../../constants/Colors";
 import { LocationObject } from "expo-location";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../../types";
+import { RootStackParamList } from "../../navigation/types";
 
 import { styles } from "./styles";
 import { UserState } from "../../Store/types";
