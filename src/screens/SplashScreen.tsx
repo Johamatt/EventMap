@@ -1,14 +1,12 @@
 import React, { useEffect, useCallback, useRef } from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
+import { Text, View } from "react-native";
 import * as Splash from "expo-splash-screen";
 import LottieView from "lottie-react-native";
 import Layout from "../constants/Layout";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/types";
-import * as Font from "expo-font";
-import useCachedResources from "../hooks/useCachedResources";
+import useCachedResources from "../hooks/loadResources/useCachedResources";
 
 export default function SplashScreen() {
   const animation = useRef(null);

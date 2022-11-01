@@ -21,6 +21,7 @@ import React from "react";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import MapView, { Marker } from "react-native-maps";
+import useAmplifyResources from "../../hooks/loadResources/useAmplifyResources";
 
 interface EventScreenProps {
   userReducer: UserState;

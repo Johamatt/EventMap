@@ -1,21 +1,22 @@
+import { CognitoUser } from "amazon-cognito-identity-js";
 import { LocationGeocodedLocation } from "expo-location";
-import { Activity } from "../../util/data/types";
+import { CATEGORY } from "../../API";
 import { UserAction } from "../actions/userAction";
 import { UserState } from "../types";
 
 const initialState: UserState = {
   location: {} as LocationGeocodedLocation,
-  userAuth: [],
-  tags: [] as Array<Activity>,
+  userAuth: {} as CognitoUser,
+  preferences: [] as Array<CATEGORY>,
   error: undefined,
 };
 
 const userReducer = (state: UserState = initialState, action: UserAction) => {
   switch (action.type) {
-    case "ON_UPDATE_USERLOGIN":
+    case "ON_UPDATE_AUTH":
       return {
         ...state,
-        loggedIn: action.payload,
+        userAuth: action.payload,
       };
 
     case "ON_UPDATE_LOCATION":
@@ -24,10 +25,10 @@ const userReducer = (state: UserState = initialState, action: UserAction) => {
         location: action.payload,
       };
 
-    case "ON_UPDATE_TAGS":
+    case "ON_UPDATE_EVENTPREFERENCES":
       return {
         ...state,
-        tags: action.payload,
+        preferences: action.payload,
       };
 
     default:

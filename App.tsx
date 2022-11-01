@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
-import useCachedResources from "./src/hooks/useCachedResources";
+
 import useColorScheme from "./src/hooks/useColorScheme";
 import Navigation from "./src/navigation";
 import SplashScreen from "./src/screens/SplashScreen";
@@ -14,6 +14,7 @@ import { Amplify, Analytics } from "aws-amplify";
 import { withAuthenticator } from "aws-amplify-react-native";
 import awsmobile from "./src/aws-exports";
 import { signUpConfig } from "./amplify/signUpConfig";
+import useCachedResources from "./src/hooks/loadResources/useCachedResources";
 // TEMPORARY SOLUTION //
 
 Amplify.configure({ ...awsmobile, Analytics: { disabled: true } });

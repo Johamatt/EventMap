@@ -1,6 +1,6 @@
 import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
-import { Button, StyleSheet, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import * as Location from "expo-location";
@@ -40,10 +40,6 @@ const _LandingLocationScreen: React.FC<LandingLocationProps> = (props) => {
     await nextScreen();
   }
 
-  // redux thunk ??
-  // !!! korjaa, ei päivitä. !!!!!!!!!!!!!!!!
-  // !!! korjaa, ei päivitä. !!!!!!!!!!!!!!!!
-  // !!! korjaa, ei päivitä. !!!!!!!!!!!!!!!!
   async function nextScreen() {
     await AsyncStorage.setItem("user_location", JSON.stringify(location));
     await ON_UPDATE_LOCATION(location);

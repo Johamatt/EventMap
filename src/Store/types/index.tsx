@@ -1,10 +1,10 @@
+import { CognitoUser } from "amazon-cognito-identity-js";
 import { LocationGeocodedLocation } from "expo-location";
-import { Activity } from "../../util/data/types";
-
+import { CATEGORY } from "../../API";
 
 export type UserState = {
   location: LocationGeocodedLocation;
   error: String | undefined;
-  tags: Array<Activity>;
-  userAuth: Array<any>;
+  preferences: Array<CATEGORY>;
+  userAuth: CognitoUser;
 };

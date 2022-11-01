@@ -1,9 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, View, StyleSheet } from "react-native";
 import MapView from "react-native-maps";
 import { connect } from "react-redux";
+import useAmplifyResources from "../../../hooks/loadResources/useAmplifyResources";
 import { RootStackParamList } from "../../../navigation/types";
 import { ApplicationState, UserState } from "../../../Store";
 
@@ -13,6 +14,10 @@ interface MapProps {
 
 const _MapScreen: React.FC<MapProps> = (props) => {
   const [eventData, setEventData] = useState<any>();
+
+  useEffect(() => {
+    useAmplifyResources();
+  }, []);
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -30,8 +35,6 @@ const mapToStateProps = (state: ApplicationState) => ({
 const MapScreen = connect(mapToStateProps)(_MapScreen);
 
 export default MapScreen;
-
-
 
 const styles = StyleSheet.create({
   container: {},

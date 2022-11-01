@@ -23,15 +23,11 @@ import {
 } from "../../../graphql/mutations";
 import {
   ApplicationState,
-  ON_UPDATE_TAGS,
-  ON_UPDATE_USERLOGIN,
+  ON_UPDATE_EVENTPREFERENCES,
+  ON_UPDATE_AUTH,
   UserState,
 } from "../../../Store";
-
-import { Category, Event as LiveEvent } from "../../../API";
-import { activityTags } from "../../../util/data/activityTags";
 import { styles } from "../styles";
-import { CATEGORY, FORMAT } from "../../../API";
 
 interface UserProfileScreenProps {
   userReducer: UserState;
@@ -45,6 +41,8 @@ export const _UserProfileScreen: React.FC<UserProfileScreenProps> = (props) => {
   const [eventData, setEventData] = useState<any>();
   const [categoryData, setCategoryData] = useState<any>();
   const [locationData, setLocationData] = useState<any>();
+
+  console.log(props.userReducer);
 
   const fetchEvents = async () => {
     try {
@@ -94,7 +92,7 @@ export const _UserProfileScreen: React.FC<UserProfileScreenProps> = (props) => {
 
   const signOut = async () => {
     const signout = await Auth.signOut();
-    ON_UPDATE_USERLOGIN(signout);
+    // ON_UPDATE_AUTH(signout);
   };
 
   return (
@@ -112,7 +110,7 @@ const mapToStateProps = (state: ApplicationState) => ({
 });
 
 const TabTwoScreen = connect(mapToStateProps, {
-  ON_UPDATE_TAGS,
+  ON_UPDATE_EVENTPREFERENCES,
 })(_UserProfileScreen);
 
 export default TabTwoScreen;

@@ -31,7 +31,7 @@ import MapScreen from "../screens/User/BottomNav/MapScreen";
 import EventScreen from "../screens/User/EventScreen";
 import HomeScreen from "../screens/User/BottomNav/HomeScreen";
 import UserLoginScreen from "../screens/Authentication/userAuthentication/UserLoginScreen";
-import TabTwoScreen from "../screens/User/BottomNav/TabTwoScreen";
+import FavouritesScreen from "../screens/User/BottomNav/FavouritesScreen";
 import LandingPreferenceScreen from "../screens/User/LandingPreferenceScreen";
 import { UserRegisterScreen } from "../screens/Authentication/userAuthentication/UserRegisterScreen";
 import { UserConfirmEmailScreen } from "../screens/Authentication/userAuthentication/UserConfirmEmailScreen";
@@ -40,33 +40,33 @@ import { UserForgotPasswordScreen } from "../screens/Authentication/userAuthenti
 import { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
 import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
-import { ApplicationState, ON_UPDATE_USERLOGIN, UserState } from "../Store";
+import { ApplicationState, ON_UPDATE_AUTH, UserState } from "../Store";
 import { connect } from "react-redux";
 import { userReducer } from "../Store/reducers/userReducer";
 // import { Authenticator } from "aws-amplify-react-native";
 
 interface NavigationProps {
   userReducer: UserState;
-  ON_UPDATE_USERLOGIN: Function;
+  ON_UPDATE_AUTH: Function;
 }
 
 const _Navigation: React.FC<NavigationProps> = (props) => {
   const [user, setUser] = useState<undefined | null>(undefined);
 
-  useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const authUser = await Auth.currentAuthenticatedUser({
-          bypassCache: true,
-        });
-        ON_UPDATE_USERLOGIN(authUser);
-        setUser(authUser);
-      } catch (e) {
-        setUser(null);
-      }
-    };
-    checkUser();
-  }, [user]);
+  // useEffect(() => {
+  //   const checkUser = async () => {
+  //     try {
+  //       const authUser = await Auth.currentAuthenticatedUser({
+  //         bypassCache: true,
+  //       });
+  //       ON_UPDATE_AUTH(authUser);
+  //       setUser(authUser);
+  //     } catch (e) {
+  //       setUser(null);
+  //     }
+  //   };
+  //   checkUser();
+  // }, [user]);
 
   if (props === undefined) {
     return (
@@ -90,9 +90,7 @@ const mapToStateProps = (state: ApplicationState) => ({
   userReducer: state.UserReducer,
 });
 
-const Navigation = connect(mapToStateProps, { ON_UPDATE_USERLOGIN })(
-  _Navigation
-);
+const Navigation = connect(mapToStateProps, { ON_UPDATE_AUTH })(_Navigation);
 export default Navigation;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -209,7 +207,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Favourites"
-        component={TabTwoScreen}
+        component={FavouritesScreen}
         options={{
           headerShown: false,
           title: "Favourites",

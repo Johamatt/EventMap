@@ -1,24 +1,23 @@
+import { CognitoUser } from "amazon-cognito-identity-js";
 import { Auth } from "aws-amplify";
 import { LocationGeocodedLocation } from "expo-location";
 import { Dispatch } from "react";
-import { Activity } from "../../util/data/types";
-
+import { CATEGORY } from "../../API";
 
 export interface UpdateLocationAction {
   readonly type: "ON_UPDATE_LOCATION";
   payload: LocationGeocodedLocation;
 }
 
-export interface UpdateUserLoginAction {
-  readonly type: "ON_UPDATE_USERLOGIN";
-  payload: Array<any> | null;
+export interface UpdateAuthAction {
+  readonly type: "ON_UPDATE_AUTH";
+  payload: CognitoUser;
 }
 
-export interface UpdateTagsAction {
-  readonly type: "ON_UPDATE_TAGS";
-  payload: Array<Activity>;
+export interface UpdateEventPreferencesAction {
+  readonly type: "ON_UPDATE_EVENTPREFERENCES";
+  payload: Array<CATEGORY>;
 }
-//
 
 export interface UserErrorAction {
   readonly type: "ON_USER_ERROR";
@@ -27,9 +26,9 @@ export interface UserErrorAction {
 
 export type UserAction =
   | UpdateLocationAction
-  | UpdateTagsAction
+  | UpdateEventPreferencesAction
   | UserErrorAction
-  | UpdateUserLoginAction;
+  | UpdateAuthAction;
 
 export const ON_UPDATE_LOCATION = (location: LocationGeocodedLocation) => {
   return async (dispatch: Dispatch<UserAction>) => {
@@ -47,12 +46,12 @@ export const ON_UPDATE_LOCATION = (location: LocationGeocodedLocation) => {
   };
 };
 
-export const ON_UPDATE_TAGS = (tags: Array<Activity>) => {
+export const ON_UPDATE_EVENTPREFERENCES = (preferences: Array<CATEGORY>) => {
   return (dispatch: Dispatch<UserAction>) => {
     try {
       dispatch({
-        type: "ON_UPDATE_TAGS",
-        payload: tags,
+        type: "ON_UPDATE_EVENTPREFERENCES",
+        payload: preferences,
       });
     } catch (error) {
       dispatch({
@@ -63,11 +62,11 @@ export const ON_UPDATE_TAGS = (tags: Array<Activity>) => {
   };
 };
 
-export const ON_UPDATE_USERLOGIN = (userAuth: Array<any>) => {
-  return async (dispatch: Dispatch<UserAction>) => {
+export const ON_UPDATE_AUTH = (userAuth: CognitoUser) => {
+  return (dispatch: Dispatch<UserAction>) => {
     try {
       dispatch({
-        type: "ON_UPDATE_USERLOGIN",
+        type: "ON_UPDATE_AUTH",
         payload: userAuth,
       });
     } catch (error) {
