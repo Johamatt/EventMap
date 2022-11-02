@@ -1,8 +1,9 @@
-import { CognitoUser } from "amazon-cognito-identity-js";
+import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
 import { Auth } from "aws-amplify";
 import { LocationGeocodedLocation } from "expo-location";
 import { Dispatch } from "react";
 import { CATEGORY } from "../../API";
+import { CognitoUserInterface } from "@aws-amplify/ui-components";
 
 export interface UpdateLocationAction {
   readonly type: "ON_UPDATE_LOCATION";
@@ -11,7 +12,7 @@ export interface UpdateLocationAction {
 
 export interface UpdateAuthAction {
   readonly type: "ON_UPDATE_AUTH";
-  payload: CognitoUser;
+  payload: CognitoUserInterface;
 }
 
 export interface UpdateEventPreferencesAction {
@@ -62,7 +63,8 @@ export const ON_UPDATE_EVENTPREFERENCES = (preferences: Array<CATEGORY>) => {
   };
 };
 
-export const ON_UPDATE_AUTH = (userAuth: CognitoUser) => {
+export const ON_UPDATE_AUTH = (userAuth: CognitoUserInterface) => {
+  console.log(userAuth);
   return (dispatch: Dispatch<UserAction>) => {
     try {
       dispatch({

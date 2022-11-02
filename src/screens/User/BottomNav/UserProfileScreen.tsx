@@ -42,6 +42,8 @@ export const _UserProfileScreen: React.FC<UserProfileScreenProps> = (props) => {
   const [categoryData, setCategoryData] = useState<any>();
   const [locationData, setLocationData] = useState<any>();
 
+  
+
   console.log(props.userReducer);
 
   const fetchEvents = async () => {

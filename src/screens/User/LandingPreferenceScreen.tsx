@@ -29,9 +29,9 @@ export const _LandingPreferenceScreen: React.FC<LandingPreferenceProps> = (
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   function nextScreen() {
-    useAmplifyResources();
     ON_UPDATE_EVENTPREFERENCES(selectedTags);
-    navigation.goBack();
+    navigation.navigate("LandingLocationScreen");
+    // navigation.goBack();
   }
 
   const handleSelectionMultiple = (item: CATEGORY) => {

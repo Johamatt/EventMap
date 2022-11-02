@@ -1,16 +1,18 @@
-import { FontAwesome } from "@expo/vector-icons";
 import { Auth } from "aws-amplify";
-import * as Font from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState } from "react";
-import { ApplicationState, ON_UPDATE_AUTH, UserState } from "../../Store";
-
+import { store } from "../../Store";
+import { CognitoUserSession } from "amazon-cognito-identity-js";
+CognitoUserSession;
 export default async function useAmplifyResources() {
   try {
-    let authuser = await Auth.currentAuthenticatedUser({
+    // let authuser =
+    await Auth.currentAuthenticatedUser({
       bypassCache: true,
-    });
-    ON_UPDATE_AUTH(authuser);
+    }).then((data) =>
+      store.dispatch({
+        type: "ON_UPDATE_AUTH",
+        payload: data.signInUserSession,
+      })
+    );
   } catch (e) {
     // We might want to provide this error information to an error reporting service
     console.warn(e);
@@ -18,3 +20,4 @@ export default async function useAmplifyResources() {
     return true;
   }
 }
+

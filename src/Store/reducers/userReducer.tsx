@@ -1,12 +1,13 @@
-import { CognitoUser } from "amazon-cognito-identity-js";
+import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
 import { LocationGeocodedLocation } from "expo-location";
 import { CATEGORY } from "../../API";
 import { UserAction } from "../actions/userAction";
 import { UserState } from "../types";
+import { CognitoUserInterface } from '@aws-amplify/ui-components';
 
 const initialState: UserState = {
   location: {} as LocationGeocodedLocation,
-  userAuth: {} as CognitoUser,
+  userAuth: {} as CognitoUserInterface,
   preferences: [] as Array<CATEGORY>,
   error: undefined,
 };

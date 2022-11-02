@@ -41,7 +41,6 @@ const _LandingLocationScreen: React.FC<LandingLocationProps> = (props) => {
   }
 
   async function nextScreen() {
-    await AsyncStorage.setItem("user_location", JSON.stringify(location));
     await ON_UPDATE_LOCATION(location);
     navigation.navigate("LandingPreferenceScreen");
   }

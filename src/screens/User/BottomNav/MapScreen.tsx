@@ -15,9 +15,6 @@ interface MapProps {
 const _MapScreen: React.FC<MapProps> = (props) => {
   const [eventData, setEventData] = useState<any>();
 
-  useEffect(() => {
-    useAmplifyResources();
-  }, []);
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();

@@ -15,7 +15,8 @@ import { withAuthenticator } from "aws-amplify-react-native";
 import awsmobile from "./src/aws-exports";
 import { signUpConfig } from "./amplify/signUpConfig";
 import useCachedResources from "./src/hooks/loadResources/useCachedResources";
-// TEMPORARY SOLUTION //
+import useAmplifyResources from "./src/hooks/loadResources/useAmplifyResources";
+import loadResources from "./src/hooks/loadResources";
 
 Amplify.configure({ ...awsmobile, Analytics: { disabled: true } });
 
@@ -26,7 +27,10 @@ const App: React.FC = () => {
   //
   //
   //
-  const isLoadingComplete = useCachedResources();
+  // useAmplifyResources();
+  const isLoadingComplete = loadResources();
+
+  //useCachedResources();
   const colorScheme = useColorScheme();
   if (!isLoadingComplete) {
     return (

@@ -24,7 +24,7 @@ export default function SplashScreen() {
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
+    if (await appIsReady) {
       await Splash.hideAsync();
       await new Promise((resolve) => setTimeout(resolve, 1000));
       navigation.goBack();
@@ -52,8 +52,6 @@ export default function SplashScreen() {
           style={{
             fontSize: 64,
             color: "white",
-
-            fontFamily: "Rationale-Regular",
           }}
         >
           EventMap
