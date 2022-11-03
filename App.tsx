@@ -21,6 +21,22 @@ import loadResources from "./src/hooks/loadResources";
 Amplify.configure({ ...awsmobile, Analytics: { disabled: true } });
 
 const App: React.FC = () => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   // Auth.signOut();
 
   //
