@@ -22,6 +22,7 @@ import { CATEGORY } from "../../../API";
 import { Activity } from "../../../models/activity/activity";
 import { Company } from "../../../models/activity/company";
 import { Opendays } from "../../../models/activity/opendays";
+import { CategoryModel } from "../../../models/event/categoryTypes";
 import { LocationModel } from "../../../models/locationTypes";
 import { RootStackParamList } from "../../../navigation/types";
 import {
@@ -43,7 +44,6 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
 
   function parseData() {
     // console.log(activitiesData.rows[0]);
-
     activitiesData.rows.map((a) => {
       let location: LocationModel = {
         city: a.address.city,
@@ -60,7 +60,7 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
         phone: a.company.phone,
       };
 
-      let opendays: Opendays = Object.entries(a.open).map(([key, value]) => {
+      let opendays: Opendays[] = Object.entries(a.open).map(([key, value]) => {
         return {
           day: key,
           open: value.open,
@@ -69,30 +69,33 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
         };
       });
 
-      // let opendays: Opendays = {
+      let availableMonths: Array<String> = a.availableMonths;
 
-      // }
+      let fi_name: String | undefined = a.descriptions.fi?.name;
+      let fi_description: String | undefined = a.descriptions.fi?.description;
+      let en_name: String | undefined = a.descriptions.en.name;
+      let en_description: String | undefined = a.descriptions.en?.description;
+      let duration: String = a.duration;
+      let durationType: String = a.durationType;
+      let meantfor: Array<String> = a.meantFor;
+      let priceEur_from: number | null = a.priceEUR.from;
+      let priceEur_to: number | null = a.priceEUR.to;
+      let pricingType: String = a.priceEUR.pricingType;
+      let siteUUrl: String = a.siteUrl;
+      let updated_at_LinkedEvent: String = a.updated;
 
-      // console.log(location);
+      let categories: CATEGORY[] = parseTags(a.tags);
     });
 
-    // availableMonths: Array<String>;
-    // Location: LocationModel;
-    // openDays: Array<Opendays>;
     // tags: Array<String>;
 
     return true;
   }
 
-  //
-  // console.log("---");
-  // console.log("---");
-  // console.log("---");
-  // console.log(parsedataa.rows[1]);
-  // console.log("---");
-  // console.log("---");
-  // console.log("---");
-  // console.log(parsedataa.rows[2]);
+  function parseTags(tags: Array<String>) {
+    // placeholder typecheck
+    return [CATEGORY.ACTIVITY];
+  }
   return (
     <View
       style={{
