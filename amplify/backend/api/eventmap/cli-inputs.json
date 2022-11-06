@@ -1,17 +1,17 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "eventapp",
+    "apiName": "eventmap",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "AMAZON_COGNITO_USER_POOLS",
-      "cognitoUserPoolId": "autheventApp"
+      "cognitoUserPoolId": "autheventmap32ff6c1932ff6c19"
     },
     "additionalAuthTypes": [
       {
         "mode": "API_KEY",
         "expirationTime": 7,
-        "apiKeyExpirationDate": "2022-11-04T16:38:28.513Z",
+        "apiKeyExpirationDate": "2022-11-13T15:27:43.633Z",
         "keyDescription": ""
       }
     ]

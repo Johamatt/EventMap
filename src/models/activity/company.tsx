@@ -1,11 +1,6 @@
-
-
-
-
 export type Company = {
-    businessId: String;
-    email: String;
-    name: String;
-    phone: String;
-  };
-  
+  id: string;
+  email: string;
+  name: string;
+  phone: string;
+};

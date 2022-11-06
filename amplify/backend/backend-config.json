@@ -1,6 +1,21 @@
 {
   "auth": {
-    "eventApp": {
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "eventmap32ff6c1932ff6c19",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID"
+          ]
+        }
+      ]
+    },
+    "eventmap32ff6c1932ff6c19": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -10,9 +25,11 @@
         "usernameAttributes": [
           "EMAIL"
         ],
-        "signupAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
         "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 6,
+          "passwordPolicyMinLength": "6",
           "passwordPolicyCharacters": []
         },
         "mfaConfiguration": "OFF",
@@ -26,13 +43,13 @@
     }
   },
   "api": {
-    "eventapp": {
+    "eventmap": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "eventApp",
+          "resourceName": "eventmap32ff6c1932ff6c19",
           "attributes": [
             "UserPoolId"
           ]
@@ -43,7 +60,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "autheventApp"
+              "userPoolId": "autheventmap32ff6c1932ff6c19"
             }
           },
           "additionalAuthenticationProviders": [
@@ -51,20 +68,13 @@
               "authenticationType": "API_KEY",
               "apiKeyConfig": {
                 "apiKeyExpirationDays": 7,
-                "apiKeyExpirationDate": "2022-11-04T16:38:28.513Z",
+                "apiKeyExpirationDate": "2022-11-13T15:27:43.633Z",
                 "description": ""
               }
             }
           ]
         }
       }
-    }
-  },
-  "storage": {
-    "s3eventappstoragee5901a5c": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": []
     }
   }
 }

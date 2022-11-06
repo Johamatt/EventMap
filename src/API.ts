@@ -2,21 +2,41 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateCategoryInput = {
-  id?: string | null;
-  category?: Array<CATEGORY> | null;
-  format?: Array<FORMAT | null> | null;
-  tags?: Array<string | null> | null;
+export type CreateEventInput = {
+  id?: string | null,
+  title_FI: string,
+  infoURL?: string | null,
+  intro: string,
+  description: string,
+  title_EN?: string | null,
+  startingDateTime: string,
+  endingDateTime: string,
+  source: string,
+  location: LocationInput,
+  category?: Array< CATEGORY > | null,
+  format?: Array< FORMAT | null > | null,
+  tags?: Array< string | null > | null,
+  companyID: string,
+  imageEvent?: Array< ImageEventInput | null > | null,
+};
+
+export type LocationInput = {
+  lat: number,
+  lon: number,
+  streetAddress?: string | null,
+  postalCode?: string | null,
 };
 
 export enum CATEGORY {
   MUSIC = "MUSIC",
   FESTIVAL = "FESTIVAL",
-  PARTIESNIGHTLIFE = "PARTIESNIGHTLIFE",
   SPORT = "SPORT",
+  PARTIESNIGHTLIFE = "PARTIESNIGHTLIFE",
   KIDS = "KIDS",
+  FAMILY = "FAMILY",
   HEALTH = "HEALTH",
   TRIP = "TRIP",
+  FOOD = "FOOD",
   WORKSHOP = "WORKSHOP",
   COOKING = "COOKING",
   BUSINESS = "BUSINESS",
@@ -30,8 +50,12 @@ export enum CATEGORY {
   LITERATURE = "LITERATURE",
   PHOTOGRAPHY = "PHOTOGRAPHY",
   TECHNOLOGY = "TECHNOLOGY",
+  MARKET = "MARKET",
+  SIGHTSEEING = "SIGHTSEEING",
+  MUSEUM = "MUSEUM",
   OTHER = "OTHER",
 }
+
 
 export enum FORMAT {
   SEMINARTALK = "SEMINARTALK",
@@ -44,46 +68,49 @@ export enum FORMAT {
   TOURSWALKS = "TOURSWALKS",
   CAMPTRIP = "CAMPTRIP",
   EXHIBITION = "EXHIBITION",
+  LUXURY = "LUXURY",
   OTHER = "OTHER",
 }
 
-export type ModelCategoryConditionInput = {
-  category?: ModelCATEGORYListInput | null;
-  format?: ModelFORMATListInput | null;
-  tags?: ModelStringInput | null;
-  and?: Array<ModelCategoryConditionInput | null> | null;
-  or?: Array<ModelCategoryConditionInput | null> | null;
-  not?: ModelCategoryConditionInput | null;
+
+export type ImageEventInput = {
+  URL: string,
+  lisenceType: string,
+  lisenceName: string,
 };
 
-export type ModelCATEGORYListInput = {
-  eq?: Array<CATEGORY | null> | null;
-  ne?: Array<CATEGORY | null> | null;
-  contains?: CATEGORY | null;
-  notContains?: CATEGORY | null;
-};
-
-export type ModelFORMATListInput = {
-  eq?: Array<FORMAT | null> | null;
-  ne?: Array<FORMAT | null> | null;
-  contains?: FORMAT | null;
-  notContains?: FORMAT | null;
+export type ModelEventConditionInput = {
+  title_FI?: ModelStringInput | null,
+  infoURL?: ModelStringInput | null,
+  intro?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  title_EN?: ModelStringInput | null,
+  startingDateTime?: ModelStringInput | null,
+  endingDateTime?: ModelStringInput | null,
+  source?: ModelStringInput | null,
+  category?: ModelCATEGORYListInput | null,
+  format?: ModelFORMATListInput | null,
+  tags?: ModelStringInput | null,
+  companyID?: ModelIDInput | null,
+  and?: Array< ModelEventConditionInput | null > | null,
+  or?: Array< ModelEventConditionInput | null > | null,
+  not?: ModelEventConditionInput | null,
 };
 
 export type ModelStringInput = {
-  ne?: string | null;
-  eq?: string | null;
-  le?: string | null;
-  lt?: string | null;
-  ge?: string | null;
-  gt?: string | null;
-  contains?: string | null;
-  notContains?: string | null;
-  between?: Array<string | null> | null;
-  beginsWith?: string | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-  size?: ModelSizeInput | null;
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export enum ModelAttributeTypes {
@@ -99,1216 +126,1595 @@ export enum ModelAttributeTypes {
   _null = "_null",
 }
 
+
 export type ModelSizeInput = {
-  ne?: number | null;
-  eq?: number | null;
-  le?: number | null;
-  lt?: number | null;
-  ge?: number | null;
-  gt?: number | null;
-  between?: Array<number | null> | null;
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
 };
 
-export type Category = {
-  __typename: "Category";
-  id: string;
-  category?: Array<CATEGORY> | null;
-  format?: Array<FORMAT | null> | null;
-  tags?: Array<string | null> | null;
-  createdAt: string;
-  updatedAt: string;
-  owner?: string | null;
+export type ModelCATEGORYListInput = {
+  eq?: Array< CATEGORY | null > | null,
+  ne?: Array< CATEGORY | null > | null,
+  contains?: CATEGORY | null,
+  notContains?: CATEGORY | null,
 };
 
-export type UpdateCategoryInput = {
-  id: string;
-  category?: Array<CATEGORY> | null;
-  format?: Array<FORMAT | null> | null;
-  tags?: Array<string | null> | null;
-};
-
-export type DeleteCategoryInput = {
-  id: string;
-};
-
-export type CreateEventImageInput = {
-  id?: string | null;
-  url: string;
-  lisenceType?: number | null;
-  lisenceName?: string | null;
-  eventID: string;
-};
-
-export type ModelEventImageConditionInput = {
-  url?: ModelStringInput | null;
-  lisenceType?: ModelIntInput | null;
-  lisenceName?: ModelStringInput | null;
-  eventID?: ModelIDInput | null;
-  and?: Array<ModelEventImageConditionInput | null> | null;
-  or?: Array<ModelEventImageConditionInput | null> | null;
-  not?: ModelEventImageConditionInput | null;
-};
-
-export type ModelIntInput = {
-  ne?: number | null;
-  eq?: number | null;
-  le?: number | null;
-  lt?: number | null;
-  ge?: number | null;
-  gt?: number | null;
-  between?: Array<number | null> | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
+export type ModelFORMATListInput = {
+  eq?: Array< FORMAT | null > | null,
+  ne?: Array< FORMAT | null > | null,
+  contains?: FORMAT | null,
+  notContains?: FORMAT | null,
 };
 
 export type ModelIDInput = {
-  ne?: string | null;
-  eq?: string | null;
-  le?: string | null;
-  lt?: string | null;
-  ge?: string | null;
-  gt?: string | null;
-  contains?: string | null;
-  notContains?: string | null;
-  between?: Array<string | null> | null;
-  beginsWith?: string | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-  size?: ModelSizeInput | null;
-};
-
-export type EventImage = {
-  __typename: "EventImage";
-  id: string;
-  url: string;
-  lisenceType?: number | null;
-  lisenceName?: string | null;
-  eventID: string;
-  createdAt: string;
-  updatedAt: string;
-  owner?: string | null;
-};
-
-export type UpdateEventImageInput = {
-  id: string;
-  url?: string | null;
-  lisenceType?: number | null;
-  lisenceName?: string | null;
-  eventID?: string | null;
-};
-
-export type DeleteEventImageInput = {
-  id: string;
-};
-
-export type CreateLocationInput = {
-  id?: string | null;
-  lat: number;
-  lon: number;
-  streetAddess: string;
-  postalCode?: number | null;
-};
-
-export type ModelLocationConditionInput = {
-  lat?: ModelFloatInput | null;
-  lon?: ModelFloatInput | null;
-  streetAddess?: ModelStringInput | null;
-  postalCode?: ModelIntInput | null;
-  and?: Array<ModelLocationConditionInput | null> | null;
-  or?: Array<ModelLocationConditionInput | null> | null;
-  not?: ModelLocationConditionInput | null;
-};
-
-export type ModelFloatInput = {
-  ne?: number | null;
-  eq?: number | null;
-  le?: number | null;
-  lt?: number | null;
-  ge?: number | null;
-  gt?: number | null;
-  between?: Array<number | null> | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-};
-
-export type Location = {
-  __typename: "Location";
-  id: string;
-  lat: number;
-  lon: number;
-  streetAddess: string;
-  postalCode?: number | null;
-  createdAt: string;
-  updatedAt: string;
-  owner?: string | null;
-};
-
-export type UpdateLocationInput = {
-  id: string;
-  lat?: number | null;
-  lon?: number | null;
-  streetAddess?: string | null;
-  postalCode?: number | null;
-};
-
-export type DeleteLocationInput = {
-  id: string;
-};
-
-export type CreateEventInput = {
-  id?: string | null;
-  title: string;
-  infoUrl?: string | null;
-  intro?: string | null;
-  description: string;
-  startingDatetime: string;
-  endingDatetime: string;
-  source: string;
-  eventLocationId?: string | null;
-  eventCategoryId?: string | null;
-};
-
-export type ModelEventConditionInput = {
-  title?: ModelStringInput | null;
-  infoUrl?: ModelStringInput | null;
-  intro?: ModelStringInput | null;
-  description?: ModelStringInput | null;
-  startingDatetime?: ModelStringInput | null;
-  endingDatetime?: ModelStringInput | null;
-  source?: ModelStringInput | null;
-  and?: Array<ModelEventConditionInput | null> | null;
-  or?: Array<ModelEventConditionInput | null> | null;
-  not?: ModelEventConditionInput | null;
-  eventLocationId?: ModelIDInput | null;
-  eventCategoryId?: ModelIDInput | null;
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export type Event = {
-  __typename: "Event";
-  id: string;
-  title: string;
-  infoUrl?: string | null;
-  intro?: string | null;
-  description: string;
-  startingDatetime: string;
-  endingDatetime: string;
-  Location?: Location | null;
-  Category?: Category | null;
-  source: string;
-  EventImage?: ModelEventImageConnection | null;
-  createdAt: string;
-  updatedAt: string;
-  eventLocationId?: string | null;
-  eventCategoryId?: string | null;
-  owner?: string | null;
+  __typename: "Event",
+  id: string,
+  title_FI: string,
+  infoURL?: string | null,
+  intro: string,
+  description: string,
+  title_EN?: string | null,
+  startingDateTime: string,
+  endingDateTime: string,
+  source: string,
+  location: Location,
+  category?: Array< CATEGORY > | null,
+  format?: Array< FORMAT | null > | null,
+  tags?: Array< string | null > | null,
+  companyID: string,
+  imageEvent?:  Array<ImageEvent | null > | null,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
 };
 
-export type ModelEventImageConnection = {
-  __typename: "ModelEventImageConnection";
-  items: Array<EventImage | null>;
-  nextToken?: string | null;
+export type Location = {
+  __typename: "Location",
+  lat: number,
+  lon: number,
+  streetAddress?: string | null,
+  postalCode?: string | null,
+};
+
+export type ImageEvent = {
+  __typename: "ImageEvent",
+  URL: string,
+  lisenceType: string,
+  lisenceName: string,
 };
 
 export type UpdateEventInput = {
-  id: string;
-  title?: string | null;
-  infoUrl?: string | null;
-  intro?: string | null;
-  description?: string | null;
-  startingDatetime?: string | null;
-  endingDatetime?: string | null;
-  source?: string | null;
-  eventLocationId?: string | null;
-  eventCategoryId?: string | null;
+  id: string,
+  title_FI?: string | null,
+  infoURL?: string | null,
+  intro?: string | null,
+  description?: string | null,
+  title_EN?: string | null,
+  startingDateTime?: string | null,
+  endingDateTime?: string | null,
+  source?: string | null,
+  location?: LocationInput | null,
+  category?: Array< CATEGORY > | null,
+  format?: Array< FORMAT | null > | null,
+  tags?: Array< string | null > | null,
+  companyID?: string | null,
+  imageEvent?: Array< ImageEventInput | null > | null,
 };
 
 export type DeleteEventInput = {
-  id: string;
+  id: string,
 };
 
-export type ModelCategoryFilterInput = {
-  id?: ModelIDInput | null;
-  category?: ModelCATEGORYListInput | null;
-  format?: ModelFORMATListInput | null;
-  tags?: ModelStringInput | null;
-  and?: Array<ModelCategoryFilterInput | null> | null;
-  or?: Array<ModelCategoryFilterInput | null> | null;
-  not?: ModelCategoryFilterInput | null;
+export type CreateCompanyInput = {
+  id?: string | null,
+  email?: string | null,
+  phone?: string | null,
+  name?: string | null,
 };
 
-export type ModelCategoryConnection = {
-  __typename: "ModelCategoryConnection";
-  items: Array<Category | null>;
-  nextToken?: string | null;
+export type ModelCompanyConditionInput = {
+  email?: ModelStringInput | null,
+  phone?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  and?: Array< ModelCompanyConditionInput | null > | null,
+  or?: Array< ModelCompanyConditionInput | null > | null,
+  not?: ModelCompanyConditionInput | null,
 };
 
-export type ModelEventImageFilterInput = {
-  id?: ModelIDInput | null;
-  url?: ModelStringInput | null;
-  lisenceType?: ModelIntInput | null;
-  lisenceName?: ModelStringInput | null;
-  eventID?: ModelIDInput | null;
-  and?: Array<ModelEventImageFilterInput | null> | null;
-  or?: Array<ModelEventImageFilterInput | null> | null;
-  not?: ModelEventImageFilterInput | null;
+export type Company = {
+  __typename: "Company",
+  id: string,
+  email?: string | null,
+  phone?: string | null,
+  name?: string | null,
+  Activities?: ModelActivityConnection | null,
+  Events?: ModelActivityConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
 };
 
-export type ModelLocationFilterInput = {
-  id?: ModelIDInput | null;
-  lat?: ModelFloatInput | null;
-  lon?: ModelFloatInput | null;
-  streetAddess?: ModelStringInput | null;
-  postalCode?: ModelIntInput | null;
-  and?: Array<ModelLocationFilterInput | null> | null;
-  or?: Array<ModelLocationFilterInput | null> | null;
-  not?: ModelLocationFilterInput | null;
+export type ModelActivityConnection = {
+  __typename: "ModelActivityConnection",
+  items:  Array<Activity | null >,
+  nextToken?: string | null,
 };
 
-export type ModelLocationConnection = {
-  __typename: "ModelLocationConnection";
-  items: Array<Location | null>;
-  nextToken?: string | null;
+export type Activity = {
+  __typename: "Activity",
+  id: string,
+  availableMonths?: Array< string | null > | null,
+  fi_description: string,
+  fi_name: string,
+  en_description?: string | null,
+  en_name?: string | null,
+  openDays?:  Array<OpenDays | null > | null,
+  categories?: Array< CATEGORY > | null,
+  companyID: string,
+  duration?: string | null,
+  durationType?: string | null,
+  meantFor?: Array< string | null > | null,
+  priceEUR_From?: number | null,
+  priceEUR_TO?: number | null,
+  pricingType?: string | null,
+  siteURL?: string | null,
+  updated_at_LinkedEvent?: string | null,
+  Location: Location,
+  imageActivity?:  Array<ImageActivity | null > | null,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type OpenDays = {
+  __typename: "OpenDays",
+  day?: string | null,
+  open?: boolean | null,
+  from?: string | null,
+  to?: string | null,
+};
+
+export type ImageActivity = {
+  __typename: "ImageActivity",
+  kind?: string | null,
+  copyright?: string | null,
+  name?: string | null,
+  URL?: string | null,
+};
+
+export type UpdateCompanyInput = {
+  id: string,
+  email?: string | null,
+  phone?: string | null,
+  name?: string | null,
+};
+
+export type DeleteCompanyInput = {
+  id: string,
+};
+
+export type CreateActivityInput = {
+  id?: string | null,
+  availableMonths?: Array< string | null > | null,
+  fi_description: string,
+  fi_name: string,
+  en_description?: string | null,
+  en_name?: string | null,
+  openDays?: Array< OpenDaysInput | null > | null,
+  categories?: Array< CATEGORY > | null,
+  companyID: string,
+  duration?: string | null,
+  durationType?: string | null,
+  meantFor?: Array< string | null > | null,
+  priceEUR_From?: number | null,
+  priceEUR_TO?: number | null,
+  pricingType?: string | null,
+  siteURL?: string | null,
+  updated_at_LinkedEvent?: string | null,
+  Location: LocationInput,
+  imageActivity?: Array< ImageActivityInput | null > | null,
+};
+
+export type OpenDaysInput = {
+  day?: string | null,
+  open?: boolean | null,
+  from?: string | null,
+  to?: string | null,
+};
+
+export type ImageActivityInput = {
+  kind?: string | null,
+  copyright?: string | null,
+  name?: string | null,
+  URL?: string | null,
+};
+
+export type ModelActivityConditionInput = {
+  availableMonths?: ModelStringInput | null,
+  fi_description?: ModelStringInput | null,
+  fi_name?: ModelStringInput | null,
+  en_description?: ModelStringInput | null,
+  en_name?: ModelStringInput | null,
+  categories?: ModelCATEGORYListInput | null,
+  companyID?: ModelIDInput | null,
+  duration?: ModelStringInput | null,
+  durationType?: ModelStringInput | null,
+  meantFor?: ModelStringInput | null,
+  priceEUR_From?: ModelFloatInput | null,
+  priceEUR_TO?: ModelFloatInput | null,
+  pricingType?: ModelStringInput | null,
+  siteURL?: ModelStringInput | null,
+  updated_at_LinkedEvent?: ModelStringInput | null,
+  and?: Array< ModelActivityConditionInput | null > | null,
+  or?: Array< ModelActivityConditionInput | null > | null,
+  not?: ModelActivityConditionInput | null,
+};
+
+export type ModelFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type UpdateActivityInput = {
+  id: string,
+  availableMonths?: Array< string | null > | null,
+  fi_description?: string | null,
+  fi_name?: string | null,
+  en_description?: string | null,
+  en_name?: string | null,
+  openDays?: Array< OpenDaysInput | null > | null,
+  categories?: Array< CATEGORY > | null,
+  companyID?: string | null,
+  duration?: string | null,
+  durationType?: string | null,
+  meantFor?: Array< string | null > | null,
+  priceEUR_From?: number | null,
+  priceEUR_TO?: number | null,
+  pricingType?: string | null,
+  siteURL?: string | null,
+  updated_at_LinkedEvent?: string | null,
+  Location?: LocationInput | null,
+  imageActivity?: Array< ImageActivityInput | null > | null,
+};
+
+export type DeleteActivityInput = {
+  id: string,
 };
 
 export type ModelEventFilterInput = {
-  id?: ModelIDInput | null;
-  title?: ModelStringInput | null;
-  infoUrl?: ModelStringInput | null;
-  intro?: ModelStringInput | null;
-  description?: ModelStringInput | null;
-  startingDatetime?: ModelStringInput | null;
-  endingDatetime?: ModelStringInput | null;
-  source?: ModelStringInput | null;
-  and?: Array<ModelEventFilterInput | null> | null;
-  or?: Array<ModelEventFilterInput | null> | null;
-  not?: ModelEventFilterInput | null;
-  eventLocationId?: ModelIDInput | null;
-  eventCategoryId?: ModelIDInput | null;
+  id?: ModelIDInput | null,
+  title_FI?: ModelStringInput | null,
+  infoURL?: ModelStringInput | null,
+  intro?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  title_EN?: ModelStringInput | null,
+  startingDateTime?: ModelStringInput | null,
+  endingDateTime?: ModelStringInput | null,
+  source?: ModelStringInput | null,
+  category?: ModelCATEGORYListInput | null,
+  format?: ModelFORMATListInput | null,
+  tags?: ModelStringInput | null,
+  companyID?: ModelIDInput | null,
+  and?: Array< ModelEventFilterInput | null > | null,
+  or?: Array< ModelEventFilterInput | null > | null,
+  not?: ModelEventFilterInput | null,
 };
 
 export type ModelEventConnection = {
-  __typename: "ModelEventConnection";
-  items: Array<Event | null>;
-  nextToken?: string | null;
+  __typename: "ModelEventConnection",
+  items:  Array<Event | null >,
+  nextToken?: string | null,
 };
 
-export type CreateCategoryMutationVariables = {
-  input: CreateCategoryInput;
-  condition?: ModelCategoryConditionInput | null;
+export type ModelCompanyFilterInput = {
+  id?: ModelIDInput | null,
+  email?: ModelStringInput | null,
+  phone?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  and?: Array< ModelCompanyFilterInput | null > | null,
+  or?: Array< ModelCompanyFilterInput | null > | null,
+  not?: ModelCompanyFilterInput | null,
 };
 
-export type CreateCategoryMutation = {
-  createCategory?: {
-    __typename: "Category";
-    id: string;
-    category?: Array<CATEGORY> | null;
-    format?: Array<FORMAT | null> | null;
-    tags?: Array<string | null> | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
+export type ModelCompanyConnection = {
+  __typename: "ModelCompanyConnection",
+  items:  Array<Company | null >,
+  nextToken?: string | null,
 };
 
-export type UpdateCategoryMutationVariables = {
-  input: UpdateCategoryInput;
-  condition?: ModelCategoryConditionInput | null;
-};
-
-export type UpdateCategoryMutation = {
-  updateCategory?: {
-    __typename: "Category";
-    id: string;
-    category?: Array<CATEGORY> | null;
-    format?: Array<FORMAT | null> | null;
-    tags?: Array<string | null> | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type DeleteCategoryMutationVariables = {
-  input: DeleteCategoryInput;
-  condition?: ModelCategoryConditionInput | null;
-};
-
-export type DeleteCategoryMutation = {
-  deleteCategory?: {
-    __typename: "Category";
-    id: string;
-    category?: Array<CATEGORY> | null;
-    format?: Array<FORMAT | null> | null;
-    tags?: Array<string | null> | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type CreateEventImageMutationVariables = {
-  input: CreateEventImageInput;
-  condition?: ModelEventImageConditionInput | null;
-};
-
-export type CreateEventImageMutation = {
-  createEventImage?: {
-    __typename: "EventImage";
-    id: string;
-    url: string;
-    lisenceType?: number | null;
-    lisenceName?: string | null;
-    eventID: string;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type UpdateEventImageMutationVariables = {
-  input: UpdateEventImageInput;
-  condition?: ModelEventImageConditionInput | null;
-};
-
-export type UpdateEventImageMutation = {
-  updateEventImage?: {
-    __typename: "EventImage";
-    id: string;
-    url: string;
-    lisenceType?: number | null;
-    lisenceName?: string | null;
-    eventID: string;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type DeleteEventImageMutationVariables = {
-  input: DeleteEventImageInput;
-  condition?: ModelEventImageConditionInput | null;
-};
-
-export type DeleteEventImageMutation = {
-  deleteEventImage?: {
-    __typename: "EventImage";
-    id: string;
-    url: string;
-    lisenceType?: number | null;
-    lisenceName?: string | null;
-    eventID: string;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type CreateLocationMutationVariables = {
-  input: CreateLocationInput;
-  condition?: ModelLocationConditionInput | null;
-};
-
-export type CreateLocationMutation = {
-  createLocation?: {
-    __typename: "Location";
-    id: string;
-    lat: number;
-    lon: number;
-    streetAddess: string;
-    postalCode?: number | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type UpdateLocationMutationVariables = {
-  input: UpdateLocationInput;
-  condition?: ModelLocationConditionInput | null;
-};
-
-export type UpdateLocationMutation = {
-  updateLocation?: {
-    __typename: "Location";
-    id: string;
-    lat: number;
-    lon: number;
-    streetAddess: string;
-    postalCode?: number | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type DeleteLocationMutationVariables = {
-  input: DeleteLocationInput;
-  condition?: ModelLocationConditionInput | null;
-};
-
-export type DeleteLocationMutation = {
-  deleteLocation?: {
-    __typename: "Location";
-    id: string;
-    lat: number;
-    lon: number;
-    streetAddess: string;
-    postalCode?: number | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
+export type ModelActivityFilterInput = {
+  id?: ModelIDInput | null,
+  availableMonths?: ModelStringInput | null,
+  fi_description?: ModelStringInput | null,
+  fi_name?: ModelStringInput | null,
+  en_description?: ModelStringInput | null,
+  en_name?: ModelStringInput | null,
+  categories?: ModelCATEGORYListInput | null,
+  companyID?: ModelIDInput | null,
+  duration?: ModelStringInput | null,
+  durationType?: ModelStringInput | null,
+  meantFor?: ModelStringInput | null,
+  priceEUR_From?: ModelFloatInput | null,
+  priceEUR_TO?: ModelFloatInput | null,
+  pricingType?: ModelStringInput | null,
+  siteURL?: ModelStringInput | null,
+  updated_at_LinkedEvent?: ModelStringInput | null,
+  and?: Array< ModelActivityFilterInput | null > | null,
+  or?: Array< ModelActivityFilterInput | null > | null,
+  not?: ModelActivityFilterInput | null,
 };
 
 export type CreateEventMutationVariables = {
-  input: CreateEventInput;
-  condition?: ModelEventConditionInput | null;
+  input: CreateEventInput,
+  condition?: ModelEventConditionInput | null,
 };
 
 export type CreateEventMutation = {
-  createEvent?: {
-    __typename: "Event";
-    id: string;
-    title: string;
-    infoUrl?: string | null;
-    intro?: string | null;
-    description: string;
-    startingDatetime: string;
-    endingDatetime: string;
-    Location?: {
-      __typename: "Location";
-      id: string;
-      lat: number;
-      lon: number;
-      streetAddess: string;
-      postalCode?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    Category?: {
-      __typename: "Category";
-      id: string;
-      category?: Array<CATEGORY> | null;
-      format?: Array<FORMAT | null> | null;
-      tags?: Array<string | null> | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    source: string;
-    EventImage?: {
-      __typename: "ModelEventImageConnection";
-      items: Array<{
-        __typename: "EventImage";
-        id: string;
-        url: string;
-        lisenceType?: number | null;
-        lisenceName?: string | null;
-        eventID: string;
-        createdAt: string;
-        updatedAt: string;
-        owner?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    eventLocationId?: string | null;
-    eventCategoryId?: string | null;
-    owner?: string | null;
-  } | null;
+  createEvent?:  {
+    __typename: "Event",
+    id: string,
+    title_FI: string,
+    infoURL?: string | null,
+    intro: string,
+    description: string,
+    title_EN?: string | null,
+    startingDateTime: string,
+    endingDateTime: string,
+    source: string,
+    location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    category?: Array< CATEGORY > | null,
+    format?: Array< FORMAT | null > | null,
+    tags?: Array< string | null > | null,
+    companyID: string,
+    imageEvent?:  Array< {
+      __typename: "ImageEvent",
+      URL: string,
+      lisenceType: string,
+      lisenceName: string,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
 export type UpdateEventMutationVariables = {
-  input: UpdateEventInput;
-  condition?: ModelEventConditionInput | null;
+  input: UpdateEventInput,
+  condition?: ModelEventConditionInput | null,
 };
 
 export type UpdateEventMutation = {
-  updateEvent?: {
-    __typename: "Event";
-    id: string;
-    title: string;
-    infoUrl?: string | null;
-    intro?: string | null;
-    description: string;
-    startingDatetime: string;
-    endingDatetime: string;
-    Location?: {
-      __typename: "Location";
-      id: string;
-      lat: number;
-      lon: number;
-      streetAddess: string;
-      postalCode?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    Category?: {
-      __typename: "Category";
-      id: string;
-      category?: Array<CATEGORY> | null;
-      format?: Array<FORMAT | null> | null;
-      tags?: Array<string | null> | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    source: string;
-    EventImage?: {
-      __typename: "ModelEventImageConnection";
-      items: Array<{
-        __typename: "EventImage";
-        id: string;
-        url: string;
-        lisenceType?: number | null;
-        lisenceName?: string | null;
-        eventID: string;
-        createdAt: string;
-        updatedAt: string;
-        owner?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    eventLocationId?: string | null;
-    eventCategoryId?: string | null;
-    owner?: string | null;
-  } | null;
+  updateEvent?:  {
+    __typename: "Event",
+    id: string,
+    title_FI: string,
+    infoURL?: string | null,
+    intro: string,
+    description: string,
+    title_EN?: string | null,
+    startingDateTime: string,
+    endingDateTime: string,
+    source: string,
+    location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    category?: Array< CATEGORY > | null,
+    format?: Array< FORMAT | null > | null,
+    tags?: Array< string | null > | null,
+    companyID: string,
+    imageEvent?:  Array< {
+      __typename: "ImageEvent",
+      URL: string,
+      lisenceType: string,
+      lisenceName: string,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
 export type DeleteEventMutationVariables = {
-  input: DeleteEventInput;
-  condition?: ModelEventConditionInput | null;
+  input: DeleteEventInput,
+  condition?: ModelEventConditionInput | null,
 };
 
 export type DeleteEventMutation = {
-  deleteEvent?: {
-    __typename: "Event";
-    id: string;
-    title: string;
-    infoUrl?: string | null;
-    intro?: string | null;
-    description: string;
-    startingDatetime: string;
-    endingDatetime: string;
-    Location?: {
-      __typename: "Location";
-      id: string;
-      lat: number;
-      lon: number;
-      streetAddess: string;
-      postalCode?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    Category?: {
-      __typename: "Category";
-      id: string;
-      category?: Array<CATEGORY> | null;
-      format?: Array<FORMAT | null> | null;
-      tags?: Array<string | null> | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    source: string;
-    EventImage?: {
-      __typename: "ModelEventImageConnection";
-      items: Array<{
-        __typename: "EventImage";
-        id: string;
-        url: string;
-        lisenceType?: number | null;
-        lisenceName?: string | null;
-        eventID: string;
-        createdAt: string;
-        updatedAt: string;
-        owner?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    eventLocationId?: string | null;
-    eventCategoryId?: string | null;
-    owner?: string | null;
-  } | null;
+  deleteEvent?:  {
+    __typename: "Event",
+    id: string,
+    title_FI: string,
+    infoURL?: string | null,
+    intro: string,
+    description: string,
+    title_EN?: string | null,
+    startingDateTime: string,
+    endingDateTime: string,
+    source: string,
+    location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    category?: Array< CATEGORY > | null,
+    format?: Array< FORMAT | null > | null,
+    tags?: Array< string | null > | null,
+    companyID: string,
+    imageEvent?:  Array< {
+      __typename: "ImageEvent",
+      URL: string,
+      lisenceType: string,
+      lisenceName: string,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
-export type GetCategoryQueryVariables = {
-  id: string;
+export type CreateCompanyMutationVariables = {
+  input: CreateCompanyInput,
+  condition?: ModelCompanyConditionInput | null,
 };
 
-export type GetCategoryQuery = {
-  getCategory?: {
-    __typename: "Category";
-    id: string;
-    category?: Array<CATEGORY> | null;
-    format?: Array<FORMAT | null> | null;
-    tags?: Array<string | null> | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
+export type CreateCompanyMutation = {
+  createCompany?:  {
+    __typename: "Company",
+    id: string,
+    email?: string | null,
+    phone?: string | null,
+    name?: string | null,
+    Activities?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Events?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
-export type ListCategoriesQueryVariables = {
-  filter?: ModelCategoryFilterInput | null;
-  limit?: number | null;
-  nextToken?: string | null;
+export type UpdateCompanyMutationVariables = {
+  input: UpdateCompanyInput,
+  condition?: ModelCompanyConditionInput | null,
 };
 
-export type ListCategoriesQuery = {
-  listCategories?: {
-    __typename: "ModelCategoryConnection";
-    items: Array<{
-      __typename: "Category";
-      id: string;
-      category?: Array<CATEGORY> | null;
-      format?: Array<FORMAT | null> | null;
-      tags?: Array<string | null> | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
+export type UpdateCompanyMutation = {
+  updateCompany?:  {
+    __typename: "Company",
+    id: string,
+    email?: string | null,
+    phone?: string | null,
+    name?: string | null,
+    Activities?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Events?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
-export type GetEventImageQueryVariables = {
-  id: string;
+export type DeleteCompanyMutationVariables = {
+  input: DeleteCompanyInput,
+  condition?: ModelCompanyConditionInput | null,
 };
 
-export type GetEventImageQuery = {
-  getEventImage?: {
-    __typename: "EventImage";
-    id: string;
-    url: string;
-    lisenceType?: number | null;
-    lisenceName?: string | null;
-    eventID: string;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
+export type DeleteCompanyMutation = {
+  deleteCompany?:  {
+    __typename: "Company",
+    id: string,
+    email?: string | null,
+    phone?: string | null,
+    name?: string | null,
+    Activities?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Events?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
-export type ListEventImagesQueryVariables = {
-  filter?: ModelEventImageFilterInput | null;
-  limit?: number | null;
-  nextToken?: string | null;
+export type CreateActivityMutationVariables = {
+  input: CreateActivityInput,
+  condition?: ModelActivityConditionInput | null,
 };
 
-export type ListEventImagesQuery = {
-  listEventImages?: {
-    __typename: "ModelEventImageConnection";
-    items: Array<{
-      __typename: "EventImage";
-      id: string;
-      url: string;
-      lisenceType?: number | null;
-      lisenceName?: string | null;
-      eventID: string;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
+export type CreateActivityMutation = {
+  createActivity?:  {
+    __typename: "Activity",
+    id: string,
+    availableMonths?: Array< string | null > | null,
+    fi_description: string,
+    fi_name: string,
+    en_description?: string | null,
+    en_name?: string | null,
+    openDays?:  Array< {
+      __typename: "OpenDays",
+      day?: string | null,
+      open?: boolean | null,
+      from?: string | null,
+      to?: string | null,
+    } | null > | null,
+    categories?: Array< CATEGORY > | null,
+    companyID: string,
+    duration?: string | null,
+    durationType?: string | null,
+    meantFor?: Array< string | null > | null,
+    priceEUR_From?: number | null,
+    priceEUR_TO?: number | null,
+    pricingType?: string | null,
+    siteURL?: string | null,
+    updated_at_LinkedEvent?: string | null,
+    Location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    imageActivity?:  Array< {
+      __typename: "ImageActivity",
+      kind?: string | null,
+      copyright?: string | null,
+      name?: string | null,
+      URL?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
-export type GetLocationQueryVariables = {
-  id: string;
+export type UpdateActivityMutationVariables = {
+  input: UpdateActivityInput,
+  condition?: ModelActivityConditionInput | null,
 };
 
-export type GetLocationQuery = {
-  getLocation?: {
-    __typename: "Location";
-    id: string;
-    lat: number;
-    lon: number;
-    streetAddess: string;
-    postalCode?: number | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
+export type UpdateActivityMutation = {
+  updateActivity?:  {
+    __typename: "Activity",
+    id: string,
+    availableMonths?: Array< string | null > | null,
+    fi_description: string,
+    fi_name: string,
+    en_description?: string | null,
+    en_name?: string | null,
+    openDays?:  Array< {
+      __typename: "OpenDays",
+      day?: string | null,
+      open?: boolean | null,
+      from?: string | null,
+      to?: string | null,
+    } | null > | null,
+    categories?: Array< CATEGORY > | null,
+    companyID: string,
+    duration?: string | null,
+    durationType?: string | null,
+    meantFor?: Array< string | null > | null,
+    priceEUR_From?: number | null,
+    priceEUR_TO?: number | null,
+    pricingType?: string | null,
+    siteURL?: string | null,
+    updated_at_LinkedEvent?: string | null,
+    Location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    imageActivity?:  Array< {
+      __typename: "ImageActivity",
+      kind?: string | null,
+      copyright?: string | null,
+      name?: string | null,
+      URL?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
-export type ListLocationsQueryVariables = {
-  filter?: ModelLocationFilterInput | null;
-  limit?: number | null;
-  nextToken?: string | null;
+export type DeleteActivityMutationVariables = {
+  input: DeleteActivityInput,
+  condition?: ModelActivityConditionInput | null,
 };
 
-export type ListLocationsQuery = {
-  listLocations?: {
-    __typename: "ModelLocationConnection";
-    items: Array<{
-      __typename: "Location";
-      id: string;
-      lat: number;
-      lon: number;
-      streetAddess: string;
-      postalCode?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
+export type DeleteActivityMutation = {
+  deleteActivity?:  {
+    __typename: "Activity",
+    id: string,
+    availableMonths?: Array< string | null > | null,
+    fi_description: string,
+    fi_name: string,
+    en_description?: string | null,
+    en_name?: string | null,
+    openDays?:  Array< {
+      __typename: "OpenDays",
+      day?: string | null,
+      open?: boolean | null,
+      from?: string | null,
+      to?: string | null,
+    } | null > | null,
+    categories?: Array< CATEGORY > | null,
+    companyID: string,
+    duration?: string | null,
+    durationType?: string | null,
+    meantFor?: Array< string | null > | null,
+    priceEUR_From?: number | null,
+    priceEUR_TO?: number | null,
+    pricingType?: string | null,
+    siteURL?: string | null,
+    updated_at_LinkedEvent?: string | null,
+    Location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    imageActivity?:  Array< {
+      __typename: "ImageActivity",
+      kind?: string | null,
+      copyright?: string | null,
+      name?: string | null,
+      URL?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
 export type GetEventQueryVariables = {
-  id: string;
+  id: string,
 };
 
 export type GetEventQuery = {
-  getEvent?: {
-    __typename: "Event";
-    id: string;
-    title: string;
-    infoUrl?: string | null;
-    intro?: string | null;
-    description: string;
-    startingDatetime: string;
-    endingDatetime: string;
-    Location?: {
-      __typename: "Location";
-      id: string;
-      lat: number;
-      lon: number;
-      streetAddess: string;
-      postalCode?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    Category?: {
-      __typename: "Category";
-      id: string;
-      category?: Array<CATEGORY> | null;
-      format?: Array<FORMAT | null> | null;
-      tags?: Array<string | null> | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    source: string;
-    EventImage?: {
-      __typename: "ModelEventImageConnection";
-      items: Array<{
-        __typename: "EventImage";
-        id: string;
-        url: string;
-        lisenceType?: number | null;
-        lisenceName?: string | null;
-        eventID: string;
-        createdAt: string;
-        updatedAt: string;
-        owner?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    eventLocationId?: string | null;
-    eventCategoryId?: string | null;
-    owner?: string | null;
-  } | null;
+  getEvent?:  {
+    __typename: "Event",
+    id: string,
+    title_FI: string,
+    infoURL?: string | null,
+    intro: string,
+    description: string,
+    title_EN?: string | null,
+    startingDateTime: string,
+    endingDateTime: string,
+    source: string,
+    location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    category?: Array< CATEGORY > | null,
+    format?: Array< FORMAT | null > | null,
+    tags?: Array< string | null > | null,
+    companyID: string,
+    imageEvent?:  Array< {
+      __typename: "ImageEvent",
+      URL: string,
+      lisenceType: string,
+      lisenceName: string,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
 export type ListEventsQueryVariables = {
-  filter?: ModelEventFilterInput | null;
-  limit?: number | null;
-  nextToken?: string | null;
+  filter?: ModelEventFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
 };
 
 export type ListEventsQuery = {
-  listEvents?: {
-    __typename: "ModelEventConnection";
-    items: Array<{
-      __typename: "Event";
-      id: string;
-      title: string;
-      infoUrl?: string | null;
-      intro?: string | null;
-      description: string;
-      startingDatetime: string;
-      endingDatetime: string;
-      Location?: {
-        __typename: "Location";
-        id: string;
-        lat: number;
-        lon: number;
-        streetAddess: string;
-        postalCode?: number | null;
-        createdAt: string;
-        updatedAt: string;
-        owner?: string | null;
-      } | null;
-      Category?: {
-        __typename: "Category";
-        id: string;
-        category?: Array<CATEGORY> | null;
-        format?: Array<FORMAT | null> | null;
-        tags?: Array<string | null> | null;
-        createdAt: string;
-        updatedAt: string;
-        owner?: string | null;
-      } | null;
-      source: string;
-      EventImage?: {
-        __typename: "ModelEventImageConnection";
-        nextToken?: string | null;
-      } | null;
-      createdAt: string;
-      updatedAt: string;
-      eventLocationId?: string | null;
-      eventCategoryId?: string | null;
-      owner?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
+  listEvents?:  {
+    __typename: "ModelEventConnection",
+    items:  Array< {
+      __typename: "Event",
+      id: string,
+      title_FI: string,
+      infoURL?: string | null,
+      intro: string,
+      description: string,
+      title_EN?: string | null,
+      startingDateTime: string,
+      endingDateTime: string,
+      source: string,
+      location:  {
+        __typename: "Location",
+        lat: number,
+        lon: number,
+        streetAddress?: string | null,
+        postalCode?: string | null,
+      },
+      category?: Array< CATEGORY > | null,
+      format?: Array< FORMAT | null > | null,
+      tags?: Array< string | null > | null,
+      companyID: string,
+      imageEvent?:  Array< {
+        __typename: "ImageEvent",
+        URL: string,
+        lisenceType: string,
+        lisenceName: string,
+      } | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
 };
 
-export type OnCreateCategorySubscriptionVariables = {
-  owner?: string | null;
+export type GetCompanyQueryVariables = {
+  id: string,
 };
 
-export type OnCreateCategorySubscription = {
-  onCreateCategory?: {
-    __typename: "Category";
-    id: string;
-    category?: Array<CATEGORY> | null;
-    format?: Array<FORMAT | null> | null;
-    tags?: Array<string | null> | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
+export type GetCompanyQuery = {
+  getCompany?:  {
+    __typename: "Company",
+    id: string,
+    email?: string | null,
+    phone?: string | null,
+    name?: string | null,
+    Activities?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Events?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
-export type OnUpdateCategorySubscriptionVariables = {
-  owner?: string | null;
+export type ListCompaniesQueryVariables = {
+  filter?: ModelCompanyFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
 };
 
-export type OnUpdateCategorySubscription = {
-  onUpdateCategory?: {
-    __typename: "Category";
-    id: string;
-    category?: Array<CATEGORY> | null;
-    format?: Array<FORMAT | null> | null;
-    tags?: Array<string | null> | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
+export type ListCompaniesQuery = {
+  listCompanies?:  {
+    __typename: "ModelCompanyConnection",
+    items:  Array< {
+      __typename: "Company",
+      id: string,
+      email?: string | null,
+      phone?: string | null,
+      name?: string | null,
+      Activities?:  {
+        __typename: "ModelActivityConnection",
+        nextToken?: string | null,
+      } | null,
+      Events?:  {
+        __typename: "ModelActivityConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
 };
 
-export type OnDeleteCategorySubscriptionVariables = {
-  owner?: string | null;
+export type GetActivityQueryVariables = {
+  id: string,
 };
 
-export type OnDeleteCategorySubscription = {
-  onDeleteCategory?: {
-    __typename: "Category";
-    id: string;
-    category?: Array<CATEGORY> | null;
-    format?: Array<FORMAT | null> | null;
-    tags?: Array<string | null> | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
+export type GetActivityQuery = {
+  getActivity?:  {
+    __typename: "Activity",
+    id: string,
+    availableMonths?: Array< string | null > | null,
+    fi_description: string,
+    fi_name: string,
+    en_description?: string | null,
+    en_name?: string | null,
+    openDays?:  Array< {
+      __typename: "OpenDays",
+      day?: string | null,
+      open?: boolean | null,
+      from?: string | null,
+      to?: string | null,
+    } | null > | null,
+    categories?: Array< CATEGORY > | null,
+    companyID: string,
+    duration?: string | null,
+    durationType?: string | null,
+    meantFor?: Array< string | null > | null,
+    priceEUR_From?: number | null,
+    priceEUR_TO?: number | null,
+    pricingType?: string | null,
+    siteURL?: string | null,
+    updated_at_LinkedEvent?: string | null,
+    Location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    imageActivity?:  Array< {
+      __typename: "ImageActivity",
+      kind?: string | null,
+      copyright?: string | null,
+      name?: string | null,
+      URL?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
-export type OnCreateEventImageSubscriptionVariables = {
-  owner?: string | null;
+export type ListActivitiesQueryVariables = {
+  filter?: ModelActivityFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
 };
 
-export type OnCreateEventImageSubscription = {
-  onCreateEventImage?: {
-    __typename: "EventImage";
-    id: string;
-    url: string;
-    lisenceType?: number | null;
-    lisenceName?: string | null;
-    eventID: string;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type OnUpdateEventImageSubscriptionVariables = {
-  owner?: string | null;
-};
-
-export type OnUpdateEventImageSubscription = {
-  onUpdateEventImage?: {
-    __typename: "EventImage";
-    id: string;
-    url: string;
-    lisenceType?: number | null;
-    lisenceName?: string | null;
-    eventID: string;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type OnDeleteEventImageSubscriptionVariables = {
-  owner?: string | null;
-};
-
-export type OnDeleteEventImageSubscription = {
-  onDeleteEventImage?: {
-    __typename: "EventImage";
-    id: string;
-    url: string;
-    lisenceType?: number | null;
-    lisenceName?: string | null;
-    eventID: string;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type OnCreateLocationSubscriptionVariables = {
-  owner?: string | null;
-};
-
-export type OnCreateLocationSubscription = {
-  onCreateLocation?: {
-    __typename: "Location";
-    id: string;
-    lat: number;
-    lon: number;
-    streetAddess: string;
-    postalCode?: number | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type OnUpdateLocationSubscriptionVariables = {
-  owner?: string | null;
-};
-
-export type OnUpdateLocationSubscription = {
-  onUpdateLocation?: {
-    __typename: "Location";
-    id: string;
-    lat: number;
-    lon: number;
-    streetAddess: string;
-    postalCode?: number | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
-};
-
-export type OnDeleteLocationSubscriptionVariables = {
-  owner?: string | null;
-};
-
-export type OnDeleteLocationSubscription = {
-  onDeleteLocation?: {
-    __typename: "Location";
-    id: string;
-    lat: number;
-    lon: number;
-    streetAddess: string;
-    postalCode?: number | null;
-    createdAt: string;
-    updatedAt: string;
-    owner?: string | null;
-  } | null;
+export type ListActivitiesQuery = {
+  listActivities?:  {
+    __typename: "ModelActivityConnection",
+    items:  Array< {
+      __typename: "Activity",
+      id: string,
+      availableMonths?: Array< string | null > | null,
+      fi_description: string,
+      fi_name: string,
+      en_description?: string | null,
+      en_name?: string | null,
+      openDays?:  Array< {
+        __typename: "OpenDays",
+        day?: string | null,
+        open?: boolean | null,
+        from?: string | null,
+        to?: string | null,
+      } | null > | null,
+      categories?: Array< CATEGORY > | null,
+      companyID: string,
+      duration?: string | null,
+      durationType?: string | null,
+      meantFor?: Array< string | null > | null,
+      priceEUR_From?: number | null,
+      priceEUR_TO?: number | null,
+      pricingType?: string | null,
+      siteURL?: string | null,
+      updated_at_LinkedEvent?: string | null,
+      Location:  {
+        __typename: "Location",
+        lat: number,
+        lon: number,
+        streetAddress?: string | null,
+        postalCode?: string | null,
+      },
+      imageActivity?:  Array< {
+        __typename: "ImageActivity",
+        kind?: string | null,
+        copyright?: string | null,
+        name?: string | null,
+        URL?: string | null,
+      } | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
 };
 
 export type OnCreateEventSubscriptionVariables = {
-  owner?: string | null;
+  owner?: string | null,
 };
 
 export type OnCreateEventSubscription = {
-  onCreateEvent?: {
-    __typename: "Event";
-    id: string;
-    title: string;
-    infoUrl?: string | null;
-    intro?: string | null;
-    description: string;
-    startingDatetime: string;
-    endingDatetime: string;
-    Location?: {
-      __typename: "Location";
-      id: string;
-      lat: number;
-      lon: number;
-      streetAddess: string;
-      postalCode?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    Category?: {
-      __typename: "Category";
-      id: string;
-      category?: Array<CATEGORY> | null;
-      format?: Array<FORMAT | null> | null;
-      tags?: Array<string | null> | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    source: string;
-    EventImage?: {
-      __typename: "ModelEventImageConnection";
-      items: Array<{
-        __typename: "EventImage";
-        id: string;
-        url: string;
-        lisenceType?: number | null;
-        lisenceName?: string | null;
-        eventID: string;
-        createdAt: string;
-        updatedAt: string;
-        owner?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    eventLocationId?: string | null;
-    eventCategoryId?: string | null;
-    owner?: string | null;
-  } | null;
+  onCreateEvent?:  {
+    __typename: "Event",
+    id: string,
+    title_FI: string,
+    infoURL?: string | null,
+    intro: string,
+    description: string,
+    title_EN?: string | null,
+    startingDateTime: string,
+    endingDateTime: string,
+    source: string,
+    location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    category?: Array< CATEGORY > | null,
+    format?: Array< FORMAT | null > | null,
+    tags?: Array< string | null > | null,
+    companyID: string,
+    imageEvent?:  Array< {
+      __typename: "ImageEvent",
+      URL: string,
+      lisenceType: string,
+      lisenceName: string,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
 export type OnUpdateEventSubscriptionVariables = {
-  owner?: string | null;
+  owner?: string | null,
 };
 
 export type OnUpdateEventSubscription = {
-  onUpdateEvent?: {
-    __typename: "Event";
-    id: string;
-    title: string;
-    infoUrl?: string | null;
-    intro?: string | null;
-    description: string;
-    startingDatetime: string;
-    endingDatetime: string;
-    Location?: {
-      __typename: "Location";
-      id: string;
-      lat: number;
-      lon: number;
-      streetAddess: string;
-      postalCode?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    Category?: {
-      __typename: "Category";
-      id: string;
-      category?: Array<CATEGORY> | null;
-      format?: Array<FORMAT | null> | null;
-      tags?: Array<string | null> | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    source: string;
-    EventImage?: {
-      __typename: "ModelEventImageConnection";
-      items: Array<{
-        __typename: "EventImage";
-        id: string;
-        url: string;
-        lisenceType?: number | null;
-        lisenceName?: string | null;
-        eventID: string;
-        createdAt: string;
-        updatedAt: string;
-        owner?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    eventLocationId?: string | null;
-    eventCategoryId?: string | null;
-    owner?: string | null;
-  } | null;
+  onUpdateEvent?:  {
+    __typename: "Event",
+    id: string,
+    title_FI: string,
+    infoURL?: string | null,
+    intro: string,
+    description: string,
+    title_EN?: string | null,
+    startingDateTime: string,
+    endingDateTime: string,
+    source: string,
+    location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    category?: Array< CATEGORY > | null,
+    format?: Array< FORMAT | null > | null,
+    tags?: Array< string | null > | null,
+    companyID: string,
+    imageEvent?:  Array< {
+      __typename: "ImageEvent",
+      URL: string,
+      lisenceType: string,
+      lisenceName: string,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };
 
 export type OnDeleteEventSubscriptionVariables = {
-  owner?: string | null;
+  owner?: string | null,
 };
 
 export type OnDeleteEventSubscription = {
-  onDeleteEvent?: {
-    __typename: "Event";
-    id: string;
-    title: string;
-    infoUrl?: string | null;
-    intro?: string | null;
-    description: string;
-    startingDatetime: string;
-    endingDatetime: string;
-    Location?: {
-      __typename: "Location";
-      id: string;
-      lat: number;
-      lon: number;
-      streetAddess: string;
-      postalCode?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    Category?: {
-      __typename: "Category";
-      id: string;
-      category?: Array<CATEGORY> | null;
-      format?: Array<FORMAT | null> | null;
-      tags?: Array<string | null> | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    source: string;
-    EventImage?: {
-      __typename: "ModelEventImageConnection";
-      items: Array<{
-        __typename: "EventImage";
-        id: string;
-        url: string;
-        lisenceType?: number | null;
-        lisenceName?: string | null;
-        eventID: string;
-        createdAt: string;
-        updatedAt: string;
-        owner?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    eventLocationId?: string | null;
-    eventCategoryId?: string | null;
-    owner?: string | null;
-  } | null;
+  onDeleteEvent?:  {
+    __typename: "Event",
+    id: string,
+    title_FI: string,
+    infoURL?: string | null,
+    intro: string,
+    description: string,
+    title_EN?: string | null,
+    startingDateTime: string,
+    endingDateTime: string,
+    source: string,
+    location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    category?: Array< CATEGORY > | null,
+    format?: Array< FORMAT | null > | null,
+    tags?: Array< string | null > | null,
+    companyID: string,
+    imageEvent?:  Array< {
+      __typename: "ImageEvent",
+      URL: string,
+      lisenceType: string,
+      lisenceName: string,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateCompanySubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateCompanySubscription = {
+  onCreateCompany?:  {
+    __typename: "Company",
+    id: string,
+    email?: string | null,
+    phone?: string | null,
+    name?: string | null,
+    Activities?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Events?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateCompanySubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateCompanySubscription = {
+  onUpdateCompany?:  {
+    __typename: "Company",
+    id: string,
+    email?: string | null,
+    phone?: string | null,
+    name?: string | null,
+    Activities?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Events?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteCompanySubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteCompanySubscription = {
+  onDeleteCompany?:  {
+    __typename: "Company",
+    id: string,
+    email?: string | null,
+    phone?: string | null,
+    name?: string | null,
+    Activities?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Events?:  {
+      __typename: "ModelActivityConnection",
+      items:  Array< {
+        __typename: "Activity",
+        id: string,
+        availableMonths?: Array< string | null > | null,
+        fi_description: string,
+        fi_name: string,
+        en_description?: string | null,
+        en_name?: string | null,
+        categories?: Array< CATEGORY > | null,
+        companyID: string,
+        duration?: string | null,
+        durationType?: string | null,
+        meantFor?: Array< string | null > | null,
+        priceEUR_From?: number | null,
+        priceEUR_TO?: number | null,
+        pricingType?: string | null,
+        siteURL?: string | null,
+        updated_at_LinkedEvent?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateActivitySubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateActivitySubscription = {
+  onCreateActivity?:  {
+    __typename: "Activity",
+    id: string,
+    availableMonths?: Array< string | null > | null,
+    fi_description: string,
+    fi_name: string,
+    en_description?: string | null,
+    en_name?: string | null,
+    openDays?:  Array< {
+      __typename: "OpenDays",
+      day?: string | null,
+      open?: boolean | null,
+      from?: string | null,
+      to?: string | null,
+    } | null > | null,
+    categories?: Array< CATEGORY > | null,
+    companyID: string,
+    duration?: string | null,
+    durationType?: string | null,
+    meantFor?: Array< string | null > | null,
+    priceEUR_From?: number | null,
+    priceEUR_TO?: number | null,
+    pricingType?: string | null,
+    siteURL?: string | null,
+    updated_at_LinkedEvent?: string | null,
+    Location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    imageActivity?:  Array< {
+      __typename: "ImageActivity",
+      kind?: string | null,
+      copyright?: string | null,
+      name?: string | null,
+      URL?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateActivitySubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateActivitySubscription = {
+  onUpdateActivity?:  {
+    __typename: "Activity",
+    id: string,
+    availableMonths?: Array< string | null > | null,
+    fi_description: string,
+    fi_name: string,
+    en_description?: string | null,
+    en_name?: string | null,
+    openDays?:  Array< {
+      __typename: "OpenDays",
+      day?: string | null,
+      open?: boolean | null,
+      from?: string | null,
+      to?: string | null,
+    } | null > | null,
+    categories?: Array< CATEGORY > | null,
+    companyID: string,
+    duration?: string | null,
+    durationType?: string | null,
+    meantFor?: Array< string | null > | null,
+    priceEUR_From?: number | null,
+    priceEUR_TO?: number | null,
+    pricingType?: string | null,
+    siteURL?: string | null,
+    updated_at_LinkedEvent?: string | null,
+    Location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    imageActivity?:  Array< {
+      __typename: "ImageActivity",
+      kind?: string | null,
+      copyright?: string | null,
+      name?: string | null,
+      URL?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteActivitySubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteActivitySubscription = {
+  onDeleteActivity?:  {
+    __typename: "Activity",
+    id: string,
+    availableMonths?: Array< string | null > | null,
+    fi_description: string,
+    fi_name: string,
+    en_description?: string | null,
+    en_name?: string | null,
+    openDays?:  Array< {
+      __typename: "OpenDays",
+      day?: string | null,
+      open?: boolean | null,
+      from?: string | null,
+      to?: string | null,
+    } | null > | null,
+    categories?: Array< CATEGORY > | null,
+    companyID: string,
+    duration?: string | null,
+    durationType?: string | null,
+    meantFor?: Array< string | null > | null,
+    priceEUR_From?: number | null,
+    priceEUR_TO?: number | null,
+    pricingType?: string | null,
+    siteURL?: string | null,
+    updated_at_LinkedEvent?: string | null,
+    Location:  {
+      __typename: "Location",
+      lat: number,
+      lon: number,
+      streetAddress?: string | null,
+      postalCode?: string | null,
+    },
+    imageActivity?:  Array< {
+      __typename: "ImageActivity",
+      kind?: string | null,
+      copyright?: string | null,
+      name?: string | null,
+      URL?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
 };

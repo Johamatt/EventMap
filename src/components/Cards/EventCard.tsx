@@ -51,7 +51,7 @@ const EventCard: React.FC<ListRenderItemInfo<LiveEvent>> = (
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={styles.container}>
-      {props.item.EventImage?.items[0] !== null ? (
+      {props.item.imageEvent?.[0] !== null ? (
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("EventScreen", { liveEvent: props.item })
@@ -60,12 +60,12 @@ const EventCard: React.FC<ListRenderItemInfo<LiveEvent>> = (
           <Image
             defaultSource={require("../../assets/images/broken-link.png")}
             source={{
-              uri: props.item.EventImage?.items[0].url,
+              uri: props.item.imageEvent?.[0].URL,
             }}
             style={styles.image}
           />
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>{props.item.title}</Text>
+            <Text style={styles.title}>{props.item.title_FI}</Text>
           </View>
         </TouchableOpacity>
       ) : (

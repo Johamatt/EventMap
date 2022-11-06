@@ -1,10 +1,10 @@
 {
-  "AppSyncApiName": "eventapp",
+  "AppSyncApiName": "eventmap",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
   "AuthCognitoUserPoolId": {
     "Fn::GetAtt": [
-      "autheventApp",
+      "autheventmap32ff6c1932ff6c19",
       "Outputs.UserPoolId"
     ]
   }

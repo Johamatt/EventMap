@@ -1,0 +1,146 @@
+type ImageActivity {
+  kind: String
+  copyright: String
+  name: String
+  URL: AWSURL
+}
+
+type ImageEvent {
+  URL: AWSURL!
+  lisenceType: String!
+  lisenceName: String!
+}
+
+type Location {
+  lat: Float!
+  lon: Float!
+  streetAddress: String
+  postalCode: String
+}
+
+type Event @model @auth(rules: [
+    # Defaults to use the "owner" field.
+    { allow: owner, operations: [create, read, update, delete] },
+
+    # Admin users can access any operation.
+    { allow: groups, groups: ["Admin"] }
+
+    # Each record may specify which groups may read them.
+    { allow: public, operations: [read] }
+  ]) {
+  id: ID!
+  title_FI: String!
+  infoURL: String
+  intro: String!
+  description: String!
+  title_EN: String
+  startingDateTime: String!
+  endingDateTime: String!
+  source: String!
+  location: Location!
+  category: [CATEGORY!]
+  format: [FORMAT]
+  tags: [String]
+  companyID: ID! @index(name: "byCompany")
+  imageEvent: [ImageEvent]
+}
+
+enum FORMAT {
+  SEMINARTALK
+  EXPO
+  PERFORMANCELIVESHOW
+  CLASSTRAINING
+  NETWORKINGMEETING
+  SOCIALGATHERING
+  TOURNAMENTCOMPETITION
+  TOURSWALKS
+  CAMPTRIP
+  EXHIBITION
+  LUXURY
+  OTHER
+}
+
+type Company @model @auth(rules: [
+    # Defaults to use the "owner" field.
+    { allow: owner, operations: [create, read, update, delete] },
+
+    # Admin users can access any operation.
+    { allow: groups, groups: ["Admin"] }
+
+    # Each record may specify which groups may read them.
+    { allow: public, operations: [read] }
+  ]) {
+  id: ID!
+  email: String
+  phone: String
+  name: String
+  Activities: [Activity] @hasMany(indexName: "byCompany", fields: ["id"])
+  Events: [Activity] @hasMany(indexName: "byCompany", fields: ["id"])
+}
+
+type OpenDays {
+  day: String
+  open: Boolean
+  from: String
+  to: String
+}
+
+enum CATEGORY {
+  MUSIC
+  FESTIVAL
+  SPORT
+  PARTIESNIGHTLIFE
+  KIDS
+  FAMILY
+  HEALTH
+  TRIP
+  FOOD
+  WORKSHOP
+  COOKING
+  BUSINESS
+  ACTIVITY
+  CULTURE
+  COMEDY
+  CONCERT
+  PERFORMANCE
+  FINEARTS
+  THEATRE
+  LITERATURE
+  PHOTOGRAPHY
+  TECHNOLOGY
+  MARKET
+  SIGHTSEEING
+  MUSEUM
+  OTHER
+}
+
+type Activity @model @auth(rules: [
+    # Defaults to use the "owner" field.
+    { allow: owner, operations: [create, read, update, delete] },
+
+    # Admin users can access any operation.
+    { allow: groups, groups: ["Admin"] }
+
+    # Each record may specify which groups may read them.
+    { allow: public, operations: [read] }
+  ]) {
+  id: ID!
+  availableMonths: [String]
+  fi_description: String!
+  fi_name: String!
+  en_description: String
+  en_name: String
+  openDays: [OpenDays]
+  categories: [CATEGORY!]
+  companyID: ID! @index(name: "byCompany")
+  duration: String
+  durationType: String
+  meantFor: [String]
+  priceEUR_From: Float
+  priceEUR_TO: Float
+  pricingType: String
+  siteURL: String
+  updated_at_LinkedEvent: AWSDateTime
+  Location: Location!
+  imageActivity: [ImageActivity]
+}

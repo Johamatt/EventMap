@@ -1,14 +1,6 @@
-import {
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { Dimensions, ScrollView } from "react-native";
 
-import {
-  RootStackParamList,
-  // RootTabScreenProps,
-} from "../../navigation/types";
+import { RootStackParamList } from "../../navigation/types";
 
 import { Event as LiveEvent } from "../../API";
 import { View, Text, Image } from "react-native";
@@ -18,10 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { styles } from "./styles";
 import React from "react";
-import { Feather, Ionicons } from "@expo/vector-icons";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import MapView, { Marker } from "react-native-maps";
-import useAmplifyResources from "../../hooks/loadResources/useAmplifyResources";
 
 interface EventScreenProps {
   userReducer: UserState;
@@ -53,7 +42,7 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
             fontFamily: "Rationale-Regular",
           }}
         >
-          {event.title}
+          {event.title_FI}
         </Text>
       </View>
       {/* Header ends */}
@@ -73,13 +62,13 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
 
           <View style={{ padding: 10 }}>
             <View>
-              <Text>{event.startingDatetime}</Text>
-              <Text>{event.endingDatetime}</Text>
+              <Text>{event.startingDateTime}</Text>
+              <Text>{event.endingDateTime}</Text>
             </View>
 
             <View>
-              <Text>{event.Location?.streetAddess}</Text>
-              <Text>{event.Location?.postalCode}</Text>
+              <Text>{event.location.streetAddress}</Text>
+              <Text>{event.location.postalCode}</Text>
             </View>
           </View>
         </View>
@@ -98,24 +87,25 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
             justifyContent: "center",
           }}
         >
-          {event.Location?.lat !== undefined &&
-          event.Location?.lon !== undefined ? (
+          {event.location.lat !== undefined ||
+          (null && event.location.lon !== undefined) ||
+          null ? (
             <MapView
               style={{
                 width: Dimensions.get("window").width,
                 height: 300,
               }}
               initialRegion={{
-                latitude: event.Location.lat,
-                longitude: event.Location.lon,
+                latitude: event.location.lat,
+                longitude: event.location.lon,
                 latitudeDelta: 0.00922,
                 longitudeDelta: 0.00421,
               }}
             >
               <Marker
                 coordinate={{
-                  latitude: event.Location.lat,
-                  longitude: event.Location.lon,
+                  latitude: event.location.lat,
+                  longitude: event.location.lon,
                 }}
               ></Marker>
             </MapView>

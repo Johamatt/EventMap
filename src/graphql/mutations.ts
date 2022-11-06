@@ -2,156 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createCategory = /* GraphQL */ `
-  mutation CreateCategory(
-    $input: CreateCategoryInput!
-    $condition: ModelCategoryConditionInput
-  ) {
-    createCategory(input: $input, condition: $condition) {
-      id
-      category
-      format
-      tags
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const updateCategory = /* GraphQL */ `
-  mutation UpdateCategory(
-    $input: UpdateCategoryInput!
-    $condition: ModelCategoryConditionInput
-  ) {
-    updateCategory(input: $input, condition: $condition) {
-      id
-      category
-      format
-      tags
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const deleteCategory = /* GraphQL */ `
-  mutation DeleteCategory(
-    $input: DeleteCategoryInput!
-    $condition: ModelCategoryConditionInput
-  ) {
-    deleteCategory(input: $input, condition: $condition) {
-      id
-      category
-      format
-      tags
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const createEventImage = /* GraphQL */ `
-  mutation CreateEventImage(
-    $input: CreateEventImageInput!
-    $condition: ModelEventImageConditionInput
-  ) {
-    createEventImage(input: $input, condition: $condition) {
-      id
-      url
-      lisenceType
-      lisenceName
-      eventID
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const updateEventImage = /* GraphQL */ `
-  mutation UpdateEventImage(
-    $input: UpdateEventImageInput!
-    $condition: ModelEventImageConditionInput
-  ) {
-    updateEventImage(input: $input, condition: $condition) {
-      id
-      url
-      lisenceType
-      lisenceName
-      eventID
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const deleteEventImage = /* GraphQL */ `
-  mutation DeleteEventImage(
-    $input: DeleteEventImageInput!
-    $condition: ModelEventImageConditionInput
-  ) {
-    deleteEventImage(input: $input, condition: $condition) {
-      id
-      url
-      lisenceType
-      lisenceName
-      eventID
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const createLocation = /* GraphQL */ `
-  mutation CreateLocation(
-    $input: CreateLocationInput!
-    $condition: ModelLocationConditionInput
-  ) {
-    createLocation(input: $input, condition: $condition) {
-      id
-      lat
-      lon
-      streetAddess
-      postalCode
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const updateLocation = /* GraphQL */ `
-  mutation UpdateLocation(
-    $input: UpdateLocationInput!
-    $condition: ModelLocationConditionInput
-  ) {
-    updateLocation(input: $input, condition: $condition) {
-      id
-      lat
-      lon
-      streetAddess
-      postalCode
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const deleteLocation = /* GraphQL */ `
-  mutation DeleteLocation(
-    $input: DeleteLocationInput!
-    $condition: ModelLocationConditionInput
-  ) {
-    deleteLocation(input: $input, condition: $condition) {
-      id
-      lat
-      lon
-      streetAddess
-      postalCode
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
 export const createEvent = /* GraphQL */ `
   mutation CreateEvent(
     $input: CreateEventInput!
@@ -159,49 +9,31 @@ export const createEvent = /* GraphQL */ `
   ) {
     createEvent(input: $input, condition: $condition) {
       id
-      title
-      infoUrl
+      title_FI
+      infoURL
       intro
       description
-      startingDatetime
-      endingDatetime
-      Location {
-        id
+      title_EN
+      startingDateTime
+      endingDateTime
+      source
+      location {
         lat
         lon
-        streetAddess
+        streetAddress
         postalCode
-        createdAt
-        updatedAt
-        owner
       }
-      Category {
-        id
-        category
-        format
-        tags
-        createdAt
-        updatedAt
-        owner
-      }
-      source
-      EventImage {
-        items {
-          id
-          url
-          lisenceType
-          lisenceName
-          eventID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
+      category
+      format
+      tags
+      companyID
+      imageEvent {
+        URL
+        lisenceType
+        lisenceName
       }
       createdAt
       updatedAt
-      eventLocationId
-      eventCategoryId
       owner
     }
   }
@@ -213,49 +45,31 @@ export const updateEvent = /* GraphQL */ `
   ) {
     updateEvent(input: $input, condition: $condition) {
       id
-      title
-      infoUrl
+      title_FI
+      infoURL
       intro
       description
-      startingDatetime
-      endingDatetime
-      Location {
-        id
+      title_EN
+      startingDateTime
+      endingDateTime
+      source
+      location {
         lat
         lon
-        streetAddess
+        streetAddress
         postalCode
-        createdAt
-        updatedAt
-        owner
       }
-      Category {
-        id
-        category
-        format
-        tags
-        createdAt
-        updatedAt
-        owner
-      }
-      source
-      EventImage {
-        items {
-          id
-          url
-          lisenceType
-          lisenceName
-          eventID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
+      category
+      format
+      tags
+      companyID
+      imageEvent {
+        URL
+        lisenceType
+        lisenceName
       }
       createdAt
       updatedAt
-      eventLocationId
-      eventCategoryId
       owner
     }
   }
@@ -267,39 +81,87 @@ export const deleteEvent = /* GraphQL */ `
   ) {
     deleteEvent(input: $input, condition: $condition) {
       id
-      title
-      infoUrl
+      title_FI
+      infoURL
       intro
       description
-      startingDatetime
-      endingDatetime
-      Location {
-        id
+      title_EN
+      startingDateTime
+      endingDateTime
+      source
+      location {
         lat
         lon
-        streetAddess
+        streetAddress
         postalCode
-        createdAt
-        updatedAt
-        owner
       }
-      Category {
-        id
-        category
-        format
-        tags
-        createdAt
-        updatedAt
-        owner
+      category
+      format
+      tags
+      companyID
+      imageEvent {
+        URL
+        lisenceType
+        lisenceName
       }
-      source
-      EventImage {
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createCompany = /* GraphQL */ `
+  mutation CreateCompany(
+    $input: CreateCompanyInput!
+    $condition: ModelCompanyConditionInput
+  ) {
+    createCompany(input: $input, condition: $condition) {
+      id
+      email
+      phone
+      name
+      Activities {
         items {
           id
-          url
-          lisenceType
-          lisenceName
-          eventID
+          availableMonths
+          fi_description
+          fi_name
+          en_description
+          en_name
+          categories
+          companyID
+          duration
+          durationType
+          meantFor
+          priceEUR_From
+          priceEUR_TO
+          pricingType
+          siteURL
+          updated_at_LinkedEvent
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      Events {
+        items {
+          id
+          availableMonths
+          fi_description
+          fi_name
+          en_description
+          en_name
+          categories
+          companyID
+          duration
+          durationType
+          meantFor
+          priceEUR_From
+          priceEUR_TO
+          pricingType
+          siteURL
+          updated_at_LinkedEvent
           createdAt
           updatedAt
           owner
@@ -308,8 +170,272 @@ export const deleteEvent = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      eventLocationId
-      eventCategoryId
+      owner
+    }
+  }
+`;
+export const updateCompany = /* GraphQL */ `
+  mutation UpdateCompany(
+    $input: UpdateCompanyInput!
+    $condition: ModelCompanyConditionInput
+  ) {
+    updateCompany(input: $input, condition: $condition) {
+      id
+      email
+      phone
+      name
+      Activities {
+        items {
+          id
+          availableMonths
+          fi_description
+          fi_name
+          en_description
+          en_name
+          categories
+          companyID
+          duration
+          durationType
+          meantFor
+          priceEUR_From
+          priceEUR_TO
+          pricingType
+          siteURL
+          updated_at_LinkedEvent
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      Events {
+        items {
+          id
+          availableMonths
+          fi_description
+          fi_name
+          en_description
+          en_name
+          categories
+          companyID
+          duration
+          durationType
+          meantFor
+          priceEUR_From
+          priceEUR_TO
+          pricingType
+          siteURL
+          updated_at_LinkedEvent
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteCompany = /* GraphQL */ `
+  mutation DeleteCompany(
+    $input: DeleteCompanyInput!
+    $condition: ModelCompanyConditionInput
+  ) {
+    deleteCompany(input: $input, condition: $condition) {
+      id
+      email
+      phone
+      name
+      Activities {
+        items {
+          id
+          availableMonths
+          fi_description
+          fi_name
+          en_description
+          en_name
+          categories
+          companyID
+          duration
+          durationType
+          meantFor
+          priceEUR_From
+          priceEUR_TO
+          pricingType
+          siteURL
+          updated_at_LinkedEvent
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      Events {
+        items {
+          id
+          availableMonths
+          fi_description
+          fi_name
+          en_description
+          en_name
+          categories
+          companyID
+          duration
+          durationType
+          meantFor
+          priceEUR_From
+          priceEUR_TO
+          pricingType
+          siteURL
+          updated_at_LinkedEvent
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createActivity = /* GraphQL */ `
+  mutation CreateActivity(
+    $input: CreateActivityInput!
+    $condition: ModelActivityConditionInput
+  ) {
+    createActivity(input: $input, condition: $condition) {
+      id
+      availableMonths
+      fi_description
+      fi_name
+      en_description
+      en_name
+      openDays {
+        day
+        open
+        from
+        to
+      }
+      categories
+      companyID
+      duration
+      durationType
+      meantFor
+      priceEUR_From
+      priceEUR_TO
+      pricingType
+      siteURL
+      updated_at_LinkedEvent
+      Location {
+        lat
+        lon
+        streetAddress
+        postalCode
+      }
+      imageActivity {
+        kind
+        copyright
+        name
+        URL
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateActivity = /* GraphQL */ `
+  mutation UpdateActivity(
+    $input: UpdateActivityInput!
+    $condition: ModelActivityConditionInput
+  ) {
+    updateActivity(input: $input, condition: $condition) {
+      id
+      availableMonths
+      fi_description
+      fi_name
+      en_description
+      en_name
+      openDays {
+        day
+        open
+        from
+        to
+      }
+      categories
+      companyID
+      duration
+      durationType
+      meantFor
+      priceEUR_From
+      priceEUR_TO
+      pricingType
+      siteURL
+      updated_at_LinkedEvent
+      Location {
+        lat
+        lon
+        streetAddress
+        postalCode
+      }
+      imageActivity {
+        kind
+        copyright
+        name
+        URL
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteActivity = /* GraphQL */ `
+  mutation DeleteActivity(
+    $input: DeleteActivityInput!
+    $condition: ModelActivityConditionInput
+  ) {
+    deleteActivity(input: $input, condition: $condition) {
+      id
+      availableMonths
+      fi_description
+      fi_name
+      en_description
+      en_name
+      openDays {
+        day
+        open
+        from
+        to
+      }
+      categories
+      companyID
+      duration
+      durationType
+      meantFor
+      priceEUR_From
+      priceEUR_TO
+      pricingType
+      siteURL
+      updated_at_LinkedEvent
+      Location {
+        lat
+        lon
+        streetAddress
+        postalCode
+      }
+      imageActivity {
+        kind
+        copyright
+        name
+        URL
+      }
+      createdAt
+      updatedAt
       owner
     }
   }

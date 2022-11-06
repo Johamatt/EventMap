@@ -9,34 +9,16 @@ import useColorScheme from "./src/hooks/useColorScheme";
 import Navigation from "./src/navigation";
 import SplashScreen from "./src/screens/SplashScreen";
 import { store } from "./src/Store";
-import { Amplify, Analytics } from "aws-amplify";
+import { Amplify, Analytics, Auth } from "aws-amplify";
 
 import { withAuthenticator } from "aws-amplify-react-native";
 import awsmobile from "./src/aws-exports";
-import { signUpConfig } from "./amplify/signUpConfig";
-import useCachedResources from "./src/hooks/loadResources/useCachedResources";
-import useAmplifyResources from "./src/hooks/loadResources/useAmplifyResources";
 import loadResources from "./src/hooks/loadResources";
+import { signUpConfig } from "./amplify/signUpConfig";
 
 Amplify.configure({ ...awsmobile, Analytics: { disabled: true } });
 
 const App: React.FC = () => {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   // Auth.signOut();
 
   //

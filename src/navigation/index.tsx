@@ -38,16 +38,26 @@ import { UserConfirmEmailScreen } from "../screens/Authentication/userAuthentica
 import { UserNewPasswordScreen } from "../screens/Authentication/userAuthentication/UserNewPasswordScreen";
 import { UserForgotPasswordScreen } from "../screens/Authentication/userAuthentication/UserForgotPasswordScreen";
 import { useEffect, useState } from "react";
-import { Auth } from "aws-amplify";
+import { API, Auth, graphqlOperation } from "aws-amplify";
 import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
-import { ApplicationState, ON_UPDATE_AUTH, UserState } from "../Store";
+import {
+  ActivitiesState,
+  ApplicationState,
+  ON_UPDATE_AUTH,
+  UserState,
+} from "../Store";
 import { connect } from "react-redux";
 import { userReducer } from "../Store/reducers/userReducer";
+import { listActivities } from "../graphql/queries";
+import { ON_UPDATE_ACTIVITIES } from "../Store/actions/activityAction";
+import { ListActivitiesQuery } from "../API";
 // import { Authenticator } from "aws-amplify-react-native";
 
 interface NavigationProps {
   userReducer: UserState;
+  activitiesReducer: ActivitiesState;
   ON_UPDATE_AUTH: Function;
+  ON_UPDATE_ACTIVITIES: Function;
 }
 
 const _Navigation: React.FC<NavigationProps> = (props) => {
@@ -68,6 +78,8 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
   //   checkUser();
   // }, [user]);
 
+
+
   if (props === undefined) {
     return (
       <NavigationContainer>
@@ -87,10 +99,14 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
+  activitiesReducer: state.ActivitiesReducer,
   userReducer: state.UserReducer,
 });
 
-const Navigation = connect(mapToStateProps, { ON_UPDATE_AUTH })(_Navigation);
+const Navigation = connect(mapToStateProps, {
+  ON_UPDATE_AUTH,
+  ON_UPDATE_ACTIVITIES,
+})(_Navigation);
 export default Navigation;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

@@ -1,6 +1,6 @@
 export type Opendays = {
-  day: String;
+  day: string;
   open: Boolean;
-  from: Date | null | string;
-  to: Date | null | string;
+  from: null | string;
+  to: null | string;
 };

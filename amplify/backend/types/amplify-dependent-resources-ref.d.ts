@@ -1,8 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "eventApp": {
-            "IdentityPoolId": "string",
-            "IdentityPoolName": "string",
+        "eventmap32ff6c1932ff6c19": {
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
@@ -11,16 +9,10 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "api": {
-        "eventapp": {
+        "eventmap": {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
-        }
-    },
-    "storage": {
-        "s3eventappstoragee5901a5c": {
-            "BucketName": "string",
-            "Region": "string"
         }
     }
 }

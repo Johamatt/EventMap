@@ -12,7 +12,6 @@ import { styles } from "./styles";
 import { connect } from "react-redux";
 import { RootStackParamList } from "../../navigation/types";
 import { CATEGORY } from "../../API";
-import useAmplifyResources from "../../hooks/loadResources/useAmplifyResources";
 
 interface LandingPreferenceProps {
   userReducer: UserState;

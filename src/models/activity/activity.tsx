@@ -1,25 +1,28 @@
 import { LocationModel } from "../locationTypes";
-import { Description } from "./description";
+import { CATEGORY } from "./category";
+import { Company } from "./company";
 import { Opendays } from "./opendays";
 
 export type Activity = {
-  id: String;
+  id: string;
 
-  availableMonths: Array<String>;
+  availableMonths: Array<string>;
   Location: LocationModel;
-  fi_description: String;
-  fi_name: String;
-  en_description: String;
-  en_name: String;
-  openDays: Array<Opendays>;
-  tags: Array<String>;
+  fi_description: string | undefined;
+  fi_name: string | undefined;
+  en_description: string | undefined;
+  en_name: string | undefined;
+  openDays: (Opendays | null)[];
+  categories: Array<CATEGORY>;
 
-  duration: String;
-  durationType: String;
-  meantFor: Array<String>;
+  companyID: string;
+
+  duration: string;
+  durationType: string;
+  meantFor: Array<string>;
   priceEUR_From: number | null;
   priceEUR_TO: number | null;
-  pricingType: String;
-  siteUrl: String;
-  updated_LinkedEvent: Date;
+  pricingType: string;
+  siteURL: string;
+  updated_at_LinkedEvent: string;
 };

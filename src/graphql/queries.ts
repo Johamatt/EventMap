@@ -2,156 +2,35 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getCategory = /* GraphQL */ `
-  query GetCategory($id: ID!) {
-    getCategory(id: $id) {
-      id
-      category
-      format
-      tags
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const listCategories = /* GraphQL */ `
-  query ListCategories(
-    $filter: ModelCategoryFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCategories(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        category
-        format
-        tags
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const getEventImage = /* GraphQL */ `
-  query GetEventImage($id: ID!) {
-    getEventImage(id: $id) {
-      id
-      url
-      lisenceType
-      lisenceName
-      eventID
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const listEventImages = /* GraphQL */ `
-  query ListEventImages(
-    $filter: ModelEventImageFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listEventImages(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        url
-        lisenceType
-        lisenceName
-        eventID
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const getLocation = /* GraphQL */ `
-  query GetLocation($id: ID!) {
-    getLocation(id: $id) {
-      id
-      lat
-      lon
-      streetAddess
-      postalCode
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const listLocations = /* GraphQL */ `
-  query ListLocations(
-    $filter: ModelLocationFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listLocations(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        lat
-        lon
-        streetAddess
-        postalCode
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-  }
-`;
 export const getEvent = /* GraphQL */ `
   query GetEvent($id: ID!) {
     getEvent(id: $id) {
       id
-      title
-      infoUrl
+      title_FI
+      infoURL
       intro
       description
-      startingDatetime
-      endingDatetime
-      Location {
-        id
+      title_EN
+      startingDateTime
+      endingDateTime
+      source
+      location {
         lat
         lon
-        streetAddess
+        streetAddress
         postalCode
-        createdAt
-        updatedAt
-        owner
       }
-      Category {
-        id
-        category
-        format
-        tags
-        createdAt
-        updatedAt
-        owner
-      }
-      source
-      EventImage {
-        items {
-          id
-          url
-          lisenceType
-          lisenceName
-          eventID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
+      category
+      format
+      tags
+      companyID
+      imageEvent {
+        URL
+        lisenceType
+        lisenceName
       }
       createdAt
       updatedAt
-      eventLocationId
-      eventCategoryId
       owner
     }
   }
@@ -165,39 +44,211 @@ export const listEvents = /* GraphQL */ `
     listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title
-        infoUrl
+        title_FI
+        infoURL
         intro
         description
-        startingDatetime
-        endingDatetime
-        Location {
-          id
+        title_EN
+        startingDateTime
+        endingDateTime
+        source
+        location {
           lat
           lon
-          streetAddess
+          streetAddress
           postalCode
-          createdAt
-          updatedAt
-          owner
         }
-        Category {
+        category
+        format
+        tags
+        companyID
+        imageEvent {
+          URL
+          lisenceType
+          lisenceName
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getCompany = /* GraphQL */ `
+  query GetCompany($id: ID!) {
+    getCompany(id: $id) {
+      id
+      email
+      phone
+      name
+      Activities {
+        items {
           id
-          category
-          format
-          tags
+          availableMonths
+          fi_description
+          fi_name
+          en_description
+          en_name
+          categories
+          companyID
+          duration
+          durationType
+          meantFor
+          priceEUR_From
+          priceEUR_TO
+          pricingType
+          siteURL
+          updated_at_LinkedEvent
           createdAt
           updatedAt
           owner
         }
-        source
-        EventImage {
+        nextToken
+      }
+      Events {
+        items {
+          id
+          availableMonths
+          fi_description
+          fi_name
+          en_description
+          en_name
+          categories
+          companyID
+          duration
+          durationType
+          meantFor
+          priceEUR_From
+          priceEUR_TO
+          pricingType
+          siteURL
+          updated_at_LinkedEvent
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listCompanies = /* GraphQL */ `
+  query ListCompanies(
+    $filter: ModelCompanyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCompanies(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        email
+        phone
+        name
+        Activities {
+          nextToken
+        }
+        Events {
           nextToken
         }
         createdAt
         updatedAt
-        eventLocationId
-        eventCategoryId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getActivity = /* GraphQL */ `
+  query GetActivity($id: ID!) {
+    getActivity(id: $id) {
+      id
+      availableMonths
+      fi_description
+      fi_name
+      en_description
+      en_name
+      openDays {
+        day
+        open
+        from
+        to
+      }
+      categories
+      companyID
+      duration
+      durationType
+      meantFor
+      priceEUR_From
+      priceEUR_TO
+      pricingType
+      siteURL
+      updated_at_LinkedEvent
+      Location {
+        lat
+        lon
+        streetAddress
+        postalCode
+      }
+      imageActivity {
+        kind
+        copyright
+        name
+        URL
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listActivities = /* GraphQL */ `
+  query ListActivities(
+    $filter: ModelActivityFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listActivities(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        availableMonths
+        fi_description
+        fi_name
+        en_description
+        en_name
+        openDays {
+          day
+          open
+          from
+          to
+        }
+        categories
+        companyID
+        duration
+        durationType
+        meantFor
+        priceEUR_From
+        priceEUR_TO
+        pricingType
+        siteURL
+        updated_at_LinkedEvent
+        Location {
+          lat
+          lon
+          streetAddress
+          postalCode
+        }
+        imageActivity {
+          kind
+          copyright
+          name
+          URL
+        }
+        createdAt
+        updatedAt
         owner
       }
       nextToken
