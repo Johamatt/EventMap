@@ -27,7 +27,7 @@ export default function SplashScreen() {
   const onLayoutRootView = useCallback(async () => {
     if (await appIsReady) {
       await Splash.hideAsync();
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 4000));
       navigation.goBack();
       //
     }

@@ -41,7 +41,7 @@ type Event @model @auth(rules: [
   category: [CATEGORY!]
   format: [FORMAT]
   tags: [String]
-  companyID: ID! @index(name: "byCompany")
+  company: Company
   imageEvent: [ImageEvent]
 }
 
@@ -60,22 +60,11 @@ enum FORMAT {
   OTHER
 }
 
-type Company @model @auth(rules: [
-    # Defaults to use the "owner" field.
-    { allow: owner, operations: [create, read, update, delete] },
-
-    # Admin users can access any operation.
-    { allow: groups, groups: ["Admin"] }
-
-    # Each record may specify which groups may read them.
-    { allow: public, operations: [read] }
-  ]) {
-  id: ID!
+type Company {
+  businessId: String
   email: String
   phone: String
   name: String
-  Activities: [Activity] @hasMany(indexName: "byCompany", fields: ["id"])
-  Events: [Activity] @hasMany(indexName: "byCompany", fields: ["id"])
 }
 
 type OpenDays {
@@ -132,7 +121,7 @@ type Activity @model @auth(rules: [
   en_name: String
   openDays: [OpenDays]
   categories: [CATEGORY!]
-  companyID: ID! @index(name: "byCompany")
+  company: Company
   duration: String
   durationType: String
   meantFor: [String]

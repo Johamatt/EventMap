@@ -1,12 +1,24 @@
+import { API, graphqlOperation } from "aws-amplify";
 import React from "react";
-import { View, Button } from "react-native";
+import { View } from "react-native";
+import { Button } from "@rneui/themed";
 import { connect } from "react-redux";
+import { CATEGORY, Event, Location } from "../../../API";
+import { createActivity } from "../../../graphql/mutations";
+import { getActivity, listActivities } from "../../../graphql/queries";
+import { Activity } from "../../../models/activity/activity";
+import { Company } from "../../../models/activity/company";
+import { Opendays } from "../../../models/activity/opendays";
+import { CategoryModel } from "../../../models/event/categoryTypes";
 import {
   ActivitiesState,
   ApplicationState,
   ON_UPDATE_EVENTPREFERENCES,
   UserState,
 } from "../../../Store";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../../navigation/types";
 
 interface FavouritesScreenProps {
   userReducer: UserState;
@@ -14,9 +26,9 @@ interface FavouritesScreenProps {
 }
 
 export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
-  function parseData() {
-    console.log(props.activitiesReducer);
-  }
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  function parseData() {}
 
   return (
     <View

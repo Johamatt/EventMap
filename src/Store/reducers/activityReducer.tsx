@@ -7,7 +7,7 @@ import { CognitoUserInterface } from "@aws-amplify/ui-components";
 import { ActivitiesAction } from "../actions/activityAction";
 
 const initialState: ActivitiesState = {
-  activities: [] as Array<any> | undefined,
+  activities: [] as Array<Activity>, // | undefined,
   error: undefined,
 };
 

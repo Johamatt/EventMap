@@ -3,7 +3,7 @@ import { Activity } from "../../API";
 
 export interface UpdateActivitiesAction {
   readonly type: "ON_UPDATE_ACTIVITIES";
-  payload: Array<any> | undefined;
+  payload: Array<Activity> // | undefined;
 }
 
 export interface ActivitiesErrorAction {
@@ -13,7 +13,9 @@ export interface ActivitiesErrorAction {
 
 export type ActivitiesAction = UpdateActivitiesAction | ActivitiesErrorAction;
 
-export const ON_UPDATE_ACTIVITIES = (activities: Array<any> | undefined) => {
+export const ON_UPDATE_ACTIVITIES = (
+  activities: Array<Activity> // | undefined
+) => {
   return (dispatch: Dispatch<ActivitiesAction>) => {
     try {
       dispatch({

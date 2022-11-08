@@ -1,0 +1,264 @@
+{
+    "rows": [{
+        "id": "418816d7-07b7-4501-8139-4fe9c36e6aae",
+        "updated": "2022-05-16T12:32:16.287407+00:00",
+        "descriptions": {
+            "en": {
+                "name": "Private Espoo by Kayak",
+                "description": "Explore Espoo as close to the sea as you can get. Paddle together with your friends and family around islands in the archipelago. Have a fun day paddling!\n\nThis paddling trip will take you to the archipelago of Espoo, characterized by clear water, rocky islands and sandy beaches. We will stop on an island to enjoy our sandwiches. The tour is suitable for beginners and experts alike - no previous paddling experience required. The paddling begins and ends at the either Matinlahti or Suvisaaristo paddle point and we will arrange pick-up and drop-off from e.g. your hotel or your cruise ship. Choose a private Espoo by Kayak tour when you prefer to paddle in a group together with your friends and/or family.\n\n* Location: Matinlahti or Suvisaaristo paddle point with pick-up and drop-off from hotel/ cruise ship/ etc.\n* Time: From the beginning of May until the end of September every day. \n* Group size: 1 - 8 person, (minumum charge 4 x price per person). For bigger groups, please contact us!\n* Requirements: No previous paddling experience required. Our kayaks are stable and easy to paddle.\n* Price includes: Pick-up and drop-off, professional guiding, kayak, paddle, spray skirt, PFD, water bottle, sandwich, photos from the event and if needed wind- and waterproof paddling jackets will be provided."
+            },
+            "fi": {
+                "name": "Privaattiretki: Espoo meloen",
+                "description": "Lähde Espoon upeaan saaristoon melontaretkelle. Pääset yksityiselle retkelle perheesi tai ystäviesi kanssa kokeneen oppaan johdolla. Varaa melontaretkesi! \n\nRetki sopii hyvin sekä aloittelijoille että kokeneimmille melojille, jotka haluavat tutustua Espoon mahtavaan luontoon. Retken aikana harjoitellaan melonnan perusteita ja nautitaan upeista maisemista ja luonnosta. Matkan varrella pidetään tauko saaressa, jossa on tarjolla eväitä. Rohkeimmat voivat myös pulahtaa uimaan. Retki sisältää kajakit ja kaikki melontavarusteet. Tähän privaattiretkeen sisältyy kuljetus lähtöpaikalle ja takaisin pääkaupunkiseudun sisällä.\n \n* Retken aloituspaikka: Matinkylän tai Suvisaariston melontapiste, Espoo.\n* Kuljetuksen noutopaikka: Pääkaupunkiseudun sisällä sopimuksen mukaan.\n* Aika: 1.5.–30.9. joka päivä.\n* Ryhmän koko: 1–8 henkeä (minimiveloitus 4 hengen mukaan). Olethan meihin yhteydessä, jos haluat retken isommalle ryhmälle.\n* Ohjaaja: Natura Vivan ammattiopas.\n* Retken vaativuus: Retkelle osallistuminen ei vaadi aikaisempaa melontakokemusta. Käytettävät kajakit ovat tukevia ja helppoja meloa.\n* Hintaan sisältyy: Kuljetus pääkaupunkiseudun sisällä, opastus, kajakki ja muut melontavarusteet, vesipullo ja eväsleipä."
+            }
+        },
+        "duration": "270",
+        "durationType": "minutes",
+        "open": {
+            "sunday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "tuesday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "wednesday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "monday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "friday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "thursday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "saturday": {
+                "open": true,
+                "from": null,
+                "to": null
+            }
+        },
+        "media": [{
+            "id": "e4c3d389-0c9b-4007-8d06-de2f10a62948",
+            "kind": "image",
+            "copyright": "Natura Viva Oy",
+            "name": "05283090-d1f7-11ec-baab-1bce364ca529.jpeg",
+            "alt": "A group paddling in the archipelago of Espoo",
+            "originalUrl": "https://cdn-datahub.visitfinland.com/images/05283090-d1f7-11ec-baab-1bce364ca529.jpeg",
+            "smallUrl": "https://cdn-datahub.visitfinland.com/images/05283090-d1f7-11ec-baab-1bce364ca529.jpeg?s=240",
+            "largeUrl": "https://cdn-datahub.visitfinland.com/images/05283090-d1f7-11ec-baab-1bce364ca529.jpeg?s=1920"
+        }],
+        "address": {
+            "location": {
+                "lat": 60.1285187656291,
+                "long": 24.6925006565138
+            },
+            "postalCode": "02380",
+            "streetName": "Suvisaarentie 9",
+            "city": "Espoo"
+        },
+        "company": {
+            "name": "Natura Viva",
+            "businessId": "0649766-0",
+            "email": "info@naturaviva.fi",
+            "phone": "+358 10 292 4030"
+        },
+        "tags": ["coast_archipelago", "private_experience", "nature_excursion", "paddling_rafting", "water_activities"],
+        "priceEUR": {
+            "from": 99,
+            "to": null,
+            "pricingType": "chargeable"
+        },
+        "availableMonths": ["may", "june", "july", "august", "september"],
+        "meantFor": ["b2c", "b2b"],
+        "siteUrl": "https://naturaviva.fi/en_US/sign-up-for-a-paddling-tour-in-eastern-helsinki-039-s-archipelago/private-espoo-by-kayak",
+        "storeUrl": "https://naturaviva.fi/en_US/sign-up-for-a-paddling-tour-in-eastern-helsinki-039-s-archipelago/private-espoo-by-kayak"
+    }, {
+        "id": "a78e233e-ad7e-4f91-9dfc-8f61971c31d2",
+        "updated": "2022-05-16T12:29:44.475467+00:00",
+        "descriptions": {
+            "en": {
+                "name": "Try out canoeing in Nuuksio National Park",
+                "description": "Open canoeing can easily be tried out in Nuuksio Hawk lake, because of its beautiful scenery and calm location. Come and join us for a beautiful canoe trip! \n\nAn open canoe, or so-called ''Indian canoe'' is a nice way to get around on water. On this trip, we paddle at a calm pace and take a short break so that everyone can rest a bit. This trip is quite popular and should be experienced at least once in a lifetime. \n\n* The starting point of the trip: Nuuksio Hawk Lake, Espoo\n* Time:  At 18-20. Please check the dates and availability at our booking calendar.\n* Participants : max 10 persons\n* Instructors: Natura Viva's professional instructors \n* What to consider: Taking part in this trip does not require previous experience. The canoes we will be using are stable and easy to use so you can paddle at ease.  \n* The price includes: A professional guide, a canoe and other paddling equipment. "
+            },
+            "fi": {
+                "name": "Tutustu kanoottimelontaan Nuuksion kansallispuistossa",
+                "description": "Rentoudu kanoottiretkellä Nuuksion Haukkalammella - tämä retki sopii kaikille!\n\nKanoottimelonta on täydellinen tapa tutustua Haukkalammen rauhalllisiin vesiin. Lampea ympäröivät metsämaisemat ja jylhät kalliot tulevat tutuiksi kun melomme rauhallisesti keskellä Nuuksion kansallispuistoa. Tälle retkelle voit tulla kokeilemaan kanoottimelontaa ja rauhoittumaan - metsän keskellä on helppo pitää hengähdystauko arjesta. Tällä retkellä tutustumme kanoottimelontaan matalalla kynnyksellä ja teemme lyhyen retken, jonka aikana opit helposti melonnan alkeet. Retki sopii ihan jokaiselle, osallistu vaikka lapsesi kanssa!\n\nRetken aikana melomme kanooteilla, johon mahtuu kaksi aikuista, joten voitte jakaa yhden vaikka ystäväsi kanssa. Retkelle osallistuville annamme melontaliivit. Sinä voit tulla paikalle säänmukaisissa ulkoiluvaatteissa - lämpimällä säällä mukaan riittää uima-asu! Suosittelemme ottamaan mukaan oman juomapullon. Tarvittaessa voit ostaa puhelimellesi suojan Haukanpesältä. \n\n* Sijainti: Nuuksion Haukkalampi, Haukkalammentie 32, 02820 Espoo\n* Aika: klo 18.00-20.00. Katso retkipäivät ja saatavuus varauskalenteristamme. Oppaamme ottaa ryhmän vastaan 15 minuuttia ennen retken alkua. \n* Osallistujamäärä: Enintään 10 henkilöä\n* Opas: Natura Vivan ammattioppaat\n* Retken vaativuus: Retkelle osallistuminen ei vaadi aikaisempaa melontakokemusta. kanootit ovat tukevia ja helppokäyttöisiä - voit tulla rennoin mielin!\n* Retken hintaan sisältyy: Opastus ja kaikki melontaan tarvittavat välineet!"
+            }
+        },
+        "duration": "2",
+        "durationType": "hours",
+        "open": {
+            "sunday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "tuesday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "wednesday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "monday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "friday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "thursday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "saturday": {
+                "open": true,
+                "from": null,
+                "to": null
+            }
+        },
+        "media": [{
+            "id": "d4ac9508-c54a-47a0-b332-aa689fa48a67",
+            "kind": "image",
+            "copyright": "Natura Viva",
+            "name": "4c018b60-d2a1-11ec-baab-1bce364ca529.jpeg",
+            "alt": "A group canoeing in the Nuuksio National Park",
+            "originalUrl": "https://cdn-datahub.visitfinland.com/images/4c018b60-d2a1-11ec-baab-1bce364ca529.jpeg",
+            "smallUrl": "https://cdn-datahub.visitfinland.com/images/4c018b60-d2a1-11ec-baab-1bce364ca529.jpeg?s=240",
+            "largeUrl": "https://cdn-datahub.visitfinland.com/images/4c018b60-d2a1-11ec-baab-1bce364ca529.jpeg?s=1920"
+        }],
+        "address": {
+            "location": {
+                "lat": 60.309224998155,
+                "long": 24.5142303420473
+            },
+            "postalCode": "02820",
+            "streetName": "Haukkalammentie 32",
+            "city": "Espoo"
+        },
+        "company": {
+            "name": "Natura Viva",
+            "businessId": "0649766-0",
+            "email": "info@naturaviva.fi",
+            "phone": "+358 10 292 4030"
+        },
+        "tags": ["family_activity", "national_park", "nature_excursion", "paddling_rafting", "water_activities"],
+        "priceEUR": {
+            "from": 39,
+            "to": null,
+            "pricingType": "chargeable"
+        },
+        "availableMonths": ["may", "june", "july", "august"],
+        "meantFor": ["b2c"],
+        "siteUrl": "https://naturaviva.fi/en_US/canoe-tours-nuuksio-national-park/try-out-canoeing-in-nuuksio-national-park",
+        "storeUrl": "https://naturaviva.fi/en_US/canoe-tours-nuuksio-national-park/try-out-canoeing-in-nuuksio-national-park"
+    }, {
+        "id": "8d411718-747e-4e04-ac9d-9657714daa34",
+        "updated": "2022-05-16T11:10:28.695163+00:00",
+        "descriptions": {
+            "en": {
+                "name": "Try out Stand Up Paddling in Nuuksio National Park",
+                "description": "Now you have a great chance to try out guided Stand Up Paddling in the middle of the Nuuksio National Park. The Hawk Lake has extraordinary beautiful views, great scenery and calm environment. Come and join us! \n\nStand Up Paddling is very relaxing and much easier than you think, anyone can do it! If you still have not tested this trend sport, now is the perfect time for it. The Hawk Lake in Nuuksio National Park is a great place to start and get to know the sport and enjoy the peaceful nature. \n\nThis trip is quite popular, so book your spot now! \n\n* The starting point: Nuuksio Hawk Nest, Espoo\n* Time: At 18 - 20, please check the dates and availability at our booking calendar\n* Participants: Max 10 people \n* Instructors: Natura Viva's professional instructors\n* What to consider: Joining this trip does not require any previous experience. The SUP-boards we will use are stable and easy to handle, so you do not have to worry\n* The price includes: The instruction, SUP-board and other paddling equipment"
+            },
+            "fi": {
+                "name": "Tutustu SUP-lautailuun Nuuksion kansallispuistossa",
+                "description": "SUP-lautailu on täydellinen tapa rentoutua ja tutustua ympäröivään luontoon. Nuuksion Haukkalammella pääset nauttimaan rauhallisesta vesistöstä. Jylhät kalliot ja metsämaiseman rauha kääntävät ajatuksesi pois arjesta. Tällä retkellä tutustumme SUP-lautailuun matalalla kynnyksellä ja teemme lyhyen retken, jonka aikana opit SUP-lautailun alkeet helposti. Retki sopii ihan jokaiselle, osallistu vaikka lapsesi kanssa. Lapsi voi tarvittaessa tulla samalle laudalle! \n\nRetkeä varten jokainen osallistuja saa SUP-laudan ja melan, liivit sekä leashin. Sinä voit tulla paikalle säänmukaisissa ulkoiluvaatteissa - lämpimällä säällä mukaan riittää uima-asu! Suosittelemme ottamaan mukaan oman juomapullon. Tarvittaessa voit ostaa puhelimellesi suojan Haukanpesältä. \n\n* Sijainti: Nuuksion Haukkalampi, Haukkalammentie 32, 02820 Espoo\n* Aika: klo 18.00-20.00. Katso retkipäivät ja saatavuus varauskalenteristamme. Oppaamme ottaa ryhmän vastaan 15 minuuttia ennen retken alkua. \n* Osallistujamäärä: Enintään 10 henkilöä\n* Opas: Natura Vivan ammattioppaat\n* Retken vaativuus: Retkelle osallistuminen ei vaadi aikaisempaa SUP-kokemusta. SUP-lautamme ovat tukevia ja helppokäyttöisiä - voit suppailla rennoin mielin!\n* Retken hintaan sisältyy: Opastus ja kaikki SUP-lautailuun tarvittavat välineet!"
+            }
+        },
+        "duration": "2",
+        "durationType": "hours",
+        "open": {
+            "sunday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "tuesday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "wednesday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "monday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "friday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "thursday": {
+                "open": true,
+                "from": null,
+                "to": null
+            },
+            "saturday": {
+                "open": true,
+                "from": null,
+                "to": null
+            }
+        },
+        "media": [{
+            "id": "6a025dd8-b161-411f-a1d0-87f816fe9cd0",
+            "kind": "image",
+            "copyright": "Natura Viva",
+            "name": "f3bd4720-d299-11ec-baab-1bce364ca529.jpeg",
+            "alt": "Stand Up Paddling in the Nuuksio National Park",
+            "originalUrl": "https://cdn-datahub.visitfinland.com/images/f3bd4720-d299-11ec-baab-1bce364ca529.jpeg",
+            "smallUrl": "https://cdn-datahub.visitfinland.com/images/f3bd4720-d299-11ec-baab-1bce364ca529.jpeg?s=240",
+            "largeUrl": "https://cdn-datahub.visitfinland.com/images/f3bd4720-d299-11ec-baab-1bce364ca529.jpeg?s=1920"
+        }],
+        "address": {
+            "location": {
+                "lat": 60.3091899244216,
+                "long": 24.5141445347332
+            },
+            "postalCode": "02820",
+            "streetName": "Haukkalammentie 32",
+            "city": "Espoo"
+        },
+        "company": {
+            "name": "Natura Viva",
+            "businessId": "0649766-0",
+            "email": "info@naturaviva.fi",
+            "phone": "+358 10 292 4030"
+        },
+        "tags": ["family_activity", "national_park", "nature_excursion", "paddling_rafting", "water_activities"],
+        "priceEUR": {
+            "from": 39,
+            "to": null,
+            "pricingType": "chargeable"
+        },
+        "availableMonths": ["june", "july", "august"],
+        "meantFor": ["b2c"],
+        "siteUrl": "https://naturaviva.fi/en_US/private-nuuksio-sup-adventure/try-out-stand-up-paddling-in-nuuksio-national-park",
+        "storeUrl": "https://naturaviva.fi/en_US/private-nuuksio-sup-adventure/try-out-stand-up-paddling-in-nuuksio-national-park"
+    }]
+}

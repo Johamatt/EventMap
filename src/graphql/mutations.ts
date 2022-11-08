@@ -26,7 +26,12 @@ export const createEvent = /* GraphQL */ `
       category
       format
       tags
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       imageEvent {
         URL
         lisenceType
@@ -62,7 +67,12 @@ export const updateEvent = /* GraphQL */ `
       category
       format
       tags
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       imageEvent {
         URL
         lisenceType
@@ -98,203 +108,16 @@ export const deleteEvent = /* GraphQL */ `
       category
       format
       tags
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       imageEvent {
         URL
         lisenceType
         lisenceName
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const createCompany = /* GraphQL */ `
-  mutation CreateCompany(
-    $input: CreateCompanyInput!
-    $condition: ModelCompanyConditionInput
-  ) {
-    createCompany(input: $input, condition: $condition) {
-      id
-      email
-      phone
-      name
-      Activities {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      Events {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const updateCompany = /* GraphQL */ `
-  mutation UpdateCompany(
-    $input: UpdateCompanyInput!
-    $condition: ModelCompanyConditionInput
-  ) {
-    updateCompany(input: $input, condition: $condition) {
-      id
-      email
-      phone
-      name
-      Activities {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      Events {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const deleteCompany = /* GraphQL */ `
-  mutation DeleteCompany(
-    $input: DeleteCompanyInput!
-    $condition: ModelCompanyConditionInput
-  ) {
-    deleteCompany(input: $input, condition: $condition) {
-      id
-      email
-      phone
-      name
-      Activities {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      Events {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
       }
       createdAt
       updatedAt
@@ -321,7 +144,12 @@ export const createActivity = /* GraphQL */ `
         to
       }
       categories
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       duration
       durationType
       meantFor
@@ -367,7 +195,12 @@ export const updateActivity = /* GraphQL */ `
         to
       }
       categories
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       duration
       durationType
       meantFor
@@ -413,7 +246,12 @@ export const deleteActivity = /* GraphQL */ `
         to
       }
       categories
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       duration
       durationType
       meantFor

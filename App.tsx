@@ -4,17 +4,18 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
-
 import useColorScheme from "./src/hooks/useColorScheme";
 import Navigation from "./src/navigation";
 import SplashScreen from "./src/screens/SplashScreen";
 import { store } from "./src/Store";
-import { Amplify, Analytics, Auth } from "aws-amplify";
+import { Amplify } from "aws-amplify";
+import { ThemeProvider } from "@aws-amplify/ui-react";
 
 import { withAuthenticator } from "aws-amplify-react-native";
 import awsmobile from "./src/aws-exports";
 import loadResources from "./src/hooks/loadResources";
 import { signUpConfig } from "./amplify/signUpConfig";
+import Colors from "./src/constants/Colors";
 
 Amplify.configure({ ...awsmobile, Analytics: { disabled: true } });
 
@@ -43,7 +44,7 @@ const App: React.FC = () => {
       <Provider store={store}>
         <SafeAreaProvider>
           <Navigation />
-          <StatusBar />
+          <StatusBar style="light" backgroundColor={Colors.light.tint} />
         </SafeAreaProvider>
       </Provider>
     );

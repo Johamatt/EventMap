@@ -10,6 +10,7 @@ import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
+  ThemeProvider,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
@@ -77,8 +78,6 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
   //   };
   //   checkUser();
   // }, [user]);
-
-
 
   if (props === undefined) {
     return (
@@ -175,6 +174,7 @@ const MainNavigation = () => {
           title: "",
         }}
       />
+
       <Stack.Group screenOptions={{ presentation: "modal", headerShown: true }}>
         <Stack.Screen name="EventScreen" component={EventScreen} />
       </Stack.Group>

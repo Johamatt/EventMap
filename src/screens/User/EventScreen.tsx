@@ -24,8 +24,6 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
 
   const event: LiveEvent = props.route.params.liveEvent;
 
-  console.log(event);
-
   return (
     // Header starts
     <ScrollView style={{ display: "flex", flex: 1 }}>

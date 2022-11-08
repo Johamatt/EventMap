@@ -10,6 +10,6 @@ export type UserState = {
 };
 
 export type ActivitiesState = {
-  activities: Array<any> | undefined;
+  activities: Array<Activity>; // | undefined;
   error: String | undefined;
 };

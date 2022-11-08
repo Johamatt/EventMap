@@ -15,7 +15,7 @@ export type Activity = {
   openDays: (Opendays | null)[];
   categories: Array<CATEGORY>;
 
-  companyID: string;
+  company: Company;
 
   duration: string;
   durationType: string;

@@ -23,7 +23,12 @@ export const getEvent = /* GraphQL */ `
       category
       format
       tags
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       imageEvent {
         URL
         lisenceType
@@ -61,98 +66,16 @@ export const listEvents = /* GraphQL */ `
         category
         format
         tags
-        companyID
+        company {
+          businessId
+          email
+          phone
+          name
+        }
         imageEvent {
           URL
           lisenceType
           lisenceName
-        }
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const getCompany = /* GraphQL */ `
-  query GetCompany($id: ID!) {
-    getCompany(id: $id) {
-      id
-      email
-      phone
-      name
-      Activities {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      Events {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const listCompanies = /* GraphQL */ `
-  query ListCompanies(
-    $filter: ModelCompanyFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCompanies(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        email
-        phone
-        name
-        Activities {
-          nextToken
-        }
-        Events {
-          nextToken
         }
         createdAt
         updatedAt
@@ -178,7 +101,12 @@ export const getActivity = /* GraphQL */ `
         to
       }
       categories
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       duration
       durationType
       meantFor
@@ -226,7 +154,12 @@ export const listActivities = /* GraphQL */ `
           to
         }
         categories
-        companyID
+        company {
+          businessId
+          email
+          phone
+          name
+        }
         duration
         durationType
         meantFor

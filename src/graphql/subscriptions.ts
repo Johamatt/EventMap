@@ -23,7 +23,12 @@ export const onCreateEvent = /* GraphQL */ `
       category
       format
       tags
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       imageEvent {
         URL
         lisenceType
@@ -56,7 +61,12 @@ export const onUpdateEvent = /* GraphQL */ `
       category
       format
       tags
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       imageEvent {
         URL
         lisenceType
@@ -89,194 +99,16 @@ export const onDeleteEvent = /* GraphQL */ `
       category
       format
       tags
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       imageEvent {
         URL
         lisenceType
         lisenceName
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const onCreateCompany = /* GraphQL */ `
-  subscription OnCreateCompany($owner: String) {
-    onCreateCompany(owner: $owner) {
-      id
-      email
-      phone
-      name
-      Activities {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      Events {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const onUpdateCompany = /* GraphQL */ `
-  subscription OnUpdateCompany($owner: String) {
-    onUpdateCompany(owner: $owner) {
-      id
-      email
-      phone
-      name
-      Activities {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      Events {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const onDeleteCompany = /* GraphQL */ `
-  subscription OnDeleteCompany($owner: String) {
-    onDeleteCompany(owner: $owner) {
-      id
-      email
-      phone
-      name
-      Activities {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      Events {
-        items {
-          id
-          availableMonths
-          fi_description
-          fi_name
-          en_description
-          en_name
-          categories
-          companyID
-          duration
-          durationType
-          meantFor
-          priceEUR_From
-          priceEUR_TO
-          pricingType
-          siteURL
-          updated_at_LinkedEvent
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
       }
       createdAt
       updatedAt
@@ -300,7 +132,12 @@ export const onCreateActivity = /* GraphQL */ `
         to
       }
       categories
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       duration
       durationType
       meantFor
@@ -343,7 +180,12 @@ export const onUpdateActivity = /* GraphQL */ `
         to
       }
       categories
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       duration
       durationType
       meantFor
@@ -386,7 +228,12 @@ export const onDeleteActivity = /* GraphQL */ `
         to
       }
       categories
-      companyID
+      company {
+        businessId
+        email
+        phone
+        name
+      }
       duration
       durationType
       meantFor

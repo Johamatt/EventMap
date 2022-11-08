@@ -1,7 +1,7 @@
 import { API, Auth, graphqlOperation } from "aws-amplify";
 import { store } from "../../Store";
 import { CognitoUserSession } from "amazon-cognito-identity-js";
-import { listActivities } from "../../graphql/queries";
+import { getActivity, listActivities } from "../../graphql/queries";
 import { ListActivitiesQuery } from "../../API";
 CognitoUserSession;
 export default async function useAmplifyResources() {
@@ -17,7 +17,7 @@ export default async function useAmplifyResources() {
     );
 
     const activitiesData = (await API.graphql(
-      graphqlOperation(listActivities)
+      graphqlOperation(listActivities, { limit: 1000 })
     )) as {
       data: ListActivitiesQuery;
     };
