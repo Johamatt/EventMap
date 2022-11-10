@@ -17,7 +17,7 @@ export default async function useAmplifyResources() {
     );
 
     const activitiesData = (await API.graphql(
-      graphqlOperation(listActivities, { limit: 1000 })
+      graphqlOperation(listActivities, { limit: 15})
     )) as {
       data: ListActivitiesQuery;
     };

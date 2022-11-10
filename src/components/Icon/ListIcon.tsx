@@ -1,6 +1,6 @@
 import { Icon } from "@rneui/themed";
 import React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { CATEGORY } from "../../API";
 import Colors from "../../constants/Colors";
 
@@ -20,13 +20,12 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("TRIP" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        size={13}
-        iconStyle={{ fontSize: 25 }}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="hiking"
         type="material-community"
-        color="teal"
-        backgroundColor={Colors.light.tint}
+        color="black"
+        backgroundColor="darkorange"
       />
     );
   }
@@ -34,9 +33,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("PARTIESNIGHTLIFE" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        size={13}
-        iconStyle={{ fontSize: 25 }}
-        raised={true}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="party-popper"
         type="material-community"
         color="black"
@@ -48,13 +46,12 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("SPORT" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        iconStyle={{ fontSize: 25 }}
-        size={13}
-        name="running"
-        type="font-awesome-5"
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
+        name="sports"
+        type="material"
         color="black"
-        backgroundColor="green"
+        backgroundColor="blue"
       />
     );
   }
@@ -62,9 +59,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("KIDS" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        iconStyle={{ fontSize: 25 }}
-        size={13}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="human-male-child"
         type="material-community"
         color="black"
@@ -76,9 +72,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("HEALTH" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        iconStyle={{ fontSize: 25 }}
-        size={13}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="cards-heart"
         type="material-community"
         color="black"
@@ -90,9 +85,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("WORKSHOP" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        iconStyle={{ fontSize: 25 }}
-        size={13}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="tools"
         type="material-community"
         color="black"
@@ -104,9 +98,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("FOOD" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        iconStyle={{ fontSize: 25 }}
-        size={13}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="food-fork-drink"
         type="material-community"
         color="black"
@@ -130,9 +123,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("SIGHTSEEING" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        iconStyle={{ fontSize: 25 }}
-        size={13}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="binoculars"
         type="material-community"
         color="black"
@@ -144,9 +136,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("MUSIC" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        iconStyle={{ fontSize: 25 }}
-        size={13}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="music"
         type="material-community"
         color="black"
@@ -158,9 +149,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("FINEARTS" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        iconStyle={{ fontSize: 25 }}
-        size={13}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="brush"
         type="material-community"
         color="black"
@@ -172,9 +162,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("THEATHER" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        iconStyle={{ fontSize: 25 }}
-        size={13}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="theater-comedy"
         type="material"
         color="black"
@@ -186,9 +175,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("MARKET" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        size={13}
-        iconStyle={{ fontSize: 25 }}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="cart"
         type="material-community"
         color="black"
@@ -200,9 +188,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("MUSEUM" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        size={13}
-        iconStyle={{ fontSize: 25 }}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="museum"
         type="material"
         color="black"
@@ -214,9 +201,8 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("OTHER" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        size={13}
-        iconStyle={{ fontSize: 25 }}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="progress-question"
         type="material-community"
         color="black"
@@ -228,13 +214,38 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
   if (values.includes("NATURE" as unknown as CATEGORY)) {
     icons.push(
       <Icon
-        raised={true}
-        size={13}
-        iconStyle={{ fontSize: 25 }}
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
         name="forest"
         type="material-community"
         color="black"
         backgroundColor="darkgreen"
+      />
+    );
+  }
+
+  if (values.includes("ANIMALS" as unknown as CATEGORY)) {
+    icons.push(
+      <Icon
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
+        name="paw"
+        type="ionicon"
+        color="black"
+        backgroundColor="brown"
+      />
+    );
+  }
+
+  if (values.includes("MOTORSPORTS" as unknown as CATEGORY)) {
+    icons.push(
+      <Icon
+        style={{ backgroundColor: "teal", margin: 5 }}
+        iconStyle={styles.icon}
+        name="sports-motorsports"
+        type="material"
+        color="black"
+        backgroundColor="darkblue"
       />
     );
   }
@@ -247,3 +258,19 @@ export const ListIcon: React.FC<ListIconProps> = (props) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  icon: {
+    fontSize: 25,
+    backgroundColor: "white",
+    borderRadius: 50,
+    padding: 3,
+
+    color: "black",
+  },
+
+  iconBorders: {
+    backgroundColor: "teal",
+    margin: 5,
+  },
+});

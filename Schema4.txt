@@ -134,7 +134,7 @@ enum CATEGORY {
 type Activity @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {
   id: ID!
   availableMonths: [String]
-  openDays: [OpenDays]
+  openDays: [OpenDays!]
   categories: [CATEGORY!]
   company: Company
   duration: String
