@@ -8,6 +8,7 @@ import { requestLocation } from "../../../util/helpers/RequestLocation";
 import { Activity } from "../../../API";
 import { Helsinki } from "../../../util/data";
 import SplashScreen from "../../SplashScreen";
+import { Icon } from "@rneui/base";
 
 interface MapProps {
   userReducer: UserState;
@@ -57,9 +58,11 @@ const _MapScreen: React.FC<MapProps> = (props) => {
               latitude: marker.Location.lat,
               longitude: marker.Location.lon,
             }}
-            title={marker.fi_name}
-            description={marker.fi_description}
-          />
+            title={marker.descriptions.fi}
+            description={marker.descriptions.fi}
+          >
+            {/* <Icon reverse size={10} name="plug" type="font-awesome" /> */}
+          </Marker>
         ))}
       </MapView>
     </View>

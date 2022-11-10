@@ -1,4 +1,4 @@
-import { FlatList, TouchableOpacity } from "react-native";
+import { FlatList, TouchableOpacity, View } from "react-native";
 import { RootStackParamList } from "../../../navigation/types";
 import { ActivitiesState, ApplicationState, UserState } from "../../../Store";
 import { connect } from "react-redux";
@@ -8,23 +8,13 @@ import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import DropDownPicker from "react-native-dropdown-picker";
 
-import { View, ScrollView, StyleSheet } from "react-native";
-import {
-  Button,
-  ButtonGroup,
-  withTheme,
-  Text,
-  ListItem,
-  Avatar,
-  Icon,
-  lightColors,
-  Divider,
-} from "@rneui/themed";
 import Colors from "../../../constants/Colors";
 import Layout from "../../../constants/Layout";
 
 import testData from "../../../util/data/testdata2.json";
 import { Activity } from "../../../API";
+import { Button, Divider } from "@rneui/base";
+import { ActivitiesList } from "../../../components/List/ActivitiesList";
 
 interface HomeScreenProps {
   userReducer: UserState;
@@ -46,33 +36,6 @@ const _HomeScreen: React.FC<HomeScreenProps> = (props) => {
     return isNaN(dayOfWeek) ? 0 : [0, 3, 1, 2, 5, 4, 6][dayOfWeek]; // fix falsed sunday value?
   }
 
-  const renderRow = ({ item }: { item: Activity }) => {
-    return (
-      <ListItem.Swipeable
-        bottomDivider
-        leftContent={
-          <Button
-            title="Info"
-            icon={{ name: "info", color: "white" }}
-            buttonStyle={{ minHeight: "100%" }}
-          />
-        }
-        rightContent={
-          <Button
-            title="Delete"
-            icon={{ name: "delete", color: "white" }}
-            buttonStyle={{ minHeight: "100%", backgroundColor: "red" }}
-          />
-        }
-      >
-        <ListItem.Content>
-          <ListItem.Title>{item.fi_name}</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
-      </ListItem.Swipeable>
-    );
-  };
-
   return (
     <View
       style={{
@@ -83,7 +46,7 @@ const _HomeScreen: React.FC<HomeScreenProps> = (props) => {
       }}
     >
       {/* // Header starts */}
-      <View style={{ flexDirection: "row-reverse" }}>
+      <View style={{ flexDirection: "row-reverse", paddingBottom: 5 }}>
         <Button
           title="Edit Preferences"
           icon={{
@@ -107,68 +70,9 @@ const _HomeScreen: React.FC<HomeScreenProps> = (props) => {
           }}
         />
       </View>
-
+      <Divider color="black" />
       <View>
-        <FlatList
-          ListHeaderComponent={
-            <>
-              <View style={styles.list}>
-                {activities.map((a, i) => (
-                  <ListItem key={i} bottomDivider>
-                    <Icon
-                      name="user-circle-o"
-                      type="font-awesome"
-                      color="red"
-                    />
-                    <ListItem.Content>
-                      {a.fi_name !== "<no description>" ? (
-                        <ListItem.Title style={{ color: "black" }}>
-                          {a.fi_name}
-                        </ListItem.Title>
-                      ) : (
-                        <ListItem.Subtitle style={{ color: "black" }}>
-                          {a.en_name}
-                        </ListItem.Subtitle>
-                      )}
-                    </ListItem.Content>
-
-                    <ListItem.Content right>
-                      {a.openDays[day]?.from !== null &&
-                      a.openDays[day]?.to !== null ? (
-                        <>
-                          <ListItem.Title right style={{ color: "green" }}>
-                            {a.openDays[day]?.from}
-                          </ListItem.Title>
-                          <ListItem.Subtitle right>
-                            {a.openDays[day]?.to}
-                          </ListItem.Subtitle>
-                        </>
-                      ) : (
-                        <>
-                          {a.openDays[day]?.open ? (
-                            <>
-                              <ListItem.Title right style={{ color: "green" }}>
-                                Open Today
-                              </ListItem.Title>
-                              <ListItem.Subtitle right>Check</ListItem.Subtitle>
-                            </>
-                          ) : (
-                            <ListItem.Title right style={{ color: "red" }}>
-                              Closed Today
-                            </ListItem.Title>
-                          )}
-                        </>
-                      )}
-                    </ListItem.Content>
-                  </ListItem>
-                ))}
-              </View>
-            </>
-          }
-          data={activities}
-          keyExtractor={(a: Activity, index: number) => index.toString()}
-          renderItem={renderRow}
-        />
+        <ActivitiesList data={props.activitiesReducer.activities} />
       </View>
 
       {/* Header ends */}
@@ -197,42 +101,3 @@ const mapToStateProps = (state: ApplicationState) => ({
 const HomeScreen = connect(mapToStateProps)(_HomeScreen);
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-  contentView: {
-    flex: 1,
-  },
-  buttonsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    marginVertical: 20,
-  },
-  subHeader: {
-    backgroundColor: "#2089dc",
-    color: "white",
-    textAlign: "center",
-    paddingVertical: 5,
-    marginBottom: 10,
-  },
-  list: {
-    marginTop: 20,
-    borderTopWidth: 1,
-    borderColor: lightColors.greyOutline,
-  },
-  subtitleView: {
-    flexDirection: "row",
-    paddingLeft: 10,
-    paddingTop: 5,
-  },
-  ratingImage: {
-    height: 19.21,
-    width: 100,
-  },
-  ratingText: {
-    paddingLeft: 10,
-    color: "grey",
-  },
-});

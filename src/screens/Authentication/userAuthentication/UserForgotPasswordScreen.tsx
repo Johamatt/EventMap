@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import CustomInput from "../../../components/Inputs/CustomInput";
-import CustomButton from "../../../components/Buttons/CustomButton";
 import { Auth } from "aws-amplify";
+import { Button } from "@rneui/themed";
 
 export const UserForgotPasswordScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
@@ -35,13 +35,9 @@ export const UserForgotPasswordScreen: React.FC = (props) => {
           setValue={setUsername}
         />
 
-        <CustomButton text="Send" onPress={onSendPressed} />
+        <Button title="Send" onPress={onSendPressed} />
 
-        <CustomButton
-          text="Back to Sign in"
-          onPress={onSignInPress}
-          type="TERTIARY"
-        />
+        <Button title="Back to Sign in" onPress={onSignInPress} />
       </View>
     </ScrollView>
   );

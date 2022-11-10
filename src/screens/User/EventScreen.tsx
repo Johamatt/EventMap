@@ -40,7 +40,7 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
             fontFamily: "Rationale-Regular",
           }}
         >
-          {event.title_FI}
+          {event.Descriptions.fi}
         </Text>
       </View>
       {/* Header ends */}
@@ -73,7 +73,7 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
 
         <View style={{ padding: 5, flexDirection: "row" }}>
           <View style={{ justifyContent: "center" }}>
-            <Text>{event.description}</Text>
+            <Text>{event.Descriptions.fi}</Text>
           </View>
         </View>
 

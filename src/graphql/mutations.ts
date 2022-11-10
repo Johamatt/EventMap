@@ -9,11 +9,7 @@ export const createEvent = /* GraphQL */ `
   ) {
     createEvent(input: $input, condition: $condition) {
       id
-      title_FI
       infoURL
-      intro
-      description
-      title_EN
       startingDateTime
       endingDateTime
       source
@@ -32,11 +28,32 @@ export const createEvent = /* GraphQL */ `
         phone
         name
       }
-      imageEvent {
+      eventMedia {
         URL
         lisenceType
         lisenceName
       }
+      Descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      name {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -50,11 +67,7 @@ export const updateEvent = /* GraphQL */ `
   ) {
     updateEvent(input: $input, condition: $condition) {
       id
-      title_FI
       infoURL
-      intro
-      description
-      title_EN
       startingDateTime
       endingDateTime
       source
@@ -73,11 +86,32 @@ export const updateEvent = /* GraphQL */ `
         phone
         name
       }
-      imageEvent {
+      eventMedia {
         URL
         lisenceType
         lisenceName
       }
+      Descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      name {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -91,11 +125,7 @@ export const deleteEvent = /* GraphQL */ `
   ) {
     deleteEvent(input: $input, condition: $condition) {
       id
-      title_FI
       infoURL
-      intro
-      description
-      title_EN
       startingDateTime
       endingDateTime
       source
@@ -114,11 +144,32 @@ export const deleteEvent = /* GraphQL */ `
         phone
         name
       }
-      imageEvent {
+      eventMedia {
         URL
         lisenceType
         lisenceName
       }
+      Descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      name {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -133,10 +184,6 @@ export const createActivity = /* GraphQL */ `
     createActivity(input: $input, condition: $condition) {
       id
       availableMonths
-      fi_description
-      fi_name
-      en_description
-      en_name
       openDays {
         day
         open
@@ -164,12 +211,33 @@ export const createActivity = /* GraphQL */ `
         streetAddress
         postalCode
       }
-      imageActivity {
+      activityMedia {
         kind
         copyright
         name
         URL
       }
+      descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      names {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -184,10 +252,6 @@ export const updateActivity = /* GraphQL */ `
     updateActivity(input: $input, condition: $condition) {
       id
       availableMonths
-      fi_description
-      fi_name
-      en_description
-      en_name
       openDays {
         day
         open
@@ -215,12 +279,33 @@ export const updateActivity = /* GraphQL */ `
         streetAddress
         postalCode
       }
-      imageActivity {
+      activityMedia {
         kind
         copyright
         name
         URL
       }
+      descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      names {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -235,10 +320,6 @@ export const deleteActivity = /* GraphQL */ `
     deleteActivity(input: $input, condition: $condition) {
       id
       availableMonths
-      fi_description
-      fi_name
-      en_description
-      en_name
       openDays {
         day
         open
@@ -266,12 +347,33 @@ export const deleteActivity = /* GraphQL */ `
         streetAddress
         postalCode
       }
-      imageActivity {
+      activityMedia {
         kind
         copyright
         name
         URL
       }
+      descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      names {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner

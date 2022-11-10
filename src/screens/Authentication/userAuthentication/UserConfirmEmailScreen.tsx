@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
-import CustomInput from "../../../components/Inputs/CustomInput";
-import CustomButton from "../../../components/Buttons/CustomButton";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "../../../navigation/types";
 import { Auth } from "aws-amplify";
+import { Button } from "@rneui/base";
+import { Input } from "@rneui/themed";
 
 type UserConfirmEmailScreenProp = RouteProp<
   RootStackParamList,
@@ -48,26 +48,18 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
         <Text style={styles.title}>Confirm your email</Text>
-
-        <CustomInput
+        {/* 
+        <Input
           placeholder="Enter your confirmation code"
           value={code}
           setValue={setCode}
-        />
+        /> */}
 
-        <CustomButton text="Confirm" onPress={onConfirmPressed} />
+        <Button title="Confirm" onPress={onConfirmPressed} />
 
-        <CustomButton
-          text="Resend code"
-          onPress={onResendPress}
-          type="SECONDARY"
-        />
+        <Button title="Resend code" onPress={onResendPress} />
 
-        <CustomButton
-          text="Back to Sign in"
-          onPress={onSignInPress}
-          type="TERTIARY"
-        />
+        <Button title="Back to Sign in" onPress={onSignInPress} />
       </View>
     </ScrollView>
   );

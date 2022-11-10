@@ -1,138 +1,222 @@
 // async function parseData() {
-//   let companies: Company[] = [];
-//   activitiesData.rows.map(async (a) => {
-//     let location: LocationModel;
-//     let company: Company;
+//     const abc: any[] = activitiesData.rows.map(async (a: any) => {
+//       let location: Location;
 
-//     if (
-//       a.address.location?.lat !== undefined &&
-//       a.address.location?.long !== undefined
-//     ) {
-//       location = {
-//         streetAddress: a.address.streetName,
-//         lat: a.address.location?.lat,
-//         lon: a.address.location?.long,
-//         postalCode: a.address.postalCode,
-//       };
-//     } else {
-//       location = {
-//         streetAddress: "Unknown",
-//         lat: 0,
-//         lon: 0,
-//         postalCode: "0",
-//       };
-//     }
-
-//     if (companyExists(a.company.businessId, companies) === undefined) {
-//       company = {
-//         id: a.company.businessId,
-//         email: a.company.email,
-//         name: a.company.name,
-//         phone: a.company.phone,
-//       };
-//     } else {
-//       company = companyExists(a.company.businessId, companies);
-//     }
-
-//     let opendays: (Opendays | null)[] = Object.entries(a.open).map(
-//       ([key, value]) => {
+//       let activityMedia: ActivityMedia[] = a.media.map((m: any) => {
 //         return {
-//           day: key,
-//           open: value.open,
-//           from: value.from,
-//           to: value.to,
+//           kind: m.kind,
+//           copyright: m.copyright,
+//           name: m.alt,
+//           URL: m.originalUrl,
+//         };
+//       });
+
+//       if (
+//         a.address.location?.lat !== undefined &&
+//         a.address.location?.long !== undefined
+//       ) {
+//         location = {
+//           streetAddress: a.address.streetName,
+//           lat: a.address.location.lat,
+//           lon: a.address.location.long,
+//           postalCode: a.address.postalCode,
+//         };
+//       } else {
+//         location = {
+//           streetAddress: "Unknown",
+//           lat: 0,
+//           lon: 0,
+//           postalCode: "Unknown",
 //         };
 //       }
-//     );
 
-//     let availableMonths: Array<string> = a.availableMonths;
+//       let company: Company = {
+//         businessId: a.company?.businessId,
+//         email: a.company?.email,
+//         name: a.company?.name,
+//         phone: a.company?.phone,
+//       };
+//       let opendays: (OpenDays | null)[];
 
-//     let fi_name: string;
-//     let fi_description: string;
+//       if (typeof a.open !== undefined || null) {
+//         opendays = Object.entries(a.open).map(([key, value]) => {
+//           let fromvalue =
+//             value?.from !== null
+//               ? value?.from.split("+")[0].split(":").slice(0, -1).join(":")
+//               : null;
+//           let tovalue =
+//             value?.to !== null
+//               ? value?.to.split("+")[0].split(":").slice(0, -1).join(":")
+//               : null;
 
-//     if (a.descriptions.fi?.name !== undefined) {
-//       fi_name = a.descriptions.fi?.name;
-//     } else {
-//       fi_name = "<error rendering name>";
-//     }
+//           return {
+//             day: key,
+//             open: value?.open,
+//             from: fromvalue,
+//             to: tovalue,
+//           };
+//         });
 
-//     if (a.descriptions.fi?.description !== undefined) {
-//       fi_description = a.descriptions.fi?.description;
-//     } else {
-//       fi_description = "<error rendering description>";
-//     }
+//         [opendays[1], opendays[3]] = [opendays[3], opendays[1]];
+//         [opendays[2], opendays[3]] = [opendays[3], opendays[2]];
+//         [opendays[4], opendays[5]] = [opendays[5], opendays[4]];
+//       } else {
+//         opendays = [null];
+//       }
 
-//     let en_name: string | undefined = a.descriptions.en.name;
-//     let en_description: string | undefined = a.descriptions.en?.description;
-//     let duration: string = a.duration;
-//     let durationType: string = a.durationType;
-//     let meantfor: Array<string> = a.meantFor;
-//     let priceEur_from: number | null = a.priceEUR.from;
-//     let priceEur_to: number | null = a.priceEUR.to;
-//     let pricingType: string = a.priceEUR.pricingType;
-//     let siteUrl: string = a.siteUrl;
-//     let updated_at_LinkedEvent: string = a.updated;
+//       let availableMonths: (string | null)[] | null | undefined =
+//         a.availableMonths;
 
-//     let categories: CATEGORY[] = parseTags(a.tags);
+//       let fi_name: string;
+//       let fi_description: string;
 
-//     const activity: Activity = {
-//       id: a.id,
-//       availableMonths: availableMonths,
-//       fi_name: fi_name,
-//       fi_description: fi_description,
-//       en_name: en_name,
-//       en_description: en_description,
-//       duration: duration,
-//       durationType: durationType,
-//       meantFor: meantfor,
-//       priceEUR_From: priceEur_from,
-//       priceEUR_TO: priceEur_to,
-//       pricingType: pricingType,
-//       siteURL: siteUrl,
-//       updated_at_LinkedEvent: updated_at_LinkedEvent,
-//       //
-//       openDays: opendays,
-//       categories: categories,
-//       Location: location,
-//       companyID: company.id,
-//     };
+//       if (a.descriptions?.fi?.name !== undefined) {
+//         fi_name = a.descriptions.fi.name;
+//       } else {
+//         fi_name = "Unknown";
+//       }
 
-//     // await API.graphql(graphqlOperation(createCompany, { input: company }));
-//     // // console.log(company);
-//     // await API.graphql(graphqlOperation(createActivity, { input: activity }));
+//       if (a.descriptions.fi?.description !== undefined) {
+//         fi_description = a.descriptions.fi.description;
+//       } else {
+//         fi_description = "Unknown";
+//       }
 
-//     companies.push(company);
+//       let names: Name = {
+//         fi: fi_name,
+//         en: a.descriptions?.en?.name,
+//         sv: a.descriptions.sv?.name,
+//         ru: a.descriptions.ru?.name,
+//         de: a.descriptions.de?.name,
+//         jp: a.descriptions.ja?.name,
+//         zh: a.descriptions.zh?.name,
+//       };
 
-//     // const locationdata = await API.graphql(graphqlOperation(listLocations));
-//   });
+//       let descriptions: Description = {
+//         fi: fi_description,
+//         en: a.descriptions.en?.description,
+//         sv: a.descriptions.sv?.description,
+//         ru: a.descriptions.ru?.description,
+//         de: a.descriptions.de?.description,
+//         jp: a.descriptions.ja?.description,
+//         zh: a.descriptions.zh?.description,
+//       };
 
-//   // const cmp = await API.graphql(graphqlOperation(listCompanies));
-//   const evt = await API.graphql(graphqlOperation(listActivities));
+//       let duration: string = a.duration;
+//       let durationType: string = a.durationType;
+//       let meantfor: Array<string> = a.meantFor;
+//       let priceEur_from: number | null = a.priceEUR.from;
+//       let priceEur_to: number | null = a.priceEUR.to;
+//       let pricingType: string = a.priceEUR.pricingType;
+//       let siteUrl: string = a.siteUrl;
+//       let updated_at_LinkedEvent: string = a.updated;
 
-//   console.log(evt);
-// }
+//       let categories: CATEGORY[] = parseTags(a.tags);
 
-// function companyExists(id: any, companies: any) {
-//   return companies.find((o: { id: any }) => o.id === id);
-// }
+//       const activity: Activity = {
+//         id: a.id,
+//         availableMonths: availableMonths,
+//         names: names,
+//         descriptions: descriptions,
+//         duration: duration,
+//         durationType: durationType,
+//         meantFor: meantfor,
+//         priceEUR_From: priceEur_from,
+//         priceEUR_TO: priceEur_to,
+//         pricingType: pricingType,
+//         siteURL: siteUrl,
+//         updated_at_LinkedEvent: updated_at_LinkedEvent,
+//         //
+//         activityMedia: activityMedia,
+//         openDays: opendays,
+//         categories: categories,
+//         Location: location,
+//         company: company,
+//       };
 
-// function parseTags(tags: Array<String>) {
-//   let categories: CATEGORY[] = [];
+//       // const locationdata = await API.graphql(graphqlOperation(listLocations));
+//       //  await API.graphql(graphqlOperation(createActivity, { input: activity }));
 
-//   if (tags.includes("virtual_reality" && "virtual_arcade")) {
-//     categories.push(CATEGORY.TECHNOLOGY);
+//       return activity;
+//     });
+
+//     // const cmp = await API.graphql(graphqlOperation(listCompanies));
+//     //   const act = await API.graphql(graphqlOperation(listActivities));
+
+//     //   console.log(act);
+
+//     console.log(abc[0]);
 //   }
 
-//   if (
-//     tags.includes(
-//       "nature_excursion" ||
-//         "day_trip" ||
-//         "day_trip" ||
-//         "cruises_ferries" ||
-//         "camping"
-//     )
-//   ) {
-//     categories.push(CATEGORY.TRIP);
+//   function parseTags(tags: Array<String>) {
+//     let categories: CATEGORY[] = [];
+
+//     let natureTags = [
+//       "nature_excursion",
+//       "national_park",
+//       "forests",
+//       "wellbeing_from_nature",
+//     ];
+
+//     let tripTags = [
+//       "nature_excursion",
+//       "day_trip",
+//       "cruises_ferries",
+//       "camping",
+//     ];
+
+//     let sportTags = [
+//       "paddling_rafting",
+//       "water_activities",
+//       "sports",
+//       "cycling_mountain_biking",
+//       "climbing",
+//       "minigolf",
+//       "hiking_walking_trekking",
+//       "snowshoeing",
+//       "paddling_rafting",
+//       "fishing_hunting",
+//       "motorsports",
+//       "swimming",
+//       "skiing_snowboarding",
+//       "running_trailrunning",
+//     ];
+
+//     let foodtags = [
+//       "food_experience",
+//       "local_food",
+//       "restaurant",
+//       "culinary_experience",
+//       "fine_dining",
+//     ];
+
+//     let cultureTags = [
+//       "history",
+//       "historical_sites",
+//       "cultural_heritage",
+//       "ice_swimming",
+//       "sauna_experience",
+//     ];
+
+//     let healthTags = [
+//       "wellness_treatments",
+//       "yoga_meditation",
+//       "rehabilitation",
+//       "spa_recreational_spa",
+//     ];
+
+//     let marketTags = ["supermarket", "shopping_center"];
+//     let familyKidsTags = ["childrens_attraction" || "family_activity"];
+//     let motorsportsTags = ["snowmobiling", "motorsports"];
+//     let technologyTags = ["virtual_reality", "virtual_arcade"];
+
+//     if (tags.some((el: any) => technologyTags.includes(el))) {
+//       categories.push(CATEGORY.TECHNOLOGY);
+//     }
+
+//     if (tags.some((el: any) => tripTags.includes(el))) {
+//       categories.push(CATEGORY.TRIP);
+//     }
 
 //     if (
 //       tags.includes(
@@ -141,74 +225,91 @@
 //     ) {
 //       categories.push(CATEGORY.TRIP);
 //     }
-//   }
 
-//   if (
-//     tags.includes(
-//       "paddling_rafting" ||
-//         "water_activities" ||
-//         "sports" ||
-//         "cycling_mountain_biking" ||
-//         "climbing" ||
-//         "minigolf" ||
-//         "hiking_walking_trekking" ||
-//         "snowshoeing" ||
-//         "paddling_rafting" ||
-//         "fishing_hunting" ||
-//         "motorsports"
-//     )
-//   ) {
-//     categories.push(CATEGORY.SPORT);
-//   }
+//     if (tags.some((el: any) => sportTags.includes(el))) {
+//       categories.push(CATEGORY.SPORT);
+//     }
 
-//   if (tags.includes("food_experience" || "local_food" || "restaurant")) {
-//     categories.push(CATEGORY.FOOD);
-//   }
+//     if (tags.some((el: any) => foodtags.includes(el))) {
+//       categories.push(CATEGORY.FOOD);
+//     }
 
-//   if (tags.includes("handicraft" || "creative_arts")) {
-//     categories.push(CATEGORY.FINEARTS);
-//     categories.push(CATEGORY.WORKSHOP);
-//   }
+//     if (tags.some((el: any) => motorsportsTags.includes(el))) {
+//       categories.push(CATEGORY.MOTORSPORTS);
+//     }
 
-//   if (tags.includes("history" || "historical_sites" || "cultural_heritage")) {
-//     categories.push(CATEGORY.CULTURE);
-//   }
+//     if (tags.includes("handicraft" && "creative_arts")) {
+//       categories.push(CATEGORY.FINEARTS);
+//       categories.push(CATEGORY.WORKSHOP);
+//     }
 
-//   if (
-//     tags.includes(
-//       "wellness_treatments" ||
-//         "yoga_meditation" ||
-//         "rehabilitation" ||
-//         "sauna_experience" ||
-//         "wellbeing_from_nature"
-//     )
-//   ) {
-//     categories.push(CATEGORY.HEALTH);
-//   }
+//     if (tags.includes("sauna_experience")) {
+//       categories.push(CATEGORY.SAUNA);
+//     }
 
-//   if (tags.includes("music")) {
-//     categories.push(CATEGORY.MUSIC);
-//   }
+//     if (tags.some((el: any) => cultureTags.includes(el))) {
+//       categories.push(CATEGORY.CULTURE);
+//     }
 
-//   if (tags.includes("bars_nightlife")) {
-//     categories.push(CATEGORY.PARTIESNIGHTLIFE);
-//   }
+//     if (tags.some((el: any) => healthTags.includes(el))) {
+//       categories.push(CATEGORY.HEALTH);
+//     }
 
-//   if (tags.includes("supermarket")) {
-//     categories.push(CATEGORY.MARKET);
-//   }
+//     if (tags.includes("music")) {
+//       categories.push(CATEGORY.MUSIC);
+//     }
 
-//   if (tags.includes("sightseeing_tours")) {
-//     categories.push(CATEGORY.SIGHTSEEING);
-//   }
+//     if (tags.includes("bars_nightlife")) {
+//       categories.push(CATEGORY.PARTIESNIGHTLIFE);
+//     }
 
-//   if (tags.includes("museums_galleries")) {
-//     categories.push(CATEGORY.MUSEUM);
-//   }
+//     if (tags.some((el: any) => marketTags.includes(el))) {
+//       categories.push(CATEGORY.MARKET);
+//     }
 
-//   if (tags.length === 0) {
-//     return [CATEGORY.OTHER];
-//   }
+//     if (tags.includes("sightseeing_tours")) {
+//       categories.push(CATEGORY.SIGHTSEEING);
+//     }
 
-//   return categories;
-// }
+//     if (tags.includes("museums_galleries")) {
+//       categories.push(CATEGORY.MUSEUM);
+//     }
+
+//     if (tags.some((el: any) => familyKidsTags.includes(el))) {
+//       categories.push(CATEGORY.KIDS);
+//     }
+
+//     if (tags.includes("other_activity")) {
+//       categories.push(CATEGORY.OTHER);
+//     }
+
+//     if (tags.includes("education")) {
+//       categories.push(CATEGORY.EDUCATION);
+//     }
+
+//     if (tags.some((el: any) => natureTags.includes(el))) {
+//       categories.push(CATEGORY.NATURE);
+//     }
+
+//     if (tags.includes("animal_parks_farms")) {
+//       categories.push(CATEGORY.ANIMALS);
+//     }
+
+//     if (tags.includes("hotels_hostels")) {
+//       categories.push(CATEGORY.ACCOMMODATION);
+//     }
+
+//     if (tags.includes("luxury")) {
+//       categories.push(CATEGORY.LUXURY);
+//     }
+
+//     if (tags.includes("guided_service")) {
+//       categories.push(CATEGORY.GUIDEDSERVICE);
+//     }
+
+//     if (categories.length === 0 || tags.length === 0) {
+//       return [CATEGORY.OTHER];
+//     }
+
+//     return categories;
+//   }

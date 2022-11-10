@@ -8,22 +8,15 @@ import {
 } from "react-native";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import CustomInput from "../../../components/Inputs/CustomInput";
-import CustomButton from "../../../components/Buttons/CustomButton";
-import SocialSignInButtons from "../../../components/Buttons/SocialSignInButtons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../navigation/types";
 import Layout from "../../../constants/Layout";
 import { Auth } from "aws-amplify";
 import useColorScheme from "../../../hooks/useColorScheme";
-import {
-  ApplicationState,
-  ON_UPDATE_AGEGROUP,
-  ON_UPDATE_TAGS,
-  ON_UPDATE_USERLOGIN,
-  UserState,
-} from "../../../Store";
+import { ApplicationState, UserState } from "../../../Store";
 import { connect } from "react-redux";
 import Navigation from "../../../navigation";
+import { Button } from "@rneui/themed";
 
 interface UserLoginScreenProps {
   userReducer: UserState;
@@ -83,21 +76,15 @@ const _UserLoginScreen: React.FC<UserLoginScreenProps> = (props) => {
           setValue={setPassword}
           secureTextEntry
         />
-        <CustomButton
-          text={loading ? "Loading..." : "Sign In"}
+        <Button
+          title={loading ? "Loading..." : "Sign In"}
           onPress={onSignInPressed}
         />
-        <CustomButton
-          text="Forgot password?"
-          onPress={onForgotPasswordPressed}
-          type="TERTIARY"
-        />
-        <SocialSignInButtons />
+        <Button title="Forgot password?" onPress={onForgotPasswordPressed} />
 
-        <CustomButton
-          text="Don't have an account? Create one"
+        <Button
+          title="Don't have an account? Create one"
           onPress={onSignUpPress}
-          type="TERTIARY"
         />
       </View>
     </ScrollView>
@@ -108,9 +95,7 @@ const mapToStateProps = (state: ApplicationState) => ({
   userReducer: state.UserReducer,
 });
 
-const UserLoginScreen = connect(mapToStateProps, {
-  ON_UPDATE_USERLOGIN,
-})(_UserLoginScreen);
+const UserLoginScreen = connect(mapToStateProps, {})(_UserLoginScreen);
 
 export default UserLoginScreen;
 

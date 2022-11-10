@@ -6,11 +6,7 @@ export const getEvent = /* GraphQL */ `
   query GetEvent($id: ID!) {
     getEvent(id: $id) {
       id
-      title_FI
       infoURL
-      intro
-      description
-      title_EN
       startingDateTime
       endingDateTime
       source
@@ -29,11 +25,32 @@ export const getEvent = /* GraphQL */ `
         phone
         name
       }
-      imageEvent {
+      eventMedia {
         URL
         lisenceType
         lisenceName
       }
+      Descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      name {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -49,11 +66,7 @@ export const listEvents = /* GraphQL */ `
     listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title_FI
         infoURL
-        intro
-        description
-        title_EN
         startingDateTime
         endingDateTime
         source
@@ -72,11 +85,32 @@ export const listEvents = /* GraphQL */ `
           phone
           name
         }
-        imageEvent {
+        eventMedia {
           URL
           lisenceType
           lisenceName
         }
+        Descriptions {
+          fi
+          en
+          sv
+          ru
+          jp
+          de
+          zh
+          es
+        }
+        name {
+          fi
+          en
+          sv
+          ru
+          jp
+          de
+          zh
+          es
+        }
+        external_URL
         createdAt
         updatedAt
         owner
@@ -90,10 +124,6 @@ export const getActivity = /* GraphQL */ `
     getActivity(id: $id) {
       id
       availableMonths
-      fi_description
-      fi_name
-      en_description
-      en_name
       openDays {
         day
         open
@@ -121,12 +151,33 @@ export const getActivity = /* GraphQL */ `
         streetAddress
         postalCode
       }
-      imageActivity {
+      activityMedia {
         kind
         copyright
         name
         URL
       }
+      descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      names {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -143,10 +194,6 @@ export const listActivities = /* GraphQL */ `
       items {
         id
         availableMonths
-        fi_description
-        fi_name
-        en_description
-        en_name
         openDays {
           day
           open
@@ -174,12 +221,33 @@ export const listActivities = /* GraphQL */ `
           streetAddress
           postalCode
         }
-        imageActivity {
+        activityMedia {
           kind
           copyright
           name
           URL
         }
+        descriptions {
+          fi
+          en
+          sv
+          ru
+          jp
+          de
+          zh
+          es
+        }
+        names {
+          fi
+          en
+          sv
+          ru
+          jp
+          de
+          zh
+          es
+        }
+        external_URL
         createdAt
         updatedAt
         owner

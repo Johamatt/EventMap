@@ -129,7 +129,6 @@ enum CATEGORY {
   BOARDGAMES
   VIDEOGAMES
   GAMBLING
-
 }
 
 type Activity @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {

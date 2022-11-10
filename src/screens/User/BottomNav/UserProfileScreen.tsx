@@ -1,8 +1,8 @@
+import { Button } from "@rneui/base";
 import { Auth } from "aws-amplify";
 import React from "react";
 import { View, Text } from "react-native";
 import { connect } from "react-redux";
-import CustomButton from "../../../components/Buttons/CustomButton";
 import { ApplicationState, UserState, ActivitiesState } from "../../../Store";
 import { styles } from "../styles";
 
@@ -21,7 +21,7 @@ export const _UserProfileScreen: React.FC<UserProfileScreenProps> = (props) => {
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Profile</Text>
       </View>
-      <CustomButton text="Sign out" onPress={signOut} type="TERTIARY" />
+      <Button title="Sign out" onPress={signOut} />
     </View>
   );
 };

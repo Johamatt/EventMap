@@ -3,13 +3,20 @@ import React from "react";
 import { View } from "react-native";
 import { Button } from "@rneui/themed";
 import { connect } from "react-redux";
-import { CATEGORY, Event, Location } from "../../../API";
-import { createActivity } from "../../../graphql/mutations";
-import { getActivity, listActivities } from "../../../graphql/queries";
-import { Activity } from "../../../models/activity/activity";
-import { Company } from "../../../models/activity/company";
-import { Opendays } from "../../../models/activity/opendays";
-import { CategoryModel } from "../../../models/event/categoryTypes";
+
+import {
+  Activity,
+  CATEGORY,
+  Company,
+  OpenDays,
+  Location,
+  Name,
+  Description,
+  ActivityMedia,
+} from "../../../API";
+
+import activitiesData from "../../../util/data/Acvitivities2.json";
+
 import {
   ActivitiesState,
   ApplicationState,
@@ -19,6 +26,8 @@ import {
 import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../../navigation/types";
+import { createActivity } from "../../../graphql/mutations";
+import { getActivity, listActivities } from "../../../graphql/queries";
 
 interface FavouritesScreenProps {
   userReducer: UserState;
@@ -28,6 +37,7 @@ interface FavouritesScreenProps {
 export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   function parseData() {}
 
   return (

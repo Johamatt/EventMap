@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import CustomInput from "../../../components/Inputs/CustomInput";
-import CustomButton from "../../../components/Buttons/CustomButton";
-import SocialSignInButtons from "../../../components/Buttons/SocialSignInButtons";
 import { Auth } from "aws-amplify";
+import { Button } from "@rneui/themed";
 
 export const UserRegisterScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
@@ -62,7 +61,7 @@ export const UserRegisterScreen: React.FC = (props) => {
           secureTextEntry
         />
 
-        <CustomButton text="Register" onPress={onRegisterPressed} />
+        <Button title="Register" onPress={onRegisterPressed} />
 
         <Text style={styles.text}>
           By registering, you confirm that you accept our{" "}
@@ -75,13 +74,7 @@ export const UserRegisterScreen: React.FC = (props) => {
           </Text>
         </Text>
 
-        <SocialSignInButtons />
-
-        <CustomButton
-          text="Have an account? Sign in"
-          onPress={onSignInPress}
-          type="TERTIARY"
-        />
+        <Button title="Have an account? Sign in" onPress={onSignInPress} />
       </View>
     </ScrollView>
   );

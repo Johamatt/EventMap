@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import { RouteProp, useNavigation } from "@react-navigation/native";
 import CustomInput from "../../../components/Inputs/CustomInput";
-import CustomButton from "../../../components/Buttons/CustomButton";
 import { Auth } from "aws-amplify";
 import { RootStackParamList } from "../../../navigation/types";
+import { Button } from "@rneui/themed";
 
 type UserNewPasswordScreenProp = RouteProp<
   RootStackParamList,
@@ -48,13 +48,9 @@ export const UserNewPasswordScreen: React.FC<Props> = (props) => {
 
         <CustomInput placeholder="Code" value={code} setValue={setCode} />
 
-        <CustomButton text="Submit" onPress={onSubmitPressed} />
+        <Button title="Submit" onPress={onSubmitPressed} />
 
-        <CustomButton
-          text="Back to Sign in"
-          onPress={onSignInPress}
-          type="TERTIARY"
-        />
+        <Button title="Back to Sign in" onPress={onSignInPress} />
       </View>
     </ScrollView>
   );

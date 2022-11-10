@@ -6,11 +6,7 @@ export const onCreateEvent = /* GraphQL */ `
   subscription OnCreateEvent($owner: String) {
     onCreateEvent(owner: $owner) {
       id
-      title_FI
       infoURL
-      intro
-      description
-      title_EN
       startingDateTime
       endingDateTime
       source
@@ -29,11 +25,32 @@ export const onCreateEvent = /* GraphQL */ `
         phone
         name
       }
-      imageEvent {
+      eventMedia {
         URL
         lisenceType
         lisenceName
       }
+      Descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      name {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -44,11 +61,7 @@ export const onUpdateEvent = /* GraphQL */ `
   subscription OnUpdateEvent($owner: String) {
     onUpdateEvent(owner: $owner) {
       id
-      title_FI
       infoURL
-      intro
-      description
-      title_EN
       startingDateTime
       endingDateTime
       source
@@ -67,11 +80,32 @@ export const onUpdateEvent = /* GraphQL */ `
         phone
         name
       }
-      imageEvent {
+      eventMedia {
         URL
         lisenceType
         lisenceName
       }
+      Descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      name {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -82,11 +116,7 @@ export const onDeleteEvent = /* GraphQL */ `
   subscription OnDeleteEvent($owner: String) {
     onDeleteEvent(owner: $owner) {
       id
-      title_FI
       infoURL
-      intro
-      description
-      title_EN
       startingDateTime
       endingDateTime
       source
@@ -105,11 +135,32 @@ export const onDeleteEvent = /* GraphQL */ `
         phone
         name
       }
-      imageEvent {
+      eventMedia {
         URL
         lisenceType
         lisenceName
       }
+      Descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      name {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -121,10 +172,6 @@ export const onCreateActivity = /* GraphQL */ `
     onCreateActivity(owner: $owner) {
       id
       availableMonths
-      fi_description
-      fi_name
-      en_description
-      en_name
       openDays {
         day
         open
@@ -152,12 +199,33 @@ export const onCreateActivity = /* GraphQL */ `
         streetAddress
         postalCode
       }
-      imageActivity {
+      activityMedia {
         kind
         copyright
         name
         URL
       }
+      descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      names {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -169,10 +237,6 @@ export const onUpdateActivity = /* GraphQL */ `
     onUpdateActivity(owner: $owner) {
       id
       availableMonths
-      fi_description
-      fi_name
-      en_description
-      en_name
       openDays {
         day
         open
@@ -200,12 +264,33 @@ export const onUpdateActivity = /* GraphQL */ `
         streetAddress
         postalCode
       }
-      imageActivity {
+      activityMedia {
         kind
         copyright
         name
         URL
       }
+      descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      names {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
@@ -217,10 +302,6 @@ export const onDeleteActivity = /* GraphQL */ `
     onDeleteActivity(owner: $owner) {
       id
       availableMonths
-      fi_description
-      fi_name
-      en_description
-      en_name
       openDays {
         day
         open
@@ -248,12 +329,33 @@ export const onDeleteActivity = /* GraphQL */ `
         streetAddress
         postalCode
       }
-      imageActivity {
+      activityMedia {
         kind
         copyright
         name
         URL
       }
+      descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      names {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      external_URL
       createdAt
       updatedAt
       owner
