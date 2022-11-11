@@ -9,6 +9,7 @@ import { Activity } from "../../../API";
 import { Helsinki } from "../../../util/data";
 import SplashScreen from "../../SplashScreen";
 import { Icon } from "@rneui/base";
+import { ActivitiesMap } from "../../../Store/reducers/activityReducer";
 
 interface MapProps {
   userReducer: UserState;
@@ -20,19 +21,19 @@ const _MapScreen: React.FC<MapProps> = (props) => {
     undefined
   );
   const [activities, setActivities] = useState<Array<Activity>>([]);
-  const [errorMsg, setErrorMsg] = useState<string>("");
 
   useEffect(() => {
     async function requestloc() {
       const locationObject = await requestLocation();
       setLocation(locationObject);
-      const activitiesprop = props.activitiesReducer.activities;
+      const activitiesprop = props.activitiesReducer.activitiesMap;
+
       setActivities(activitiesprop);
     }
     requestloc();
   }, [activities]);
 
-  if (activities[0] === undefined) {
+  if (activities === undefined || activities.length === 0) {
     return (
       <View>
         <SplashScreen />
@@ -40,11 +41,14 @@ const _MapScreen: React.FC<MapProps> = (props) => {
     );
   }
 
+  console.log(activities[0]);
+
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
         initialRegion={{
+          // CHANGE THIS ON PRODUCTION : ? location
           latitude: 60.192059,
           longitude: 24.945831,
           latitudeDelta: 0.0922,
@@ -58,11 +62,7 @@ const _MapScreen: React.FC<MapProps> = (props) => {
               latitude: marker.Location.lat,
               longitude: marker.Location.lon,
             }}
-            title={marker.descriptions.fi}
-            description={marker.descriptions.fi}
-          >
-            {/* <Icon reverse size={10} name="plug" type="font-awesome" /> */}
-          </Marker>
+          ></Marker>
         ))}
       </MapView>
     </View>

@@ -22,7 +22,7 @@ export const ActivitiesList: React.FC<ActivitiesListProps> = (props) => {
       </ListItem.Content>
 
       <ListItem.Content>
-        {item.descriptions.fi !== "Unknown" ? (
+        {item.names.fi !== "Unknown" ? (
           <ListItem.Title style={{ color: "black" }}>
             {item.names.fi}
           </ListItem.Title>
@@ -88,59 +88,3 @@ const styles = StyleSheet.create({
     borderColor: lightColors.greyOutline,
   },
 });
-
-{
-  /* <ListItem
-        key={i}
-        bottomDivider
-        onPress={() => console.log(a.names.fi)} // navigate TODO
-      >
-        <ListItem.Content>
-          <ListIcon data={a.categories} />
-        </ListItem.Content>
-
-        <ListItem.Content>
-          {a.descriptions.fi !== "Unknown" ? (
-            <ListItem.Title style={{ color: "black" }}>
-              {a.names.fi}
-            </ListItem.Title>
-          ) : (
-            <ListItem.Subtitle style={{ color: "black" }}>
-              {a.names.en}
-            </ListItem.Subtitle>
-          )}
-        </ListItem.Content>
-
-        <ListItem.Content right>
-          {a.openDays[day]?.from !== null && //fix typechecks later
-          a.openDays[day]?.to !== null ? (
-            <>
-              <ListItem.Title
-                right
-                style={{
-                  color: "green",
-                }}
-              >
-                {a.openDays[day]?.from}
-              </ListItem.Title>
-              <ListItem.Subtitle right>{a.openDays[day]?.to}</ListItem.Subtitle>
-            </>
-          ) : (
-            <>
-              {a.openDays[day]?.open ? (
-                <>
-                  <ListItem.Title right style={{ color: "green" }}>
-                    Open Today
-                  </ListItem.Title>
-                  <ListItem.Subtitle right>Check</ListItem.Subtitle>
-                </>
-              ) : (
-                <ListItem.Title right style={{ color: "red" }}>
-                  Closed Today
-                </ListItem.Title>
-              )}
-            </>
-          )}
-        </ListItem.Content>
-      </ListItem> */
-}

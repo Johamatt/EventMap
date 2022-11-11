@@ -25,7 +25,7 @@ const _HomeScreen: React.FC<HomeScreenProps> = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const activities: Array<Activity> = props.activitiesReducer.activities;
+  const activities: Array<Activity> = props.activitiesReducer.activitiesList;
   const dateToday = new Date();
 
   let day = getDayOfWeek();
@@ -35,6 +35,8 @@ const _HomeScreen: React.FC<HomeScreenProps> = (props) => {
     const dayOfWeek = dateToday.getDay();
     return isNaN(dayOfWeek) ? 0 : [0, 3, 1, 2, 5, 4, 6][dayOfWeek]; // fix falsed sunday value?
   }
+
+  console.log(activities);
 
   return (
     <View
@@ -72,7 +74,7 @@ const _HomeScreen: React.FC<HomeScreenProps> = (props) => {
       </View>
       <Divider color="black" />
       <View>
-        <ActivitiesList data={props.activitiesReducer.activities} />
+        <ActivitiesList data={props.activitiesReducer.activitiesList} />
       </View>
 
       {/* Header ends */}
