@@ -10,11 +10,11 @@ import { API, graphqlOperation } from "aws-amplify";
 import { listActivitiesList } from "../../../graphql/customQueries";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import SplashScreen from "../../SplashScreen";
+import { GraphQLQuery } from "@aws-amplify/api";
 
 const _HomeScreen: React.FC = () => {
-  const [activities, setActivities] = useState<Array<any> | undefined>([]);
+  const [activities, setActivities] = useState<any>([]);
   const [nextToken, setNextToken] = useState<any>();
-
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -29,13 +29,20 @@ const _HomeScreen: React.FC = () => {
 
   const requestAPI = async (nextToken: any) => {
     const activitiesDataList = (await API.graphql(
-      // Amplify issue  https://github.com/aws-amplify/amplify-js/issues/4257
+      // Amplify issue  https://github.com/aws-amplify/amplify-js/issues/4257 && https://github.com/aws-amplify/amplify-js/issues/5741
       graphqlOperation(listActivitiesList, { limit: 20, nextToken })
-    )) as { data: ListActivitiesQuery };
+    )) as GraphQLResult<ListActivitiesQuery>;
     // ???
 
-    setActivities(() => activitiesDataList.data.listActivities?.items);
-    setNextToken(activitiesDataList.data.listActivities?.nextToken);
+    // setActivities(() => activitiesDataList.data.listActivities?.items);
+    setNextToken(activitiesDataList.data?.listActivities?.nextToken);
+
+
+  
+    setActivities([
+      ...activities,
+      ...activitiesDataList.data?.listActivities?.items,
+    ]);
   };
 
   if (!activities || activities.length === 0) {
@@ -45,6 +52,8 @@ const _HomeScreen: React.FC = () => {
       </View>
     );
   }
+
+  console.log(activities.length);
 
   return (
     <View style={styles.container}>

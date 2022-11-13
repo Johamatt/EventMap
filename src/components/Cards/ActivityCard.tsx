@@ -8,8 +8,6 @@ interface ActivitiesListProps {
 }
 
 export const ActivityCard: React.FC<ActivitiesListProps> = (props) => {
-  console.log(props);
-
   const activity = props.activity;
   let day = new Date().getDay();
   return (
