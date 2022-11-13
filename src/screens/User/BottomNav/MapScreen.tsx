@@ -6,10 +6,7 @@ import { ActivitiesState, ApplicationState, UserState } from "../../../Store";
 import { LocationObject } from "expo-location";
 import { requestLocation } from "../../../util/helpers/RequestLocation";
 import { Activity } from "../../../API";
-import { Helsinki } from "../../../util/data";
 import SplashScreen from "../../SplashScreen";
-import { Icon } from "@rneui/base";
-import { ActivitiesMap } from "../../../Store/reducers/activityReducer";
 
 interface MapProps {
   userReducer: UserState;
@@ -40,8 +37,6 @@ const _MapScreen: React.FC<MapProps> = (props) => {
       </View>
     );
   }
-
-  console.log(activities[0]);
 
   return (
     <View style={styles.container}>

@@ -1,105 +1,88 @@
-import { FlatList, TouchableOpacity, View } from "react-native";
-import { RootStackParamList } from "../../../navigation/types";
-import { ActivitiesState, ApplicationState, UserState } from "../../../Store";
+import { FlatList, View, StyleSheet } from "react-native";
+import { ApplicationState } from "../../../Store";
 import { connect } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
-import DropDownPicker from "react-native-dropdown-picker";
+import React, { useEffect, useState } from "react";
+import { Activity, ListActivitiesQuery } from "../../../API";
+import { Divider } from "@rneui/base";
+import { ActivityCard } from "../../../components/Cards/ActivityCard";
+import { ActivitiesListPreferencesBtn } from "../../../components/Buttons/ActivitiesListPreferencesBtn";
+import { API, graphqlOperation } from "aws-amplify";
+import { listActivitiesList } from "../../../graphql/customQueries";
+import { GraphQLResult } from "@aws-amplify/api-graphql";
+import SplashScreen from "../../SplashScreen";
 
-import Colors from "../../../constants/Colors";
-import Layout from "../../../constants/Layout";
+const _HomeScreen: React.FC = () => {
+  const [activities, setActivities] = useState<Array<any> | undefined>([]);
+  const [nextToken, setNextToken] = useState<any>();
 
-import testData from "../../../util/data/testdata2.json";
-import { Activity } from "../../../API";
-import { Button, Divider } from "@rneui/base";
-import { ActivitiesList } from "../../../components/List/ActivitiesList";
+  const [page, setPage] = useState(0);
 
-interface HomeScreenProps {
-  userReducer: UserState;
-  activitiesReducer: ActivitiesState;
-}
+  useEffect(() => {
+    requestAPI(nextToken);
+  }, [page]);
 
-const _HomeScreen: React.FC<HomeScreenProps> = (props) => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const fetchMoreData = () => {
+    if (typeof nextToken === "string") {
+      setPage(page + 1);
+    }
+  };
 
-  const activities: Array<Activity> = props.activitiesReducer.activitiesList;
-  const dateToday = new Date();
+  const requestAPI = async (nextToken: any) => {
+    const activitiesDataList = (await API.graphql(
+      // Amplify issue  https://github.com/aws-amplify/amplify-js/issues/4257
+      graphqlOperation(listActivitiesList, { limit: 20, nextToken })
+    )) as { data: ListActivitiesQuery };
+    // ???
 
-  let day = getDayOfWeek();
+    setActivities(() => activitiesDataList.data.listActivities?.items);
+    setNextToken(activitiesDataList.data.listActivities?.nextToken);
+  };
 
-  // data is not organized from api. this is temp solution.
-  function getDayOfWeek() {
-    const dayOfWeek = dateToday.getDay();
-    return isNaN(dayOfWeek) ? 0 : [0, 3, 1, 2, 5, 4, 6][dayOfWeek]; // fix falsed sunday value?
+  if (!activities || activities.length === 0) {
+    return (
+      <View>
+        <SplashScreen />
+      </View>
+    );
   }
 
-  console.log(activities);
-
   return (
-    <View
-      style={{
-        paddingRight: 10,
-        paddingTop: 40,
-        flex: 1,
-        backgroundColor: "#fff",
-      }}
-    >
-      {/* // Header starts */}
-      <View style={{ flexDirection: "row-reverse", paddingBottom: 5 }}>
-        <Button
-          title="Edit Preferences"
-          icon={{
-            name: "options-outline",
-            type: "ionicon",
-            size: 15,
-            color: "white",
-          }}
-          onPress={() => navigation.navigate("LandingPreferenceScreen")}
-          iconRight
-          iconContainerStyle={{ marginLeft: 10 }}
-          titleStyle={{ fontWeight: "700", color: "white" }}
-          buttonStyle={{
-            backgroundColor: Colors.light.tint,
-            borderColor: "transparent",
-            borderWidth: 0,
-            borderRadius: 30,
-          }}
-          containerStyle={{
-            width: Layout.window.width / 2,
-          }}
-        />
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <ActivitiesListPreferencesBtn />
       </View>
       <Divider color="black" />
       <View>
-        <ActivitiesList data={props.activitiesReducer.activitiesList} />
-      </View>
-
-      {/* Header ends */}
-
-      {/* <View style={{ margin: 10 }}>
-        <DropDownPicker
-          dropDownDirection="AUTO"
-          bottomOffset={150}
-          open={open}
-          value={value}
-          items={selectedTiming}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setSelectedTiming}
+        <FlatList
+          keyExtractor={(item) => item.id}
+          data={activities}
+          renderItem={({ item }) => <ActivityCard activity={item} />}
+          onEndReached={fetchMoreData}
+          onEndReachedThreshold={0.3}
         />
-      </View> */}
+      </View>
     </View>
   );
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  userReducer: state.UserReducer,
-  activitiesReducer: state.ActivitiesReducer,
+  activitiesList: state.ActivitiesReducer.activitiesList,
+  nextToken: state.ActivitiesReducer.nextToken,
 });
 
 const HomeScreen = connect(mapToStateProps)(_HomeScreen);
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    paddingRight: 10,
+    paddingTop: 40,
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  header: {
+    flexDirection: "row-reverse",
+    paddingBottom: 5,
+  },
+});

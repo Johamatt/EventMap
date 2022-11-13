@@ -4,6 +4,8 @@ import { View, StyleSheet } from "react-native";
 import { CATEGORY } from "../../API";
 import Colors from "../../constants/Colors";
 
+
+
 interface ListIconProps {
   data: Array<CATEGORY> | null | undefined;
 }
