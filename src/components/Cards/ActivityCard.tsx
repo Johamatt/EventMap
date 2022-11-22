@@ -8,32 +8,34 @@ interface ActivitiesListProps {
 }
 
 export const ActivityCard: React.FC<ActivitiesListProps> = (props) => {
-  const activity = props.activity;
+  const activity: Activity = props.activity;
+
   let day = new Date().getDay();
+
   return (
     <ListItem
       bottomDivider
-      onPress={() => console.log(activity.names.fi)} // navigate TODO
+      onPress={() => console.log(activity.Names.fi)} // navigate TODO
     >
       <ListItem.Content>
         <ListIcon data={activity.categories} />
       </ListItem.Content>
 
       <ListItem.Content>
-        {activity.names.fi !== "Unknown" ? (
+        {activity.Names.fi !== "Unknown" ? (
           <ListItem.Title style={{ color: "black" }}>
-            {activity.names.fi}
+            {activity.Names.fi}
           </ListItem.Title>
         ) : (
           <ListItem.Subtitle style={{ color: "black" }}>
-            {activity.names.en}
+            {activity.Names.en}
           </ListItem.Subtitle>
         )}
       </ListItem.Content>
 
       <ListItem.Content right>
-        {activity.openDays[day]?.from !== null && //fix typechecks later
-        activity.openDays[day]?.to !== null ? (
+        {activity.OpenDays[day]?.timeFrom !== null && //fix typechecks later
+        activity.OpenDays[day]?.timeTo !== null ? (
           <>
             <ListItem.Title
               right
@@ -41,26 +43,18 @@ export const ActivityCard: React.FC<ActivitiesListProps> = (props) => {
                 color: "green",
               }}
             >
-              {activity.openDays[day]?.from}
+              {activity.OpenDays[day]?.timeFrom}
             </ListItem.Title>
             <ListItem.Subtitle right>
-              {activity.openDays[day]?.to}
+              {activity.OpenDays[day]?.timeTo}
             </ListItem.Subtitle>
           </>
         ) : (
           <>
-            {activity.openDays[day]?.open ? (
-              <>
-                <ListItem.Title right style={{ color: "green" }}>
-                  Open Today
-                </ListItem.Title>
-                <ListItem.Subtitle right>Check</ListItem.Subtitle>
-              </>
-            ) : (
-              <ListItem.Title right style={{ color: "red" }}>
-                Closed Today
-              </ListItem.Title>
-            )}
+            <ListItem.Title right style={{ color: "green" }}>
+              Open Today
+            </ListItem.Title>
+            <ListItem.Subtitle right>Check</ListItem.Subtitle>
           </>
         )}
       </ListItem.Content>

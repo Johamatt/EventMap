@@ -73,19 +73,14 @@ enum FORMAT {
   OTHER
 }
 
-type Company {
-  businessId: String
+type Company @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {
+  businessId: ID! @primaryKey
   email: String
   phone: String
   name: String
+  activities: [Activity] @hasMany
 }
 
-type OpenDays {
-  day: String
-  open: Boolean
-  from: AWSTime
-  to: AWSTime
-}
 
 enum CATEGORY {
   MUSIC
@@ -133,21 +128,50 @@ enum CATEGORY {
 
 type Activity @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {
   id: ID!
-  availableMonths: [String]
-  openDays: [OpenDays!]
-  categories: [CATEGORY!]
+
   company: Company
   duration: String
   durationType: String
   meantFor: [String]
-  priceEUR_From: Float
-  priceEUR_TO: Float
-  pricingType: String
-  siteURL: String
-  updated_at_LinkedEvent: AWSDateTime
+
+  categories: [CATEGORY!]
+  price: Price
   Location: Location!
   activityMedia: [ActivityMedia]
-  descriptions: Description!
-  names: Name!
-  external_URL: AWSURL
+  Descriptions: Description!
+  Names: Name!
+  Links: Links
+  OpenDays: [OpenDays!]
+  hoursFromTo: String
+  availableDays: [Int]
+  availableMonths: [Int]
+
+  updated_at_LinkedEvent: AWSDateTime
 }
+
+type Links {
+  siteURL: AWSURL
+  externalURL: AWSURL
+  otherURL: AWSURL
+}
+
+type Price {
+  EurFrom: Float
+  EurTo: Float
+  pricingtype: [PRICINGTYPE]
+}
+
+
+enum PRICINGTYPE {
+  FREE
+  CHARGEABLE
+}
+
+type OpenDays {
+  day: [Int]
+  timeFrom: AWSTime
+  timeTo: AWSTime
+}
+
+
+

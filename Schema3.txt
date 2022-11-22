@@ -1,13 +1,35 @@
-type ImageActivity {
+type Name {
+  fi: String!
+  en: String
+  sv: String
+  ru: String
+  jp: String
+  de: String
+  zh: String
+  es: String
+}
+
+type Description {
+  fi: String!
+  en: String
+  sv: String
+  ru: String
+  jp: String
+  de: String
+  zh: String
+  es: String
+}
+
+type ActivityMedia {
   kind: String
   copyright: String
   name: String
-  URL: AWSURL
+  URL: AWSURL!
 }
 
-type ImageEvent {
+type EventMedia {
   URL: AWSURL!
-  lisenceType: String!
+  lisenceType: Int!
   lisenceName: String!
 }
 
@@ -18,22 +40,9 @@ type Location {
   postalCode: String
 }
 
-type Event @model @auth(rules: [
-    # Defaults to use the "owner" field.
-    { allow: owner, operations: [create, read, update, delete] },
-
-    # Admin users can access any operation.
-    { allow: groups, groups: ["Admin"] }
-
-    # Each record may specify which groups may read them.
-    { allow: public, operations: [read] }
-  ]) {
+type Event @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {
   id: ID!
-  title_FI: String!
   infoURL: String
-  intro: String!
-  description: String!
-  title_EN: String
   startingDateTime: String!
   endingDateTime: String!
   source: String!
@@ -42,7 +51,10 @@ type Event @model @auth(rules: [
   format: [FORMAT]
   tags: [String]
   company: Company
-  imageEvent: [ImageEvent]
+  eventMedia: [EventMedia]
+  Descriptions: Description!
+  name: Name!
+  external_URL: [AWSURL]
 }
 
 enum FORMAT {
@@ -57,6 +69,7 @@ enum FORMAT {
   CAMPTRIP
   EXHIBITION
   LUXURY
+  PARTICIPATION
   OTHER
 }
 
@@ -70,8 +83,8 @@ type Company {
 type OpenDays {
   day: String
   open: Boolean
-  from: String
-  to: String
+  from: AWSTime
+  to: AWSTime
 }
 
 enum CATEGORY {
@@ -85,7 +98,9 @@ enum CATEGORY {
   TRIP
   FOOD
   WORKSHOP
+  COOKING
   BUSINESS
+  ACTIVITY
   CULTURE
   COMEDY
   CONCERT
@@ -93,39 +108,33 @@ enum CATEGORY {
   FINEARTS
   THEATRE
   LITERATURE
-  EDUCATION
   PHOTOGRAPHY
   TECHNOLOGY
   MARKET
   SIGHTSEEING
   MUSEUM
-  ANIMALS
+  OTHER
   ACCOMMODATION
   NATURE
   MOTORSPORTS
   LUXURY
   GUIDEDSERVICE
   SAUNA
-  OTHER
+  ANIMALS
+  EDUCATION
+  SCIENCE
+  FASHION
+  TOUR
+  DANCE
+  BOARDGAMES
+  VIDEOGAMES
+  GAMBLING
 }
 
-type Activity @model @auth(rules: [
-    # Defaults to use the "owner" field.
-    { allow: owner, operations: [create, read, update, delete] },
-
-    # Admin users can access any operation.
-    { allow: groups, groups: ["Admin"] }
-
-    # Each record may specify which groups may read them.
-    { allow: public, operations: [read] }
-  ]) {
+type Activity @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {
   id: ID!
   availableMonths: [String]
-  fi_description: String!
-  fi_name: String!
-  en_description: String
-  en_name: String
-  openDays: [OpenDays]
+  openDays: [OpenDays!]
   categories: [CATEGORY!]
   company: Company
   duration: String
@@ -137,5 +146,8 @@ type Activity @model @auth(rules: [
   siteURL: String
   updated_at_LinkedEvent: AWSDateTime
   Location: Location!
-  imageActivity: [ImageActivity]
+  activityMedia: [ActivityMedia]
+  descriptions: Description!
+  names: Name!
+  external_URL: AWSURL
 }

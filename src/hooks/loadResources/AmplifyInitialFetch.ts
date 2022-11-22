@@ -5,7 +5,7 @@ import { ListActivitiesQuery } from "../../API";
 import {
   listActivitiesList,
   listActivitiesMap,
-} from "../../graphql/customQueries";
+} from "../../../customQueries";
 CognitoUserSession;
 export default async function AmplifyInitialFetch() {
   try {

@@ -20,17 +20,20 @@ type Description {
   es: String
 }
 
-type ActivityMedia {
+type ActivityMedia @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {
+  id: ID!
   kind: String
   copyright: String
   name: String
   URL: AWSURL!
 }
 
-type EventMedia {
+type EventMedia @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {
+  id: ID!
   URL: AWSURL!
-  lisenceType: Int!
-  lisenceName: String!
+  kind: String
+  copyright: String
+  name: String
 }
 
 type Location {
@@ -42,19 +45,19 @@ type Location {
 
 type Event @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {
   id: ID!
-  infoURL: String
   startingDateTime: String!
   endingDateTime: String!
-  source: String!
   location: Location!
   category: [CATEGORY!]
   format: [FORMAT]
-  tags: [String]
   company: Company
-  eventMedia: [EventMedia]
+  eventMedia: [EventMedia] @hasMany
   Descriptions: Description!
   name: Name!
-  external_URL: [AWSURL]
+  Links: Links
+
+  source: String
+  updated_at_Source: AWSDateTime
 }
 
 enum FORMAT {
@@ -73,19 +76,15 @@ enum FORMAT {
   OTHER
 }
 
-type Company {
-  businessId: String
+type Company @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {
+  businessId: ID! @primaryKey
   email: String
   phone: String
   name: String
+  activities: [Activity] @hasMany
+  events: [Event] @hasMany
 }
 
-type OpenDays {
-  day: String
-  open: Boolean
-  from: AWSTime
-  to: AWSTime
-}
 
 enum CATEGORY {
   MUSIC
@@ -129,26 +128,52 @@ enum CATEGORY {
   BOARDGAMES
   VIDEOGAMES
   GAMBLING
-
 }
 
 type Activity @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {
   id: ID!
-  availableMonths: [String]
-  openDays: [OpenDays!]
-  categories: [CATEGORY!]
+
   company: Company
   duration: String
   durationType: String
   meantFor: [String]
-  priceEUR_From: Float
-  priceEUR_TO: Float
-  pricingType: String
-  siteURL: String
-  updated_at_LinkedEvent: AWSDateTime
+  categories: [CATEGORY!]
+  price: Price
   Location: Location!
-  activityMedia: [ActivityMedia]
-  descriptions: Description!
-  names: Name!
-  external_URL: AWSURL
+  activityMedia: [ActivityMedia] @hasMany
+  Descriptions: Description!
+  Names: Name!
+  Links: Links
+  source: String
+  updated_at_Source: AWSDateTime
+  OpenDays: [OpenDays!] ## 
+  availableDays: [Int]  #  TODO: Custom resolver
+  availableMonths: [Int]##
 }
+
+type Links {
+  siteURL: AWSURL
+  externalURL: AWSURL
+  otherURL: AWSURL
+}
+
+type Price {
+  EurFrom: Float
+  EurTo: Float
+  pricingtype: [PRICINGTYPE]
+}
+
+
+enum PRICINGTYPE {
+  FREE
+  CHARGEABLE
+}
+
+type OpenDays {
+  day: Int
+  timeFrom: AWSTime
+  timeTo: AWSTime
+}
+
+
+

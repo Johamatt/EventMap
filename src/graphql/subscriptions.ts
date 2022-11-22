@@ -2,14 +2,123 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateEvent = /* GraphQL */ `
-  subscription OnCreateEvent($owner: String) {
-    onCreateEvent(owner: $owner) {
+export const onCreateActivityMedia = /* GraphQL */ `
+  subscription OnCreateActivityMedia(
+    $filter: ModelSubscriptionActivityMediaFilterInput
+    $owner: String
+  ) {
+    onCreateActivityMedia(filter: $filter, owner: $owner) {
       id
-      infoURL
+      kind
+      copyright
+      name
+      URL
+      createdAt
+      updatedAt
+      activityActivityMediaId
+      owner
+    }
+  }
+`;
+export const onUpdateActivityMedia = /* GraphQL */ `
+  subscription OnUpdateActivityMedia(
+    $filter: ModelSubscriptionActivityMediaFilterInput
+    $owner: String
+  ) {
+    onUpdateActivityMedia(filter: $filter, owner: $owner) {
+      id
+      kind
+      copyright
+      name
+      URL
+      createdAt
+      updatedAt
+      activityActivityMediaId
+      owner
+    }
+  }
+`;
+export const onDeleteActivityMedia = /* GraphQL */ `
+  subscription OnDeleteActivityMedia(
+    $filter: ModelSubscriptionActivityMediaFilterInput
+    $owner: String
+  ) {
+    onDeleteActivityMedia(filter: $filter, owner: $owner) {
+      id
+      kind
+      copyright
+      name
+      URL
+      createdAt
+      updatedAt
+      activityActivityMediaId
+      owner
+    }
+  }
+`;
+export const onCreateEventMedia = /* GraphQL */ `
+  subscription OnCreateEventMedia(
+    $filter: ModelSubscriptionEventMediaFilterInput
+    $owner: String
+  ) {
+    onCreateEventMedia(filter: $filter, owner: $owner) {
+      id
+      URL
+      kind
+      copyright
+      name
+      createdAt
+      updatedAt
+      eventEventMediaId
+      owner
+    }
+  }
+`;
+export const onUpdateEventMedia = /* GraphQL */ `
+  subscription OnUpdateEventMedia(
+    $filter: ModelSubscriptionEventMediaFilterInput
+    $owner: String
+  ) {
+    onUpdateEventMedia(filter: $filter, owner: $owner) {
+      id
+      URL
+      kind
+      copyright
+      name
+      createdAt
+      updatedAt
+      eventEventMediaId
+      owner
+    }
+  }
+`;
+export const onDeleteEventMedia = /* GraphQL */ `
+  subscription OnDeleteEventMedia(
+    $filter: ModelSubscriptionEventMediaFilterInput
+    $owner: String
+  ) {
+    onDeleteEventMedia(filter: $filter, owner: $owner) {
+      id
+      URL
+      kind
+      copyright
+      name
+      createdAt
+      updatedAt
+      eventEventMediaId
+      owner
+    }
+  }
+`;
+export const onCreateEvent = /* GraphQL */ `
+  subscription OnCreateEvent(
+    $filter: ModelSubscriptionEventFilterInput
+    $owner: String
+  ) {
+    onCreateEvent(filter: $filter, owner: $owner) {
+      id
       startingDateTime
       endingDateTime
-      source
       location {
         lat
         lon
@@ -18,17 +127,34 @@ export const onCreateEvent = /* GraphQL */ `
       }
       category
       format
-      tags
       company {
         businessId
         email
         phone
         name
+        activities {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
       eventMedia {
-        URL
-        lisenceType
-        lisenceName
+        items {
+          id
+          URL
+          kind
+          copyright
+          name
+          createdAt
+          updatedAt
+          eventEventMediaId
+          owner
+        }
+        nextToken
       }
       Descriptions {
         fi
@@ -50,21 +176,29 @@ export const onCreateEvent = /* GraphQL */ `
         zh
         es
       }
-      external_URL
+      Links {
+        siteURL
+        externalURL
+        otherURL
+      }
+      source
+      updated_at_Source
       createdAt
       updatedAt
+      companyEventsId
       owner
     }
   }
 `;
 export const onUpdateEvent = /* GraphQL */ `
-  subscription OnUpdateEvent($owner: String) {
-    onUpdateEvent(owner: $owner) {
+  subscription OnUpdateEvent(
+    $filter: ModelSubscriptionEventFilterInput
+    $owner: String
+  ) {
+    onUpdateEvent(filter: $filter, owner: $owner) {
       id
-      infoURL
       startingDateTime
       endingDateTime
-      source
       location {
         lat
         lon
@@ -73,17 +207,34 @@ export const onUpdateEvent = /* GraphQL */ `
       }
       category
       format
-      tags
       company {
         businessId
         email
         phone
         name
+        activities {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
       eventMedia {
-        URL
-        lisenceType
-        lisenceName
+        items {
+          id
+          URL
+          kind
+          copyright
+          name
+          createdAt
+          updatedAt
+          eventEventMediaId
+          owner
+        }
+        nextToken
       }
       Descriptions {
         fi
@@ -105,62 +256,247 @@ export const onUpdateEvent = /* GraphQL */ `
         zh
         es
       }
-      external_URL
+      Links {
+        siteURL
+        externalURL
+        otherURL
+      }
+      source
+      updated_at_Source
+      createdAt
+      updatedAt
+      companyEventsId
+      owner
+    }
+  }
+`;
+export const onDeleteEvent = /* GraphQL */ `
+  subscription OnDeleteEvent(
+    $filter: ModelSubscriptionEventFilterInput
+    $owner: String
+  ) {
+    onDeleteEvent(filter: $filter, owner: $owner) {
+      id
+      startingDateTime
+      endingDateTime
+      location {
+        lat
+        lon
+        streetAddress
+        postalCode
+      }
+      category
+      format
+      company {
+        businessId
+        email
+        phone
+        name
+        activities {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      eventMedia {
+        items {
+          id
+          URL
+          kind
+          copyright
+          name
+          createdAt
+          updatedAt
+          eventEventMediaId
+          owner
+        }
+        nextToken
+      }
+      Descriptions {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      name {
+        fi
+        en
+        sv
+        ru
+        jp
+        de
+        zh
+        es
+      }
+      Links {
+        siteURL
+        externalURL
+        otherURL
+      }
+      source
+      updated_at_Source
+      createdAt
+      updatedAt
+      companyEventsId
+      owner
+    }
+  }
+`;
+export const onCreateCompany = /* GraphQL */ `
+  subscription OnCreateCompany(
+    $filter: ModelSubscriptionCompanyFilterInput
+    $owner: String
+  ) {
+    onCreateCompany(filter: $filter, owner: $owner) {
+      businessId
+      email
+      phone
+      name
+      activities {
+        items {
+          id
+          duration
+          durationType
+          meantFor
+          categories
+          source
+          updated_at_Source
+          hoursFromTo
+          availableDays
+          availableMonths
+          createdAt
+          updatedAt
+          companyActivitiesId
+          owner
+        }
+        nextToken
+      }
+      events {
+        items {
+          id
+          startingDateTime
+          endingDateTime
+          category
+          format
+          source
+          updated_at_Source
+          createdAt
+          updatedAt
+          companyEventsId
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
       owner
     }
   }
 `;
-export const onDeleteEvent = /* GraphQL */ `
-  subscription OnDeleteEvent($owner: String) {
-    onDeleteEvent(owner: $owner) {
-      id
-      infoURL
-      startingDateTime
-      endingDateTime
-      source
-      location {
-        lat
-        lon
-        streetAddress
-        postalCode
+export const onUpdateCompany = /* GraphQL */ `
+  subscription OnUpdateCompany(
+    $filter: ModelSubscriptionCompanyFilterInput
+    $owner: String
+  ) {
+    onUpdateCompany(filter: $filter, owner: $owner) {
+      businessId
+      email
+      phone
+      name
+      activities {
+        items {
+          id
+          duration
+          durationType
+          meantFor
+          categories
+          source
+          updated_at_Source
+          hoursFromTo
+          availableDays
+          availableMonths
+          createdAt
+          updatedAt
+          companyActivitiesId
+          owner
+        }
+        nextToken
       }
-      category
-      format
-      tags
-      company {
-        businessId
-        email
-        phone
-        name
+      events {
+        items {
+          id
+          startingDateTime
+          endingDateTime
+          category
+          format
+          source
+          updated_at_Source
+          createdAt
+          updatedAt
+          companyEventsId
+          owner
+        }
+        nextToken
       }
-      eventMedia {
-        URL
-        lisenceType
-        lisenceName
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteCompany = /* GraphQL */ `
+  subscription OnDeleteCompany(
+    $filter: ModelSubscriptionCompanyFilterInput
+    $owner: String
+  ) {
+    onDeleteCompany(filter: $filter, owner: $owner) {
+      businessId
+      email
+      phone
+      name
+      activities {
+        items {
+          id
+          duration
+          durationType
+          meantFor
+          categories
+          source
+          updated_at_Source
+          hoursFromTo
+          availableDays
+          availableMonths
+          createdAt
+          updatedAt
+          companyActivitiesId
+          owner
+        }
+        nextToken
       }
-      Descriptions {
-        fi
-        en
-        sv
-        ru
-        jp
-        de
-        zh
-        es
+      events {
+        items {
+          id
+          startingDateTime
+          endingDateTime
+          category
+          format
+          source
+          updated_at_Source
+          createdAt
+          updatedAt
+          companyEventsId
+          owner
+        }
+        nextToken
       }
-      name {
-        fi
-        en
-        sv
-        ru
-        jp
-        de
-        zh
-        es
-      }
-      external_URL
       createdAt
       updatedAt
       owner
@@ -168,31 +504,36 @@ export const onDeleteEvent = /* GraphQL */ `
   }
 `;
 export const onCreateActivity = /* GraphQL */ `
-  subscription OnCreateActivity($owner: String) {
-    onCreateActivity(owner: $owner) {
+  subscription OnCreateActivity(
+    $filter: ModelSubscriptionActivityFilterInput
+    $owner: String
+  ) {
+    onCreateActivity(filter: $filter, owner: $owner) {
       id
-      availableMonths
-      openDays {
-        day
-        open
-        from
-        to
-      }
-      categories
       company {
         businessId
         email
         phone
         name
+        activities {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
       duration
       durationType
       meantFor
-      priceEUR_From
-      priceEUR_TO
-      pricingType
-      siteURL
-      updated_at_LinkedEvent
+      categories
+      price {
+        EurFrom
+        EurTo
+        pricingtype
+      }
       Location {
         lat
         lon
@@ -200,12 +541,20 @@ export const onCreateActivity = /* GraphQL */ `
         postalCode
       }
       activityMedia {
-        kind
-        copyright
-        name
-        URL
+        items {
+          id
+          kind
+          copyright
+          name
+          URL
+          createdAt
+          updatedAt
+          activityActivityMediaId
+          owner
+        }
+        nextToken
       }
-      descriptions {
+      Descriptions {
         fi
         en
         sv
@@ -215,7 +564,7 @@ export const onCreateActivity = /* GraphQL */ `
         zh
         es
       }
-      names {
+      Names {
         fi
         en
         sv
@@ -225,39 +574,59 @@ export const onCreateActivity = /* GraphQL */ `
         zh
         es
       }
-      external_URL
+      Links {
+        siteURL
+        externalURL
+        otherURL
+      }
+      source
+      updated_at_Source
+      OpenDays {
+        day
+        timeFrom
+        timeTo
+      }
+      hoursFromTo
+      availableDays
+      availableMonths
       createdAt
       updatedAt
+      companyActivitiesId
       owner
     }
   }
 `;
 export const onUpdateActivity = /* GraphQL */ `
-  subscription OnUpdateActivity($owner: String) {
-    onUpdateActivity(owner: $owner) {
+  subscription OnUpdateActivity(
+    $filter: ModelSubscriptionActivityFilterInput
+    $owner: String
+  ) {
+    onUpdateActivity(filter: $filter, owner: $owner) {
       id
-      availableMonths
-      openDays {
-        day
-        open
-        from
-        to
-      }
-      categories
       company {
         businessId
         email
         phone
         name
+        activities {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
       duration
       durationType
       meantFor
-      priceEUR_From
-      priceEUR_TO
-      pricingType
-      siteURL
-      updated_at_LinkedEvent
+      categories
+      price {
+        EurFrom
+        EurTo
+        pricingtype
+      }
       Location {
         lat
         lon
@@ -265,12 +634,20 @@ export const onUpdateActivity = /* GraphQL */ `
         postalCode
       }
       activityMedia {
-        kind
-        copyright
-        name
-        URL
+        items {
+          id
+          kind
+          copyright
+          name
+          URL
+          createdAt
+          updatedAt
+          activityActivityMediaId
+          owner
+        }
+        nextToken
       }
-      descriptions {
+      Descriptions {
         fi
         en
         sv
@@ -280,7 +657,7 @@ export const onUpdateActivity = /* GraphQL */ `
         zh
         es
       }
-      names {
+      Names {
         fi
         en
         sv
@@ -290,39 +667,59 @@ export const onUpdateActivity = /* GraphQL */ `
         zh
         es
       }
-      external_URL
+      Links {
+        siteURL
+        externalURL
+        otherURL
+      }
+      source
+      updated_at_Source
+      OpenDays {
+        day
+        timeFrom
+        timeTo
+      }
+      hoursFromTo
+      availableDays
+      availableMonths
       createdAt
       updatedAt
+      companyActivitiesId
       owner
     }
   }
 `;
 export const onDeleteActivity = /* GraphQL */ `
-  subscription OnDeleteActivity($owner: String) {
-    onDeleteActivity(owner: $owner) {
+  subscription OnDeleteActivity(
+    $filter: ModelSubscriptionActivityFilterInput
+    $owner: String
+  ) {
+    onDeleteActivity(filter: $filter, owner: $owner) {
       id
-      availableMonths
-      openDays {
-        day
-        open
-        from
-        to
-      }
-      categories
       company {
         businessId
         email
         phone
         name
+        activities {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
       duration
       durationType
       meantFor
-      priceEUR_From
-      priceEUR_TO
-      pricingType
-      siteURL
-      updated_at_LinkedEvent
+      categories
+      price {
+        EurFrom
+        EurTo
+        pricingtype
+      }
       Location {
         lat
         lon
@@ -330,12 +727,20 @@ export const onDeleteActivity = /* GraphQL */ `
         postalCode
       }
       activityMedia {
-        kind
-        copyright
-        name
-        URL
+        items {
+          id
+          kind
+          copyright
+          name
+          URL
+          createdAt
+          updatedAt
+          activityActivityMediaId
+          owner
+        }
+        nextToken
       }
-      descriptions {
+      Descriptions {
         fi
         en
         sv
@@ -345,7 +750,7 @@ export const onDeleteActivity = /* GraphQL */ `
         zh
         es
       }
-      names {
+      Names {
         fi
         en
         sv
@@ -355,9 +760,24 @@ export const onDeleteActivity = /* GraphQL */ `
         zh
         es
       }
-      external_URL
+      Links {
+        siteURL
+        externalURL
+        otherURL
+      }
+      source
+      updated_at_Source
+      OpenDays {
+        day
+        timeFrom
+        timeTo
+      }
+      hoursFromTo
+      availableDays
+      availableMonths
       createdAt
       updatedAt
+      companyActivitiesId
       owner
     }
   }

@@ -1,12 +1,20 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../navigation/types";
-import { Button } from "@rneui/base";
+import { Button, IconNode } from "@rneui/base";
 import Layout from "../../constants/Layout";
 import Colors from "../../constants/Colors";
 
+interface IconButtonProps {
+  title?: string;
+  iconStyle?: IconNode;
+  iconContainerStyle?: Object;
+  titleStyle?: Object;
+  buttonStyle?: Object;
+  navigation?: any;
+}
 
-export const ActivitiesListPreferencesBtn: React.FC = () => {
+export const IconButton: React.FC = (IconButtonProps) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (

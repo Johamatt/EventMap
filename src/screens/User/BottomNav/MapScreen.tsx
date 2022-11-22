@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 import { ActivitiesState, ApplicationState, UserState } from "../../../Store";
 import { LocationObject } from "expo-location";
 import { requestLocation } from "../../../util/helpers/RequestLocation";
-import { Activity } from "../../../API";
+
 import SplashScreen from "../../SplashScreen";
+import { Activity } from "../../../API";
 
 interface MapProps {
   userReducer: UserState;
@@ -29,6 +30,8 @@ const _MapScreen: React.FC<MapProps> = (props) => {
     }
     requestloc();
   }, [activities]);
+
+  console.log(activities);
 
   if (activities === undefined || activities.length === 0) {
     return (

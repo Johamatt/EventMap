@@ -2,17 +2,26 @@ import { FlatList, View, StyleSheet } from "react-native";
 import { ApplicationState } from "../../../Store";
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { Activity, ListActivitiesQuery } from "../../../API";
+import { ListActivitiesQuery } from "../../../API";
 import { Divider } from "@rneui/base";
 import { ActivityCard } from "../../../components/Cards/ActivityCard";
-import { ActivitiesListPreferencesBtn } from "../../../components/Buttons/ActivitiesListPreferencesBtn";
+import { IconButton } from "../../../components/Buttons/IconButton";
 import { API, graphqlOperation } from "aws-amplify";
-import { listActivitiesList } from "../../../graphql/customQueries";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import SplashScreen from "../../SplashScreen";
-import { GraphQLQuery } from "@aws-amplify/api";
+import { listActivities } from "../../../graphql/queries";
+
+export type openDays = {
+  day: string;
+  open: boolean;
+  from: string;
+  to: string;
+};
 
 const _HomeScreen: React.FC = () => {
+  let day = new Date().getDay();
+  let month = new Date().getMonth();
+
   const [activities, setActivities] = useState<any>([]);
   const [nextToken, setNextToken] = useState<any>();
   const [page, setPage] = useState(0);
@@ -28,20 +37,25 @@ const _HomeScreen: React.FC = () => {
   };
 
   const requestAPI = async (nextToken: any) => {
+    let filter = {
+      and: [
+        { availableDays: { attributeExists: day } },
+        { availableMonths: { attributeExists: month } },
+      ],
+    };
+
+    // Amplify issue  https://github.com/aws-amplify/amplify-js/issues/4257 && https://github.com/aws-amplify/amplify-js/issues/5741
     const activitiesDataList = (await API.graphql(
-      // Amplify issue  https://github.com/aws-amplify/amplify-js/issues/4257 && https://github.com/aws-amplify/amplify-js/issues/5741
-      graphqlOperation(listActivitiesList, { limit: 20, nextToken })
+      graphqlOperation(listActivities, {
+        limit: 20,
+        nextToken,
+        variables: { filter: filter },
+      })
     )) as GraphQLResult<ListActivitiesQuery>;
-    // ???
-
-    // setActivities(() => activitiesDataList.data.listActivities?.items);
     setNextToken(activitiesDataList.data?.listActivities?.nextToken);
-
-
-  
     setActivities([
       ...activities,
-      ...activitiesDataList.data?.listActivities?.items,
+      ...activitiesDataList.data?.listActivities?.items!,
     ]);
   };
 
@@ -52,13 +66,10 @@ const _HomeScreen: React.FC = () => {
       </View>
     );
   }
-
-  console.log(activities.length);
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <ActivitiesListPreferencesBtn />
+        <IconButton />
       </View>
       <Divider color="black" />
       <View>
@@ -93,5 +104,12 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row-reverse",
     paddingBottom: 5,
+  },
+
+  iconbutton: {
+    name: "options-outline",
+    type: "ionicon",
+    size: 15,
+    color: "white",
   },
 });

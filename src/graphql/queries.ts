@@ -2,14 +2,86 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getActivityMedia = /* GraphQL */ `
+  query GetActivityMedia($id: ID!) {
+    getActivityMedia(id: $id) {
+      id
+      kind
+      copyright
+      name
+      URL
+      createdAt
+      updatedAt
+      activityActivityMediaId
+      owner
+    }
+  }
+`;
+export const listActivityMedias = /* GraphQL */ `
+  query ListActivityMedias(
+    $filter: ModelActivityMediaFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listActivityMedias(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        kind
+        copyright
+        name
+        URL
+        createdAt
+        updatedAt
+        activityActivityMediaId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getEventMedia = /* GraphQL */ `
+  query GetEventMedia($id: ID!) {
+    getEventMedia(id: $id) {
+      id
+      URL
+      kind
+      copyright
+      name
+      createdAt
+      updatedAt
+      eventEventMediaId
+      owner
+    }
+  }
+`;
+export const listEventMedias = /* GraphQL */ `
+  query ListEventMedias(
+    $filter: ModelEventMediaFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEventMedias(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        URL
+        kind
+        copyright
+        name
+        createdAt
+        updatedAt
+        eventEventMediaId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
 export const getEvent = /* GraphQL */ `
   query GetEvent($id: ID!) {
     getEvent(id: $id) {
       id
-      infoURL
       startingDateTime
       endingDateTime
-      source
       location {
         lat
         lon
@@ -18,17 +90,34 @@ export const getEvent = /* GraphQL */ `
       }
       category
       format
-      tags
       company {
         businessId
         email
         phone
         name
+        activities {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
       eventMedia {
-        URL
-        lisenceType
-        lisenceName
+        items {
+          id
+          URL
+          kind
+          copyright
+          name
+          createdAt
+          updatedAt
+          eventEventMediaId
+          owner
+        }
+        nextToken
       }
       Descriptions {
         fi
@@ -50,9 +139,16 @@ export const getEvent = /* GraphQL */ `
         zh
         es
       }
-      external_URL
+      Links {
+        siteURL
+        externalURL
+        otherURL
+      }
+      source
+      updated_at_Source
       createdAt
       updatedAt
+      companyEventsId
       owner
     }
   }
@@ -66,10 +162,8 @@ export const listEvents = /* GraphQL */ `
     listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        infoURL
         startingDateTime
         endingDateTime
-        source
         location {
           lat
           lon
@@ -78,17 +172,17 @@ export const listEvents = /* GraphQL */ `
         }
         category
         format
-        tags
         company {
           businessId
           email
           phone
           name
+          createdAt
+          updatedAt
+          owner
         }
         eventMedia {
-          URL
-          lisenceType
-          lisenceName
+          nextToken
         }
         Descriptions {
           fi
@@ -110,7 +204,96 @@ export const listEvents = /* GraphQL */ `
           zh
           es
         }
-        external_URL
+        Links {
+          siteURL
+          externalURL
+          otherURL
+        }
+        source
+        updated_at_Source
+        createdAt
+        updatedAt
+        companyEventsId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getCompany = /* GraphQL */ `
+  query GetCompany($businessId: ID!) {
+    getCompany(businessId: $businessId) {
+      businessId
+      email
+      phone
+      name
+      activities {
+        items {
+          id
+          duration
+          durationType
+          meantFor
+          categories
+          source
+          updated_at_Source
+          hoursFromTo
+          availableDays
+          availableMonths
+          createdAt
+          updatedAt
+          companyActivitiesId
+          owner
+        }
+        nextToken
+      }
+      events {
+        items {
+          id
+          startingDateTime
+          endingDateTime
+          category
+          format
+          source
+          updated_at_Source
+          createdAt
+          updatedAt
+          companyEventsId
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listCompanies = /* GraphQL */ `
+  query ListCompanies(
+    $businessId: ID
+    $filter: ModelCompanyFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listCompanies(
+      businessId: $businessId
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        businessId
+        email
+        phone
+        name
+        activities {
+          nextToken
+        }
+        events {
+          nextToken
+        }
         createdAt
         updatedAt
         owner
@@ -123,28 +306,30 @@ export const getActivity = /* GraphQL */ `
   query GetActivity($id: ID!) {
     getActivity(id: $id) {
       id
-      availableMonths
-      openDays {
-        day
-        open
-        from
-        to
-      }
-      categories
       company {
         businessId
         email
         phone
         name
+        activities {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
       duration
       durationType
       meantFor
-      priceEUR_From
-      priceEUR_TO
-      pricingType
-      siteURL
-      updated_at_LinkedEvent
+      categories
+      price {
+        EurFrom
+        EurTo
+        pricingtype
+      }
       Location {
         lat
         lon
@@ -152,12 +337,20 @@ export const getActivity = /* GraphQL */ `
         postalCode
       }
       activityMedia {
-        kind
-        copyright
-        name
-        URL
+        items {
+          id
+          kind
+          copyright
+          name
+          URL
+          createdAt
+          updatedAt
+          activityActivityMediaId
+          owner
+        }
+        nextToken
       }
-      descriptions {
+      Descriptions {
         fi
         en
         sv
@@ -167,7 +360,7 @@ export const getActivity = /* GraphQL */ `
         zh
         es
       }
-      names {
+      Names {
         fi
         en
         sv
@@ -177,9 +370,24 @@ export const getActivity = /* GraphQL */ `
         zh
         es
       }
-      external_URL
+      Links {
+        siteURL
+        externalURL
+        otherURL
+      }
+      source
+      updated_at_Source
+      OpenDays {
+        day
+        timeFrom
+        timeTo
+      }
+      hoursFromTo
+      availableDays
+      availableMonths
       createdAt
       updatedAt
+      companyActivitiesId
       owner
     }
   }
@@ -193,28 +401,24 @@ export const listActivities = /* GraphQL */ `
     listActivities(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        availableMonths
-        openDays {
-          day
-          open
-          from
-          to
-        }
-        categories
         company {
           businessId
           email
           phone
           name
+          createdAt
+          updatedAt
+          owner
         }
         duration
         durationType
         meantFor
-        priceEUR_From
-        priceEUR_TO
-        pricingType
-        siteURL
-        updated_at_LinkedEvent
+        categories
+        price {
+          EurFrom
+          EurTo
+          pricingtype
+        }
         Location {
           lat
           lon
@@ -222,12 +426,9 @@ export const listActivities = /* GraphQL */ `
           postalCode
         }
         activityMedia {
-          kind
-          copyright
-          name
-          URL
+          nextToken
         }
-        descriptions {
+        Descriptions {
           fi
           en
           sv
@@ -237,7 +438,7 @@ export const listActivities = /* GraphQL */ `
           zh
           es
         }
-        names {
+        Names {
           fi
           en
           sv
@@ -247,9 +448,24 @@ export const listActivities = /* GraphQL */ `
           zh
           es
         }
-        external_URL
+        Links {
+          siteURL
+          externalURL
+          otherURL
+        }
+        source
+        updated_at_Source
+        OpenDays {
+          day
+          timeFrom
+          timeTo
+        }
+        hoursFromTo
+        availableDays
+        availableMonths
         createdAt
         updatedAt
+        companyActivitiesId
         owner
       }
       nextToken
