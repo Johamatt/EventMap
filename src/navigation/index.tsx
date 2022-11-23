@@ -3,6 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
+
 import { Fontisto } from "@expo/vector-icons";
 import { MaterialIcons, Ionicons, Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -45,9 +46,10 @@ import {
   ActivitiesState,
   ApplicationState,
   ON_UPDATE_AUTH,
+  store,
   UserState,
 } from "../Store";
-import { connect } from "react-redux";
+import { connect, Provider } from "react-redux";
 import { userReducer } from "../Store/reducers/userReducer";
 import { listActivities } from "../graphql/queries";
 import { ON_UPDATE_ACTIVITIES } from "../Store/actions/activityAction";
@@ -63,36 +65,36 @@ interface NavigationProps {
 }
 
 const _Navigation: React.FC<NavigationProps> = (props) => {
-  const [user, setUser] = useState<undefined | null>(undefined);
+  const [user, setUser] = useState<any>(undefined);
 
-  // useEffect(() => {
-  //   const checkUser = async () => {
-  //     try {
-  //       const authUser = await Auth.currentAuthenticatedUser({
-  //         bypassCache: true,
-  //       });
-  //       ON_UPDATE_AUTH(authUser);
-  //       setUser(authUser);
-  //     } catch (e) {
-  //       setUser(null);
-  //     }
-  //   };
-  //   checkUser();
-  // }, [user]);
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        const authUser = await Auth.currentAuthenticatedUser({
+          bypassCache: true,
+        });
+        setUser(authUser);
 
-  if (props === undefined) {
-    return (
-      <NavigationContainer>
-        <SplashScreen />
-      </NavigationContainer>
-    );
-  }
+        store.dispatch({
+          type: "ON_UPDATE_AUTH",
+          payload: {
+            userAuth: authUser,
+          },
+        });
+      } catch (e) {
+        setUser(null);
+      }
+    };
+    checkUser();
+  }, [props.userReducer.userAuth]);
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* {user === null || undefined ? AuthNavigator() : MainNavigation()} */}
-        {MainNavigation()}
+        {user === null || user === undefined
+          ? AuthNavigator()
+          : MainNavigation()}
+        {/* {MainNavigation()} */}
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -140,7 +142,7 @@ const MainNavigation = () => {
         headerStyle: {
           backgroundColor: Colors.light.tint,
         },
-        headerTintColor: Colors.light.background,
+        headerTintColor: Colors.light.containerBackground,
         headerTitleStyle: {
           fontWeight: "bold",
         },
@@ -193,7 +195,7 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
-      initialRouteName="Map"
+      initialRouteName="HomeScreen"
       screenOptions={{
         tabBarShowLabel: false,
       }}

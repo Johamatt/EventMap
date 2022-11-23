@@ -9,7 +9,7 @@ export default async function loadResources() {
     async function loadCachedResourcesAsync() {
       try {
         SplashScreen.preventAutoHideAsync();
-        await useAmplifyResources();
+        // await useAmplifyResources();
         await useCachedResources();
       } catch (e) {
         console.warn(e);

@@ -8,13 +8,9 @@ import useColorScheme from "./src/hooks/useColorScheme";
 import Navigation from "./src/navigation";
 import SplashScreen from "./src/screens/SplashScreen";
 import { store } from "./src/Store";
-import { Amplify } from "aws-amplify";
-import { ThemeProvider } from "@aws-amplify/ui-react";
-
-import { withAuthenticator } from "aws-amplify-react-native";
+import { Amplify, Auth } from "aws-amplify";
 import awsmobile from "./src/aws-exports";
 import loadResources from "./src/hooks/loadResources";
-import { signUpConfig } from "./amplify/signUpConfig";
 import Colors from "./src/constants/Colors";
 
 Amplify.configure({ ...awsmobile, Analytics: { disabled: true } });
@@ -51,11 +47,8 @@ const App: React.FC = () => {
   }
 };
 
-export default withAuthenticator(App, {
-  signUpConfig,
-  // Render a sign out button once logged in
-  // includeGreetings: false,
-  // Show only certain components
-});
+
+
+export default App
 
 //https://ui.docs.amplify.aws/react/connected-components/authenticator

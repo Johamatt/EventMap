@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  TextInput,
+} from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
 import { RouteProp, useRoute } from "@react-navigation/native";
@@ -19,7 +26,7 @@ interface Props {
 
 export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   const [code, setCode] = useState("");
-  const username = props.route.params.username;
+  const username = props.route.params!.username
   const navigation = useNavigation();
 
   const onConfirmPressed = async () => {
@@ -48,17 +55,16 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
         <Text style={styles.title}>Confirm your email</Text>
-        {/* 
-        <Input
-          placeholder="Enter your confirmation code"
+
+        <Input placeholder="Enter your confirmation code" value={code} />
+        <TextInput
+          onChangeText={setCode}
           value={code}
-          setValue={setCode}
-        /> */}
-
+          placeholder="useless placeholder"
+          keyboardType="numeric"
+        />
         <Button title="Confirm" onPress={onConfirmPressed} />
-
         <Button title="Resend code" onPress={onResendPress} />
-
         <Button title="Back to Sign in" onPress={onSignInPress} />
       </View>
     </ScrollView>

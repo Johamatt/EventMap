@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/core";
 import CustomInput from "../../../components/Inputs/CustomInput";
 import { Auth } from "aws-amplify";
 import { Button } from "@rneui/themed";
+import Colors from "../../../constants/Colors";
 
 export const UserForgotPasswordScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
@@ -25,21 +26,19 @@ export const UserForgotPasswordScreen: React.FC = (props) => {
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.root}>
-        <Text style={styles.title}>Reset your password</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Reset your password</Text>
 
-        <CustomInput
-          placeholder="Username"
-          value={username}
-          setValue={setUsername}
-        />
+      <CustomInput
+        placeholder="User Email"
+        value={username}
+        setValue={setUsername}
+      />
 
-        <Button title="Send" onPress={onSendPressed} />
+      <Button title="Send" onPress={onSendPressed} />
 
-        <Button title="Back to Sign in" onPress={onSignInPress} />
-      </View>
-    </ScrollView>
+      <Button title="Back to Sign in" onPress={onSignInPress} />
+    </View>
   );
 };
 
@@ -60,5 +59,72 @@ const styles = StyleSheet.create({
   },
   link: {
     color: "#FDB075",
+  },
+
+  container: {
+    flex: 1,
+    backgroundColor: Colors.light.containerBackground,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  image: {
+    marginBottom: 40,
+    maxWidth: 250,
+    maxHeight: 150,
+    //
+
+    width: 250,
+    height: 150,
+  },
+  textInputView: {
+    backgroundColor: Colors.light.inputBackground,
+    borderRadius: 30,
+    width: "70%",
+    height: 45,
+    marginBottom: 20,
+    borderColor: Colors.light.tint,
+    borderWidth: 1,
+
+    alignItems: "center",
+  },
+  TextInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+    marginLeft: 20,
+  },
+  forgot_button: {
+    height: 30,
+  },
+  loginBtn: {
+    width: "80%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: Colors.light.tint,
+  },
+
+  signupBtn: {
+    width: "90%",
+    borderRadius: 25,
+    marginBottom: 20,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    backgroundColor: "#000",
+    bottom: 0,
+  },
+
+  signupBtnText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+
+  loginBtnText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });

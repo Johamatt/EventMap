@@ -1,41 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
-  useWindowDimensions,
-  ScrollView,
   Alert,
+  Image,
+  TextInput,
+  Text,
+  TouchableOpacity,
 } from "react-native";
-import { CommonActions, useNavigation } from "@react-navigation/native";
-import CustomInput from "../../../components/Inputs/CustomInput";
+import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../navigation/types";
 import Layout from "../../../constants/Layout";
 import { Auth } from "aws-amplify";
-import useColorScheme from "../../../hooks/useColorScheme";
-import { ApplicationState, UserState } from "../../../Store";
+import { ApplicationState, store, UserState } from "../../../Store";
 import { connect } from "react-redux";
-import Navigation from "../../../navigation";
-import { Button } from "@rneui/themed";
+import Colors from "../../../constants/Colors";
 
 interface UserLoginScreenProps {
   userReducer: UserState;
 }
 
 const _UserLoginScreen: React.FC<UserLoginScreenProps> = (props) => {
-  console.log(props);
-
-  const userReducer = props.userReducer;
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const colorScheme = useColorScheme();
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const [user, setUser] = useState();
-
-  console.log(props);
 
   const onSignInPressed = async () => {
     if (loading) {
@@ -43,10 +34,14 @@ const _UserLoginScreen: React.FC<UserLoginScreenProps> = (props) => {
     }
     setLoading(true);
     try {
-      // const signIn = await Auth.signIn(username, password);
-      // ON_UPDATE_USERLOGIN(signIn);
+      const signIn = await Auth.signIn(username, password);
 
-      await Auth.signIn({ username: username, password: password });
+      store.dispatch({
+        type: "ON_UPDATE_AUTH",
+        payload: {
+          userAuth: signIn,
+        },
+      });
     } catch (error: any) {
       Alert.alert("Oops!", error.message);
     }
@@ -62,32 +57,54 @@ const _UserLoginScreen: React.FC<UserLoginScreenProps> = (props) => {
     navigation.navigate("UserRegisterScreen");
   };
 
-  return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.root}>
-        <CustomInput
-          placeholder="Username"
-          value={username}
-          setValue={setUsername}
-        />
-        <CustomInput
-          placeholder="Password"
-          value={password}
-          setValue={setPassword}
-          secureTextEntry
-        />
-        <Button
-          title={loading ? "Loading..." : "Sign In"}
-          onPress={onSignInPressed}
-        />
-        <Button title="Forgot password?" onPress={onForgotPasswordPressed} />
+  const onUserConfirmEmailScreen = () => {
+    navigation.navigate("UserConfirmEmailScreen");
+  };
 
-        <Button
-          title="Don't have an account? Create one"
-          onPress={onSignUpPress}
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.image}
+        source={require("../../../assets/logo/logo1.png")}
+      />
+
+      <View style={styles.textInputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Email"
+          placeholderTextColor="#003f5c"
+          onChangeText={(username: string) => setUsername(username)}
         />
       </View>
-    </ScrollView>
+
+      <View style={styles.textInputView}>
+        <TextInput
+          secureTextEntry={true}
+          style={styles.TextInput}
+          placeholder="Password"
+          placeholderTextColor="#003f5c"
+          onChangeText={(password: string) => setPassword(password)}
+        />
+      </View>
+
+      <TouchableOpacity onPress={onForgotPasswordPressed}>
+        <Text style={styles.forgotBtnText}>Forgot your Password?</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.loginBtn} onPress={onSignInPressed}>
+        <Text style={styles.loginBtnText}>
+          {loading ? "Loading..." : "LOGIN"}
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.signupTextArea} onPress={onSignUpPress}>
+        <Text>
+          Don't have an account? <Text style={styles.linkText}>Sign up</Text>{" "}
+        </Text>
+      </TouchableOpacity>
+
+      {/* <Button title="Confirm email" onPress={onUserConfirmEmailScreen} /> */}
+    </View>
   );
 };
 
@@ -100,14 +117,79 @@ const UserLoginScreen = connect(mapToStateProps, {})(_UserLoginScreen);
 export default UserLoginScreen;
 
 const styles = StyleSheet.create({
-  root: {
-    marginTop: Layout.window.height * 0.2,
+  container: {
+    flex: 1,
+    backgroundColor: Colors.light.containerBackground,
     alignItems: "center",
-    padding: 20,
+    justifyContent: "center",
   },
-  logo: {
+  image: {
+    marginBottom: 40,
+    maxWidth: 250,
+    maxHeight: 150,
+    //
+
+    width: 250,
+    height: 150,
+  },
+  textInputView: {
+    backgroundColor: Colors.light.inputBackground,
+    borderRadius: 25,
     width: "70%",
-    maxWidth: 300,
-    maxHeight: 200,
+    height: 52,
+    marginBottom: 20,
+    borderColor: "grey",
+    borderWidth: 1,
+    alignItems: "center",
+  },
+  TextInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+    alignSelf: "auto",
+  },
+  forgotBtnText: {
+    height: 20,
+    fontSize: 13,
+  },
+  loginBtn: {
+    width: "80%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: Colors.light.tint,
+  },
+
+  signupBtn: {
+    width: "90%",
+    borderRadius: 5,
+    marginBottom: 20,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    backgroundColor: "#000",
+    bottom: 0,
+  },
+
+  signupBtnText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+
+  linkText: {
+    color: "blue",
+    fontWeight: "bold",
+  },
+
+  signupTextArea: {
+    marginTop: 10,
+  },
+
+  loginBtnText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });

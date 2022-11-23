@@ -29,25 +29,17 @@ export const UserRegisterScreen: React.FC = (props) => {
     navigation.navigate("UserLoginScreen");
   };
 
-  const onTermsOfUsePressed = () => {
-    console.warn("onTermsOfUsePressed");
-  };
-
-  const onPrivacyPressed = () => {
-    console.warn("onPrivacyPressed");
-  };
-
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
         <Text style={styles.title}>Create an account</Text>
 
         <CustomInput
-          placeholder="Username"
+          placeholder="Email"
           value={username}
           setValue={setUsername}
         />
-        <CustomInput placeholder="Email" value={email} setValue={setEmail} />
+
         <CustomInput
           placeholder="Password"
           value={password}
@@ -62,18 +54,6 @@ export const UserRegisterScreen: React.FC = (props) => {
         />
 
         <Button title="Register" onPress={onRegisterPressed} />
-
-        <Text style={styles.text}>
-          By registering, you confirm that you accept our{" "}
-          <Text style={styles.link} onPress={onTermsOfUsePressed}>
-            Terms of Use
-          </Text>{" "}
-          and{" "}
-          <Text style={styles.link} onPress={onPrivacyPressed}>
-            Privacy Policy
-          </Text>
-        </Text>
-
         <Button title="Have an account? Sign in" onPress={onSignInPress} />
       </View>
     </ScrollView>
