@@ -3,6 +3,7 @@ import { Company, Location, OpenDays } from "../../../API";
 export function parseOpendays(data: any) {
   let days: Array<number> = [];
 
+  //@ts-ignore
   let opendays: OpenDays[] = Object.entries(data).map(([key, value]) => {
     let fromvalue =
       value?.from !== null
@@ -46,6 +47,7 @@ export function parseOpendays(data: any) {
     }
 
     return {
+      //@ts-ignore
       day: day,
       timeFrom: fromvalue,
       timeTo: tovalue,

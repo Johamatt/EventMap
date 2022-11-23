@@ -31,8 +31,6 @@ const _MapScreen: React.FC<MapProps> = (props) => {
     requestloc();
   }, [activities]);
 
-  console.log(activities);
-
   if (activities === undefined || activities.length === 0) {
     return (
       <View>

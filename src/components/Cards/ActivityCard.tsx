@@ -1,6 +1,9 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ListItem } from "@rneui/base";
 import React from "react";
 import { Activity } from "../../API";
+import { RootStackParamList } from "../../navigation/types";
 import { ListIcon } from "../Icon/ListIcon";
 
 interface ActivitiesListProps {
@@ -12,10 +15,13 @@ export const ActivityCard: React.FC<ActivitiesListProps> = (props) => {
 
   let day = new Date().getDay();
 
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   return (
     <ListItem
       bottomDivider
-      onPress={() => console.log(activity.Names.fi)} // navigate TODO
+      onPress={() => navigation.navigate("ActivityInfoModal", {id: activity.id})} // navigate TODO
     >
       <ListItem.Content>
         <ListIcon data={activity.categories} />

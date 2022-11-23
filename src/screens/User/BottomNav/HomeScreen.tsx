@@ -47,7 +47,7 @@ const _HomeScreen: React.FC = () => {
     // Amplify issue  https://github.com/aws-amplify/amplify-js/issues/4257 && https://github.com/aws-amplify/amplify-js/issues/5741
     const activitiesDataList = (await API.graphql(
       graphqlOperation(listActivities, {
-        limit: 20,
+        limit: 8,
         nextToken,
         variables: { filter: filter },
       })

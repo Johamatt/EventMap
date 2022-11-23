@@ -52,6 +52,7 @@ import { userReducer } from "../Store/reducers/userReducer";
 import { listActivities } from "../graphql/queries";
 import { ON_UPDATE_ACTIVITIES } from "../Store/actions/activityAction";
 import { ListActivitiesQuery } from "../API";
+import { ActivityInfoModal } from "../screens/User/ActivityInfoModal";
 // import { Authenticator } from "aws-amplify-react-native";
 
 interface NavigationProps {
@@ -177,6 +178,7 @@ const MainNavigation = () => {
 
       <Stack.Group screenOptions={{ presentation: "modal", headerShown: true }}>
         <Stack.Screen name="EventScreen" component={EventScreen} />
+        <Stack.Screen name="ActivityInfoModal" component={ActivityInfoModal} />
       </Stack.Group>
     </Stack.Group>
   );
