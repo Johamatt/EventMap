@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  TextInput,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import CustomInput from "../../../components/Inputs/CustomInput";
 import { Auth } from "aws-amplify";
-import { Button } from "@rneui/themed";
 import Colors from "../../../constants/Colors";
 
 export const UserForgotPasswordScreen: React.FC = (props) => {
@@ -14,11 +20,10 @@ export const UserForgotPasswordScreen: React.FC = (props) => {
   const onSendPressed = async () => {
     try {
       await Auth.forgotPassword(username);
+      navigation.navigate("UserNewPasswordScreen", { username: username });
     } catch (error: any) {
       Alert.alert("Oops!", error.message);
     }
-
-    navigation.navigate("UserNewPasswordScreen", { username: username });
   };
 
   const onSignInPress = () => {
@@ -27,38 +32,38 @@ export const UserForgotPasswordScreen: React.FC = (props) => {
 
   return (
     <View style={styles.container}>
+      <Image
+        style={styles.image}
+        source={require("../../../assets/logo/logo1.png")}
+      />
       <Text style={styles.title}>Reset your password</Text>
 
-      <CustomInput
-        placeholder="User Email"
-        value={username}
-        setValue={setUsername}
-      />
+      <View style={styles.textInputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="User Email"
+          placeholderTextColor="#003f5c"
+          onChangeText={(username: string) => setUsername(username)}
+        />
+      </View>
 
-      <Button title="Send" onPress={onSendPressed} />
+      <TouchableOpacity style={styles.sendBtn} onPress={onSendPressed}>
+        <Text style={styles.sendBtnText}>Send</Text>
+      </TouchableOpacity>
 
-      <Button title="Back to Sign in" onPress={onSignInPress} />
+      <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
+        <Text style={styles.backBtnText}>Back to Sign in</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  root: {
-    alignItems: "center",
-    padding: 20,
-  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     color: "#051C60",
-    margin: 10,
-  },
-  text: {
-    color: "gray",
-    marginVertical: 10,
-  },
-  link: {
-    color: "#FDB075",
+    marginBottom: 10,
   },
 
   container: {
@@ -68,7 +73,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    marginBottom: 40,
     maxWidth: 250,
     maxHeight: 150,
     //
@@ -90,40 +94,35 @@ const styles = StyleSheet.create({
   TextInput: {
     height: 50,
     flex: 1,
-    padding: 10,
-    marginLeft: 20,
-  },
-  forgot_button: {
-    height: 30,
-  },
-  loginBtn: {
-    width: "80%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40,
-    backgroundColor: Colors.light.tint,
   },
 
-  signupBtn: {
+  backBtn: {
     width: "90%",
     borderRadius: 25,
-    marginBottom: 20,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    position: "absolute",
-    backgroundColor: "#000",
+    backgroundColor: Colors.light.tint,
     bottom: 0,
+    position: "absolute",
+    marginBottom: 20,
   },
 
-  signupBtnText: {
+  sendBtnText: {
     color: "#fff",
     fontWeight: "bold",
   },
 
-  loginBtnText: {
+  sendBtn: {
+    width: "40%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.light.secondary,
+    bottom: 0,
+  },
+  backBtnText: {
     color: "#fff",
     fontWeight: "bold",
   },

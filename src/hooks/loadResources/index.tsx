@@ -1,6 +1,5 @@
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-import useAmplifyResources from "./AmplifyInitialFetch";
 import useCachedResources from "./useCachedResources";
 
 export default async function loadResources() {

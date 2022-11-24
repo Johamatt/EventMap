@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   Alert,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../../../navigation/types";
 import { Auth } from "aws-amplify";
-import { Button } from "@rneui/base";
-import { Input } from "@rneui/themed";
+import Colors from "../../../constants/Colors";
 
 type UserConfirmEmailScreenProp = RouteProp<
   RootStackParamList,
@@ -26,7 +25,16 @@ interface Props {
 
 export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   const [code, setCode] = useState("");
-  const username = props.route.params!.username
+
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    if (props.route.params?.username === undefined) {
+    } else {
+      setUsername(props.route.params.username);
+    }
+  }, []);
+
   const navigation = useNavigation();
 
   const onConfirmPressed = async () => {
@@ -51,42 +59,176 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
     }
   };
 
-  return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.root}>
+  if (props.route.params === undefined) {
+    return (
+      <View style={styles.container}>
         <Text style={styles.title}>Confirm your email</Text>
 
-        <Input placeholder="Enter your confirmation code" value={code} />
-        <TextInput
-          onChangeText={setCode}
-          value={code}
-          placeholder="useless placeholder"
-          keyboardType="numeric"
-        />
-        <Button title="Confirm" onPress={onConfirmPressed} />
-        <Button title="Resend code" onPress={onResendPress} />
-        <Button title="Back to Sign in" onPress={onSignInPress} />
+        <View style={styles.textInputView}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Email"
+            placeholderTextColor="#003f5c"
+            onChangeText={(username: string) => setUsername(username)}
+          />
+        </View>
+
+        <View style={styles.textInputView}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Enter your confirmation code"
+            placeholderTextColor="#003f5c"
+            onChangeText={(code: string) => setCode(code)}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.confirmBtn} onPress={onConfirmPressed}>
+          <Text style={styles.confirmBtnText}>Confirm</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.resendBtn} onPress={onResendPress}>
+          <Text style={styles.resendBtnText}>Resend code</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
+          <Text style={styles.backBtnText}>Back to Sign in</Text>
+        </TouchableOpacity>
       </View>
-    </ScrollView>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Confirm your email</Text>
+
+        <View style={styles.textInputView}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Enter your confirmation code"
+            placeholderTextColor="#003f5c"
+            onChangeText={(code: string) => setCode(code)}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.confirmBtn} onPress={onConfirmPressed}>
+          <Text style={styles.confirmBtnText}>Confirm</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.resendBtn} onPress={onResendPress}>
+          <Text style={styles.resendBtnText}>Resend code</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
+          <Text style={styles.backBtnText}>Back to Sign in</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Confirm your email</Text>
+
+      <View style={styles.textInputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Enter your confirmation code"
+          placeholderTextColor="#003f5c"
+          onChangeText={(code: string) => setCode(code)}
+        />
+      </View>
+
+      <TouchableOpacity style={styles.confirmBtn} onPress={onConfirmPressed}>
+        <Text style={styles.confirmBtnText}>Confirm</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.resendBtn} onPress={onResendPress}>
+        <Text style={styles.resendBtnText}>Resend code</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
+        <Text style={styles.backBtnText}>Back to Sign in</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  root: {
-    alignItems: "center",
-    padding: 20,
-  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     color: "#051C60",
     margin: 10,
   },
-  text: {
-    color: "gray",
-    marginVertical: 10,
+
+  container: {
+    flex: 1,
+    backgroundColor: Colors.light.containerBackground,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  link: {
-    color: "#FDB075",
+
+  textInputView: {
+    backgroundColor: Colors.light.inputBackground,
+    borderRadius: 30,
+    width: "70%",
+    height: 45,
+    marginBottom: 20,
+    borderColor: Colors.light.tint,
+    borderWidth: 1,
+    alignItems: "center",
+  },
+  TextInput: {
+    height: 50,
+    flex: 1,
+  },
+
+  //
+
+  resendBtn: {
+    width: "30%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.light.attention,
+    bottom: 0,
+  },
+
+  resendBtnText: {
+    color: "#000",
+    fontWeight: "bold",
+  },
+  //
+
+  confirmBtnText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  confirmBtn: {
+    marginBottom: 10,
+    width: "50%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.light.secondary,
+  },
+
+  //
+  backBtnText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+
+  backBtn: {
+    width: "90%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.light.tint,
+    bottom: 0,
+    position: "absolute",
+    marginBottom: 20,
   },
 });

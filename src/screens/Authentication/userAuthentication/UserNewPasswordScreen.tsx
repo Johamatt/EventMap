@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import { RouteProp, useNavigation } from "@react-navigation/native";
-import CustomInput from "../../../components/Inputs/CustomInput";
 import { Auth } from "aws-amplify";
 import { RootStackParamList } from "../../../navigation/types";
-import { Button } from "@rneui/themed";
+import Colors from "../../../constants/Colors";
 
 type UserNewPasswordScreenProp = RouteProp<
   RootStackParamList,
@@ -36,42 +42,97 @@ export const UserNewPasswordScreen: React.FC<Props> = (props) => {
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.root}>
-        <Text style={styles.title}>Reset your password</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Reset your password</Text>
 
-        <CustomInput
+      <View style={styles.textInputView}>
+        <TextInput
+          style={styles.TextInput}
+          secureTextEntry={true}
           placeholder="Enter your new password"
-          value={newPassword}
-          setValue={setNewPassword}
+          placeholderTextColor="#003f5c"
+          onChangeText={(newPassword: string) => setNewPassword(newPassword)}
         />
-
-        <CustomInput placeholder="Code" value={code} setValue={setCode} />
-
-        <Button title="Submit" onPress={onSubmitPressed} />
-
-        <Button title="Back to Sign in" onPress={onSignInPress} />
       </View>
-    </ScrollView>
+
+      <View style={styles.textInputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Code"
+          placeholderTextColor="#003f5c"
+          onChangeText={(code: string) => setCode(code)}
+        />
+      </View>
+
+      <TouchableOpacity style={styles.sendBtn} onPress={onSubmitPressed}>
+        <Text style={styles.sendBtnText}>Submit</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
+        <Text style={styles.backBtnText}>Back to Sign in</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  root: {
-    alignItems: "center",
-    padding: 20,
-  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     color: "#051C60",
     margin: 10,
   },
-  text: {
-    color: "gray",
-    marginVertical: 10,
+
+  container: {
+    flex: 1,
+    backgroundColor: Colors.light.containerBackground,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  link: {
-    color: "#FDB075",
+
+  textInputView: {
+    backgroundColor: Colors.light.inputBackground,
+    borderRadius: 30,
+    width: "70%",
+    height: 45,
+    marginBottom: 20,
+    borderColor: Colors.light.tint,
+    borderWidth: 1,
+    alignItems: "center",
+  },
+  TextInput: {
+    height: 50,
+    flex: 1,
+  },
+
+  backBtn: {
+    width: "90%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.light.tint,
+    bottom: 0,
+    position: "absolute",
+    marginBottom: 20,
+  },
+
+  sendBtnText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+
+  sendBtn: {
+    width: "40%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.light.secondary,
+    bottom: 0,
+  },
+  backBtnText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });

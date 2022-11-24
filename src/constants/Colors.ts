@@ -9,6 +9,10 @@ export default {
     tint: "#2f95dc",
     tabIconDefault: "#ccc",
     tabIconSelected: "#2f95dc",
+
+    attention: "#ded033",
+
+    secondary: "#9643d1",
   },
   dark: {
     text: "#000",

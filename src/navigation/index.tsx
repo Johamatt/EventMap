@@ -1,46 +1,19 @@
-/**
- * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
- * https://reactnavigation.org/docs/getting-started
- *
- */
-
-import { Fontisto } from "@expo/vector-icons";
-import { MaterialIcons, Ionicons, Feather } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName, Pressable, Touchable, View } from "react-native";
-
+import { View } from "react-native";
 import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
-
-import {
-  // AuthStackParamList,
-  RootStackParamList,
-  RootTabParamList,
-} from "./types";
-
-import SplashScreen from "../screens/SplashScreen";
+import { RootStackParamList, RootTabParamList } from "./types";
 import LandingLocationScreen from "../screens/User/LandingLocationScreen";
-
 import MapScreen from "../screens/User/BottomNav/MapScreen";
 import EventScreen from "../screens/User/EventScreen";
 import HomeScreen from "../screens/User/BottomNav/HomeScreen";
-import UserLoginScreen from "../screens/Authentication/userAuthentication/UserLoginScreen";
 import FavouritesScreen from "../screens/User/BottomNav/FavouritesScreen";
 import LandingPreferenceScreen from "../screens/User/LandingPreferenceScreen";
-import { UserRegisterScreen } from "../screens/Authentication/userAuthentication/UserRegisterScreen";
-import { UserConfirmEmailScreen } from "../screens/Authentication/userAuthentication/UserConfirmEmailScreen";
-import { UserNewPasswordScreen } from "../screens/Authentication/userAuthentication/UserNewPasswordScreen";
-import { UserForgotPasswordScreen } from "../screens/Authentication/userAuthentication/UserForgotPasswordScreen";
 import { useEffect, useState } from "react";
-import { API, Auth, graphqlOperation } from "aws-amplify";
+import { Auth } from "aws-amplify";
 import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
 import {
   ActivitiesState,
@@ -49,12 +22,11 @@ import {
   store,
   UserState,
 } from "../Store";
-import { connect, Provider } from "react-redux";
-import { userReducer } from "../Store/reducers/userReducer";
-import { listActivities } from "../graphql/queries";
+import { connect } from "react-redux";
 import { ON_UPDATE_ACTIVITIES } from "../Store/actions/activityAction";
-import { ListActivitiesQuery } from "../API";
 import { ActivityInfoModal } from "../screens/User/ActivityInfoModal";
+import { AuthNavigator } from "./AuthNavigator";
+
 // import { Authenticator } from "aws-amplify-react-native";
 
 interface NavigationProps {
@@ -92,9 +64,8 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
     <NavigationContainer>
       <Stack.Navigator>
         {user === null || user === undefined
-          ? AuthNavigator()
+          ? AuthNavigator(Stack)
           : MainNavigation()}
-        {/* {MainNavigation()} */}
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -112,27 +83,7 @@ const Navigation = connect(mapToStateProps, {
 export default Navigation;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
-const AuthNavigator = () => {
-  return (
-    <Stack.Group screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="UserLoginScreen" component={UserLoginScreen} />
-      <Stack.Screen name="UserRegisterScreen" component={UserRegisterScreen} />
-      <Stack.Screen
-        name="UserConfirmEmailScreen"
-        component={UserConfirmEmailScreen}
-      />
-      <Stack.Screen
-        name="UserNewPasswordScreen"
-        component={UserNewPasswordScreen}
-      />
-      <Stack.Screen
-        name="UserForgotPasswordScreen"
-        component={UserForgotPasswordScreen}
-      />
-    </Stack.Group>
-  );
-};
+const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 const MainNavigation = () => {
   return (
@@ -190,7 +141,6 @@ const MainNavigation = () => {
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
   return (

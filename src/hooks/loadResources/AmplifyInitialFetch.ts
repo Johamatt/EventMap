@@ -2,10 +2,7 @@ import { API, Auth, graphqlOperation } from "aws-amplify";
 import { store } from "../../Store";
 import { CognitoUserSession } from "amazon-cognito-identity-js";
 import { ListActivitiesQuery } from "../../API";
-import {
-  listActivitiesList,
-  listActivitiesMap,
-} from "../../../customQueries";
+import { listActivitiesList, listActivitiesMap } from "../../../customQueries";
 CognitoUserSession;
 export default async function AmplifyInitialFetch() {
   try {

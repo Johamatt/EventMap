@@ -11,7 +11,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../navigation/types";
-import Layout from "../../../constants/Layout";
 import { Auth } from "aws-amplify";
 import { ApplicationState, store, UserState } from "../../../Store";
 import { connect } from "react-redux";
@@ -180,12 +179,22 @@ const styles = StyleSheet.create({
   },
 
   linkText: {
-    color: "blue",
+    color: Colors.light.tint,
     fontWeight: "bold",
   },
 
   signupTextArea: {
     marginTop: 10,
+
+    width: "90%",
+    borderRadius: 5,
+    marginBottom: 20,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    backgroundColor: Colors.light.containerBackground,
+    bottom: 0,
   },
 
   loginBtnText: {
