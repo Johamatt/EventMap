@@ -1,15 +1,5 @@
-import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
-import { LocationGeocodedLocation } from "expo-location";
-import {
-  Activity,
-  CATEGORY,
-  Location,
-  ModelEventConnection,
-  OpenDays,
-} from "../../API";
-import { UserAction } from "../actions/userAction";
-import { ActivitiesState, UserState } from "../types";
-import { CognitoUserInterface } from "@aws-amplify/ui-components";
+import { Activity, CATEGORY, Location, OpenDays } from "../../API";
+import { ActivitiesState } from "../types";
 import { ActivitiesAction } from "../actions/activityAction";
 
 export type ActivitiesMap = {
@@ -27,8 +17,6 @@ const initialState: ActivitiesState = {
   error: undefined,
   nextToken: "",
   nextTokenMap: "",
-  //   previousToken: "",
-  //   initialToken: "",   // Infinite scroll or not?
 };
 
 const activityReducer = (
@@ -49,13 +37,6 @@ const activityReducer = (
         activitiesMap: action.payload.activitiesMap,
         nextTokenMap: action.payload.nextToken,
       };
-
-    // case "ON_UPDATE_ACTIVITIES_LIST_INITIALTOKEN":
-    //   return {
-    //     ...state,
-    //     initialToken: action.payload,
-    //   };
-
     default:
       return state;
   }

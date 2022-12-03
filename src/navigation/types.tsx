@@ -4,7 +4,7 @@ import {
   NavigatorScreenParams,
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Activity, Event as LiveEvent } from "../API";
+import { Event as LiveEvent } from "../API";
 
 declare global {
   namespace ReactNavigation {
@@ -14,33 +14,22 @@ declare global {
 
 export type RootStackParamList = {
   UserRoot: NavigatorScreenParams<RootTabParamList> | undefined;
-  // UserAuth: NavigatorScreenParams<AuthStackParamList> | undefined;
   Splash: undefined;
   Modal: undefined;
   LandingLocationScreen: undefined;
-  LandingPreferenceScreen: undefined;
+  PreferenceScreen: undefined;
   UserProfileScreen: undefined;
   EventScreen: { liveEvent: LiveEvent };
   ActivityInfoModal: { id: string };
 
+  // Auth
   UserNewPasswordScreen: { username: string };
   UserRegisterScreen: undefined;
   UserLoginScreen: undefined;
-  UserConfirmEmailScreen: { username: string } | undefined;
+  UserConfirmEmailScreen: { username: string; password: string } | undefined;
   UserForgotPasswordScreen: undefined;
   UserLandingScreen: undefined;
 };
-
-// export type AuthStackParamList = {
-//   UserNewPasswordScreen: { username: string };
-//   UserRegisterScreen: undefined;
-//   UserLoginScreen: UserLoginScreenProps;
-//   UserConfirmEmailScreen: { username: string };
-//   UserForgotPasswordScreen: undefined;
-// };
-
-// export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
-//   NativeStackScreenProps<RootStackParamList, Screen>;
 
 export type RootTabParamList = {
   Map: undefined;

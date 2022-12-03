@@ -1,16 +1,15 @@
 import { Dimensions, ScrollView } from "react-native";
-
 import { RootStackParamList } from "../../navigation/types";
-
 import { Event as LiveEvent } from "../../API";
 import { View, Text, Image } from "react-native";
 import { ApplicationState, UserState } from "../../Store";
 import { connect } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { styles } from "./styles";
 import React from "react";
 import MapView, { Marker } from "react-native-maps";
+import { StyleSheet } from "react-native";
+import Layout from "../../constants/Layout";
 
 interface EventScreenProps {
   userReducer: UserState;
@@ -132,3 +131,31 @@ const mapToStateProps = (state: ApplicationState) => ({
 const EventScreen = connect(mapToStateProps)(_EventScreen);
 
 export default EventScreen;
+
+export const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    flex: 1,
+  },
+  footer: {
+    flexDirection: "row-reverse",
+    justifyContent: "space-between",
+    paddingHorizontal: 30,
+  },
+  //Util
+  separator: {
+    marginVertical: 20,
+    height: 2,
+    color: "#000",
+  },
+
+  selectedListItem: {
+    backgroundColor: "#2f95dc",
+    alignItems: "center",
+    width: Layout.window.width / 2.5,
+  },
+
+  unSelectedListItem: {
+    width: Layout.window.width / 2.2,
+  },
+});

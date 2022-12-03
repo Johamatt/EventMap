@@ -11,7 +11,7 @@ import MapScreen from "../screens/User/BottomNav/MapScreen";
 import EventScreen from "../screens/User/EventScreen";
 import HomeScreen from "../screens/User/BottomNav/HomeScreen";
 import FavouritesScreen from "../screens/User/BottomNav/FavouritesScreen";
-import LandingPreferenceScreen from "../screens/User/LandingPreferenceScreen";
+import LandingPreferenceScreen from "../screens/User/PreferenceScreen";
 import { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
 import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
@@ -23,17 +23,15 @@ import {
   UserState,
 } from "../Store";
 import { connect } from "react-redux";
-import { ON_UPDATE_ACTIVITIES } from "../Store/actions/activityAction";
 import { ActivityInfoModal } from "../screens/User/ActivityInfoModal";
 import { AuthNavigator } from "./AuthNavigator";
-
-// import { Authenticator } from "aws-amplify-react-native";
-
+import SplashScreen from "../screens/SplashScreen";
+import PreferenceScreen from "../screens/User/PreferenceScreen";
+import { CognitoUserInterface } from "@aws-amplify/ui-components";
 interface NavigationProps {
-  userReducer: UserState;
+  userReducer: CognitoUserInterface | undefined;
   activitiesReducer: ActivitiesState;
   ON_UPDATE_AUTH: Function;
-  ON_UPDATE_ACTIVITIES: Function;
 }
 
 const _Navigation: React.FC<NavigationProps> = (props) => {
@@ -58,7 +56,7 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
       }
     };
     checkUser();
-  }, [props.userReducer.userAuth]);
+  }, [props.userReducer]);
 
   return (
     <NavigationContainer>
@@ -73,12 +71,11 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
 
 const mapToStateProps = (state: ApplicationState) => ({
   activitiesReducer: state.ActivitiesReducer,
-  userReducer: state.UserReducer,
+  userReducer: state.UserReducer.userAuth,
 });
 
 const Navigation = connect(mapToStateProps, {
   ON_UPDATE_AUTH,
-  ON_UPDATE_ACTIVITIES,
 })(_Navigation);
 export default Navigation;
 
@@ -90,6 +87,7 @@ const MainNavigation = () => {
     <Stack.Group
       screenOptions={{
         headerShown: false, //
+
         headerStyle: {
           backgroundColor: Colors.light.tint,
         },
@@ -120,12 +118,10 @@ const MainNavigation = () => {
       />
 
       <Stack.Screen
-        name="LandingPreferenceScreen"
-        component={LandingPreferenceScreen}
+        name="PreferenceScreen"
+        component={PreferenceScreen}
         options={{
-          headerShown: true,
-
-          title: "",
+          headerShown: false,
         }}
       />
 
@@ -145,7 +141,6 @@ const MainNavigation = () => {
 function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
-      initialRouteName="HomeScreen"
       screenOptions={{
         tabBarShowLabel: false,
       }}
@@ -169,7 +164,7 @@ function BottomTabNavigator() {
         options={{
           headerShown: false,
           title: "Map",
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ focused }) => {
             const icon = focused ? Colors.light.tint : "black";
             return <Feather name="map" size={24} color={icon} />;
           },

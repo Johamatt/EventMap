@@ -25,13 +25,14 @@ interface Props {
 
 export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   const [code, setCode] = useState("");
-
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (props.route.params?.username === undefined) {
     } else {
       setUsername(props.route.params.username);
+      setPassword(props.route.params.password);
     }
   }, []);
 
@@ -40,6 +41,8 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   const onConfirmPressed = async () => {
     try {
       await Auth.confirmSignUp(username, code);
+      await Auth.signIn(username, password);
+
       navigation.navigate("UserLoginScreen");
     } catch (error: any) {
       Alert.alert("Oops!", error.message);
@@ -123,33 +126,6 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
       </View>
     );
   }
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Confirm your email</Text>
-
-      <View style={styles.textInputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Enter your confirmation code"
-          placeholderTextColor="#003f5c"
-          onChangeText={(code: string) => setCode(code)}
-        />
-      </View>
-
-      <TouchableOpacity style={styles.confirmBtn} onPress={onConfirmPressed}>
-        <Text style={styles.confirmBtnText}>Confirm</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.resendBtn} onPress={onResendPress}>
-        <Text style={styles.resendBtnText}>Resend code</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
-        <Text style={styles.backBtnText}>Back to Sign in</Text>
-      </TouchableOpacity>
-    </View>
-  );
 };
 
 const styles = StyleSheet.create({

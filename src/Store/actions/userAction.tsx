@@ -1,5 +1,3 @@
-import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
-import { Auth } from "aws-amplify";
 import { LocationGeocodedLocation } from "expo-location";
 import { Dispatch } from "react";
 import { CATEGORY } from "../../API";
@@ -20,6 +18,16 @@ export interface UpdateEventPreferencesAction {
   payload: Array<CATEGORY>;
 }
 
+export interface UpdateShowOpenHoursAction {
+  readonly type: "ON_UPDATE_OPENINGHOURS_ONLY";
+  payload: boolean;
+}
+
+export interface UpdateSelectAllCategoriesAction {
+  readonly type: "ON_UPDATE_SELECTALL_CATEGORIES";
+  payload: boolean;
+}
+
 export interface UserErrorAction {
   readonly type: "ON_USER_ERROR";
   payload: any;
@@ -29,7 +37,9 @@ export type UserAction =
   | UpdateLocationAction
   | UpdateEventPreferencesAction
   | UserErrorAction
-  | UpdateAuthAction;
+  | UpdateAuthAction
+  | UpdateShowOpenHoursAction
+  | UpdateSelectAllCategoriesAction;
 
 export const ON_UPDATE_LOCATION = (location: LocationGeocodedLocation) => {
   return async (dispatch: Dispatch<UserAction>) => {
@@ -64,12 +74,43 @@ export const ON_UPDATE_EVENTPREFERENCES = (preferences: Array<CATEGORY>) => {
 };
 
 export const ON_UPDATE_AUTH = (userAuth: CognitoUserInterface) => {
-  console.log(userAuth);
   return (dispatch: Dispatch<UserAction>) => {
     try {
       dispatch({
         type: "ON_UPDATE_AUTH",
         payload: userAuth,
+      });
+    } catch (error) {
+      dispatch({
+        type: "ON_USER_ERROR",
+        payload: error,
+      });
+    }
+  };
+};
+
+export const ON_UPDATE_OPENINGHOURS_ONLY = (showCurrentlyOpen: boolean) => {
+  return (dispatch: Dispatch<UserAction>) => {
+    try {
+      dispatch({
+        type: "ON_UPDATE_OPENINGHOURS_ONLY",
+        payload: showCurrentlyOpen,
+      });
+    } catch (error) {
+      dispatch({
+        type: "ON_USER_ERROR",
+        payload: error,
+      });
+    }
+  };
+};
+
+export const ON_UPDATE_SELECTALL_CATEGORIES = (showAllCategories: boolean) => {
+  return (dispatch: Dispatch<UserAction>) => {
+    try {
+      dispatch({
+        type: "ON_UPDATE_SELECTALL_CATEGORIES",
+        payload: showAllCategories,
       });
     } catch (error) {
       dispatch({

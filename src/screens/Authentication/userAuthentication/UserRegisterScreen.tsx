@@ -25,7 +25,7 @@ export const UserRegisterScreen: React.FC = (props) => {
           username,
           password,
         });
-        navigation.navigate("UserConfirmEmailScreen", { username });
+        navigation.navigate("UserConfirmEmailScreen", { username, password });
       } catch (error: any) {
         Alert.alert("Oops!", error.message);
       }

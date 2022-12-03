@@ -10,13 +10,14 @@ import { LocationObject } from "expo-location";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../navigation/types";
-
-import { styles } from "./styles";
 import { ActivitiesState, UserState } from "../../Store/types";
 import { ApplicationState, ON_UPDATE_LOCATION } from "../../Store";
 import { connect } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Espoo, Helsinki, Vantaa } from "../../util/data";
+
+import { StyleSheet } from "react-native";
+import Layout from "../../constants/Layout";
 
 interface LandingLocationProps {
   userReducer: UserState;
@@ -43,7 +44,7 @@ const _LandingLocationScreen: React.FC<LandingLocationProps> = (props) => {
 
   async function nextScreen() {
     await ON_UPDATE_LOCATION(location);
-    navigation.navigate("LandingPreferenceScreen");
+    navigation.navigate("PreferenceScreen");
   }
 
   return (
@@ -118,3 +119,83 @@ const LandingLocationScreen = connect(mapToStateProps, {
 })(_LandingLocationScreen);
 
 export default LandingLocationScreen;
+
+export const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    flex: 1,
+  },
+
+  // Header styles
+  header: { paddingTop: 50 },
+
+  headerTitle: {
+    fontSize: 64,
+
+    textAlign: "center",
+    fontFamily: "Rationale-Regular",
+  },
+
+  headerText: {
+    fontSize: 15,
+    textAlign: "center",
+    padding: 10,
+  },
+
+  // Content styles
+  content: {
+    padding: 20,
+    margin: "auto",
+  },
+
+  pickerBox: {
+    padding: 5,
+    flexDirection: "row",
+  },
+
+  nearbyBox: {
+    padding: 5,
+    flexDirection: "row",
+  },
+
+  list: {
+    flexDirection: "row",
+  },
+
+  // Footer styles
+  footer: {
+    flexDirection: "row-reverse",
+    justifyContent: "space-between",
+    paddingHorizontal: 30,
+  },
+
+  footerButton: {
+    alignItems: "center",
+    backgroundColor: "#2f95dc",
+    fontWeight: "bold",
+    padding: 10,
+    width: 120,
+  },
+
+  footerButtonText: {
+    fontWeight: "bold",
+    color: "#fff",
+  },
+
+  //Util
+  separator: {
+    marginVertical: 20,
+    height: 2,
+    color: "#000",
+  },
+
+  selectedListItem: {
+    backgroundColor: "#2f95dc",
+    alignItems: "center",
+    width: Layout.window.width / 2.5,
+  },
+
+  unSelectedListItem: {
+    width: Layout.window.width / 2.2,
+  },
+});

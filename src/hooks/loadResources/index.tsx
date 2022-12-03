@@ -1,5 +1,6 @@
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
+import CheckUserAuth from "./checkUserAuth";
 import useCachedResources from "./useCachedResources";
 
 export default async function loadResources() {
@@ -8,7 +9,7 @@ export default async function loadResources() {
     async function loadCachedResourcesAsync() {
       try {
         SplashScreen.preventAutoHideAsync();
-        // await useAmplifyResources();
+        // await CheckUserAuth();
         await useCachedResources();
       } catch (e) {
         console.warn(e);

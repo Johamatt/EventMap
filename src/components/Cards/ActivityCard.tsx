@@ -21,8 +21,12 @@ export const ActivityCard: React.FC<ActivitiesListProps> = (props) => {
   return (
     <ListItem
       bottomDivider
-      onPress={() => navigation.navigate("ActivityInfoModal", {id: activity.id})} // navigate TODO
+      onPress={() =>
+        navigation.navigate("ActivityInfoModal", { id: activity.id })
+      } // navigate TODO
     >
+
+      
       <ListItem.Content>
         <ListIcon data={activity.categories} />
       </ListItem.Content>

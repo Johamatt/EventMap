@@ -8,11 +8,12 @@ import { UserRegisterScreen } from "../screens/Authentication/userAuthentication
 export const AuthNavigator = (Stack: any) => {
   return (
     <Stack.Group screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="UserLandingScreen" component={UserLandingScreen} />
       <Stack.Screen
         name="UserConfirmEmailScreen"
         component={UserConfirmEmailScreen}
       />
-      <Stack.Screen name="UserLandingScreen" component={UserLandingScreen} />
+
       <Stack.Screen name="UserLoginScreen" component={UserLoginScreen} />
       <Stack.Screen name="UserRegisterScreen" component={UserRegisterScreen} />
 

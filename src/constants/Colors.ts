@@ -11,8 +11,9 @@ export default {
     tabIconSelected: "#2f95dc",
 
     attention: "#ded033",
-
     secondary: "#9643d1",
+
+    selected: "#5EBA7D",
   },
   dark: {
     text: "#000",

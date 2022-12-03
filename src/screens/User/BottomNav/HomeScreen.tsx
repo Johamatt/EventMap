@@ -1,8 +1,8 @@
 import { FlatList, View, StyleSheet } from "react-native";
-import { ApplicationState } from "../../../Store";
+import { ApplicationState, UserState } from "../../../Store";
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { ListActivitiesQuery } from "../../../API";
+import { CATEGORY, ListActivitiesQuery } from "../../../API";
 import { Divider } from "@rneui/base";
 import { ActivityCard } from "../../../components/Cards/ActivityCard";
 import { IconButton } from "../../../components/Buttons/IconButton";
@@ -10,15 +10,18 @@ import { API, graphqlOperation } from "aws-amplify";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import SplashScreen from "../../SplashScreen";
 import { listActivities } from "../../../graphql/queries";
-
-export type openDays = {
-  day: string;
-  open: boolean;
-  from: string;
-  to: string;
+import { CognitoUserInterface } from "@aws-amplify/ui-components";
+type HomescreenProps = {
+  activitiesList: any;
+  nextToken: any;
+  userPreferences: Array<CATEGORY>;
+  showcurrentlyopen: boolean;
 };
 
-const _HomeScreen: React.FC = () => {
+const _HomeScreen: React.FC<HomescreenProps> = (props) => {
+  console.log(props.userPreferences);
+  console.log(props.showcurrentlyopen);
+
   let day = new Date().getDay();
   let month = new Date().getMonth();
 
@@ -43,8 +46,6 @@ const _HomeScreen: React.FC = () => {
         { availableMonths: { attributeExists: month } },
       ],
     };
-
-    // Amplify issue  https://github.com/aws-amplify/amplify-js/issues/4257 && https://github.com/aws-amplify/amplify-js/issues/5741
     const activitiesDataList = (await API.graphql(
       graphqlOperation(listActivities, {
         limit: 8,
@@ -66,6 +67,7 @@ const _HomeScreen: React.FC = () => {
       </View>
     );
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -74,6 +76,7 @@ const _HomeScreen: React.FC = () => {
       <Divider color="black" />
       <View>
         <FlatList
+          style={{ marginBottom: 50 }}
           keyExtractor={(item) => item.id}
           data={activities}
           renderItem={({ item }) => <ActivityCard activity={item} />}
@@ -88,6 +91,8 @@ const _HomeScreen: React.FC = () => {
 const mapToStateProps = (state: ApplicationState) => ({
   activitiesList: state.ActivitiesReducer.activitiesList,
   nextToken: state.ActivitiesReducer.nextToken,
+  showcurrentlyopen: state.UserReducer.showCurrentlyOpen,
+  userPreferences: state.UserReducer.preferences,
 });
 
 const HomeScreen = connect(mapToStateProps)(_HomeScreen);

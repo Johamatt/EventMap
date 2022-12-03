@@ -4,7 +4,6 @@ import React from "react";
 import { View, Text } from "react-native";
 import { connect } from "react-redux";
 import { ApplicationState, UserState, ActivitiesState } from "../../../Store";
-import { styles } from "../styles";
 
 interface UserProfileScreenProps {
   userReducer: UserState;
@@ -17,9 +16,9 @@ export const _UserProfileScreen: React.FC<UserProfileScreenProps> = (props) => {
     // ON_UPDATE_AUTH(signout);
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Profile</Text>
+    <View>
+      <View>
+        <Text>Profile</Text>
       </View>
       <Button title="Sign out" onPress={signOut} />
     </View>

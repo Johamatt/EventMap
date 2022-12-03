@@ -26,7 +26,7 @@ export const IconButton: React.FC = (IconButtonProps) => {
         size: 15,
         color: "white",
       }}
-      onPress={() => navigation.navigate("LandingPreferenceScreen")}
+      onPress={() => navigation.navigate("PreferenceScreen")}
       iconRight
       iconContainerStyle={{ marginLeft: 10 }}
       titleStyle={{ fontWeight: "700", color: "white" }}

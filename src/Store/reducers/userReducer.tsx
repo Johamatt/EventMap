@@ -1,15 +1,16 @@
-import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
 import { LocationGeocodedLocation } from "expo-location";
 import { CATEGORY } from "../../API";
 import { UserAction } from "../actions/userAction";
 import { UserState } from "../types";
-import { CognitoUserInterface } from '@aws-amplify/ui-components';
+import { CognitoUserInterface } from "@aws-amplify/ui-components";
 
 const initialState: UserState = {
   location: {} as LocationGeocodedLocation,
   userAuth: {} as CognitoUserInterface,
   preferences: [] as Array<CATEGORY>,
   error: undefined,
+  showCurrentlyOpen: true,
+  showAllCategories: true,
 };
 
 const userReducer = (state: UserState = initialState, action: UserAction) => {
@@ -30,6 +31,18 @@ const userReducer = (state: UserState = initialState, action: UserAction) => {
       return {
         ...state,
         preferences: action.payload,
+      };
+
+    case "ON_UPDATE_OPENINGHOURS_ONLY":
+      return {
+        ...state,
+        showCurrentlyOpen: action.payload,
+      };
+
+    case "ON_UPDATE_SELECTALL_CATEGORIES":
+      return {
+        ...state,
+        showAllCategories: action.payload,
       };
 
     default:
