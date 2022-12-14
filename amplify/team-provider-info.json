@@ -9,15 +9,26 @@
       "UnauthRoleName": "amplify-eventmap-dev-23220-unauthRole",
       "StackName": "amplify-eventmap-dev-23220",
       "StackId": "arn:aws:cloudformation:eu-north-1:773034789363:stack/amplify-eventmap-dev-23220/7a1a64a0-5d6a-11ed-962a-060043f7fa5e",
-      "AmplifyAppId": "d6li8szgue7ym"
+      "AmplifyAppId": "d6li8szgue7ym",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-eventmap-dev-23220-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
         "userPoolGroups": {},
         "eventmap32ff6c1932ff6c19": {}
       },
+      "analytics": {
+        "eventmap": {}
+      },
       "api": {
         "eventmap": {}
+      },
+      "function": {
+        "eventmap32ff6c1932ff6c19PostConfirmation": {
+          "GROUP": "DefaultUser",
+          "deploymentBucketName": "amplify-eventmap-dev-23220-deployment",
+          "s3Key": "amplify-builds/eventmap32ff6c1932ff6c19PostConfirmation-666e657a7a6131477042-build.zip"
+        }
       }
     }
   }

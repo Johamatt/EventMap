@@ -13,7 +13,7 @@ import awsmobile from "./src/aws-exports";
 import loadResources from "./src/hooks/loadResources";
 import Colors from "./src/constants/Colors";
 
-Amplify.configure({ ...awsmobile, Analytics: { disabled: true } });
+Amplify.configure({ ...awsmobile });
 
 const App: React.FC = () => {
   // Auth.signOut();
@@ -47,8 +47,6 @@ const App: React.FC = () => {
   }
 };
 
-
-
-export default App
+export default App;
 
 //https://ui.docs.amplify.aws/react/connected-components/authenticator

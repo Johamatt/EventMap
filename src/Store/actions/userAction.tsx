@@ -33,13 +33,19 @@ export interface UserErrorAction {
   payload: any;
 }
 
+export interface UpdateGuestUserSession {
+  readonly type: "ON_UPDATE_GUESTUSER_SESSION";
+  payload: boolean;
+}
+
 export type UserAction =
   | UpdateLocationAction
   | UpdateEventPreferencesAction
   | UserErrorAction
   | UpdateAuthAction
   | UpdateShowOpenHoursAction
-  | UpdateSelectAllCategoriesAction;
+  | UpdateSelectAllCategoriesAction
+  | UpdateGuestUserSession;
 
 export const ON_UPDATE_LOCATION = (location: LocationGeocodedLocation) => {
   return async (dispatch: Dispatch<UserAction>) => {
@@ -111,6 +117,23 @@ export const ON_UPDATE_SELECTALL_CATEGORIES = (showAllCategories: boolean) => {
       dispatch({
         type: "ON_UPDATE_SELECTALL_CATEGORIES",
         payload: showAllCategories,
+      });
+    } catch (error) {
+      dispatch({
+        type: "ON_USER_ERROR",
+        payload: error,
+      });
+    }
+  };
+};
+
+//
+export const ON_UPDATE_GUESTUSER_SESSION = (guestUserSession: boolean) => {
+  return (dispatch: Dispatch<UserAction>) => {
+    try {
+      dispatch({
+        type: "ON_UPDATE_GUESTUSER_SESSION",
+        payload: guestUserSession,
       });
     } catch (error) {
       dispatch({

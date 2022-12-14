@@ -11,6 +11,8 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import { Auth } from "aws-amplify";
 import Colors from "../../../constants/Colors";
+import { Button } from "@rneui/base";
+import Layout from "../../../constants/Layout";
 
 export const UserRegisterScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
@@ -34,12 +36,28 @@ export const UserRegisterScreen: React.FC = (props) => {
     }
   };
 
-  const onSignInPress = () => {
-    navigation.navigate("UserLoginScreen");
-  };
-
   return (
     <View style={styles.container}>
+      <View style={{}}>
+        <Button
+          title="Go back"
+          color={"white"}
+          icon={{
+            name: "arrow-back-outline",
+            type: "ionicon",
+            size: 25,
+            color: "black",
+          }}
+          onPress={() => navigation.goBack()}
+          titleStyle={{ fontWeight: "700", color: "black" }}
+          containerStyle={{
+            width: Layout.window.width / 3,
+            justifyContent: "center",
+            backgroundColor: "white",
+          }}
+        />
+      </View>
+
       <Image
         style={styles.image}
         source={require("../../../assets/logo/logo1.png")}
@@ -81,8 +99,14 @@ export const UserRegisterScreen: React.FC = (props) => {
         <Text style={styles.sendBtnText}>Register</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
-        <Text style={styles.backBtnText}>Back to Sign in</Text>
+      <TouchableOpacity
+        style={styles.signupTextArea}
+        onPress={() => navigation.navigate("UserConfirmEmailScreen")}
+      >
+        <Text>
+          Already filled this form?{" "}
+          <Text style={styles.linkText}>Confirm Email</Text>
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -153,5 +177,16 @@ const styles = StyleSheet.create({
     height: 50,
     flex: 1,
     padding: 10,
+  },
+
+  signupTextArea: {
+    paddingTop: 10,
+    color: "#fff",
+    fontWeight: "bold",
+  },
+
+  linkText: {
+    color: Colors.light.tint,
+    fontWeight: "bold",
   },
 });

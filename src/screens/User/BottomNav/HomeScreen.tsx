@@ -6,11 +6,12 @@ import { CATEGORY, ListActivitiesQuery } from "../../../API";
 import { Divider } from "@rneui/base";
 import { ActivityCard } from "../../../components/Cards/ActivityCard";
 import { IconButton } from "../../../components/Buttons/IconButton";
-import { API, graphqlOperation } from "aws-amplify";
+import { Analytics, API, graphqlOperation } from "aws-amplify";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import SplashScreen from "../../SplashScreen";
-import { listActivities } from "../../../graphql/queries";
+
 import { CognitoUserInterface } from "@aws-amplify/ui-components";
+import { listActivities } from "../../../graphql/queries";
 type HomescreenProps = {
   activitiesList: any;
   nextToken: any;
@@ -19,9 +20,6 @@ type HomescreenProps = {
 };
 
 const _HomeScreen: React.FC<HomescreenProps> = (props) => {
-  console.log(props.userPreferences);
-  console.log(props.showcurrentlyopen);
-
   let day = new Date().getDay();
   let month = new Date().getMonth();
 
@@ -46,6 +44,12 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
         { availableMonths: { attributeExists: month } },
       ],
     };
+
+    // const activitiesDataList = await API.graphql({
+    //   query: listActivities,
+    //   authMode: "AWS_IAM",
+    // });
+
     const activitiesDataList = (await API.graphql(
       graphqlOperation(listActivities, {
         limit: 8,
@@ -53,6 +57,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
         variables: { filter: filter },
       })
     )) as GraphQLResult<ListActivitiesQuery>;
+
     setNextToken(activitiesDataList.data?.listActivities?.nextToken);
     setActivities([
       ...activities,
@@ -67,7 +72,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
       </View>
     );
   }
-
+  console.log(activities.length);
   return (
     <View style={styles.container}>
       <View style={styles.header}>

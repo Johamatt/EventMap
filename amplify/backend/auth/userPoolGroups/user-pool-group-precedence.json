@@ -6,5 +6,9 @@
   {
     "groupName": "Organizer",
     "precedence": 2
+  },
+  {
+    "groupName": "DefaultUser",
+    "precedence": 3
   }
 ]

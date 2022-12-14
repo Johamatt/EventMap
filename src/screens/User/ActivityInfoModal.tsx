@@ -7,7 +7,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { getActivity } from "../../graphql/queries";
-import { API, graphqlOperation } from "aws-amplify";
+import { Analytics, API, graphqlOperation } from "aws-amplify";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { StyleSheet } from "react-native";
 import Layout from "../../constants/Layout";
@@ -24,6 +24,11 @@ export const ActivityInfoModal: React.FC<ActivityInfoModalProps> = (props) => {
   const [activity, setActivity] = useState<any>();
 
   useEffect(() => {
+    Analytics.record({
+      name: "activityOpened",
+      attributes: { id: props.route.params.id },
+    });
+
     requestAPI();
   }, []);
 
@@ -37,6 +42,8 @@ export const ActivityInfoModal: React.FC<ActivityInfoModalProps> = (props) => {
   if (activity === undefined) {
     return <View></View>;
   }
+
+  
 
   return (
     <ScrollView style={styles.container}>

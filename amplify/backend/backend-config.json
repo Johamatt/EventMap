@@ -10,7 +10,8 @@
           "attributes": [
             "UserPoolId",
             "AppClientIDWeb",
-            "AppClientID"
+            "AppClientID",
+            "IdentityPoolId"
           ]
         }
       ]
@@ -18,7 +19,17 @@
     "eventmap32ff6c1932ff6c19": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "eventmap32ff6c1932ff6c19PostConfirmation",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
@@ -68,13 +79,26 @@
               "authenticationType": "API_KEY",
               "apiKeyConfig": {
                 "apiKeyExpirationDays": 7,
-                "apiKeyExpirationDate": "2022-11-24T01:19:56.169Z",
+                "apiKeyExpirationDate": "2022-12-10T23:46:56.890Z",
                 "description": ""
               }
             }
           ]
         }
       }
+    }
+  },
+  "analytics": {
+    "eventmap": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "function": {
+    "eventmap32ff6c1932ff6c19PostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   }
 }

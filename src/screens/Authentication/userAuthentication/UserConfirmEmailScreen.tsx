@@ -54,11 +54,15 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   };
 
   const onResendPress = async () => {
-    try {
-      await Auth.resendSignUp(username);
-      Alert.alert("Success", "Code was resent to your email");
-    } catch (error: any) {
-      Alert.alert("Oops!", error);
+    if (username === "") {
+      Alert.alert("Enter Your Email");
+    } else {
+      try {
+        await Auth.resendSignUp(username);
+        Alert.alert("Success", "Code was resent to your email");
+      } catch (error: any) {
+        Alert.alert("Oops!", error);
+      }
     }
   };
 

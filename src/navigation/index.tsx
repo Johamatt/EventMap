@@ -13,7 +13,7 @@ import HomeScreen from "../screens/User/BottomNav/HomeScreen";
 import FavouritesScreen from "../screens/User/BottomNav/FavouritesScreen";
 import LandingPreferenceScreen from "../screens/User/PreferenceScreen";
 import { useEffect, useState } from "react";
-import { Auth } from "aws-amplify";
+import { Analytics, Auth } from "aws-amplify";
 import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
 import {
   ActivitiesState,
@@ -32,10 +32,15 @@ interface NavigationProps {
   userReducer: CognitoUserInterface | undefined;
   activitiesReducer: ActivitiesState;
   ON_UPDATE_AUTH: Function;
+  guestUserSession: boolean;
 }
 
 const _Navigation: React.FC<NavigationProps> = (props) => {
   const [user, setUser] = useState<any>(undefined);
+
+  const guestUserSession = props.guestUserSession;
+
+  const date = new Date();
 
   useEffect(() => {
     const checkUser = async () => {
@@ -61,7 +66,7 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {user === null || user === undefined
+        {(user === null || user === undefined) && guestUserSession === false
           ? AuthNavigator(Stack)
           : MainNavigation()}
       </Stack.Navigator>
@@ -72,6 +77,7 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
 const mapToStateProps = (state: ApplicationState) => ({
   activitiesReducer: state.ActivitiesReducer,
   userReducer: state.UserReducer.userAuth,
+  guestUserSession: state.UserReducer.guestUserSession,
 });
 
 const Navigation = connect(mapToStateProps, {

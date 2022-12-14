@@ -28,13 +28,17 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
+  const [activities, setActvities] = useState<any>();
+
   useEffect(() => {
     parse();
   }, []);
 
   async function parse() {}
 
-  function parse2() {}
+  async function parse2() {
+ 
+  }
 
   return (
     <View

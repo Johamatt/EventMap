@@ -11,7 +11,10 @@ import {
   OpenDays,
   Price,
 } from "../../../API";
-import { createActivity } from "../../../graphql/mutations";
+import {
+  createActivity,
+  createActivityMedia,
+} from "../../../graphql/mutations";
 import activitiesData from "../../data/Acvitivities3.json";
 import { parseActivityMedia } from "./parseActivitymedia";
 import { parseCompany } from "./parseCompany";
@@ -25,22 +28,12 @@ import { parsePrice } from "./parsePrice";
 import { parseTags } from "./parseTags";
 
 export function parseData() {
-  const t1: Array<any> = activitiesData.rows.slice(0, 30);
+  const activityArr: any = [];
 
-  console.log();
-
-  const activityArr: Array<Activity> = [];
-
-  // t1.push(activitiesData.rows[1]);
-  // t1.push(activitiesData.rows[2]);
-
-  // const abc: any[] = activitiesData.rows.map(async (activity: any) => {
-
-  t1.map((activity: any) => {
-    let ActivityMedia: ActivityMedia[] = parseActivityMedia(activity.media);
+  activitiesData.rows.forEach(async (activity: any) => {
+    let ActivityMedia: any = parseActivityMedia(activity.media, activity.id);
     let Location: Location = parseLocation(activity.address);
-    // let Company: Company = parseCompany(activity.company);
-    let Company: string = parseCompany(activity.company);
+    let Company: Company = await parseCompany(activity.company);
     let Opendays: { opendays: Array<OpenDays>; days: any } = parseOpendays(
       activity.open
     );
@@ -56,7 +49,6 @@ export function parseData() {
     let updated_at_LinkedEvent: string = activity.updated;
     let id = activity.id;
     let source = "linkedEvents";
-
     //@ts-ignore
     const activities: Activity = {
       id: id,
@@ -74,29 +66,26 @@ export function parseData() {
       OpenDays: Opendays.opendays,
       availableDays: Opendays.days,
       availableMonths: months,
-      // activityMedia: ActivityMedia,
 
-      companyActivitiesId: Company,
+      raiting: undefined,
+      user_raitings_total: undefined,
+
+      companyActivitiesId: Company.businessId,
     };
+    // await sendActivity(activities);
+    // await sendActivityMedia(ActivityMedia);
 
-    activityArr.push(activities);
-
-    // sendData(activities);
-
-    // const locationdata = await API.graphql(graphqlOperation(listLocations));
-    // await API.graphql(graphqlOperation(createActivity, { input: activity }));
-
-    // return activity;
+    // activityArr.push(activities);
   });
-
   return activityArr;
-  // const cmp = await API.graphql(graphqlOperation(listCompanies));
-  //   const act = await API.graphql(graphqlOperation(listActivities));
-
-  //   console.log(act);
-  // await API.graphql(graphqlOperation(createActivity, { input: abc[0] }));
 }
 
-async function sendData(activities: any) {
+async function sendActivity(activities: any) {
   await API.graphql(graphqlOperation(createActivity, { input: activities }));
+}
+
+async function sendActivityMedia(activitymedia: any) {
+  activitymedia.forEach(async (a: any) => {
+    await API.graphql(graphqlOperation(createActivityMedia, { input: a }));
+  });
 }

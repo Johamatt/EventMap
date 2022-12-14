@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../navigation/types";
 import Colors from "../../../constants/Colors";
+import { Auth } from "aws-amplify";
+import { store } from "../../../Store";
+import { CognitoUserInterface } from "@aws-amplify/ui-components";
+
+export interface ICredentials {
+  accessKeyId: string;
+  sessionToken: string;
+  secretAccessKey: string;
+  identityId: string;
+  authenticated: boolean;
+  expiration?: Date;
+}
 
 export const UserLandingScreen: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const onContinueAsGuest = () => {
+    store.dispatch({
+      type: "ON_UPDATE_GUESTUSER_SESSION",
+      payload: {
+        userAuth: true,
+      },
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -27,6 +48,13 @@ export const UserLandingScreen: React.FC = () => {
         onPress={() => navigation.navigate("UserRegisterScreen")}
       >
         <Text style={styles.loginBtnText}>Register</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.loginBtn}
+        onPress={() => onContinueAsGuest()} // continue as guest
+      >
+        <Text style={styles.loginBtnText}>Continue as Guest</Text>
       </TouchableOpacity>
     </View>
   );

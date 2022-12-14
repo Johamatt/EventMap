@@ -126,7 +126,6 @@ export const onCreateEvent = /* GraphQL */ `
         postalCode
       }
       category
-      format
       company {
         businessId
         email
@@ -178,7 +177,6 @@ export const onCreateEvent = /* GraphQL */ `
       }
       Links {
         siteURL
-        externalURL
         otherURL
       }
       source
@@ -206,7 +204,6 @@ export const onUpdateEvent = /* GraphQL */ `
         postalCode
       }
       category
-      format
       company {
         businessId
         email
@@ -258,7 +255,6 @@ export const onUpdateEvent = /* GraphQL */ `
       }
       Links {
         siteURL
-        externalURL
         otherURL
       }
       source
@@ -286,7 +282,6 @@ export const onDeleteEvent = /* GraphQL */ `
         postalCode
       }
       category
-      format
       company {
         businessId
         email
@@ -338,7 +333,6 @@ export const onDeleteEvent = /* GraphQL */ `
       }
       Links {
         siteURL
-        externalURL
         otherURL
       }
       source
@@ -369,9 +363,10 @@ export const onCreateCompany = /* GraphQL */ `
           categories
           source
           updated_at_Source
-          hoursFromTo
           availableDays
           availableMonths
+          raiting
+          user_raitings_total
           createdAt
           updatedAt
           companyActivitiesId
@@ -385,7 +380,6 @@ export const onCreateCompany = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
-          format
           source
           updated_at_Source
           createdAt
@@ -420,9 +414,10 @@ export const onUpdateCompany = /* GraphQL */ `
           categories
           source
           updated_at_Source
-          hoursFromTo
           availableDays
           availableMonths
+          raiting
+          user_raitings_total
           createdAt
           updatedAt
           companyActivitiesId
@@ -436,7 +431,6 @@ export const onUpdateCompany = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
-          format
           source
           updated_at_Source
           createdAt
@@ -471,9 +465,10 @@ export const onDeleteCompany = /* GraphQL */ `
           categories
           source
           updated_at_Source
-          hoursFromTo
           availableDays
           availableMonths
+          raiting
+          user_raitings_total
           createdAt
           updatedAt
           companyActivitiesId
@@ -487,7 +482,6 @@ export const onDeleteCompany = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
-          format
           source
           updated_at_Source
           createdAt
@@ -576,7 +570,6 @@ export const onCreateActivity = /* GraphQL */ `
       }
       Links {
         siteURL
-        externalURL
         otherURL
       }
       source
@@ -586,9 +579,10 @@ export const onCreateActivity = /* GraphQL */ `
         timeFrom
         timeTo
       }
-      hoursFromTo
       availableDays
       availableMonths
+      raiting
+      user_raitings_total
       createdAt
       updatedAt
       companyActivitiesId
@@ -669,7 +663,6 @@ export const onUpdateActivity = /* GraphQL */ `
       }
       Links {
         siteURL
-        externalURL
         otherURL
       }
       source
@@ -679,9 +672,10 @@ export const onUpdateActivity = /* GraphQL */ `
         timeFrom
         timeTo
       }
-      hoursFromTo
       availableDays
       availableMonths
+      raiting
+      user_raitings_total
       createdAt
       updatedAt
       companyActivitiesId
@@ -762,7 +756,6 @@ export const onDeleteActivity = /* GraphQL */ `
       }
       Links {
         siteURL
-        externalURL
         otherURL
       }
       source
@@ -772,9 +765,10 @@ export const onDeleteActivity = /* GraphQL */ `
         timeFrom
         timeTo
       }
-      hoursFromTo
       availableDays
       availableMonths
+      raiting
+      user_raitings_total
       createdAt
       updatedAt
       companyActivitiesId

@@ -10,6 +10,7 @@ export type UserState = {
   userAuth: CognitoUserInterface | undefined;
   showCurrentlyOpen: boolean;
   showAllCategories: boolean;
+  guestUserSession: boolean;
 };
 
 export type ActivitiesState = {

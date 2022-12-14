@@ -89,7 +89,6 @@ export const getEvent = /* GraphQL */ `
         postalCode
       }
       category
-      format
       company {
         businessId
         email
@@ -141,7 +140,6 @@ export const getEvent = /* GraphQL */ `
       }
       Links {
         siteURL
-        externalURL
         otherURL
       }
       source
@@ -171,7 +169,6 @@ export const listEvents = /* GraphQL */ `
           postalCode
         }
         category
-        format
         company {
           businessId
           email
@@ -206,7 +203,6 @@ export const listEvents = /* GraphQL */ `
         }
         Links {
           siteURL
-          externalURL
           otherURL
         }
         source
@@ -236,9 +232,10 @@ export const getCompany = /* GraphQL */ `
           categories
           source
           updated_at_Source
-          hoursFromTo
           availableDays
           availableMonths
+          raiting
+          user_raitings_total
           createdAt
           updatedAt
           companyActivitiesId
@@ -252,7 +249,6 @@ export const getCompany = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
-          format
           source
           updated_at_Source
           createdAt
@@ -372,7 +368,6 @@ export const getActivity = /* GraphQL */ `
       }
       Links {
         siteURL
-        externalURL
         otherURL
       }
       source
@@ -382,9 +377,10 @@ export const getActivity = /* GraphQL */ `
         timeFrom
         timeTo
       }
-      hoursFromTo
       availableDays
       availableMonths
+      raiting
+      user_raitings_total
       createdAt
       updatedAt
       companyActivitiesId
@@ -450,7 +446,6 @@ export const listActivities = /* GraphQL */ `
         }
         Links {
           siteURL
-          externalURL
           otherURL
         }
         source
@@ -460,9 +455,10 @@ export const listActivities = /* GraphQL */ `
           timeFrom
           timeTo
         }
-        hoursFromTo
         availableDays
         availableMonths
+        raiting
+        user_raitings_total
         createdAt
         updatedAt
         companyActivitiesId
