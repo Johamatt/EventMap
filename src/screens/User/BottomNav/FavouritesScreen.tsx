@@ -22,6 +22,7 @@ import { GraphQLResult } from "@aws-amplify/api";
 
 interface FavouritesScreenProps {
   activitiesReducer: ActivitiesState;
+  guestUserSession: Boolean;
 }
 
 export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
@@ -37,7 +38,7 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
   async function parse() {}
 
   async function parse2() {
- 
+    console.log(props.guestUserSession);
   }
 
   return (
@@ -56,6 +57,7 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
 
 export const mapToStateProps = (state: ApplicationState) => ({
   activitiesReducer: state.ActivitiesReducer,
+  guestUserSession: state.UserReducer.guestUserSession,
 });
 
 const FavouritesScreen = connect(mapToStateProps, {

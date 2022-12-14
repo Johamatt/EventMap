@@ -14,8 +14,6 @@ const initialState: UserState = {
 
   //
   guestUserSession: false,
-  
-
 };
 
 const userReducer = (state: UserState = initialState, action: UserAction) => {
@@ -50,16 +48,12 @@ const userReducer = (state: UserState = initialState, action: UserAction) => {
         showAllCategories: action.payload,
       };
 
-
-
     //
     case "ON_UPDATE_GUESTUSER_SESSION":
       return {
         ...state,
         guestUserSession: action.payload,
-      }
-
-    
+      };
 
     default:
       return state;

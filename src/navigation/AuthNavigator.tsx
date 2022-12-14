@@ -4,18 +4,6 @@ import { UserLandingScreen } from "../screens/Authentication/userAuthentication/
 import UserLoginScreen from "../screens/Authentication/userAuthentication/UserLoginScreen";
 import { UserNewPasswordScreen } from "../screens/Authentication/userAuthentication/UserNewPasswordScreen";
 import { UserRegisterScreen } from "../screens/Authentication/userAuthentication/UserRegisterScreen";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  Image,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "./types";
 export const AuthNavigator = (Stack: any) => {
   return (
     <Stack.Group screenOptions={{ headerShown: false }}>

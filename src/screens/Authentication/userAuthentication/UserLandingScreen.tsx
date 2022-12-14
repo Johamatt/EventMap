@@ -24,9 +24,7 @@ export const UserLandingScreen: React.FC = () => {
   const onContinueAsGuest = () => {
     store.dispatch({
       type: "ON_UPDATE_GUESTUSER_SESSION",
-      payload: {
-        userAuth: true,
-      },
+      payload: true,
     });
   };
 

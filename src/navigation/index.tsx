@@ -21,6 +21,7 @@ import {
   ON_UPDATE_AUTH,
   store,
   UserState,
+  ON_UPDATE_GUESTUSER_SESSION,
 } from "../Store";
 import { connect } from "react-redux";
 import { ActivityInfoModal } from "../screens/User/ActivityInfoModal";
@@ -29,44 +30,49 @@ import SplashScreen from "../screens/SplashScreen";
 import PreferenceScreen from "../screens/User/PreferenceScreen";
 import { CognitoUserInterface } from "@aws-amplify/ui-components";
 interface NavigationProps {
-  userReducer: CognitoUserInterface | undefined;
+  userAuth: CognitoUserInterface | undefined;
   activitiesReducer: ActivitiesState;
   ON_UPDATE_AUTH: Function;
-  guestUserSession: boolean;
+  ON_UPDATE_GUESTUSER_SESSION: Function;
+
+  guestSession: boolean;
 }
 
 const _Navigation: React.FC<NavigationProps> = (props) => {
   const [user, setUser] = useState<any>(undefined);
-
-  const guestUserSession = props.guestUserSession;
+  const [guestSession, setGuestSession] = useState<boolean>();
 
   const date = new Date();
 
   useEffect(() => {
+    setGuestSession(props.guestSession);
     const checkUser = async () => {
       try {
         const authUser = await Auth.currentAuthenticatedUser({
           bypassCache: true,
         });
         setUser(authUser);
-
-        store.dispatch({
-          type: "ON_UPDATE_AUTH",
-          payload: {
-            userAuth: authUser,
-          },
-        });
       } catch (e) {
         setUser(null);
       }
     };
     checkUser();
-  }, [props.userReducer]);
+  }, [props.userAuth, props.guestSession]);
+
+  console.log(guestSession);
+
+  if (guestSession) {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>{MainNavigation()}</Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {(user === null || user === undefined) && guestUserSession === false
+        {user === null || user === undefined
           ? AuthNavigator(Stack)
           : MainNavigation()}
       </Stack.Navigator>
@@ -76,12 +82,14 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
 
 const mapToStateProps = (state: ApplicationState) => ({
   activitiesReducer: state.ActivitiesReducer,
-  userReducer: state.UserReducer.userAuth,
-  guestUserSession: state.UserReducer.guestUserSession,
+  userAuth: state.UserReducer.userAuth,
+
+  guestSession: state.UserReducer.guestUserSession,
 });
 
 const Navigation = connect(mapToStateProps, {
   ON_UPDATE_AUTH,
+  ON_UPDATE_GUESTUSER_SESSION,
 })(_Navigation);
 export default Navigation;
 

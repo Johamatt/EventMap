@@ -43,8 +43,6 @@ export const ActivityInfoModal: React.FC<ActivityInfoModalProps> = (props) => {
     return <View></View>;
   }
 
-  
-
   return (
     <ScrollView style={styles.container}>
       <View style={{ paddingBottom: 25 }}>

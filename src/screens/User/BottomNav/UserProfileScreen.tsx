@@ -17,15 +17,18 @@ interface UserProfileScreenProps {
 
 export const _UserProfileScreen: React.FC<UserProfileScreenProps> = (props) => {
   const signOut = async () => {
-    store.dispatch({
-      type: "ON_UPDATE_GUESTUSER_SESSION",
-      payload: {
-        userAuth: false,
-      },
-    });
-
     const signout = await Auth.signOut();
     // ON_UPDATE_AUTH(signout);
+
+    store.dispatch({
+      type: "ON_UPDATE_GUESTUSER_SESSION",
+      payload: false,
+    });
+
+    store.dispatch({
+      type: "ON_UPDATE_AUTH",
+      payload: null,
+    });
   };
   return (
     <View>

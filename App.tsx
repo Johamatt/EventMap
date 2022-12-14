@@ -16,16 +16,7 @@ import Colors from "./src/constants/Colors";
 Amplify.configure({ ...awsmobile });
 
 const App: React.FC = () => {
-  // Auth.signOut();
-
-  //
-  //
-  //
-  //
-  // useAmplifyResources();
   const isLoadingComplete = loadResources();
-
-  //useCachedResources();
   const colorScheme = useColorScheme();
   if (!isLoadingComplete) {
     return (
