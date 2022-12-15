@@ -23,7 +23,7 @@ type Description {
 
 
 type ActivityMedia @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, 
-{allow: groups, groups: ["DefaultUser"], operations: [read]}, {allow: public, operations: [read]}]) {
+{allow: groups, groups: ["DefaultUser"], operations: [read]}, {allow: public, provider: iam operations: [read]}]) {
   id: ID!
   kind: String
   copyright: String
@@ -31,7 +31,7 @@ type ActivityMedia @model @auth(rules: [{allow: owner, operations: [create, read
   URL: AWSURL!
 }
 
-type EventMedia @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: groups, groups: ["DefaultUser"], operations: [read]}, {allow: public, operations: [read]}]) {
+type EventMedia @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]}, {allow: groups, groups: ["DefaultUser"], operations: [read]}, {allow: public, provider: iam operations: [read]}]) {
   id: ID!
   URL: AWSURL!
   kind: String
@@ -46,7 +46,7 @@ type Location {
   postalCode: String
 }
 
-type Event @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]},  {allow: groups, groups: ["DefaultUser"], operations: [read]},{allow: public, operations: [read]}]) {
+type Event @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]},  {allow: groups, groups: ["DefaultUser"], operations: [read]},{allow: public, provider: iam operations: [read]}]) {
   id: ID!
   startingDateTime: String!
   endingDateTime: String!
@@ -62,7 +62,7 @@ type Event @model @auth(rules: [{allow: owner, operations: [create, read, update
 }
 
 
-type Company @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]},  {allow: groups, groups: ["DefaultUser"], operations: [read]},{allow: public, operations: [read]}]) {
+type Company @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}, {allow: groups, groups: ["Admin"]},  {allow: groups, groups: ["DefaultUser"], operations: [read]},{allow: public, provider: iam operations: [read]}]) {
   businessId: ID! @primaryKey
   email: String
   phone: String
@@ -116,7 +116,7 @@ enum CATEGORY {
   GAMBLING
 }
 
-type Activity @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]},  {allow: groups, groups: ["DefaultUser"], operations: [read]},{allow: groups, groups: ["Admin"]}, {allow: public, operations: [read]}]) {
+type Activity @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]},  {allow: groups, groups: ["DefaultUser"], operations: [read]},{allow: groups, groups: ["Admin"]}, {allow: public, provider: iam operations: [read]}]) {
   id: ID!
   company: Company
   duration: String

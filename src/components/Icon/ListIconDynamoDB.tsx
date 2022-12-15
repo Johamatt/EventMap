@@ -8,13 +8,11 @@ interface ListIconProps {
   data: Array<CATEGORY> | null | undefined;
 }
 
-export const ListIcon: React.FC<ListIconProps> = (props) => {
+export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (props.data === null || props.data === undefined) {
     return <Icon name="question" type="font-awesome" color="black" />;
   }
-
   const icons: React.ReactElement[] = [];
-
   const values = Object.values(props.data);
 
   if (values.includes("TRIP" as unknown as CATEGORY)) {

@@ -82,6 +82,9 @@
                 "apiKeyExpirationDate": "2022-12-10T23:46:56.890Z",
                 "description": ""
               }
+            },
+            {
+              "authenticationType": "AWS_IAM"
             }
           ]
         }

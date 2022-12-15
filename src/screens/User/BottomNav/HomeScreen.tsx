@@ -1,93 +1,81 @@
-import { FlatList, View, StyleSheet } from "react-native";
-import { ApplicationState, UserState } from "../../../Store";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { ApplicationState } from "../../../Store";
 import { connect } from "react-redux";
-import React, { useEffect, useState } from "react";
-import { CATEGORY, ListActivitiesQuery } from "../../../API";
+import React, { useState } from "react";
+import { CATEGORY } from "../../../API";
 import { Divider } from "@rneui/base";
-import { ActivityCard } from "../../../components/Cards/ActivityCard";
-import { IconButton } from "../../../components/Buttons/IconButton";
-import { Analytics, API, graphqlOperation } from "aws-amplify";
-import { GraphQLResult } from "@aws-amplify/api-graphql";
-import SplashScreen from "../../SplashScreen";
+import ActivitiesListView from "./tabs/ActivitiesListView";
+import Colors from "../../../constants/Colors";
+import EventsListView from "./tabs/EventsListView";
+import Constants from "expo-constants";
+import { SimpleLineIcons } from "@expo/vector-icons";
 
-import { CognitoUserInterface } from "@aws-amplify/ui-components";
-import { listActivities } from "../../../graphql/queries";
 type HomescreenProps = {
   activitiesList: any;
   nextToken: any;
   userPreferences: Array<CATEGORY>;
   showcurrentlyopen: boolean;
+  guestUserSession: boolean;
 };
 
 const _HomeScreen: React.FC<HomescreenProps> = (props) => {
-  let day = new Date().getDay();
-  let month = new Date().getMonth();
+  const [tabView, setTabView] = useState<"Activities" | "Events">("Activities");
 
-  const [activities, setActivities] = useState<any>([]);
-  const [nextToken, setNextToken] = useState<any>();
-  const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    requestAPI(nextToken);
-  }, [page]);
-
-  const fetchMoreData = () => {
-    if (typeof nextToken === "string") {
-      setPage(page + 1);
-    }
-  };
-
-  const requestAPI = async (nextToken: any) => {
-    let filter = {
-      and: [
-        { availableDays: { attributeExists: day } },
-        { availableMonths: { attributeExists: month } },
-      ],
-    };
-
-    // const activitiesDataList = await API.graphql({
-    //   query: listActivities,
-    //   authMode: "AWS_IAM",
-    // });
-
-    const activitiesDataList = (await API.graphql(
-      graphqlOperation(listActivities, {
-        limit: 8,
-        nextToken,
-        variables: { filter: filter },
-      })
-    )) as GraphQLResult<ListActivitiesQuery>;
-
-    setNextToken(activitiesDataList.data?.listActivities?.nextToken);
-    setActivities([
-      ...activities,
-      ...activitiesDataList.data?.listActivities?.items!,
-    ]);
-  };
-
-  if (!activities || activities.length === 0) {
-    return (
-      <View>
-        <SplashScreen />
-      </View>
-    );
-  }
-  console.log(activities.length);
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <IconButton />
+      <View style={{ flex: 0.1, flexDirection: "row-reverse" }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "gray",
+            flex: 0.3,
+            borderRadius: 30,
+            alignItems: "center",
+            justifyContent: "center",
+            margin: 4,
+            flexDirection: "row",
+          }}
+          onPress={() => setTabView("Activities")}
+        >
+          <Text style={{ color: "white", fontWeight: "500" }}>Settings</Text>
+          <SimpleLineIcons
+            name="settings"
+            size={18}
+            color="black"
+            style={{ paddingLeft: 5 }}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <Divider color="black" />
+      <View style={{ flex: 0.08, flexDirection: "row" }}>
+        <TouchableOpacity
+          style={
+            tabView === "Activities" ? styles.selectedButton : styles.button
+          }
+          onPress={() => setTabView("Activities")}
+        >
+          <Text
+            style={
+              tabView === "Activities" ? styles.seletectedText : styles.text
+            }
+          >
+            Activities
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={tabView === "Events" ? styles.selectedButton : styles.button}
+          onPress={() => setTabView("Events")}
+        >
+          <Text
+            style={tabView === "Events" ? styles.seletectedText : styles.text}
+          >
+            Events
+          </Text>
+        </TouchableOpacity>
       </View>
       <Divider color="black" />
-      <View>
-        <FlatList
-          style={{ marginBottom: 50 }}
-          keyExtractor={(item) => item.id}
-          data={activities}
-          renderItem={({ item }) => <ActivityCard activity={item} />}
-          onEndReached={fetchMoreData}
-          onEndReachedThreshold={0.3}
-        />
+      <View style={{ flex: 0.9 }}>
+        {tabView === "Activities" ? <ActivitiesListView /> : <EventsListView />}
       </View>
     </View>
   );
@@ -98,6 +86,7 @@ const mapToStateProps = (state: ApplicationState) => ({
   nextToken: state.ActivitiesReducer.nextToken,
   showcurrentlyopen: state.UserReducer.showCurrentlyOpen,
   userPreferences: state.UserReducer.preferences,
+  guestUserSession: state.UserReducer.guestUserSession,
 });
 
 const HomeScreen = connect(mapToStateProps)(_HomeScreen);
@@ -106,14 +95,9 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    paddingRight: 10,
-    paddingTop: 40,
+    marginTop: Constants.statusBarHeight,
     flex: 1,
     backgroundColor: "#fff",
-  },
-  header: {
-    flexDirection: "row-reverse",
-    paddingBottom: 5,
   },
 
   iconbutton: {
@@ -121,5 +105,29 @@ const styles = StyleSheet.create({
     type: "ionicon",
     size: 15,
     color: "white",
+  },
+
+  button: {
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10,
+    flex: 0.5,
+  },
+
+  text: {
+    fontWeight: "bold",
+  },
+
+  selectedButton: {
+    alignItems: "center",
+    backgroundColor: Colors.light.tint,
+    padding: 10,
+    flex: 0.5,
+  },
+
+  seletectedText: {
+    color: "white",
+    fontWeight: "bold",
+    
   },
 });

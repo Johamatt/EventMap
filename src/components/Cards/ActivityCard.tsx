@@ -4,7 +4,7 @@ import { ListItem } from "@rneui/base";
 import React from "react";
 import { Activity } from "../../API";
 import { RootStackParamList } from "../../navigation/types";
-import { ListIcon } from "../Icon/ListIcon";
+import { ListIconDynamoDB } from "../Icon/ListIconDynamoDB";
 
 interface ActivitiesListProps {
   activity: Activity;
@@ -25,10 +25,8 @@ export const ActivityCard: React.FC<ActivitiesListProps> = (props) => {
         navigation.navigate("ActivityInfoModal", { id: activity.id })
       } // navigate TODO
     >
-
-      
       <ListItem.Content>
-        <ListIcon data={activity.categories} />
+        <ListIconDynamoDB data={activity.categories} />
       </ListItem.Content>
 
       <ListItem.Content>

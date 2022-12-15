@@ -17,7 +17,7 @@ interface UserProfileScreenProps {
 
 export const _UserProfileScreen: React.FC<UserProfileScreenProps> = (props) => {
   const signOut = async () => {
-    const signout = await Auth.signOut();
+    await Auth.signOut();
     // ON_UPDATE_AUTH(signout);
 
     store.dispatch({

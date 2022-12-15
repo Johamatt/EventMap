@@ -2,7 +2,7 @@ import React from "react";
 import { CATEGORY } from "../../API";
 import { StyleSheet, View, Text } from "react-native";
 import Layout from "../../constants/Layout";
-import { ListIcon } from "../Icon/ListIcon";
+import { ListIconDynamoDB } from "../Icon/ListIconDynamoDB";
 import Colors from "../../constants/Colors";
 
 interface CategoriesListProps {
@@ -14,7 +14,7 @@ export const CategoryCard: React.FC<CategoriesListProps> = (props) => {
 
   return (
     <View style={{ alignItems: "center" }}>
-      <ListIcon data={[category]} />
+      <ListIconDynamoDB data={[category]} />
       <Text>{category}</Text>
     </View>
   );

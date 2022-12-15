@@ -59,8 +59,6 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
     checkUser();
   }, [props.userAuth, props.guestSession]);
 
-  console.log(guestSession);
-
   if (guestSession) {
     return (
       <NavigationContainer>
