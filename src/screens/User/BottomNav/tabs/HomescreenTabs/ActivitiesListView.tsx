@@ -1,14 +1,11 @@
-import { FlatList, View, StyleSheet } from "react-native";
-
+import { FlatList, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { CATEGORY } from "../../../../API";
-import { fetchGuestActivitiesList } from "../../../../hooks/fetch/GuestAccessFetch";
-import { fetchUserActivitiesList } from "../../../../hooks/fetch/UserAccessFetch";
-import { IconButton } from "../../../../components/Buttons/IconButton";
-import { Divider } from "@rneui/base";
-import { ActivityCard } from "../../../../components/Cards/ActivityCard";
-import { ApplicationState } from "../../../../Store";
+import { CATEGORY } from "../../../../../API";
+import { fetchGuestActivitiesList } from "../../../../../hooks/fetch/PublicAccessFetch";
+import { fetchUserActivitiesList } from "../../../../../hooks/fetch/UserAccessFetch";
+import { ActivityCard } from "../../../../../components/Cards/ActivityCard";
+import { ApplicationState } from "../../../../../Store";
 
 type HomescreenProps = {
   activitiesList: any;
@@ -63,7 +60,6 @@ const _ActivitiesListView: React.FC<HomescreenProps> = (props) => {
 
   return (
     <FlatList
-
       keyExtractor={(item) => item.id}
       data={activities}
       renderItem={({ item }) => <ActivityCard activity={item} />}

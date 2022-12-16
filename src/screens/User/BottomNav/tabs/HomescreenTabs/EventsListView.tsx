@@ -2,17 +2,14 @@ import { FlatList, View, StyleSheet } from "react-native";
 
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { CATEGORY } from "../../../../API";
-import { fetchGuestActivitiesList } from "../../../../hooks/fetch/GuestAccessFetch";
-import { fetchUserActivitiesList } from "../../../../hooks/fetch/UserAccessFetch";
-import { IconButton } from "../../../../components/Buttons/IconButton";
-import { Divider } from "@rneui/base";
-import { ActivityCard } from "../../../../components/Cards/ActivityCard";
-import { ApplicationState } from "../../../../Store";
 
-import { TICKETMASTER_KEY } from "../../../../constants/keys/TICKETMASTER_KEY";
-import { EventCard } from "../../../../components/Cards/EventCard";
+import { Divider } from "@rneui/base";
+
 import axios from "axios";
+import { CATEGORY } from "../../../../../API";
+import { fetchPublicEventsList } from "../../../../../hooks/fetch/PublicAccessFetch";
+import { EventCard } from "../../../../../components/Cards/EventCard";
+import { ApplicationState } from "../../../../../Store";
 
 type HomescreenProps = {
   activitiesList: any;
@@ -23,8 +20,6 @@ type HomescreenProps = {
 };
 
 const _EventsListView: React.FC<HomescreenProps> = (props) => {
-  const [nextToken, setNextToken] = useState<any>();
-
   const [page, setPage] = useState(0);
   const [events, setEvents] = useState<any>([]);
 
@@ -38,21 +33,7 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
 
   const fetchData = async (page: number) => {
     try {
-      const res = await axios.get(
-        `https://app.ticketmaster.com/discovery/v2/events.json?city=[helsinki,vantaa,espoo]&page=${page}&size=20&sort=date,asc&apikey=${TICKETMASTER_KEY}`,
-        {
-          headers: {
-            // "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET",
-            // "Access-Control-Allow-Headers":
-            //   "Content-Type, api_key, Authorization",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const data = res.data._embedded.events;
-
+      const data = await fetchPublicEventsList(page);
       setEvents([...events, ...data]);
     } catch (error) {
       console.log(error);

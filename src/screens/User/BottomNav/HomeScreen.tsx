@@ -4,11 +4,14 @@ import { connect } from "react-redux";
 import React, { useState } from "react";
 import { CATEGORY } from "../../../API";
 import { Divider } from "@rneui/base";
-import ActivitiesListView from "./tabs/ActivitiesListView";
+import ActivitiesListView from "./tabs/HomescreenTabs/ActivitiesListView";
 import Colors from "../../../constants/Colors";
-import EventsListView from "./tabs/EventsListView";
 import Constants from "expo-constants";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../../navigation/types";
+import EventsListView from "./tabs/HomescreenTabs/EventsListView";
 
 type HomescreenProps = {
   activitiesList: any;
@@ -20,7 +23,8 @@ type HomescreenProps = {
 
 const _HomeScreen: React.FC<HomescreenProps> = (props) => {
   const [tabView, setTabView] = useState<"Activities" | "Events">("Activities");
-
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={styles.container}>
       <View style={{ flex: 0.1, flexDirection: "row-reverse" }}>
@@ -34,7 +38,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
             margin: 4,
             flexDirection: "row",
           }}
-          onPress={() => setTabView("Activities")}
+          onPress={() => navigation.navigate("PreferenceScreen")}
         >
           <Text style={{ color: "white", fontWeight: "500" }}>Settings</Text>
           <SimpleLineIcons
@@ -128,6 +132,5 @@ const styles = StyleSheet.create({
   seletectedText: {
     color: "white",
     fontWeight: "bold",
-    
   },
 });
