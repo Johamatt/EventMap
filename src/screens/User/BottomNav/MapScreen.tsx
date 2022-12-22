@@ -10,7 +10,7 @@ import MapView, { Marker } from "react-native-maps";
 import { connect } from "react-redux";
 import { ApplicationState } from "../../../Store";
 import { LocationObject } from "expo-location";
-import { requestLocation } from "../../../util/helpers/RequestLocation";
+import { requestLocation } from "../../../hooks/RequestLocation";
 
 import SplashScreen from "../../SplashScreen";
 import { CATEGORY } from "../../../API";

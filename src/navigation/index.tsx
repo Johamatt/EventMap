@@ -11,24 +11,21 @@ import MapScreen from "../screens/User/BottomNav/MapScreen";
 import EventScreen from "../screens/User/EventScreen";
 import HomeScreen from "../screens/User/BottomNav/HomeScreen";
 import FavouritesScreen from "../screens/User/BottomNav/FavouritesScreen";
-import LandingPreferenceScreen from "../screens/User/PreferenceScreen";
 import { useEffect, useState } from "react";
-import { Analytics, Auth } from "aws-amplify";
+import { Auth } from "aws-amplify";
 import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
 import {
   ActivitiesState,
   ApplicationState,
   ON_UPDATE_AUTH,
-  store,
-  UserState,
   ON_UPDATE_GUESTUSER_SESSION,
 } from "../Store";
 import { connect } from "react-redux";
 import { ActivityInfoModal } from "../screens/User/ActivityInfoModal";
 import { AuthNavigator } from "./AuthNavigator";
-import SplashScreen from "../screens/SplashScreen";
 import PreferenceScreen from "../screens/User/PreferenceScreen";
 import { CognitoUserInterface } from "@aws-amplify/ui-components";
+
 interface NavigationProps {
   userAuth: CognitoUserInterface | undefined;
   activitiesReducer: ActivitiesState;

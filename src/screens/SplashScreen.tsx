@@ -3,18 +3,11 @@ import { Text, View } from "react-native";
 import * as Splash from "expo-splash-screen";
 import LottieView from "lottie-react-native";
 import Layout from "../constants/Layout";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navigation/types";
-import useCachedResources from "../hooks/loadResources/useCachedResources";
 import loadResources from "../hooks/loadResources";
 
 export default function SplashScreen() {
   const animation = useRef(null);
   const appIsReady = loadResources();
-
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   useEffect(() => {
     async function prepare() {

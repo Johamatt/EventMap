@@ -14,7 +14,7 @@ import { ActivitiesState, UserState } from "../../Store/types";
 import { ApplicationState, ON_UPDATE_LOCATION } from "../../Store";
 import { connect } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Espoo, Helsinki, Vantaa } from "../../util/data";
+import { Espoo, Helsinki, Vantaa } from "../../util/helpers/other/cityGeolocations";
 
 import { StyleSheet } from "react-native";
 import Layout from "../../constants/Layout";

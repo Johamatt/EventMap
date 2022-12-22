@@ -1,8 +1,12 @@
-import { Icon } from "@rneui/themed";
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { CATEGORY } from "../../API";
-import Colors from "../../constants/Colors";
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Entypo,
+  FontAwesome5,
+} from "@expo/vector-icons";
 
 interface ListIconProps {
   data: Array<CATEGORY> | null | undefined;
@@ -10,566 +14,361 @@ interface ListIconProps {
 
 export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (props.data === null || props.data === undefined) {
-    return <Icon name="question" type="font-awesome" color="black" />;
+    return (
+      <View style={styles("gray").icon}>
+        <FontAwesome5 name="question" size={24} color="black" />
+      </View>
+    );
   }
+
   const icons: React.ReactElement[] = [];
   const values = Object.values(props.data);
 
   if (values.includes("TRIP" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="hiking"
-        type="material-community"
-        color="black"
-        backgroundColor="darkorange"
-      />
+      <View style={styles("darkorange").icon}>
+        <MaterialCommunityIcons name="hiking" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("PARTIESNIGHTLIFE" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="party-popper"
-        type="material-community"
-        color="black"
-        backgroundColor="red"
-      />
+      <View style={styles("red").icon}>
+        <MaterialCommunityIcons name="party-popper" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("SPORT" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="sports"
-        type="material"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("teal").icon}>
+        <MaterialIcons name="sports" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("FESTIVAL" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="festival"
-        type="material"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("pink").icon}>
+        <MaterialIcons name="festival" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("FAMILY" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="family-restroom"
-        type="material"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("purple").icon}>
+        <MaterialIcons name="family-restroom" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("COOKING" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="chef-hat"
-        type="material-community"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("antiquewhite").icon}>
+        <MaterialCommunityIcons name="chef-hat" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("BUSINESS" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="business-center"
-        type="material"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("cadetblue").icon}>
+        <MaterialIcons name="business-center" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("CULTURE" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="colours"
-        type="entypo"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("orchid").icon}>
+        <Entypo name="colours" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("COMEDY" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="laugh-beam"
-        type="font-awesome-5"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("chocolate").icon}>
+        <FontAwesome5 name="laugh-beam" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("TECHNOLOGY" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="satellite-variant"
-        type="material-community"
-        color="black"
-        backgroundColor="blue"
-      />
-    );
-  }
-
-  if (values.includes("ACTIVITY" as unknown as CATEGORY)) {
-    icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="activity"
-        type="feather"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("coral").icon}>
+        <MaterialCommunityIcons
+          name="satellite-variant"
+          size={24}
+          color="black"
+        />
+      </View>
     );
   }
 
   if (values.includes("ACCOMMODATION" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="home-group"
-        type="material-community"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("cornflowerblue").icon}>
+        <MaterialCommunityIcons name="home-group" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("SAUNA" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="spoon-sugar"
-        type="material-community"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("crimson").icon}>
+        <MaterialCommunityIcons name="spoon-sugar" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("KIDS" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="human-male-child"
-        type="material-community"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("blueviolet").icon}>
+        <MaterialCommunityIcons
+          name="human-male-child"
+          size={24}
+          color="black"
+        />
+      </View>
     );
   }
 
   if (values.includes("CONCERT" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="modern-mic"
-        type="entypo"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("darkred").icon}>
+        <Entypo name="modern-mic" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("PERFORMANCE" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="dance-pole"
-        type="material-community"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("darkred").icon}>
+        <MaterialCommunityIcons name="dance-pole" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("LITERATURE" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="open-book"
-        type="entypo"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("khaki").icon}>
+        <Entypo name="open-book" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("PHOTOGRAPHY" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="camera"
-        type="entypo"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("lightpink").icon}>
+        <Entypo name="camera" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("LUXURY" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="attach-money"
-        type="material"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("red").icon}>
+        <MaterialIcons name="attach-money" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("GUIDEDSERVICE" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="hands-helping"
-        type="font-awesome-5"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("magenta").icon}>
+        <Entypo name="hand" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("EDUCATION" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="book-education"
-        type="material-community"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("mediumorchid").icon}>
+        <MaterialCommunityIcons name="book-education" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("SCIENCE" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="science"
-        type="material"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("navy").icon}>
+        <MaterialIcons name="science" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("TOUR" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="tour"
-        type="material"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("silver").icon}>
+        <MaterialIcons name="tour" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("DANCE" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="human-female-dance"
-        type="material-community"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("darkorchid").icon}>
+        <MaterialCommunityIcons
+          name="human-female-dance"
+          size={24}
+          color="black"
+        />
+      </View>
     );
   }
 
   if (values.includes("BOARDGAMES" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="chess-board"
-        type="font-awesome-5"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("darkgrey").icon}>
+        <FontAwesome5 name="chess-board" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("VIDEOGAMES" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="game-controller"
-        type="entypo"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("darkgray").icon}>
+        <Entypo name="game-controller" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("GAMBLING" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="slot-machine"
-        type="material-community"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("red").icon}>
+        <MaterialCommunityIcons name="slot-machine" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("THEATRE" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="theater-comedy"
-        type="material"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("brown").icon}>
+        <MaterialIcons name="theater-comedy" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("HEALTH" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="cards-heart"
-        type="material-community"
-        color="black"
-        backgroundColor="pink"
-      />
+      <View style={styles("deeppink").icon}>
+        <MaterialCommunityIcons name="cards-heart" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("FASHION" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="tshirt-crew"
-        type="material-community"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("goldenrod").icon}>
+        <MaterialCommunityIcons name="tshirt-crew" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("WORKSHOP" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="tools"
-        type="material-community"
-        color="black"
-        backgroundColor="grey"
-      />
+      <View style={styles("lavenderblush").icon}>
+        <MaterialCommunityIcons name="tools" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("FOOD" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="food-fork-drink"
-        type="material-community"
-        color="black"
-        backgroundColor="yellow"
-      />
+      <View style={styles("yellow").icon}>
+        <MaterialCommunityIcons
+          name="food-fork-drink"
+          size={24}
+          color="black"
+        />
+      </View>
     );
   }
 
-  // if (values.includes("CULTURE" as unknown as CATEGORY)) {
-  //     icons.push(
-  //       <Icon
-  //         raised={true}
-  //         name="food-fork-drink"
-  //         type="material-community"
-  //         color="black"
-  //         backgroundColor="grey"
-  //       />
-  //     );
-  // }
-
   if (values.includes("SIGHTSEEING" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="binoculars"
-        type="material-community"
-        color="black"
-        backgroundColor="purple"
-      />
+      <View style={styles("indigo").icon}>
+        <MaterialCommunityIcons name="binoculars" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("MUSIC" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="music"
-        type="material-community"
-        color="black"
-        backgroundColor="blue"
-      />
+      <View style={styles("red").icon}>
+        <MaterialCommunityIcons name="music" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("FINEARTS" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="brush"
-        type="material-community"
-        color="black"
-        backgroundColor="grey"
-      />
+      <View style={styles("lightsalmon").icon}>
+        <MaterialCommunityIcons name="brush" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("THEATHER" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="theater-comedy"
-        type="material"
-        color="black"
-        backgroundColor="cyan"
-      />
+      <View style={styles("lightsalmon").icon}>
+        <MaterialIcons name="theater-comedy" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("MARKET" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="cart"
-        type="material-community"
-        color="black"
-        backgroundColor="grey"
-      />
+      <View style={styles("gold").icon}>
+        <MaterialCommunityIcons name="cart" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("MUSEUM" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="museum"
-        type="material"
-        color="black"
-        backgroundColor="orange"
-      />
+      <View style={styles("palevioletred").icon}>
+        <MaterialIcons name="museum" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("OTHER" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="progress-question"
-        type="material-community"
-        color="black"
-        backgroundColor="grey"
-      />
+      <View style={styles("palegoldenrod").icon}>
+        <MaterialCommunityIcons
+          name="progress-question"
+          size={24}
+          color="black"
+        />
+      </View>
     );
   }
 
   if (values.includes("NATURE" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="forest"
-        type="material-community"
-        color="black"
-        backgroundColor="darkgreen"
-      />
+      <View style={styles("green").icon}>
+        <MaterialCommunityIcons name="forest" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("ANIMALS" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="paw"
-        type="ionicon"
-        color="black"
-        backgroundColor="brown"
-      />
+      <View style={styles("olivedrab").icon}>
+        <FontAwesome5 name="paw" size={24} color="black" />
+      </View>
     );
   }
 
   if (values.includes("MOTORSPORTS" as unknown as CATEGORY)) {
     icons.push(
-      <Icon
-        style={{ backgroundColor: "teal", margin: 5 }}
-        iconStyle={styles.icon}
-        name="sports-motorsports"
-        type="material"
-        color="black"
-        backgroundColor="darkblue"
-      />
+      <View style={styles("midnightblue").icon}>
+        <MaterialIcons name="sports-motorsports" size={24} color="black" />
+      </View>
     );
   }
 
@@ -582,18 +381,18 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  icon: {
-    fontSize: 25,
-    backgroundColor: "white",
-    borderRadius: 50,
-    padding: 3,
+const styles = (props?: any) =>
+  StyleSheet.create({
+    icon: {
+      borderWidth: 1,
+      borderRadius: 5,
+      padding: 3,
+      margin: 3,
+      borderColor: props,
+    },
 
-    color: "black",
-  },
-
-  iconBorders: {
-    backgroundColor: "teal",
-    margin: 5,
-  },
-});
+    // iconBorders: {
+    //   backgroundColor: "teal",
+    //   margin: 5,
+    // },
+  });

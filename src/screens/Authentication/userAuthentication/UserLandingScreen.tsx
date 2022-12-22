@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../navigation/types";
@@ -30,6 +37,12 @@ export const UserLandingScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      {/* <ImageBackground
+        source={require("../../../assets/logo/background.jpg")}
+        resizeMode="cover"
+        style={styles.backgroundImage}
+      > */}
+      {/* <Text style={styles.headerText}>EventMap</Text> */}
       <Image
         style={styles.image}
         source={require("../../../assets/logo/logo1.png")}
@@ -54,17 +67,33 @@ export const UserLandingScreen: React.FC = () => {
       >
         <Text style={styles.loginBtnText}>Continue as Guest</Text>
       </TouchableOpacity>
+      {/* </ImageBackground> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  headerText: {
+    fontSize: 50,
+    fontWeight: "900",
+    textShadowColor: "rgba(0, 0, 0, 0.8)",
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 4,
+  },
+
   container: {
     flex: 1,
     backgroundColor: Colors.light.containerBackground,
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
   },
+
+  backgroundImage: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   image: {
     marginBottom: 40,
     maxWidth: 250,
