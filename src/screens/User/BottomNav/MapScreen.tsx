@@ -1,79 +1,46 @@
-import React, { useEffect, useState } from "react";
-import {
-  Dimensions,
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { Dimensions, View, StyleSheet, Text } from "react-native";
+import MapView, { Marker, Region } from "react-native-maps";
 import { connect } from "react-redux";
 import { ApplicationState } from "../../../Store";
-import { LocationObject } from "expo-location";
-import { requestLocation } from "../../../hooks/RequestLocation";
-
-import SplashScreen from "../../SplashScreen";
-import { CATEGORY } from "../../../API";
-import {
-  fetchGuestActivitiesMap,
-  fetchPublicEventsList,
-  fetchPublicEventsMap,
-} from "../../../hooks/fetch/PublicAccessFetch";
+import { Activity, CATEGORY } from "../../../API";
+import { fetchGuestActivitiesMap } from "../../../hooks/fetch/PublicAccessFetch";
 import { fetchUserActivitiesMap } from "../../../hooks/fetch/UserAccessFetch";
-import { SimpleLineIcons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../../navigation/types";
+import type { PointFeature } from "supercluster";
+import type { BBox } from "geojson";
+import useSupercluster from "use-supercluster";
+import MapCard from "../../../components/Cards/MapCard";
+import ShowMapCardModal from "../Map/ShowMapCardModal";
 
 interface MapProps {
-  activitiesList: any;
-  nextToken: any;
+  activitiesList: Activity[];
+  nextToken: string;
   userPreferences: Array<CATEGORY>;
   showcurrentlyopen: boolean;
   guestUserSession: boolean;
 }
 
 const _MapScreen: React.FC<MapProps> = (props) => {
-  const [tabView, setTabView] = useState<"Activities" | "Events">("Activities");
-  const [location, setLocation] = useState<LocationObject | undefined>(
-    undefined
-  );
-
-  const [events, setEvents] = useState<any>([]);
+  const mapRef = useRef<MapView>(null);
+  const [showCard, setShowCard] = useState<boolean>(true);
+  const [bounds, setBounds] = useState<BBox>();
+  const [zoom, setZoom] = useState(10);
   const [activities, setActivities] = useState<any>([]);
   const [nextToken, setNextToken] = useState<any>();
-
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
   useEffect(() => {
-    async function requestloc() {
-      const locationObject = await requestLocation();
-      setLocation(locationObject);
-    }
-    requestloc();
+    fetchActivities(nextToken);
   }, []);
 
-  useEffect(() => {
-    if (tabView === "Activities") {
-      fetchActivities(nextToken);
-    } else {
-      fetchEvents();
-    }
-  }, [tabView]);
-
-  // const fetchMoreData = () => {
-  //   if (typeof nextToken === "string") {
-  //     setPage(page + 1);
-  //   }
-  // };
-
-  const fetchEvents = async () => {
-    const eventsDataMap = await fetchPublicEventsMap();
-    setEvents(eventsDataMap);
-  };
-
-  const fetchActivities = async (nextToken: any) => {
+  const fetchActivities = useCallback(async (nextToken: any) => {
     if (props.guestUserSession) {
       const activitiesDataList = await fetchGuestActivitiesMap(nextToken);
       setNextToken(activitiesDataList.data?.listActivities?.nextToken);
@@ -85,121 +52,114 @@ const _MapScreen: React.FC<MapProps> = (props) => {
       const activitiesDataList = await fetchUserActivitiesMap(nextToken);
       // @ts-ignore
       setNextToken(activitiesDataList.data?.listActivities?.nextToken);
+
       setActivities([
         ...activities,
-        //@ts-ignore
+        // @ts-ignore
         ...activitiesDataList.data?.listActivities?.items!,
       ]);
     }
+  }, []);
+
+  const getMyLocation = () => {
+    const region = {
+      latitude: 60.192059,
+      longitude: 24.945831,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    };
+    return region;
   };
 
-  if (activities === undefined || activities.length === 0) {
-    return (
-      <View>
-        <SplashScreen />
-      </View>
-    );
-  }
+  const regionToBoundingBox = (region: Region): BBox => {
+    return [
+      region.longitude - region.longitudeDelta,
+      region.latitude - region.latitudeDelta,
+      region.longitude + region.longitudeDelta,
+      region.latitude + region.latitudeDelta,
+    ];
+  };
+
+  const onRegionChangeComplete = async (region: Region) => {
+    const mapBounds = regionToBoundingBox(region);
+    setBounds(mapBounds);
+    const camera = await mapRef.current?.getCamera();
+    setZoom(camera?.zoom ?? 10);
+  };
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const points = useMemo<PointFeature<any>[]>(() => {
+    return activities.map((m: Activity) => ({
+      type: "Feature",
+      properties: {
+        cluster: false,
+        category: "markers",
+        id: m.id,
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [m.Location?.lon, m.Location?.lat],
+      },
+    }));
+  }, [activities]);
+
+  const { clusters, supercluster } = useSupercluster({
+    points,
+    bounds,
+    zoom,
+    options: { radius: 90, maxZoom: 20 },
+  });
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, flexDirection: "row" }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "black",
-            borderRadius: 30,
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1,
-            height: Dimensions.get("window").height / 15,
-            width: Dimensions.get("window").width / 3,
-            top: Dimensions.get("window").height / 15,
-            left: Dimensions.get("window").width / 3,
-            margin: 5,
-            flexDirection: "row",
-          }}
-          onPress={() => navigation.navigate("PreferenceScreen")}
-        >
-          <Text style={{ color: "white", fontWeight: "bold" }}>Settings</Text>
-          <SimpleLineIcons
-            name="settings"
-            size={18}
-            color="white"
-            style={{ paddingLeft: 5 }}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ flex: 1, flexDirection: "row" }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "black",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1,
-            height: Dimensions.get("window").height / 15,
-            width: Dimensions.get("window").width / 3,
-            top: Dimensions.get("window").height / 15,
-            right: Dimensions.get("window").width / 3,
-            margin: 5,
-            flexDirection: "row",
-            borderWidth: 1,
-            borderColor: "white",
-          }}
-          onPress={() => setTabView("Events")}
-        >
-          <Text style={{ color: "white", fontWeight: "bold" }}>Events</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ flex: 1, flexDirection: "row" }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "black",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1,
-            height: Dimensions.get("window").height / 15,
-            width: Dimensions.get("window").width / 3,
-            top: Dimensions.get("window").height / 15,
-            margin: 5,
-            flexDirection: "row",
-          }}
-          onPress={() => setTabView("Activities")}
-        >
-          <Text style={{ color: "white", fontWeight: "bold" }}>Activities</Text>
-        </TouchableOpacity>
-      </View>
-
       <MapView
         style={styles.map}
-        initialRegion={{
-          // CHANGE THIS ON PRODUCTION : ? location
-          latitude: 60.192059,
-          longitude: 24.945831,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        ref={mapRef}
+        initialRegion={getMyLocation()}
+        onRegionChangeComplete={onRegionChangeComplete}
+        mapType="standard"
+        showsUserLocation
       >
-        {tabView === "Activities" ? (
-          activities.map(
-            (
-              marker: { Location: { lat: any; lon: any } },
-              index: React.Key | null | undefined
-            ) => (
+        {clusters?.map((point) => {
+          const [longitude, latitude] = point.geometry.coordinates;
+          const coordinates = { latitude, longitude };
+          const properties = point.properties;
+
+          if (properties?.cluster) {
+            const size = 25 + (properties.point_count * 75) / points.length;
+            return (
               <Marker
-                key={index}
-                coordinate={{
-                  latitude: marker.Location.lat,
-                  longitude: marker.Location.lon,
-                }}
-              ></Marker>
-            )
-          )
-        ) : (
-          <View />
-        )}
+                key={`cluster-${properties.cluster_id}`}
+                coordinate={coordinates}
+              >
+                <View style={[styles.cluster, { width: size, height: size }]}>
+                  <Text style={styles.clusterCount}>
+                    {properties.point_count}
+                  </Text>
+                </View>
+              </Marker>
+            );
+          }
+
+          return (
+            <Marker
+              key={properties.id}
+              coordinate={coordinates}
+              pinColor={properties.color}
+              onPress={() =>
+                navigation.navigate("ActivityInfoModal", { id: properties.id })
+              }
+            />
+          );
+        })}
       </MapView>
+      {showCard ? (
+        <MapCard closeCard={() => setShowCard(false)} />
+      ) : (
+        <ShowMapCardModal openModal={() => setShowCard(true)} />
+      )}
     </View>
   );
 };
@@ -225,5 +185,16 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
+  },
+  cluster: {
+    borderRadius: 100,
+    backgroundColor: "#334155",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  clusterCount: {
+    color: "#FFF",
+    fontWeight: "bold",
   },
 });

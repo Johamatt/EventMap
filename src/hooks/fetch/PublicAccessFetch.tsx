@@ -44,7 +44,7 @@ export const fetchGuestActivitiesMap = async (nextToken: any) => {
 
   const activitiesData = await API.graphql({
     ...graphqlOperation(listActivities, {
-      limit: 1, // change later
+      limit: 8, // change later
       variables: { filter: filter },
     }),
     authMode: "AWS_IAM",
@@ -69,6 +69,28 @@ export const fetchPublicEventsList = async (page: number) => {
     console.log(error);
   }
 };
+
+// export const fetchPublicEventsList = async (page: number) => {
+//   try {
+//     const res = await axios.get(
+//       `api.hel.fi/linkedevents/v1/event/?start=now&page=${page}`,
+//       {
+//         headers: {
+//           "Access-Control-Allow-Methods": "GET",
+//           "Content-Type": "*",
+//         },
+//       }
+//     );
+
+//     const data = res.data;
+
+//     return data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+///
 
 export const fetchPublicEventsMap = async () => {
   try {

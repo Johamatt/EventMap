@@ -2,9 +2,6 @@ import { FlatList, View, StyleSheet } from "react-native";
 
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
-
-import { Divider } from "@rneui/base";
-
 import axios from "axios";
 import { CATEGORY } from "../../../../../API";
 import { fetchPublicEventsList } from "../../../../../hooks/fetch/PublicAccessFetch";
@@ -20,7 +17,7 @@ type HomescreenProps = {
 };
 
 const _EventsListView: React.FC<HomescreenProps> = (props) => {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [events, setEvents] = useState<any>([]);
 
   useEffect(() => {
@@ -39,6 +36,7 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
       console.log(error);
     }
   };
+
 
   return (
     <FlatList

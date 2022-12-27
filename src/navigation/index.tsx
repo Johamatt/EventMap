@@ -125,7 +125,6 @@ const MainNavigation = () => {
           title: "Landing Location",
         }}
       />
-
       <Stack.Screen
         name="PreferenceScreen"
         component={PreferenceScreen}
@@ -133,6 +132,19 @@ const MainNavigation = () => {
           headerShown: false,
         }}
       />
+
+      {/* asd */}
+      {/* <Stack.Screen
+        name="EventListTab"
+        component={EventListTab}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EventListTab"
+        component={ActivityListTab}
+        options={{ headerShown: false }}
+      /> */}
+      {/* asd */}
 
       <Stack.Group screenOptions={{ presentation: "modal", headerShown: true }}>
         <Stack.Screen name="EventScreen" component={EventScreen} />
@@ -169,7 +181,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Map"
-        component={MapScreen}
+        component={MapScreen} // MapScreen
         options={{
           headerShown: false,
           title: "Map",

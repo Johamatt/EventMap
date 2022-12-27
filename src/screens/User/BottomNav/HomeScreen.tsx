@@ -3,7 +3,6 @@ import { ApplicationState } from "../../../Store";
 import { connect } from "react-redux";
 import React, { useState } from "react";
 import { CATEGORY } from "../../../API";
-import { Divider } from "@rneui/base";
 import ActivitiesListView from "./tabs/HomescreenTabs/ActivitiesListView";
 import Colors from "../../../constants/Colors";
 import Constants from "expo-constants";
@@ -27,31 +26,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={styles.container}>
-      <View style={{ flex: 0.1, flexDirection: "row-reverse" }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "gray",
-            flex: 0.3,
-            borderRadius: 30,
-            alignItems: "center",
-            justifyContent: "center",
-            margin: 4,
-            flexDirection: "row",
-          }}
-          onPress={() => navigation.navigate("PreferenceScreen")}
-        >
-          <Text style={{ color: "white", fontWeight: "500" }}>Settings</Text>
-          <SimpleLineIcons
-            name="settings"
-            size={18}
-            color="black"
-            style={{ paddingLeft: 5 }}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <Divider color="black" />
-      <View style={{ flex: 0.08, flexDirection: "row" }}>
+      <View style={styles.tabContainer}>
         <TouchableOpacity
           style={
             tabView === "Activities" ? styles.selectedButton : styles.button
@@ -76,9 +51,15 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
             Events
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.settingButton}
+          onPress={() => navigation.navigate("PreferenceScreen")}
+        >
+          <SimpleLineIcons name="settings" size={18} color="white" />
+        </TouchableOpacity>
       </View>
-      <Divider color="black" />
-      <View style={{ flex: 0.9 }}>
+
+      <View style={styles.listContainer}>
         {tabView === "Activities" ? <ActivitiesListView /> : <EventsListView />}
       </View>
     </View>
@@ -98,8 +79,39 @@ const HomeScreen = connect(mapToStateProps)(_HomeScreen);
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+  listContainer: {
+    flex: 0.9,
+
+  },
+
+  tabContainer: {
+    flex: 0.08,
+    flexDirection: "row",
+    padding: 5,
+    marginBottom: 40,
+  },
+
+  header: {
+    backgroundColor: "gray",
+    flex: 0.3,
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 4,
+    flexDirection: "row",
+  },
+
+  settingButton: {
+    backgroundColor: "black",
+    flex: 0.15,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 4,
+  },
+
   container: {
-    marginTop: Constants.statusBarHeight,
+    marginTop: Constants.statusBarHeight + 15,
     flex: 1,
     backgroundColor: "#fff",
   },
@@ -115,7 +127,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#DDDDDD",
     padding: 10,
-    flex: 0.5,
+    flex: 0.4,
+    marginHorizontal: 2.5,
   },
 
   text: {
@@ -126,7 +139,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.light.tint,
     padding: 10,
-    flex: 0.5,
+    flex: 0.45,
+    marginHorizontal: 2.5,
   },
 
   seletectedText: {

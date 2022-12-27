@@ -29,8 +29,7 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (props.route.params?.username === undefined) {
-    } else {
+    if (props.route.params?.username) {
       setUsername(props.route.params.username);
       setPassword(props.route.params.password);
     }
@@ -54,7 +53,7 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   };
 
   const onResendPress = async () => {
-    if (username === "") {
+    if (!username) {
       Alert.alert("Enter Your Email");
     } else {
       try {
@@ -66,149 +65,95 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
     }
   };
 
-  if (props.route.params === undefined) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Confirm your email</Text>
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Confirm your email</Text>
 
-        <View style={styles.textInputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Email"
-            placeholderTextColor="#003f5c"
-            onChangeText={(username: string) => setUsername(username)}
-          />
-        </View>
-
-        <View style={styles.textInputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Enter your confirmation code"
-            placeholderTextColor="#003f5c"
-            onChangeText={(code: string) => setCode(code)}
-          />
-        </View>
-
-        <TouchableOpacity style={styles.confirmBtn} onPress={onConfirmPressed}>
-          <Text style={styles.confirmBtnText}>Confirm</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.resendBtn} onPress={onResendPress}>
-          <Text style={styles.resendBtnText}>Resend code</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
-          <Text style={styles.backBtnText}>Back to Sign in</Text>
-        </TouchableOpacity>
+      <View style={styles.textInputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Enter your confirmation code"
+          placeholderTextColor="#003f5c"
+          onChangeText={(code: string) => setCode(code)}
+          value={code}
+        />
       </View>
-    );
-  } else {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Confirm your email</Text>
 
-        <View style={styles.textInputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Enter your confirmation code"
-            placeholderTextColor="#003f5c"
-            onChangeText={(code: string) => setCode(code)}
-          />
-        </View>
+      <TouchableOpacity style={styles.confirmBtn} onPress={onConfirmPressed}>
+        <Text style={styles.confirmBtnText}>Confirm</Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity style={styles.confirmBtn} onPress={onConfirmPressed}>
-          <Text style={styles.confirmBtnText}>Confirm</Text>
-        </TouchableOpacity>
+      <TouchableOpacity style={styles.resendBtn} onPress={onResendPress}>
+        <Text style={styles.resendBtnText}>Resend code</Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity style={styles.resendBtn} onPress={onResendPress}>
-          <Text style={styles.resendBtnText}>Resend code</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
-          <Text style={styles.backBtnText}>Back to Sign in</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+      <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
+        <Text style={styles.backBtnText}>Back to Sign in</Text>
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#051C60",
-    margin: 10,
-  },
-
   container: {
     flex: 1,
-    backgroundColor: Colors.light.containerBackground,
     alignItems: "center",
     justifyContent: "center",
   },
-
+  title: {
+    fontSize: 24,
+    marginBottom: 16,
+  },
   textInputView: {
-    backgroundColor: Colors.light.inputBackground,
-    borderRadius: 30,
-    width: "70%",
-    height: 45,
-    marginBottom: 20,
-    borderColor: Colors.light.tint,
+    width: "80%",
+    borderRadius: 25,
+    height: 50,
     borderWidth: 1,
-    alignItems: "center",
+    marginBottom: 20,
+    justifyContent: "center",
   },
   TextInput: {
     height: 50,
-    flex: 1,
-  },
-
-  //
-
-  resendBtn: {
-    width: "30%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: Colors.light.attention,
-    bottom: 0,
-  },
-
-  resendBtnText: {
-    color: "#000",
-    fontWeight: "bold",
-  },
-  //
-
-  confirmBtnText: {
-    color: "#fff",
-    fontWeight: "bold",
+    width: "80%",
+    paddingLeft: 20,
+    color: Colors.light.tint,
   },
   confirmBtn: {
-    marginBottom: 10,
-    width: "50%",
+    width: "80%",
+    backgroundColor: Colors.light.secondary,
     borderRadius: 25,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Colors.light.secondary,
+    marginTop: 40,
+    marginBottom: 10,
   },
+  confirmBtnText: {
+    color: "white",
+  },
+  resendBtn: {
+    width: "80%",
+    backgroundColor: "#000",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+  resendBtnText: {
+    color: "white",
+  },
+  backBtn: {
+    width: "80%",
+    backgroundColor: Colors.light.tint,
+    borderRadius: 25,
 
-  //
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+  },
   backBtnText: {
     color: "#fff",
-    fontWeight: "bold",
-  },
-
-  backBtn: {
-    width: "90%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: Colors.light.tint,
-    bottom: 0,
-    position: "absolute",
-    marginBottom: 20,
   },
 });

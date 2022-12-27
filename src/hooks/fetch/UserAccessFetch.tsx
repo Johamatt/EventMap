@@ -42,7 +42,7 @@ export const fetchUserActivitiesMap = async (nextToken: any) => {
   try {
     const activitiesData = (await API.graphql(
       graphqlOperation(listActivities, {
-        limit: 50,
+        limit: 8,
         nextToken,
         variables: { filter: filter },
       })

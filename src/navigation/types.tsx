@@ -4,6 +4,7 @@ import {
   NavigatorScreenParams,
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
 import { Event as LiveEvent } from "../API";
 
 declare global {
@@ -21,8 +22,9 @@ export type RootStackParamList = {
   UserProfileScreen: undefined;
   EventScreen: { liveEvent: LiveEvent };
   ActivityInfoModal: { id: string };
-
-  // Auth
+  MapScreen2: undefined;
+  EventListTab: undefined;
+  ActivityListTab: undefined;
   UserNewPasswordScreen: { username: string };
   UserRegisterScreen: undefined;
   UserLoginScreen: undefined;

@@ -14,13 +14,12 @@ import Colors from "../../../constants/Colors";
 
 export const UserForgotPasswordScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
-
   const navigation = useNavigation();
 
   const onSendPressed = async () => {
     try {
       await Auth.forgotPassword(username);
-      navigation.navigate("UserNewPasswordScreen", { username: username });
+      navigation.navigate("UserNewPasswordScreen", { username });
     } catch (error: any) {
       Alert.alert("Oops!", error.message);
     }
@@ -40,10 +39,10 @@ export const UserForgotPasswordScreen: React.FC = (props) => {
 
       <View style={styles.textInputView}>
         <TextInput
-          style={styles.TextInput}
+          style={styles.textInput}
           placeholder="User Email"
           placeholderTextColor="#003f5c"
-          onChangeText={(username: string) => setUsername(username)}
+          onChangeText={(username) => setUsername(username)}
         />
       </View>
 
@@ -75,8 +74,6 @@ const styles = StyleSheet.create({
   image: {
     maxWidth: 250,
     maxHeight: 150,
-    //
-
     width: 250,
     height: 150,
   },
@@ -88,12 +85,25 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderColor: Colors.light.tint,
     borderWidth: 1,
-
     alignItems: "center",
   },
-  TextInput: {
+  textInput: {
     height: 50,
     flex: 1,
+  },
+  sendBtn: {
+    width: "40%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.light.secondary,
+    bottom: 0,
+  },
+
+  sendBtnText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 
   backBtn: {
@@ -108,20 +118,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  sendBtnText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
-  sendBtn: {
-    width: "40%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: Colors.light.secondary,
-    bottom: 0,
-  },
   backBtnText: {
     color: "#fff",
     fontWeight: "bold",

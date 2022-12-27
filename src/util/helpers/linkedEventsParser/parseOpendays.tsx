@@ -6,13 +6,17 @@ export function parseOpendays(data: any) {
   //@ts-ignore
   let opendays: OpenDays[] = Object.entries(data).map(([key, value]) => {
     let fromvalue =
+      //@ts-ignore
       value?.from !== null
-        ? value?.from.split("+")[0].split(":").slice(0, -1).join(":")
+        ? //@ts-ignore
+          value?.from.split("+")[0].split(":").slice(0, -1).join(":")
         : null;
 
     let tovalue =
+      //@ts-ignore
       value?.to !== null
-        ? value?.to.split("+")[0].split(":").slice(0, -1).join(":")
+        ? //@ts-ignore
+          value?.to.split("+")[0].split(":").slice(0, -1).join(":")
         : null;
 
     let day: number;

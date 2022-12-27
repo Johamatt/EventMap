@@ -283,6 +283,7 @@ export type Event = {
 };
 
 export type Location = {
+  Location: any;
   __typename: "Location",
   lat: number,
   lon: number,

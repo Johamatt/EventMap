@@ -11,8 +11,10 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import { Auth } from "aws-amplify";
 import Colors from "../../../constants/Colors";
-import { Button } from "@rneui/base";
 import Layout from "../../../constants/Layout";
+import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
 
 export const UserRegisterScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
@@ -38,76 +40,75 @@ export const UserRegisterScreen: React.FC = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={{}}>
-        <Button
-          title="Go back"
-          color={"white"}
-          icon={{
-            name: "arrow-back-outline",
-            type: "ionicon",
-            size: 25,
-            color: "black",
-          }}
-          onPress={() => navigation.goBack()}
-          titleStyle={{ fontWeight: "700", color: "black" }}
-          containerStyle={{
-            width: Layout.window.width / 3,
-            justifyContent: "center",
-            backgroundColor: "white",
-          }}
-        />
-      </View>
-
-      <Image
-        style={styles.image}
-        source={require("../../../assets/logo/logo1.png")}
-      />
-      <Text style={styles.title}>Create an account</Text>
-
-      <View style={styles.textInputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Email"
-          placeholderTextColor="#003f5c"
-          onChangeText={(username: string) => setUsername(username)}
-        />
-      </View>
-
-      <View style={styles.textInputView}>
-        <TextInput
-          secureTextEntry={true}
-          style={styles.TextInput}
-          placeholder="Password"
-          placeholderTextColor="#003f5c"
-          onChangeText={(password: string) => setPassword(password)}
-        />
-      </View>
-
-      <View style={styles.textInputView}>
-        <TextInput
-          secureTextEntry={true}
-          style={styles.TextInput}
-          placeholder="Repeat Password"
-          placeholderTextColor="#003f5c"
-          onChangeText={(passwordRepeat: string) =>
-            setPasswordRepeat(passwordRepeat)
-          }
-        />
-      </View>
-
-      <TouchableOpacity style={styles.sendBtn} onPress={onRegisterPressed}>
-        <Text style={styles.sendBtnText}>Register</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.signupTextArea}
-        onPress={() => navigation.navigate("UserConfirmEmailScreen")}
+      <View
+        style={{
+          flex: 0.08,
+          backgroundColor: Colors.light.headerBackground,
+          justifyContent: "center",
+          marginTop: StatusBar.length,
+        }}
       >
-        <Text>
-          Already filled this form?{" "}
-          <Text style={styles.linkText}>Confirm Email</Text>
-        </Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="arrow-back-sharp"
+            size={24}
+            color="white"
+            style={{ paddingLeft: 10 }}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.body}>
+        <Image
+          style={styles.image}
+          source={require("../../../assets/logo/logo1.png")}
+        />
+        <Text style={styles.title}>Create an account</Text>
+
+        <View style={styles.textInputView}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Email"
+            placeholderTextColor="#003f5c"
+            onChangeText={(username: string) => setUsername(username)}
+          />
+        </View>
+
+        <View style={styles.textInputView}>
+          <TextInput
+            secureTextEntry={true}
+            style={styles.TextInput}
+            placeholder="Password"
+            placeholderTextColor="#003f5c"
+            onChangeText={(password: string) => setPassword(password)}
+          />
+        </View>
+
+        <View style={styles.textInputView}>
+          <TextInput
+            secureTextEntry={true}
+            style={styles.TextInput}
+            placeholder="Repeat Password"
+            placeholderTextColor="#003f5c"
+            onChangeText={(passwordRepeat: string) =>
+              setPasswordRepeat(passwordRepeat)
+            }
+          />
+        </View>
+
+        <TouchableOpacity style={styles.sendBtn} onPress={onRegisterPressed}>
+          <Text style={styles.sendBtnText}>Register</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.signupTextArea}
+          onPress={() => navigation.navigate("UserConfirmEmailScreen")}
+        >
+          <Text>
+            Already filled this form?{" "}
+            <Text style={styles.linkText}>Confirm Email</Text>
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -116,8 +117,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.light.containerBackground,
+    marginTop: Constants.statusBarHeight,
+  },
+
+  body: {
     alignItems: "center",
     justifyContent: "center",
+    flex: 0.9,
   },
 
   backBtn: {

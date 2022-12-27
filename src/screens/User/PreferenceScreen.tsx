@@ -15,10 +15,10 @@ import { RootStackParamList } from "../../navigation/types";
 import { CATEGORY } from "../../API";
 import { StyleSheet } from "react-native";
 import Layout from "../../constants/Layout";
-import { Switch } from "@rneui/themed";
 import { CategoryCard } from "../../components/Cards/CategoryCard";
-import { Button, Divider } from "@rneui/base";
 import Colors from "../../constants/Colors";
+import { Ionicons } from "@expo/vector-icons";
+import Constants from "expo-constants";
 
 interface PreferenceScreenProps {
   ON_UPDATE_EVENTPREFERENCES: Function;
@@ -67,29 +67,15 @@ export const _PreferenceScreen: React.FC<PreferenceScreenProps> = (props) => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flex: 0.15,
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          title="Go back"
-          color={"white"}
-          icon={{
-            name: "arrow-back-outline",
-            type: "ionicon",
-            size: 25,
-            color: "black",
-          }}
-          onPress={() => nextScreen()}
-          titleStyle={{ fontWeight: "700", color: "black" }}
-          containerStyle={{
-            width: Layout.window.width / 3,
-            justifyContent: "center",
-            backgroundColor: "white",
-          }}
-        />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="arrow-back-sharp"
+            size={24}
+            color="white"
+            style={{ paddingLeft: 10 }}
+          />
+        </TouchableOpacity>
       </View>
 
       <View
@@ -103,11 +89,11 @@ export const _PreferenceScreen: React.FC<PreferenceScreenProps> = (props) => {
           <View style={styles.switchBox}>
             <Text>Show currently open</Text>
 
-            <Switch
+            {/* <Switch
               style={{ bottom: 20, marginLeft: 10 }}
               value={showOpenHours}
               onValueChange={(value) => setShowOpenHours(value)}
-            />
+            /> */}
           </View>
         </View>
 
@@ -116,11 +102,11 @@ export const _PreferenceScreen: React.FC<PreferenceScreenProps> = (props) => {
           <View style={styles.switchBox}>
             <Text>Select all categories</Text>
 
-            <Switch
+            {/* <Switch
               style={{ bottom: 20, marginLeft: 10 }}
               value={selectAllCategories}
               onValueChange={(value) => setSelectAllCategories(value)}
-            />
+            /> */}
           </View>
         </View>
 
@@ -128,7 +114,7 @@ export const _PreferenceScreen: React.FC<PreferenceScreenProps> = (props) => {
       </View>
 
       <View style={{ flex: 0.7 }}>
-        <Divider />
+        {/* <Divider /> */}
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <View
             style={selectAllCategories ? styles.selectAll : undefined}
@@ -177,8 +163,8 @@ export default PreferenceScreen;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     backgroundColor: "white",
+    marginTop: Constants.statusBarHeight,
   },
 
   selectAll: {
@@ -190,10 +176,6 @@ export const styles = StyleSheet.create({
     alignContent: "center",
 
     flexDirection: "row",
-  },
-
-  header: {
-    paddingBottom: 5,
   },
 
   optionTitle: {
@@ -216,5 +198,11 @@ export const styles = StyleSheet.create({
     height: 100,
     borderColor: "gray",
     borderWidth: 0.5,
+  },
+
+  header: {
+    flex: 0.08,
+    backgroundColor: Colors.light.headerBackground,
+    justifyContent: "center",
   },
 });

@@ -40,23 +40,11 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
             </Text>
           </View>
         </View>
-
         <View style={{ flex: 0.5, flexDirection: "row", padding: 5 }}>
           <Image
             style={styles.tinyImage}
             source={{ uri: event.images[0].url }}
           />
-
-          {/* {event.images.map((img: any) => {
-            return (
-              <Image
-                style={styles.tinyImage}
-                source={{
-                  uri: img.url,
-                }}
-              />
-            );
-          })} */}
         </View>
       </View>
     </TouchableOpacity>

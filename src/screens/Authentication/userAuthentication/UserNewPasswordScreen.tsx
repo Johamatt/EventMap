@@ -21,10 +21,10 @@ interface Props {
   route: UserNewPasswordScreenProp;
 }
 
-export const UserNewPasswordScreen: React.FC<Props> = (props) => {
+export const UserNewPasswordScreen: React.FC<Props> = ({ route }) => {
   const [code, setCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const username = props.route.params.username;
+  const { username } = route.params;
 
   const navigation = useNavigation();
 
@@ -37,7 +37,7 @@ export const UserNewPasswordScreen: React.FC<Props> = (props) => {
     }
   };
 
-  const onSignInPress = async () => {
+  const onSignInPress = () => {
     navigation.navigate("UserLoginScreen");
   };
 
@@ -48,10 +48,10 @@ export const UserNewPasswordScreen: React.FC<Props> = (props) => {
       <View style={styles.textInputView}>
         <TextInput
           style={styles.TextInput}
-          secureTextEntry={true}
+          secureTextEntry
           placeholder="Enter your new password"
           placeholderTextColor="#003f5c"
-          onChangeText={(newPassword: string) => setNewPassword(newPassword)}
+          onChangeText={setNewPassword}
         />
       </View>
 
@@ -60,7 +60,7 @@ export const UserNewPasswordScreen: React.FC<Props> = (props) => {
           style={styles.TextInput}
           placeholder="Code"
           placeholderTextColor="#003f5c"
-          onChangeText={(code: string) => setCode(code)}
+          onChangeText={setCode}
         />
       </View>
 
@@ -82,14 +82,12 @@ const styles = StyleSheet.create({
     color: "#051C60",
     margin: 10,
   },
-
   container: {
     flex: 1,
     backgroundColor: Colors.light.containerBackground,
     alignItems: "center",
     justifyContent: "center",
   },
-
   textInputView: {
     backgroundColor: Colors.light.inputBackground,
     borderRadius: 30,

@@ -10,6 +10,8 @@ export default {
     tabIconDefault: "#ccc",
     tabIconSelected: "#2f95dc",
 
+    headerBackground: "#0b2436",
+
     attention: "#ded033",
     secondary: "#9643d1",
 
