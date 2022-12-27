@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   TextInput,
   Text,
   TouchableOpacity,
+  Keyboard,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -14,19 +15,34 @@ import { RootStackParamList } from "../../../navigation/types";
 import { Auth } from "aws-amplify";
 import { connect } from "react-redux";
 import Colors from "../../../constants/Colors";
-
+import LottieView from "lottie-react-native";
 import { ApplicationState, store, UserState } from "../../../Store";
 
-interface UserLoginScreenProps {
-  userReducer: UserState;
-}
-
-const UserLoginScreen: React.FC<UserLoginScreenProps> = (props) => {
+const UserLoginScreen: React.FC = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const animation = useRef(null);
+
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => setKeyboardVisible(true)
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => setKeyboardVisible(false)
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   const onSignInPressed = async () => {
     if (loading) {
@@ -58,34 +74,40 @@ const UserLoginScreen: React.FC<UserLoginScreenProps> = (props) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require("../../../assets/logo/logo1.png")}
+      <View style={{ flex: 0.5 }} />
+
+      <LottieView
+        resizeMode="cover"
+        autoPlay
+        ref={animation}
+        loop={true}
+        source={require("../../../assets/lottie/login.json")}
       />
 
-      <View style={styles.textInputView}>
+      <View style={styles.TextInput}>
         <TextInput
-          style={styles.TextInput}
           placeholder="Email"
           placeholderTextColor="#003f5c"
           onChangeText={(username: string) => setUsername(username)}
+          textAlign="center"
         />
       </View>
 
-      <View style={styles.textInputView}>
+      <View style={styles.TextInput}>
         <TextInput
           secureTextEntry={true}
-          style={styles.TextInput}
           placeholder="Password"
           placeholderTextColor="#003f5c"
           onChangeText={(password: string) => setPassword(password)}
+          textAlign="center"
         />
       </View>
 
       <TouchableOpacity
         onPress={() => navigation.navigate("UserForgotPasswordScreen")}
+        style={styles.forgotBtn}
       >
-        <Text style={styles.forgotBtnText}>Forgot your Password?</Text>
+        <Text> Forgot your Password?</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.loginBtn} onPress={onSignInPressed}>
@@ -94,21 +116,25 @@ const UserLoginScreen: React.FC<UserLoginScreenProps> = (props) => {
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.loginBtn}
-        onPress={() => onContinueAsGuest()}
-      >
-        <Text style={styles.loginBtnText}>Continue as Guest</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.signupTextArea}
-        onPress={() => navigation.navigate("UserRegisterScreen")}
-      >
-        <Text>
-          Don't have an account? <Text style={styles.linkText}>Sign up</Text>{" "}
-        </Text>
-      </TouchableOpacity>
+      {!keyboardVisible && (
+        <>
+          <TouchableOpacity
+            style={styles.loginBtn}
+            onPress={() => onContinueAsGuest()}
+          >
+            <Text style={styles.loginBtnText}>Continue as Guest</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("UserRegisterScreen")}
+            style={styles.signUpBtn}
+          >
+            <Text>
+              Don't have an account?{" "}
+              <Text style={styles.linkText}>Sign up</Text>
+            </Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };
@@ -120,49 +146,50 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  image: {
-    width: 150,
-    height: 150,
-    marginBottom: 30,
-  },
-  textInputView: {
+  TextInput: {
     backgroundColor: Colors.light.inputBackground,
     borderRadius: 25,
     width: "70%",
     height: 52,
-    marginBottom: 20,
+    margin: 10,
     borderColor: "grey",
     borderWidth: 1,
     alignItems: "center",
+    justifyContent: "center",
   },
-  TextInput: {
-    height: 50,
-    color: "white",
+
+  signUpBtn: {
+    padding: 8,
+    borderRadius: 25,
+    borderWidth: 1,
+    borderBottomColor: Colors.light.secondary,
+    color: "#fff",
+    fontWeight: "bold",
+    bottom: 30,
+    position: "absolute",
+    backgroundColor: "white",
   },
-  forgotBtnText: {
-    color: "black",
-    fontSize: 11,
+
+  forgotBtn: {
+    marginBottom: 15,
   },
   loginBtn: {
     width: "80%",
-    backgroundColor: Colors.light.tint,
+    backgroundColor: Colors.light.secondary,
+    margin: 5,
     borderRadius: 25,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
-    marginBottom: 10,
   },
   loginBtnText: {
     color: "white",
   },
-  signupTextArea: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
+
   linkText: {
-    color: Colors.light.tint,
+    color: Colors.light.primary,
     fontWeight: "bold",
+    textDecorationLine: "underline",
   },
 });
 

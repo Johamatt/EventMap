@@ -6,6 +6,7 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
+  Keyboard,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
@@ -28,11 +29,28 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  console.log(username);
+
   useEffect(() => {
     if (props.route.params?.username) {
       setUsername(props.route.params.username);
       setPassword(props.route.params.password);
     }
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => setKeyboardVisible(true)
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => setKeyboardVisible(false)
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
   }, []);
 
   const navigation = useNavigation();
@@ -40,8 +58,6 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   const onConfirmPressed = async () => {
     try {
       await Auth.confirmSignUp(username, code);
-      await Auth.signIn(username, password);
-
       navigation.navigate("UserLoginScreen");
     } catch (error: any) {
       Alert.alert("Oops!", error.message);
@@ -71,11 +87,13 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
 
       <View style={styles.textInputView}>
         <TextInput
-          style={styles.TextInput}
+          keyboardType="number-pad"
           placeholder="Enter your confirmation code"
           placeholderTextColor="#003f5c"
           onChangeText={(code: string) => setCode(code)}
           value={code}
+          textAlign="center"
+          textContentType="oneTimeCode"
         />
       </View>
 
@@ -86,10 +104,11 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
       <TouchableOpacity style={styles.resendBtn} onPress={onResendPress}>
         <Text style={styles.resendBtnText}>Resend code</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
-        <Text style={styles.backBtnText}>Back to Sign in</Text>
-      </TouchableOpacity>
+      {!keyboardVisible && (
+        <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
+          <Text style={styles.backBtnText}>Back to Sign in</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -109,15 +128,12 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 50,
     borderWidth: 1,
-    marginBottom: 20,
+
     justifyContent: "center",
+    alignContent: "center",
   },
-  TextInput: {
-    height: 50,
-    width: "80%",
-    paddingLeft: 20,
-    color: Colors.light.tint,
-  },
+
+  //
   confirmBtn: {
     width: "80%",
     backgroundColor: Colors.light.secondary,
@@ -131,6 +147,8 @@ const styles = StyleSheet.create({
   confirmBtnText: {
     color: "white",
   },
+
+  //
   resendBtn: {
     width: "80%",
     backgroundColor: "#000",
@@ -143,15 +161,18 @@ const styles = StyleSheet.create({
   resendBtnText: {
     color: "white",
   },
+
+  //
   backBtn: {
     width: "80%",
-    backgroundColor: Colors.light.tint,
+    backgroundColor: Colors.light.primary,
     borderRadius: 25,
-
     height: 50,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 10,
+    bottom: 30,
+    position: "absolute",
   },
   backBtnText: {
     color: "#fff",

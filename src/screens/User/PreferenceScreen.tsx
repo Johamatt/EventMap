@@ -168,7 +168,7 @@ export const styles = StyleSheet.create({
   },
 
   selectAll: {
-    backgroundColor: Colors.light.selected,
+    backgroundColor: Colors.light.tetriary,
     pointerEvents: "none",
   },
 
@@ -183,7 +183,7 @@ export const styles = StyleSheet.create({
   },
 
   checked: {
-    backgroundColor: Colors.light.selected,
+    backgroundColor: Colors.light.tetriary,
     width: Layout.window.width / 3,
     justifyContent: "center",
     alignItems: "center",

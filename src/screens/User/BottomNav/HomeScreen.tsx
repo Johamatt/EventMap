@@ -81,7 +81,6 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   listContainer: {
     flex: 0.9,
-
   },
 
   tabContainer: {
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
 
   selectedButton: {
     alignItems: "center",
-    backgroundColor: Colors.light.tint,
+    backgroundColor: Colors.light.primary,
     padding: 10,
     flex: 0.45,
     marginHorizontal: 2.5,

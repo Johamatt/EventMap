@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Keyboard,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { Auth } from "aws-amplify";
@@ -15,6 +16,24 @@ import Colors from "../../../constants/Colors";
 export const UserForgotPasswordScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
   const navigation = useNavigation();
+
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => setKeyboardVisible(true)
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => setKeyboardVisible(false)
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   const onSendPressed = async () => {
     try {
@@ -31,10 +50,6 @@ export const UserForgotPasswordScreen: React.FC = (props) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require("../../../assets/logo/logo1.png")}
-      />
       <Text style={styles.title}>Reset your password</Text>
 
       <View style={styles.textInputView}>
@@ -50,9 +65,13 @@ export const UserForgotPasswordScreen: React.FC = (props) => {
         <Text style={styles.sendBtnText}>Send</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
-        <Text style={styles.backBtnText}>Back to Sign in</Text>
-      </TouchableOpacity>
+      {!keyboardVisible && (
+        <>
+          <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
+            <Text style={styles.backBtnText}>Back to Sign in</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };
@@ -79,13 +98,14 @@ const styles = StyleSheet.create({
   },
   textInputView: {
     backgroundColor: Colors.light.inputBackground,
-    borderRadius: 30,
+    borderRadius: 25,
     width: "70%",
-    height: 45,
+    height: 52,
     marginBottom: 20,
-    borderColor: Colors.light.tint,
+    borderColor: "grey",
     borderWidth: 1,
     alignItems: "center",
+    justifyContent: "center",
   },
   textInput: {
     height: 50,
@@ -112,7 +132,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Colors.light.tint,
+    backgroundColor: Colors.light.primary,
     bottom: 0,
     position: "absolute",
     marginBottom: 20,

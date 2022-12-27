@@ -4,18 +4,18 @@ const tintColorDark = "#fff";
 export default {
   light: {
     text: "#000",
-    containerBackground: "#ffff",
-    inputBackground: "#ffff",
-    tint: "#2f95dc",
-    tabIconDefault: "#ccc",
-    tabIconSelected: "#2f95dc",
-
+    containerBackground: "#FFFFFF",
     headerBackground: "#0b2436",
 
-    attention: "#ded033",
-    secondary: "#9643d1",
 
-    selected: "#5EBA7D",
+    inputBackground: "#ffff",
+    tabIconDefault: "#ccc",
+    tabIconSelected: "#2f95dc",
+    attention: "#ded033",
+
+    primary: "#2f95dc",
+    secondary: "#0084ff",
+    tetriary: "#00D7FA",
   },
   dark: {
     text: "#000",

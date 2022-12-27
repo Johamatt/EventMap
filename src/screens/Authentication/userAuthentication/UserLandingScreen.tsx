@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -11,10 +11,14 @@ import {
 } from "react-native";
 import { RootStackParamList } from "../../../navigation/types";
 import { store } from "../../../Store";
+import LottieView from "lottie-react-native";
+import Layout from "../../../constants/Layout";
 
 export const UserLandingScreen: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+    const animation = useRef(null);
 
   const [backgroundImage, setBackgroundImage] = useState(
     require("../../../assets/logo/background.jpg")
@@ -42,24 +46,29 @@ export const UserLandingScreen: React.FC = () => {
     });
   };
   return (
-    <ImageBackground source={backgroundImage} style={styles.background}>
-      <View style={styles.container}>
-        <Image
-          style={styles.logo}
-          source={require("../../../assets/logo/logo1.png")}
+    // <ImageBackground source={backgroundImage} style={styles.background}>
+    <View style={styles.container}>
+      <View style={{ flex: 0.5 }}>
+        <LottieView
+          resizeMode="cover"
+          autoPlay
+          ref={animation}
+          loop={true}
+          source={require("../../../assets/lottie/welcome4.json")}
         />
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("UserRegisterScreen")}
-        >
-          <Text style={styles.buttonTitle}>Sign Up</Text>
-        </TouchableOpacity>
+      </View>
+      <View style={styles.buttonsContainer}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("UserLoginScreen")}
         >
           <Text style={styles.buttonTitle}>Log In</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("UserRegisterScreen")}
+        >
+          <Text style={styles.buttonTitle}>Sign Up</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -69,19 +78,26 @@ export const UserLandingScreen: React.FC = () => {
           <Text style={styles.guestButtonTitle}>Continue as Guest</Text>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+    </View>
+    // </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
+    zIndex: 5,
   },
   container: {
     flex: 1,
+  },
+
+  buttonsContainer: {
+    flex: 0.5,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 20,
+    backgroundColor: "#FFFFFF",
   },
   logo: {
     width: 200,
@@ -111,16 +127,15 @@ const styles = StyleSheet.create({
   guestButton: {
     backgroundColor: "transparent",
     borderWidth: 1,
-    borderColor: "#fff",
+    borderColor: "#000000",
     borderRadius: 8,
-
     paddingVertical: 15,
     width: "100%",
     position: "absolute",
     bottom: 50,
   },
   guestButtonTitle: {
-    color: "#fff",
+    color: "#000000",
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
