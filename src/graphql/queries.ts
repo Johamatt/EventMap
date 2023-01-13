@@ -2,80 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getActivityMedia = /* GraphQL */ `
-  query GetActivityMedia($id: ID!) {
-    getActivityMedia(id: $id) {
-      id
-      kind
-      copyright
-      name
-      URL
-      createdAt
-      updatedAt
-      activityActivityMediaId
-      owner
-    }
-  }
-`;
-export const listActivityMedias = /* GraphQL */ `
-  query ListActivityMedias(
-    $filter: ModelActivityMediaFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listActivityMedias(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        kind
-        copyright
-        name
-        URL
-        createdAt
-        updatedAt
-        activityActivityMediaId
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const getEventMedia = /* GraphQL */ `
-  query GetEventMedia($id: ID!) {
-    getEventMedia(id: $id) {
-      id
-      URL
-      kind
-      copyright
-      name
-      createdAt
-      updatedAt
-      eventEventMediaId
-      owner
-    }
-  }
-`;
-export const listEventMedias = /* GraphQL */ `
-  query ListEventMedias(
-    $filter: ModelEventMediaFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listEventMedias(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        URL
-        kind
-        copyright
-        name
-        createdAt
-        updatedAt
-        eventEventMediaId
-        owner
-      }
-      nextToken
-    }
-  }
-`;
 export const getEvent = /* GraphQL */ `
   query GetEvent($id: ID!) {
     getEvent(id: $id) {
@@ -87,13 +13,17 @@ export const getEvent = /* GraphQL */ `
         lon
         streetAddress
         postalCode
+        city
+        country
       }
       category
       company {
         businessId
         email
+        industry
         phone
         name
+        website
         activities {
           nextToken
         }
@@ -102,51 +32,64 @@ export const getEvent = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        userFavouriteCompaniesId
         owner
       }
-      eventMedia {
-        items {
-          id
-          URL
-          kind
-          copyright
-          name
-          createdAt
-          updatedAt
-          eventEventMediaId
-          owner
-        }
-        nextToken
-      }
+      eventPictures
       Descriptions {
         fi
         en
         sv
-        ru
         jp
-        de
-        zh
         es
+        de
       }
       name {
         fi
         en
         sv
-        ru
         jp
-        de
-        zh
         es
+        de
       }
       Links {
-        siteURL
+        eventURL
         otherURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
       }
       source
+      website
       updated_at_Source
+      attendees
+      ageRestriction
+      isFree
+      Ticket {
+        items {
+          name
+          price
+          currency
+          description
+          available
+          startSaleDate
+          endSaleDate
+          type
+          id
+          createdAt
+          updatedAt
+          eventTicketId
+          activityTicketId
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
       companyEventsId
+      userFavouriteEventsId
       owner
     }
   }
@@ -167,49 +110,195 @@ export const listEvents = /* GraphQL */ `
           lon
           streetAddress
           postalCode
+          city
+          country
         }
         category
         company {
           businessId
           email
+          industry
           phone
           name
+          website
           createdAt
           updatedAt
+          userFavouriteCompaniesId
           owner
         }
-        eventMedia {
-          nextToken
-        }
+        eventPictures
         Descriptions {
           fi
           en
           sv
-          ru
           jp
-          de
-          zh
           es
+          de
         }
         name {
           fi
           en
           sv
-          ru
           jp
-          de
-          zh
           es
+          de
         }
         Links {
-          siteURL
+          eventURL
           otherURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
         }
         source
+        website
         updated_at_Source
+        attendees
+        ageRestriction
+        isFree
+        Ticket {
+          nextToken
+        }
         createdAt
         updatedAt
         companyEventsId
+        userFavouriteEventsId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const eventByDates = /* GraphQL */ `
+  query EventByDates(
+    $startingDateTime: String!
+    $endingDateTime: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelEventFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    eventByDates(
+      startingDateTime: $startingDateTime
+      endingDateTime: $endingDateTime
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        startingDateTime
+        endingDateTime
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+          country
+        }
+        category
+        company {
+          businessId
+          email
+          industry
+          phone
+          name
+          website
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+          owner
+        }
+        eventPictures
+        Descriptions {
+          fi
+          en
+          sv
+          jp
+          es
+          de
+        }
+        name {
+          fi
+          en
+          sv
+          jp
+          es
+          de
+        }
+        Links {
+          eventURL
+          otherURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        source
+        website
+        updated_at_Source
+        attendees
+        ageRestriction
+        isFree
+        Ticket {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        companyEventsId
+        userFavouriteEventsId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getTicket = /* GraphQL */ `
+  query GetTicket($id: ID!) {
+    getTicket(id: $id) {
+      name
+      price
+      currency
+      description
+      available
+      startSaleDate
+      endSaleDate
+      type
+      id
+      createdAt
+      updatedAt
+      eventTicketId
+      activityTicketId
+      owner
+    }
+  }
+`;
+export const listTickets = /* GraphQL */ `
+  query ListTickets(
+    $filter: ModelTicketFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTickets(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        name
+        price
+        currency
+        description
+        available
+        startSaleDate
+        endSaleDate
+        type
+        id
+        createdAt
+        updatedAt
+        eventTicketId
+        activityTicketId
         owner
       }
       nextToken
@@ -221,24 +310,30 @@ export const getCompany = /* GraphQL */ `
     getCompany(businessId: $businessId) {
       businessId
       email
+      industry
       phone
       name
+      website
       activities {
         items {
           id
           duration
           durationType
-          meantFor
           categories
+          activityPictures
           source
           updated_at_Source
           availableDays
           availableMonths
           raiting
           user_raitings_total
+          ageRestriction
+          isFree
+          priceRange
           createdAt
           updatedAt
           companyActivitiesId
+          userFavouriteActivitiesId
           owner
         }
         nextToken
@@ -249,17 +344,24 @@ export const getCompany = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
+          eventPictures
           source
+          website
           updated_at_Source
+          attendees
+          ageRestriction
+          isFree
           createdAt
           updatedAt
           companyEventsId
+          userFavouriteEventsId
           owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      userFavouriteCompaniesId
       owner
     }
   }
@@ -282,8 +384,10 @@ export const listCompanies = /* GraphQL */ `
       items {
         businessId
         email
+        industry
         phone
         name
+        website
         activities {
           nextToken
         }
@@ -292,6 +396,130 @@ export const listCompanies = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        userFavouriteCompaniesId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      name
+      email
+      profilePicture
+      birthday
+      friends {
+        items {
+          id
+          name
+          email
+          profilePicture
+          birthday
+          createdAt
+          updatedAt
+          userFriendsId
+          owner
+        }
+        nextToken
+      }
+      favouriteEvents {
+        items {
+          id
+          startingDateTime
+          endingDateTime
+          category
+          eventPictures
+          source
+          website
+          updated_at_Source
+          attendees
+          ageRestriction
+          isFree
+          createdAt
+          updatedAt
+          companyEventsId
+          userFavouriteEventsId
+          owner
+        }
+        nextToken
+      }
+      favouriteActivities {
+        items {
+          id
+          duration
+          durationType
+          categories
+          activityPictures
+          source
+          updated_at_Source
+          availableDays
+          availableMonths
+          raiting
+          user_raitings_total
+          ageRestriction
+          isFree
+          priceRange
+          createdAt
+          updatedAt
+          companyActivitiesId
+          userFavouriteActivitiesId
+          owner
+        }
+        nextToken
+      }
+      favouriteCompanies {
+        items {
+          businessId
+          email
+          industry
+          phone
+          name
+          website
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      userFriendsId
+      owner
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        email
+        profilePicture
+        birthday
+        friends {
+          nextToken
+        }
+        favouriteEvents {
+          nextToken
+        }
+        favouriteActivities {
+          nextToken
+        }
+        favouriteCompanies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        userFriendsId
         owner
       }
       nextToken
@@ -305,8 +533,10 @@ export const getActivity = /* GraphQL */ `
       company {
         businessId
         email
+        industry
         phone
         name
+        website
         activities {
           nextToken
         }
@@ -315,60 +545,45 @@ export const getActivity = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        userFavouriteCompaniesId
         owner
       }
       duration
       durationType
-      meantFor
       categories
-      price {
-        EurFrom
-        EurTo
-        pricingtype
-      }
       Location {
         lat
         lon
         streetAddress
         postalCode
+        city
+        country
       }
-      activityMedia {
-        items {
-          id
-          kind
-          copyright
-          name
-          URL
-          createdAt
-          updatedAt
-          activityActivityMediaId
-          owner
-        }
-        nextToken
-      }
+      activityPictures
       Descriptions {
         fi
         en
         sv
-        ru
         jp
-        de
-        zh
         es
+        de
       }
       Names {
         fi
         en
         sv
-        ru
         jp
-        de
-        zh
         es
+        de
       }
       Links {
-        siteURL
+        eventURL
         otherURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
       }
       source
       updated_at_Source
@@ -381,9 +596,32 @@ export const getActivity = /* GraphQL */ `
       availableMonths
       raiting
       user_raitings_total
+      ageRestriction
+      Ticket {
+        items {
+          name
+          price
+          currency
+          description
+          available
+          startSaleDate
+          endSaleDate
+          type
+          id
+          createdAt
+          updatedAt
+          eventTicketId
+          activityTicketId
+          owner
+        }
+        nextToken
+      }
+      isFree
+      priceRange
       createdAt
       updatedAt
       companyActivitiesId
+      userFavouriteActivitiesId
       owner
     }
   }
@@ -400,53 +638,51 @@ export const listActivities = /* GraphQL */ `
         company {
           businessId
           email
+          industry
           phone
           name
+          website
           createdAt
           updatedAt
+          userFavouriteCompaniesId
           owner
         }
         duration
         durationType
-        meantFor
         categories
-        price {
-          EurFrom
-          EurTo
-          pricingtype
-        }
         Location {
           lat
           lon
           streetAddress
           postalCode
+          city
+          country
         }
-        activityMedia {
-          nextToken
-        }
+        activityPictures
         Descriptions {
           fi
           en
           sv
-          ru
           jp
-          de
-          zh
           es
+          de
         }
         Names {
           fi
           en
           sv
-          ru
           jp
-          de
-          zh
           es
+          de
         }
         Links {
-          siteURL
+          eventURL
           otherURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
         }
         source
         updated_at_Source
@@ -459,9 +695,16 @@ export const listActivities = /* GraphQL */ `
         availableMonths
         raiting
         user_raitings_total
+        ageRestriction
+        Ticket {
+          nextToken
+        }
+        isFree
+        priceRange
         createdAt
         updatedAt
         companyActivitiesId
+        userFavouriteActivitiesId
         owner
       }
       nextToken

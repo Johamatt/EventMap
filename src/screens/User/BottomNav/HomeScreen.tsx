@@ -2,11 +2,11 @@ import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { ApplicationState } from "../../../Store";
 import { connect } from "react-redux";
 import React, { useState } from "react";
-import { CATEGORY } from "../../../API";
+import { Activity, CATEGORY, Event } from "../../../API";
 import ActivitiesListView from "./tabs/HomescreenTabs/ActivitiesListView";
 import Colors from "../../../constants/Colors";
 import Constants from "expo-constants";
-import { SimpleLineIcons } from "@expo/vector-icons";
+import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../../navigation/types";
@@ -15,53 +15,83 @@ import EventsListView from "./tabs/HomescreenTabs/EventsListView";
 type HomescreenProps = {
   activitiesList: any;
   nextToken: any;
-  userPreferences: Array<CATEGORY>;
   showcurrentlyopen: boolean;
   guestUserSession: boolean;
 };
 
 const _HomeScreen: React.FC<HomescreenProps> = (props) => {
-  const [tabView, setTabView] = useState<"Activities" | "Events">("Activities");
+  const [tabView, setTabView] = useState<"Activities" | "Events" | "Friends">(
+    "Activities"
+  );
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const renderList = () => {
+    switch (tabView) {
+      case "Activities":
+        return <ActivitiesListView />;
+      case "Events":
+        return <EventsListView />;
+      case "Friends":
+        return (
+          // <FlatList
+          //   style={{ backgroundColor: "black", marginBottom: 50 }}
+          //   keyExtractor={(item) => item.id}
+          //   data={friendsEvents}
+          //   renderItem={({ item }) => <FeedCard activity={item} />}
+          // />
+          <></>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.headerButton}>
+          <Ionicons name="options-outline" size={24} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.headerButton}>
+          <Ionicons name="search-outline" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
+      {/* {countryListVisible && renderCountryList()} */}
       <View style={styles.tabContainer}>
-        <TouchableOpacity
-          style={
-            tabView === "Activities" ? styles.selectedButton : styles.button
-          }
-          onPress={() => setTabView("Activities")}
-        >
+        <TouchableOpacity onPress={() => setTabView("Activities")}>
           <Text
             style={
-              tabView === "Activities" ? styles.seletectedText : styles.text
+              tabView === "Activities"
+                ? styles.selectedHeaderTab
+                : styles.headerTab
             }
           >
             Activities
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={tabView === "Events" ? styles.selectedButton : styles.button}
-          onPress={() => setTabView("Events")}
-        >
+        <TouchableOpacity onPress={() => setTabView("Events")}>
           <Text
-            style={tabView === "Events" ? styles.seletectedText : styles.text}
+            style={
+              tabView === "Events" ? styles.selectedHeaderTab : styles.headerTab
+            }
           >
             Events
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.settingButton}
-          onPress={() => navigation.navigate("PreferenceScreen")}
-        >
-          <SimpleLineIcons name="settings" size={18} color="white" />
+        <TouchableOpacity onPress={() => setTabView("Friends")}>
+          <Text
+            style={
+              tabView === "Friends"
+                ? styles.selectedHeaderTab
+                : styles.headerTab
+            }
+          >
+            Friends
+          </Text>
         </TouchableOpacity>
       </View>
-
-      <View style={styles.listContainer}>
-        {tabView === "Activities" ? <ActivitiesListView /> : <EventsListView />}
-      </View>
+      {renderList()}
     </View>
   );
 };
@@ -70,7 +100,6 @@ const mapToStateProps = (state: ApplicationState) => ({
   activitiesList: state.ActivitiesReducer.activitiesList,
   nextToken: state.ActivitiesReducer.nextToken,
   showcurrentlyopen: state.UserReducer.showCurrentlyOpen,
-  userPreferences: state.UserReducer.preferences,
   guestUserSession: state.UserReducer.guestUserSession,
 });
 
@@ -79,71 +108,52 @@ const HomeScreen = connect(mapToStateProps)(_HomeScreen);
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  listContainer: {
-    flex: 0.9,
+  container: {
+    backgroundColor: "black",
+    marginTop: Constants.statusBarHeight,
+    flex: 1,
   },
-
   tabContainer: {
-    flex: 0.08,
     flexDirection: "row",
-    padding: 5,
-    marginBottom: 40,
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    margin: 20,
+  },
+  headerTab: {
+    fontSize: 18,
+    color: "white",
+  },
+  selectedHeaderTab: {
+    fontSize: 18,
+    color: "yellow",
+    fontWeight: "bold",
+
+    borderWidth: 2,
+    borderBottomColor: Colors.light.primary,
   },
 
   header: {
-    backgroundColor: "gray",
-    flex: 0.3,
-    borderRadius: 30,
+    height: 50,
+    flexDirection: "row-reverse",
     alignItems: "center",
-    justifyContent: "center",
-    margin: 4,
-    flexDirection: "row",
-  },
-
-  settingButton: {
     backgroundColor: "black",
-    flex: 0.15,
-    borderRadius: 5,
-    alignItems: "center",
+    paddingHorizontal: 15,
+  },
+  headerButton: {
+    width: 40,
+    height: 28,
     justifyContent: "center",
-    margin: 4,
-  },
-
-  container: {
-    marginTop: Constants.statusBarHeight + 15,
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-
-  iconbutton: {
-    name: "options-outline",
-    type: "ionicon",
-    size: 15,
-    color: "white",
-  },
-
-  button: {
     alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 10,
-    flex: 0.4,
-    marginHorizontal: 2.5,
   },
-
-  text: {
-    fontWeight: "bold",
+  flag: {
+    width: 40,
+    height: 28,
+    borderColor: Colors.light.primary,
+    borderWidth: 0.5,
   },
-
-  selectedButton: {
-    alignItems: "center",
-    backgroundColor: Colors.light.primary,
-    padding: 10,
-    flex: 0.45,
-    marginHorizontal: 2.5,
-  },
-
-  seletectedText: {
+  countryName: {
+    fontSize: 18,
     color: "white",
-    fontWeight: "bold",
   },
 });

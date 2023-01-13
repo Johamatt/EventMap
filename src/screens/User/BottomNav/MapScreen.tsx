@@ -119,7 +119,7 @@ const _MapScreen: React.FC<MapProps> = (props) => {
         ref={mapRef}
         initialRegion={getMyLocation()}
         onRegionChangeComplete={onRegionChangeComplete}
-        mapType="standard"
+        mapType="satellite"
         showsUserLocation
       >
         {clusters?.map((point) => {

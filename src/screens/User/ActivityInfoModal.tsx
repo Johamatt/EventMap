@@ -1,6 +1,6 @@
 import { Dimensions, ScrollView } from "react-native";
 import { RootStackParamList } from "../../navigation/types";
-import { GetActivityQuery } from "../../API";
+import { Activity, GetActivityQuery } from "../../API";
 import { View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -21,7 +21,7 @@ export const ActivityInfoModal: React.FC<ActivityInfoModalProps> = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const [activity, setActivity] = useState<any>();
+  const [activity, setActivity] = useState<Activity>();
 
   useEffect(() => {
     Analytics.record({
@@ -36,12 +36,10 @@ export const ActivityInfoModal: React.FC<ActivityInfoModalProps> = (props) => {
     const activity = (await API.graphql(
       graphqlOperation(getActivity, { id: props.route.params.id })
     )) as GraphQLResult<GetActivityQuery>;
+
+    //@ts-ignore
     setActivity(activity.data!.getActivity);
   };
-
-  if (activity === undefined) {
-    return <View></View>;
-  }
 
   return (
     <ScrollView style={styles.container}>
@@ -57,22 +55,22 @@ export const ActivityInfoModal: React.FC<ActivityInfoModalProps> = (props) => {
             textAlign: "center",
           }}
         >
-          {activity.Names.fi}
+          {activity?.Names.fi}
         </Text>
       </View>
 
       <View style={{ margin: "auto" }}>
         <View style={{ padding: 5, flexDirection: "row" }}>
           <View style={{ justifyContent: "center" }}>
-            <Text>{activity.Descriptions.fi}</Text>
+            <Text>{activity?.Descriptions.fi}</Text>
           </View>
         </View>
 
         <View style={{ padding: 5, flexDirection: "row" }}>
           <View style={{ padding: 10 }}>
             <View>
-              <Text>{activity.Location.streetAddress}</Text>
-              <Text>{activity.Location.postalCode}</Text>
+              <Text>{activity?.Location.streetAddress}</Text>
+              <Text>{activity?.Location.postalCode}</Text>
             </View>
           </View>
         </View>
@@ -85,8 +83,8 @@ export const ActivityInfoModal: React.FC<ActivityInfoModalProps> = (props) => {
             justifyContent: "center",
           }}
         >
-          {activity.Location.lat !== undefined ||
-          (null && activity.Location.lon !== undefined) ||
+          {activity?.Location.lat !== undefined ||
+          (null && activity?.Location.lon !== undefined) ||
           null ? (
             <MapView
               style={{
@@ -94,16 +92,16 @@ export const ActivityInfoModal: React.FC<ActivityInfoModalProps> = (props) => {
                 height: 300,
               }}
               initialRegion={{
-                latitude: activity.Location.lat,
-                longitude: activity.Location.lon,
+                latitude: activity!.Location.lat,
+                longitude: activity!.Location.lon,
                 latitudeDelta: 0.00922,
                 longitudeDelta: 0.00421,
               }}
             >
               <Marker
                 coordinate={{
-                  latitude: activity.Location.lat,
-                  longitude: activity.Location.lon,
+                  latitude: activity!.Location.lat,
+                  longitude: activity!.Location.lon,
                 }}
               ></Marker>
             </MapView>
@@ -123,6 +121,7 @@ export const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     padding: 20,
+    color: "black",
   },
 
   // Footer styles

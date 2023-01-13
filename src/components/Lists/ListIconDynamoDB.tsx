@@ -13,10 +13,12 @@ interface ListIconProps {
 }
 
 export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
+  const iconSize = 28;
+
   if (props.data === null || props.data === undefined) {
     return (
       <View style={styles("gray").icon}>
-        <FontAwesome5 name="question" size={24} color="black" />
+        <FontAwesome5 name="question" size={iconSize} color="white" />
       </View>
     );
   }
@@ -27,7 +29,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("TRIP" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("darkorange").icon}>
-        <MaterialCommunityIcons name="hiking" size={24} color="black" />
+        <MaterialCommunityIcons name="hiking" size={iconSize} color="white" />
       </View>
     );
   }
@@ -35,7 +37,11 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("PARTIESNIGHTLIFE" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("red").icon}>
-        <MaterialCommunityIcons name="party-popper" size={24} color="black" />
+        <MaterialCommunityIcons
+          name="party-popper"
+          size={iconSize}
+          color="white"
+        />
       </View>
     );
   }
@@ -43,7 +49,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("SPORT" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("teal").icon}>
-        <MaterialIcons name="sports" size={24} color="black" />
+        <MaterialIcons name="sports" size={iconSize} color="white" />
       </View>
     );
   }
@@ -51,7 +57,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("FESTIVAL" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("pink").icon}>
-        <MaterialIcons name="festival" size={24} color="black" />
+        <MaterialIcons name="festival" size={iconSize} color="white" />
       </View>
     );
   }
@@ -59,7 +65,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("FAMILY" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("purple").icon}>
-        <MaterialIcons name="family-restroom" size={24} color="black" />
+        <MaterialIcons name="family-restroom" size={iconSize} color="white" />
       </View>
     );
   }
@@ -67,7 +73,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("COOKING" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("antiquewhite").icon}>
-        <MaterialCommunityIcons name="chef-hat" size={24} color="black" />
+        <MaterialCommunityIcons name="chef-hat" size={iconSize} color="white" />
       </View>
     );
   }
@@ -75,7 +81,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("BUSINESS" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("cadetblue").icon}>
-        <MaterialIcons name="business-center" size={24} color="black" />
+        <MaterialIcons name="business-center" size={iconSize} color="white" />
       </View>
     );
   }
@@ -83,7 +89,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("CULTURE" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("orchid").icon}>
-        <Entypo name="colours" size={24} color="black" />
+        <Entypo name="colours" size={iconSize} color="white" />
       </View>
     );
   }
@@ -91,7 +97,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("COMEDY" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("chocolate").icon}>
-        <FontAwesome5 name="laugh-beam" size={24} color="black" />
+        <FontAwesome5 name="laugh-beam" size={iconSize} color="white" />
       </View>
     );
   }
@@ -101,8 +107,8 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
       <View style={styles("coral").icon}>
         <MaterialCommunityIcons
           name="satellite-variant"
-          size={24}
-          color="black"
+          size={iconSize}
+          color="white"
         />
       </View>
     );
@@ -111,7 +117,11 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("ACCOMMODATION" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("cornflowerblue").icon}>
-        <MaterialCommunityIcons name="home-group" size={24} color="black" />
+        <MaterialCommunityIcons
+          name="home-group"
+          size={iconSize}
+          color="white"
+        />
       </View>
     );
   }
@@ -119,7 +129,11 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("SAUNA" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("crimson").icon}>
-        <MaterialCommunityIcons name="spoon-sugar" size={24} color="black" />
+        <MaterialCommunityIcons
+          name="spoon-sugar"
+          size={iconSize}
+          color="white"
+        />
       </View>
     );
   }
@@ -129,8 +143,8 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
       <View style={styles("blueviolet").icon}>
         <MaterialCommunityIcons
           name="human-male-child"
-          size={24}
-          color="black"
+          size={iconSize}
+          color="white"
         />
       </View>
     );
@@ -139,7 +153,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("CONCERT" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("darkred").icon}>
-        <Entypo name="modern-mic" size={24} color="black" />
+        <Entypo name="modern-mic" size={iconSize} color="white" />
       </View>
     );
   }
@@ -147,7 +161,11 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("PERFORMANCE" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("darkred").icon}>
-        <MaterialCommunityIcons name="dance-pole" size={24} color="black" />
+        <MaterialCommunityIcons
+          name="dance-pole"
+          size={iconSize}
+          color="white"
+        />
       </View>
     );
   }
@@ -155,7 +173,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("LITERATURE" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("khaki").icon}>
-        <Entypo name="open-book" size={24} color="black" />
+        <Entypo name="open-book" size={iconSize} color="white" />
       </View>
     );
   }
@@ -163,7 +181,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("PHOTOGRAPHY" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("lightpink").icon}>
-        <Entypo name="camera" size={24} color="black" />
+        <Entypo name="camera" size={iconSize} color="white" />
       </View>
     );
   }
@@ -171,7 +189,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("LUXURY" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("red").icon}>
-        <MaterialIcons name="attach-money" size={24} color="black" />
+        <MaterialIcons name="attach-money" size={iconSize} color="white" />
       </View>
     );
   }
@@ -179,7 +197,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("GUIDEDSERVICE" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("magenta").icon}>
-        <Entypo name="hand" size={24} color="black" />
+        <Entypo name="hand" size={iconSize} color="white" />
       </View>
     );
   }
@@ -187,7 +205,11 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("EDUCATION" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("mediumorchid").icon}>
-        <MaterialCommunityIcons name="book-education" size={24} color="black" />
+        <MaterialCommunityIcons
+          name="book-education"
+          size={iconSize}
+          color="white"
+        />
       </View>
     );
   }
@@ -195,7 +217,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("SCIENCE" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("navy").icon}>
-        <MaterialIcons name="science" size={24} color="black" />
+        <MaterialIcons name="science" size={iconSize} color="white" />
       </View>
     );
   }
@@ -203,7 +225,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("TOUR" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("silver").icon}>
-        <MaterialIcons name="tour" size={24} color="black" />
+        <MaterialIcons name="tour" size={iconSize} color="white" />
       </View>
     );
   }
@@ -213,8 +235,8 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
       <View style={styles("darkorchid").icon}>
         <MaterialCommunityIcons
           name="human-female-dance"
-          size={24}
-          color="black"
+          size={iconSize}
+          color="white"
         />
       </View>
     );
@@ -223,7 +245,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("BOARDGAMES" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("darkgrey").icon}>
-        <FontAwesome5 name="chess-board" size={24} color="black" />
+        <FontAwesome5 name="chess-board" size={iconSize} color="white" />
       </View>
     );
   }
@@ -231,7 +253,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("VIDEOGAMES" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("darkgray").icon}>
-        <Entypo name="game-controller" size={24} color="black" />
+        <Entypo name="game-controller" size={iconSize} color="white" />
       </View>
     );
   }
@@ -239,7 +261,11 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("GAMBLING" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("red").icon}>
-        <MaterialCommunityIcons name="slot-machine" size={24} color="black" />
+        <MaterialCommunityIcons
+          name="slot-machine"
+          size={iconSize}
+          color="white"
+        />
       </View>
     );
   }
@@ -247,7 +273,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("THEATRE" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("brown").icon}>
-        <MaterialIcons name="theater-comedy" size={24} color="black" />
+        <MaterialIcons name="theater-comedy" size={iconSize} color="white" />
       </View>
     );
   }
@@ -255,7 +281,11 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("HEALTH" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("deeppink").icon}>
-        <MaterialCommunityIcons name="cards-heart" size={24} color="black" />
+        <MaterialCommunityIcons
+          name="cards-heart"
+          size={iconSize}
+          color="white"
+        />
       </View>
     );
   }
@@ -263,7 +293,11 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("FASHION" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("goldenrod").icon}>
-        <MaterialCommunityIcons name="tshirt-crew" size={24} color="black" />
+        <MaterialCommunityIcons
+          name="tshirt-crew"
+          size={iconSize}
+          color="white"
+        />
       </View>
     );
   }
@@ -271,7 +305,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("WORKSHOP" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("lavenderblush").icon}>
-        <MaterialCommunityIcons name="tools" size={24} color="black" />
+        <MaterialCommunityIcons name="tools" size={iconSize} color="white" />
       </View>
     );
   }
@@ -281,8 +315,8 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
       <View style={styles("yellow").icon}>
         <MaterialCommunityIcons
           name="food-fork-drink"
-          size={24}
-          color="black"
+          size={iconSize}
+          color="white"
         />
       </View>
     );
@@ -291,7 +325,11 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("SIGHTSEEING" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("indigo").icon}>
-        <MaterialCommunityIcons name="binoculars" size={24} color="black" />
+        <MaterialCommunityIcons
+          name="binoculars"
+          size={iconSize}
+          color="white"
+        />
       </View>
     );
   }
@@ -299,7 +337,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("MUSIC" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("red").icon}>
-        <MaterialCommunityIcons name="music" size={24} color="black" />
+        <MaterialCommunityIcons name="music" size={iconSize} color="white" />
       </View>
     );
   }
@@ -307,7 +345,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("FINEARTS" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("lightsalmon").icon}>
-        <MaterialCommunityIcons name="brush" size={24} color="black" />
+        <MaterialCommunityIcons name="brush" size={iconSize} color="white" />
       </View>
     );
   }
@@ -315,7 +353,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("THEATHER" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("lightsalmon").icon}>
-        <MaterialIcons name="theater-comedy" size={24} color="black" />
+        <MaterialIcons name="theater-comedy" size={iconSize} color="white" />
       </View>
     );
   }
@@ -323,7 +361,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("MARKET" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("gold").icon}>
-        <MaterialCommunityIcons name="cart" size={24} color="black" />
+        <MaterialCommunityIcons name="cart" size={iconSize} color="white" />
       </View>
     );
   }
@@ -331,7 +369,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("MUSEUM" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("palevioletred").icon}>
-        <MaterialIcons name="museum" size={24} color="black" />
+        <MaterialIcons name="museum" size={iconSize} color="white" />
       </View>
     );
   }
@@ -341,8 +379,8 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
       <View style={styles("palegoldenrod").icon}>
         <MaterialCommunityIcons
           name="progress-question"
-          size={24}
-          color="black"
+          size={iconSize}
+          color="white"
         />
       </View>
     );
@@ -351,7 +389,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("NATURE" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("green").icon}>
-        <MaterialCommunityIcons name="forest" size={24} color="black" />
+        <MaterialCommunityIcons name="forest" size={iconSize} color="white" />
       </View>
     );
   }
@@ -359,7 +397,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("ANIMALS" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("olivedrab").icon}>
-        <FontAwesome5 name="paw" size={24} color="black" />
+        <FontAwesome5 name="paw" size={iconSize} color="white" />
       </View>
     );
   }
@@ -367,7 +405,11 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   if (values.includes("MOTORSPORTS" as unknown as CATEGORY)) {
     icons.push(
       <View style={styles("midnightblue").icon}>
-        <MaterialIcons name="sports-motorsports" size={24} color="black" />
+        <MaterialIcons
+          name="sports-motorsports"
+          size={iconSize}
+          color="white"
+        />
       </View>
     );
   }

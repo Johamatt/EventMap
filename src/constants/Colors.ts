@@ -7,7 +7,6 @@ export default {
     containerBackground: "#FFFFFF",
     headerBackground: "#0b2436",
 
-
     inputBackground: "#ffff",
     tabIconDefault: "#ccc",
     tabIconSelected: "#2f95dc",

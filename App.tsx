@@ -31,7 +31,7 @@ const App: React.FC = () => {
       <Provider store={store}>
         <SafeAreaProvider>
           <Navigation />
-          <StatusBar style="light" backgroundColor={Colors.light.tint} />
+          <StatusBar style="inverted" backgroundColor="black" />
         </SafeAreaProvider>
       </Provider>
     );

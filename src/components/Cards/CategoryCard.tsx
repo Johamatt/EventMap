@@ -2,7 +2,7 @@ import React from "react";
 import { CATEGORY } from "../../API";
 import { StyleSheet, View, Text } from "react-native";
 import Layout from "../../constants/Layout";
-import { ListIconDynamoDB } from "../Icon/ListIconDynamoDB";
+import { ListIconDynamoDB } from "../Lists/ListIconDynamoDB";
 import Colors from "../../constants/Colors";
 
 interface CategoriesListProps {
@@ -21,7 +21,6 @@ export const CategoryCard: React.FC<CategoriesListProps> = (props) => {
 };
 export const styles = StyleSheet.create({
   checked: {
-    backgroundColor: Colors.light.selected,
     width: Layout.window.width / 3,
     justifyContent: "center",
     alignItems: "center",

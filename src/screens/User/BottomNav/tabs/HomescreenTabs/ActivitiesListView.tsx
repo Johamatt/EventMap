@@ -6,6 +6,9 @@ import { fetchGuestActivitiesList } from "../../../../../hooks/fetch/PublicAcces
 import { fetchUserActivitiesList } from "../../../../../hooks/fetch/UserAccessFetch";
 import { ActivityCard } from "../../../../../components/Cards/ActivityCard";
 import { ApplicationState } from "../../../../../Store";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../../../../navigation/types";
 
 type HomescreenProps = {
   activitiesList: any;
@@ -20,8 +23,12 @@ const _ActivitiesListView: React.FC<HomescreenProps> = (props) => {
   const [nextToken, setNextToken] = useState<any>();
   const [page, setPage] = useState(0);
 
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>(); //
+
   useEffect(() => {
-    requestAPI(nextToken);
+    navigation.navigate("ActivityInfoModal", { id: "7c0fe59e-afab-436e-bbb7-bfedbf9fd3b8" }); //
+    // requestAPI(nextToken);
   }, [page]);
 
   const fetchMoreData = () => {
@@ -49,14 +56,6 @@ const _ActivitiesListView: React.FC<HomescreenProps> = (props) => {
       ]);
     }
   };
-
-  // if (!activities || activities.length === 0) {
-  //   return (
-  //     <View>
-  //       <SplashScreen />
-  //     </View>
-  //   );
-  // }
 
   return (
     <FlatList

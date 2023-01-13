@@ -24,10 +24,9 @@ import { connect } from "react-redux";
 import { ActivityInfoModal } from "../screens/User/ActivityInfoModal";
 import { AuthNavigator } from "./AuthNavigator";
 import PreferenceScreen from "../screens/User/PreferenceScreen";
-import { CognitoUserInterface } from "@aws-amplify/ui-components";
 
 interface NavigationProps {
-  userAuth: CognitoUserInterface | undefined;
+  userAuth: any;
   activitiesReducer: ActivitiesState;
   ON_UPDATE_AUTH: Function;
   ON_UPDATE_GUESTUSER_SESSION: Function;
@@ -98,7 +97,7 @@ const MainNavigation = () => {
         headerShown: false, //
 
         headerStyle: {
-          backgroundColor: Colors.light.tint,
+          backgroundColor: Colors.light.primary,
         },
         headerTintColor: Colors.light.containerBackground,
         headerTitleStyle: {
@@ -164,6 +163,10 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: "rgba(34,36,40,1)",
+          height: 50,
+        },
       }}
     >
       <BottomTab.Screen
@@ -174,7 +177,7 @@ function BottomTabNavigator() {
           title: "Home",
 
           tabBarIcon: ({ focused }) => {
-            const color = focused ? Colors.light.tint : "black";
+            const color = focused ? Colors.light.primary : "white";
             return <Feather name="home" size={24} color={color} />;
           },
         }}
@@ -186,7 +189,7 @@ function BottomTabNavigator() {
           headerShown: false,
           title: "Map",
           tabBarIcon: ({ focused }) => {
-            const icon = focused ? Colors.light.tint : "black";
+            const icon = focused ? Colors.light.primary : "white";
             return <Feather name="map" size={24} color={icon} />;
           },
         }}
@@ -199,7 +202,7 @@ function BottomTabNavigator() {
           title: "Favourites",
 
           tabBarIcon: ({ focused }) => {
-            const color = focused ? Colors.light.tint : "black";
+            const color = focused ? Colors.light.primary : "white";
             return <Feather name="heart" size={24} color={color} />;
           },
         }}
@@ -211,7 +214,7 @@ function BottomTabNavigator() {
           headerShown: false,
           title: "Profile",
           tabBarIcon: ({ focused }) => {
-            const color = focused ? Colors.light.tint : "black";
+            const color = focused ? Colors.light.primary : "white";
             return <Feather name="user" size={24} color={color} />;
           },
         }}
