@@ -27,7 +27,7 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
   return (
     <TouchableOpacity
       style={styles.cardContainer}
-      onPress={() => navigation.navigate("ActivityInfoModal", { id: event.id })}
+      onPress={() => navigation.navigate("ActivityModal", { id: event.id })}
     >
       <View style={styles.cardTopContainer}>
         <View style={styles.cardHostContainer}></View>

@@ -18,7 +18,7 @@ export const UserLandingScreen: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const animation = useRef(null);
+  const animation = useRef(null);
 
   const [backgroundImage, setBackgroundImage] = useState(
     require("../../../assets/logo/background.jpg")
@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#FFFFFF",
   },
   logo: {
     width: 200,

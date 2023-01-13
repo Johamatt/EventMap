@@ -149,7 +149,7 @@ const _MapScreen: React.FC<MapProps> = (props) => {
               coordinate={coordinates}
               pinColor={properties.color}
               onPress={() =>
-                navigation.navigate("ActivityInfoModal", { id: properties.id })
+                navigation.navigate("ActivityModal", { id: properties.id })
               }
             />
           );

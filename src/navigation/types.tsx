@@ -21,7 +21,7 @@ export type RootStackParamList = {
   PreferenceScreen: undefined;
   UserProfileScreen: undefined;
   EventScreen: { liveEvent: LiveEvent };
-  ActivityInfoModal: { id: string };
+  ActivityModal: { id: string };
   MapScreen2: undefined;
   EventListTab: undefined;
   ActivityListTab: undefined;

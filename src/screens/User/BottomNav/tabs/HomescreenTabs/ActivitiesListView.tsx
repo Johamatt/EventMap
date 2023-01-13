@@ -27,8 +27,7 @@ const _ActivitiesListView: React.FC<HomescreenProps> = (props) => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>(); //
 
   useEffect(() => {
-    navigation.navigate("ActivityInfoModal", { id: "7c0fe59e-afab-436e-bbb7-bfedbf9fd3b8" }); //
-    // requestAPI(nextToken);
+    requestAPI(nextToken);
   }, [page]);
 
   const fetchMoreData = () => {

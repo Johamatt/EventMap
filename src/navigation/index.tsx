@@ -21,7 +21,7 @@ import {
   ON_UPDATE_GUESTUSER_SESSION,
 } from "../Store";
 import { connect } from "react-redux";
-import { ActivityInfoModal } from "../screens/User/ActivityInfoModal";
+import { ActivityModal } from "../screens/User/ActivityModal";
 import { AuthNavigator } from "./AuthNavigator";
 import PreferenceScreen from "../screens/User/PreferenceScreen";
 
@@ -145,9 +145,11 @@ const MainNavigation = () => {
       /> */}
       {/* asd */}
 
-      <Stack.Group screenOptions={{ presentation: "modal", headerShown: true }}>
+      <Stack.Group
+        screenOptions={{ presentation: "modal", headerShown: false }}
+      >
         <Stack.Screen name="EventScreen" component={EventScreen} />
-        <Stack.Screen name="ActivityInfoModal" component={ActivityInfoModal} />
+        <Stack.Screen name="ActivityModal" component={ActivityModal} />
       </Stack.Group>
     </Stack.Group>
   );

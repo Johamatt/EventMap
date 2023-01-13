@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import { ListIconDynamoDB } from "../Lists/ListIconDynamoDB";
 import { StarRating } from "../Util/StarRaiting";
+import Colors from "../../constants/Colors";
 
 interface ActivityCardProps {
   activity: Activity;
@@ -24,7 +25,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
   let day = new Date().getDay();
 
   const handleCardPress = () => {
-    navigation.navigate("ActivityInfoModal", { id: activity.id });
+    navigation.navigate("ActivityModal", { id: activity.id });
   };
 
   const navigation =
@@ -171,8 +172,8 @@ const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
     borderWidth: 1,
-    borderRadius: 2,
-    borderColor: "#ddd",
+    borderRadius: 25,
+    borderColor: Colors.light.primary,
 
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
