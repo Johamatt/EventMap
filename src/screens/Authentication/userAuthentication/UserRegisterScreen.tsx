@@ -66,7 +66,6 @@ export const UserRegisterScreen: React.FC = (props) => {
             name="arrow-back-sharp"
             size={24}
             color="white"
-            style={{ paddingLeft: 10 }}
           />
         </TouchableOpacity>
       </View>
@@ -140,6 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.light.headerBackground,
     justifyContent: "center",
     marginTop: StatusBar.length,
+    paddingLeft: 10,
   },
 
   container: {

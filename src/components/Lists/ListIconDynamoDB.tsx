@@ -415,7 +415,7 @@ export const ListIconDynamoDB: React.FC<ListIconProps> = (props) => {
   }
 
   return (
-    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+    <View style={styles().iconsContainer}>
       {icons.map((e, i) => {
         return <View key={i}>{e}</View>;
       })}
@@ -431,6 +431,11 @@ const styles = (props?: any) =>
       padding: 3,
       margin: 3,
       borderColor: props,
+    },
+
+    iconsContainer: {
+      flexDirection: "row",
+      flexWrap: "wrap",
     },
 
     // iconBorders: {

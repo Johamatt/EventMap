@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList } from "react-native";
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { CATEGORY } from "../../../../../API";
@@ -78,16 +78,3 @@ const mapToStateProps = (state: ApplicationState) => ({
 const ActivitiesListView = connect(mapToStateProps)(_ActivitiesListView);
 
 export default ActivitiesListView;
-
-const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row-reverse",
-  },
-
-  iconbutton: {
-    name: "options-outline",
-    type: "ionicon",
-    size: 15,
-    color: "white",
-  },
-});

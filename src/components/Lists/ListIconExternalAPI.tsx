@@ -54,7 +54,7 @@ export const ListIconExternalAPI: React.FC<ListIconProps> = (props) => {
   }
 
   return (
-    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+    <View style={styles().iconContainer}>
       {icons.map((e, i) => {
         return <View key={i}>{e}</View>;
       })}
@@ -72,8 +72,8 @@ const styles = (props?: any) =>
       borderColor: props,
     },
 
-    // iconBorders: {
-    //   backgroundColor: "teal",
-    //   margin: 5,
-    // },
+    iconContainer: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+    },
   });

@@ -44,21 +44,17 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
           <Text style={styles.title}>{activity.Names.fi}</Text>
           <Text style={styles.companyName}>Nature with Borearctia</Text>
 
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <View style={{ flex: 0.5 }}>
+          <View style={styles.flexContainer}>
+            <View style={styles.flexColumn}>
               {/* <Text style={styles.companyName}>{activity.company?.name}</Text> */}
 
               <ListIconDynamoDB data={activity.categories} />
             </View>
 
-            <View style={{ flex: 0.5 }}>
+            <View style={styles.flexColumn}>
               {activity.OpenDays!.some((day) => day.timeFrom && day.timeTo) ? (
                 <>
-                  <Text
-                    style={{ color: "white", fontWeight: "bold", fontSize: 15 }}
-                  >
-                    Open hours
-                  </Text>
+                  <Text style={styles.whiteTextBold}>Open hours</Text>
                   {activity.OpenDays!.map((day, index) => (
                     <Text
                       key={index}
@@ -74,31 +70,15 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
                 </>
               ) : (
                 <>
-                  <Text
-                    style={{
-                      color: "orange",
-                      fontWeight: "bold",
-                      fontSize: 15,
-                    }}
-                  >
-                    No Opening hours info
-                  </Text>
-                  <Text
-                    style={{
-                      color: "yellow",
-                      fontWeight: "bold",
-                      fontSize: 15,
-                    }}
-                  >
-                    Press for more deatails
-                  </Text>
+                  <Text style={styles.orangeText}>No Opening hours info</Text>
+                  <Text style={styles.yellowText}>Press for more deatails</Text>
                 </>
               )}
             </View>
           </View>
         </View>
 
-        <View style={styles.cardMiddleContainer}>
+        <View style={styles.priceContainer}>
           {activity.isFree ? (
             <Text style={styles.price}>
               {/* {activity.price.EurFrom! - activity.price.EurTo!} */}
@@ -106,7 +86,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
             </Text>
           ) : (
             <>
-              <Text style={{ color: "white" }}>
+              <Text style={styles.whiteText}>
                 Price: <Text style={styles.free}>Free</Text>
               </Text>
             </>
@@ -169,6 +149,25 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
 };
 
 const styles = StyleSheet.create({
+  flexContainer: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  flexColumn: {
+    flex: 0.5,
+  },
+
+  orangeText: {
+    color: "orange",
+    fontWeight: "bold",
+    fontSize: 15,
+  },
+  yellowText: {
+    color: "yellow",
+    fontWeight: "bold",
+    fontSize: 15,
+  },
+
   cardContainer: {
     flex: 1,
     borderWidth: 1,
@@ -199,6 +198,12 @@ const styles = StyleSheet.create({
     color: "white",
   },
 
+  whiteTextBold: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 15,
+  },
+
   companyLogo: {
     width: 50,
     height: 50,
@@ -218,6 +223,11 @@ const styles = StyleSheet.create({
   cardMiddleContainer: {
     marginTop: 10,
   },
+
+  priceContainer: {
+    marginTop: 10,
+  },
+
   companyName: {
     fontWeight: "bold",
     fontSize: 16,

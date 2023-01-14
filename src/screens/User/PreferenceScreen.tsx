@@ -69,22 +69,12 @@ export const _PreferenceScreen: React.FC<PreferenceScreenProps> = (props) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons
-            name="arrow-back-sharp"
-            size={24}
-            color="white"
-            style={{ paddingLeft: 10 }}
-          />
+          <Ionicons name="arrow-back-sharp" size={24} color="white" />
         </TouchableOpacity>
       </View>
 
-      <View
-        style={{
-          justifyContent: "center",
-          flex: 0.3,
-        }}
-      >
-        <View style={{ marginHorizontal: 15 }}>
+      <View>
+        <View>
           <Text style={styles.optionTitle}>Open hours</Text>
           <View style={styles.switchBox}>
             <Text>Show currently open</Text>
@@ -97,7 +87,7 @@ export const _PreferenceScreen: React.FC<PreferenceScreenProps> = (props) => {
           </View>
         </View>
 
-        <View style={{ marginHorizontal: 15 }}>
+        <View>
           <Text style={styles.optionTitle}>Categories</Text>
           <View style={styles.switchBox}>
             <Text>Select all categories</Text>
@@ -112,36 +102,6 @@ export const _PreferenceScreen: React.FC<PreferenceScreenProps> = (props) => {
 
         <View style={styles.switchBox}></View>
       </View>
-
-      <View style={{ flex: 0.7 }}>
-        {/* <Divider /> */}
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <View
-            style={selectAllCategories ? styles.selectAll : undefined}
-            pointerEvents={selectAllCategories ? "none" : "auto"}
-          >
-            <FlatList
-              data={Object.values(CATEGORY)}
-              numColumns={3}
-              style={{}}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={
-                    selectedTags.includes(item)
-                      ? styles.checked
-                      : styles.unchecked
-                  }
-                  disabled={selectAllCategories}
-                  onPress={() => handleSelectionMultiple(item)}
-                >
-                  <CategoryCard category={item} />
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-        </View>
-      </View>
-      {/* Content Ends */}
     </View>
   );
 };
@@ -163,6 +123,7 @@ export default PreferenceScreen;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
     backgroundColor: "white",
     marginTop: Constants.statusBarHeight,
   },

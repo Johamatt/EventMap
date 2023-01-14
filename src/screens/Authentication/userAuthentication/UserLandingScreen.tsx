@@ -20,25 +20,6 @@ export const UserLandingScreen: React.FC = () => {
 
   const animation = useRef(null);
 
-  const [backgroundImage, setBackgroundImage] = useState(
-    require("../../../assets/logo/background.jpg")
-  );
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBackgroundImage((prevBackgroundImage: string) => {
-        if (
-          prevBackgroundImage === require("../../../assets/logo/background.jpg")
-        ) {
-          return require("../../../assets/logo/background2.jpg");
-        } else {
-          return require("../../../assets/logo/background.jpg");
-        }
-      });
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
   const onContinueAsGuest = () => {
     store.dispatch({
       type: "ON_UPDATE_GUESTUSER_SESSION",
@@ -48,7 +29,7 @@ export const UserLandingScreen: React.FC = () => {
   return (
     // <ImageBackground source={backgroundImage} style={styles.background}>
     <View style={styles.container}>
-      <View style={{ flex: 0.5 }}>
+      <View style={styles.lottieContainer}>
         <LottieView
           resizeMode="cover"
           autoPlay
@@ -90,6 +71,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+  },
+
+  lottieContainer: {
+    flex: 0.5,
   },
 
   buttonsContainer: {

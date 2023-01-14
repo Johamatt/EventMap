@@ -31,16 +31,7 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
     console.log(props.guestUserSession);
   }
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    ></View>
-  );
+  return <View></View>;
 };
 
 export const mapToStateProps = (state: ApplicationState) => ({

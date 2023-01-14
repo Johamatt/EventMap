@@ -14,7 +14,11 @@ import { ActivitiesState, UserState } from "../../Store/types";
 import { ApplicationState, ON_UPDATE_LOCATION } from "../../Store";
 import { connect } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Espoo, Helsinki, Vantaa } from "../../util/helpers/other/cityGeolocations";
+import {
+  Espoo,
+  Helsinki,
+  Vantaa,
+} from "../../util/helpers/other/cityGeolocations";
 
 import { StyleSheet } from "react-native";
 import Layout from "../../constants/Layout";
@@ -61,10 +65,10 @@ const _LandingLocationScreen: React.FC<LandingLocationProps> = (props) => {
       {/* Content Starts */}
       <View style={styles.content}>
         <View style={styles.pickerBox}>
-          <View style={{ justifyContent: "center" }}>
-            <Ionicons name="location" size={24} color={Colors.light.tint} />
+          <View>
+            <Ionicons name="location" size={24} color={Colors.light.primary} />
           </View>
-          <View style={{ flex: 10 }}>
+          <View>
             <Picker
               selectedValue={location}
               onValueChange={(itemValue, itemIndex) => setLocation(itemValue)}
@@ -78,12 +82,7 @@ const _LandingLocationScreen: React.FC<LandingLocationProps> = (props) => {
 
         <TouchableOpacity onPress={requestlocation} style={styles.nearbyBox}>
           <View style={{ justifyContent: "center" }}>
-            <Feather
-              name="target"
-              size={24}
-              color={Colors.light.tint}
-              style={{ paddingRight: 10 }}
-            />
+            <Feather name="target" size={24} color={Colors.light.primary} />
           </View>
           <View style={{ justifyContent: "center" }}>
             <Text>Nearby</Text>

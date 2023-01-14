@@ -1,4 +1,4 @@
-import { FlatList, View, StyleSheet } from "react-native";
+import { FlatList} from "react-native";
 
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
@@ -60,16 +60,3 @@ const mapToStateProps = (state: ApplicationState) => ({
 const EventsListView = connect(mapToStateProps)(_EventsListView);
 
 export default EventsListView;
-
-const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row-reverse",
-  },
-
-  iconbutton: {
-    name: "options-outline",
-    type: "ionicon",
-    size: 15,
-    color: "white",
-  },
-});

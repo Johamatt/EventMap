@@ -13,41 +13,35 @@ const MapCard = ({ closeCard }: MapCardProps) => {
           <Entypo name="circle-with-cross" size={24} color="black" />
         </TouchableOpacity>
       </View>
-      <View style={styles.mapRow}>
-        <View style={{ flex: 0.5, flexDirection: "row" }}>
+      <View style={styles.mapModal}>
+        <View style={styles.flexContainer}>
           <TouchableOpacity style={styles.touchable}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Events</Text>
+            <Text style={styles.whiteTextBold}>Events</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.touchable}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>
-              Activities
-            </Text>
+            <Text style={styles.whiteTextBold}>Activities</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={{ flex: 0.5 }}>
-          <View style={{ flexDirection: "row" }}>
+        <View style={styles.flexContainer}>
+          <View style={styles.flexContainer}>
             <TouchableOpacity style={styles.touchable2}>
-              <Text style={{ color: "white", fontWeight: "bold" }}>Today</Text>
+              <Text style={styles.whiteTextBold}>Today</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.touchable2}>
-              <Text style={{ color: "white", fontWeight: "bold" }}>
-                Tomorrow
-              </Text>
+              <Text style={styles.whiteTextBold}>Tomorrow</Text>
             </TouchableOpacity>
           </View>
 
-          <View style={{ flexDirection: "row" }}>
+          <View style={styles.flexContainer}>
             <TouchableOpacity style={styles.touchable2}>
-              <Text style={{ color: "white", fontWeight: "bold" }}>
-                Weekend
-              </Text>
+              <Text style={styles.whiteTextBold}>Weekend</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.touchable2}>
-              <Text style={{ color: "white", fontWeight: "bold" }}>All</Text>
+              <Text style={styles.whiteTextBold}>All</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -68,6 +62,12 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 20,
   },
+
+  flexContainer: {
+    flex: 0.5,
+    flexDirection: "row",
+  },
+
   header: {
     position: "relative",
     display: "flex",
@@ -76,7 +76,13 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     marginBottom: 12,
   },
-  mapRow: {
+
+  mapModalRow: {
+    flex: 0.5,
+    flexDirection: "row",
+  },
+
+  mapModal: {
     flexDirection: "row",
     paddingHorizontal: 10,
   },
@@ -104,6 +110,11 @@ const styles = StyleSheet.create({
     borderColor: "white",
     width: 75,
     height: 32.5,
+  },
+
+  whiteTextBold: {
+    color: "white",
+    fontWeight: "bold",
   },
 });
 

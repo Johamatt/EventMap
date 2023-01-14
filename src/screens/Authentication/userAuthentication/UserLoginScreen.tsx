@@ -74,8 +74,6 @@ const UserLoginScreen: React.FC = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 0.5 }} />
-
       <LottieView
         resizeMode="cover"
         autoPlay

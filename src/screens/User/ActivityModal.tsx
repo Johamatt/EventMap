@@ -81,7 +81,6 @@ export const ActivityModal: React.FC<ActivityInfoModalProps> = (props) => {
               color: "black",
             },
           ]}
-
         />
       </View>
     );
@@ -114,8 +113,8 @@ export const ActivityModal: React.FC<ActivityInfoModalProps> = (props) => {
 
         <View style={styles.separator}></View>
 
-        <View style={styles.companyInfoContainer}>
-          <View style={{ flex: 0.5, padding: 10 }}>
+        <View style={styles.middleContainer}>
+          <View style={styles.companyInfoContainer}>
             <Text style={styles.companyNameText}>
               Natura vaVidavavavavavvavav
             </Text>
@@ -127,7 +126,7 @@ export const ActivityModal: React.FC<ActivityInfoModalProps> = (props) => {
             />
           </View>
 
-          <View style={{ flex: 0.5, padding: 10 }}>
+          <View style={styles.openHoursContainer}>
             {activity.OpenDays!.some((day) => day.timeFrom && day.timeTo) ? (
               <>
                 <Text style={styles.openingHoursTitle}>Open hours</Text>
@@ -146,15 +145,7 @@ export const ActivityModal: React.FC<ActivityInfoModalProps> = (props) => {
               </>
             ) : (
               <>
-                <Text
-                  style={{
-                    color: "orange",
-                    fontWeight: "bold",
-                    fontSize: 15,
-                  }}
-                >
-                  No Opening hours info
-                </Text>
+                <Text style={styles.openHourNoInfo}>No Opening hours info</Text>
               </>
             )}
           </View>
@@ -163,7 +154,7 @@ export const ActivityModal: React.FC<ActivityInfoModalProps> = (props) => {
 
       <View style={styles.separator} />
 
-      <View style={styles.middleContainer}>
+      <View style={styles.descriptionContainer}>
         <Text style={styles.description}>{activity?.Descriptions.fi}</Text>
       </View>
 
@@ -172,10 +163,7 @@ export const ActivityModal: React.FC<ActivityInfoModalProps> = (props) => {
         (null && activity?.Location.lon !== undefined) ||
         null ? (
           <MapView
-            style={{
-              width: Dimensions.get("window").width,
-              height: 300,
-            }}
+            style={styles.mapContainer}
             initialRegion={{
               latitude: activity!.Location.lat,
               longitude: activity!.Location.lon,
@@ -229,9 +217,14 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  companyInfoContainer: {
+  middleContainer: {
     flexDirection: "row",
     justifyContent: "center",
+  },
+
+  companyInfoContainer: {
+    flex: 0.5,
+    padding: 10,
   },
 
   companyLogo: {
@@ -247,11 +240,22 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
 
+  openHoursContainer: {
+    flex: 0.5,
+    padding: 10,
+  },
+
   openingHoursTitle: {
     color: "white",
     fontWeight: "bold",
     fontSize: 15,
     paddingBottom: 10,
+  },
+
+  openHourNoInfo: {
+    color: "orange",
+    fontWeight: "bold",
+    fontSize: 15,
   },
 
   greenText: {
@@ -261,7 +265,7 @@ export const styles = StyleSheet.create({
     color: "white",
   },
 
-  middleContainer: {
+  descriptionContainer: {
     padding: 20,
   },
 
@@ -289,6 +293,11 @@ export const styles = StyleSheet.create({
     padding: 20,
   },
 
+  mapContainer: {
+    width: Dimensions.get("window").width,
+    height: 300,
+  },
+
   separator: {
     borderWidth: 0.2,
     borderColor: "grey",
@@ -306,6 +315,5 @@ export const styles = StyleSheet.create({
     backgroundColor: "black",
     paddingHorizontal: 15,
     marginTop: Constants.statusBarHeight,
-    
   },
 });

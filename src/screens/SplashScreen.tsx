@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useRef } from "react";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import * as Splash from "expo-splash-screen";
 import LottieView from "lottie-react-native";
 import Layout from "../constants/Layout";
@@ -30,17 +30,8 @@ export default function SplashScreen() {
   }
 
   return (
-    <View
-      onLayout={onLayoutRootView}
-      style={{
-        backgroundColor: "#000",
-        zIndex: -1,
-        justifyContent: "center",
-        alignContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <View style={{ position: "absolute", alignItems: "center" }}>
+    <View onLayout={onLayoutRootView} style={styles.container}>
+      <View style={styles.absoluteView}>
         <Text
           style={{
             fontSize: 64,
@@ -51,24 +42,12 @@ export default function SplashScreen() {
         </Text>
       </View>
 
-      <View
-        style={{
-          width: "100%",
-          height: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-          alignSelf: "center",
-          zIndex: -1,
-        }}
-      >
+      <View>
         <LottieView
           resizeMode="cover"
           autoPlay
           ref={animation}
-          style={{
-            width: Layout.window.width,
-            height: Layout.window.height,
-          }}
+          style={styles.lottie}
           loop={true}
           source={require("../assets/lottie/splash.json")}
         ></LottieView>
@@ -76,3 +55,25 @@ export default function SplashScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#000",
+    zIndex: -1,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 64,
+    color: "white",
+  },
+  absoluteView: {
+    position: "absolute",
+    alignItems: "center",
+  },
+  lottie: {
+    width: Layout.window.width,
+    height: Layout.window.height,
+  },
+});

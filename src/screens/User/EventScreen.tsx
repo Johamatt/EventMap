@@ -25,28 +25,17 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
 
   return (
     // Header starts
-    <ScrollView style={{ display: "flex", flex: 1 }}>
-      <View style={{ paddingTop: 25 }}>
+    <ScrollView style={styles.container}>
+      <View style={styles.topSection}>
         <Image
           source={{
             uri: "https://reactnative.dev/img/tiny_logo.png",
           }}
         />
-        <Text
-          style={{
-            fontSize: 35,
-            textAlign: "center",
-            fontFamily: "Rationale-Regular",
-          }}
-        >
-          {event.Descriptions.fi}
-        </Text>
+        <Text style={styles.description}>{event.Descriptions.fi}</Text>
       </View>
-      {/* Header ends */}
-
-      {/* Content Starts */}
-      <View style={{ padding: 20, margin: "auto" }}>
-        <View style={{ padding: 5, flexDirection: "row" }}>
+      <View>
+        <View>
           {/* <Image
             style={{ width: 105, height: 105 }}
             source={{
@@ -57,7 +46,7 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
             }}
           /> */}
 
-          <View style={{ padding: 10 }}>
+          <View>
             <View>
               <Text>{event.startingDateTime}</Text>
               <Text>{event.endingDateTime}</Text>
@@ -70,28 +59,16 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
           </View>
         </View>
 
-        <View style={{ padding: 5, flexDirection: "row" }}>
-          <View style={{ justifyContent: "center" }}>
-            <Text>{event.Descriptions.fi}</Text>
-          </View>
+        <View style={styles.descriptionContainer}>
+          <Text>{event.Descriptions.fi}</Text>
         </View>
 
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "#fff",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <View>
           {event.location.lat !== undefined ||
           (null && event.location.lon !== undefined) ||
           null ? (
             <MapView
-              style={{
-                width: Dimensions.get("window").width,
-                height: 300,
-              }}
+              style={styles.mapContainer}
               initialRegion={{
                 latitude: event.location.lat,
                 longitude: event.location.lon,
@@ -111,15 +88,8 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
           )}
         </View>
 
-        <View></View>
-
         <View style={styles.separator} />
       </View>
-      {/* Content Ends */}
-
-      {/* Footer Starts */}
-      <View style={styles.footer}></View>
-      {/* Footer Ends */}
     </ScrollView>
   );
 };
@@ -136,26 +106,31 @@ export const styles = StyleSheet.create({
   container: {
     display: "flex",
     flex: 1,
+    padding: 20,
   },
-  footer: {
-    flexDirection: "row-reverse",
-    justifyContent: "space-between",
-    paddingHorizontal: 30,
+
+  mapContainer: {
+    width: Dimensions.get("window").width,
+    height: 300,
   },
-  //Util
+
+  descriptionContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+
+  topSection: {
+    paddingTop: 25,
+  },
+
+  description: {
+    fontSize: 35,
+    textAlign: "center",
+    fontFamily: "Rationale-Regular",
+  },
+
   separator: {
-    marginVertical: 20,
-    height: 2,
-    color: "#000",
-  },
-
-  selectedListItem: {
-    backgroundColor: "#2f95dc",
-    alignItems: "center",
-    width: Layout.window.width / 2.5,
-  },
-
-  unSelectedListItem: {
-    width: Layout.window.width / 2.2,
+    borderBottomWidth: 1,
+    borderBottomColor: "#000",
   },
 });
