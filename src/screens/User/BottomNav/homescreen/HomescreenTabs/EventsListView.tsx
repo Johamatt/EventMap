@@ -1,12 +1,11 @@
-import { FlatList} from "react-native";
+import { FlatList } from "react-native";
 
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { CATEGORY } from "../../../../../API";
-import { fetchPublicEventsList } from "../../../../../hooks/fetch/PublicAccessFetch";
 import { EventCard } from "../../../../../components/Cards/EventCard";
 import { ApplicationState } from "../../../../../Store";
+import { fetchEventsTodayList } from "../../../../../hooks/fetch/linkedEvents/ListLinkedEvents/linkedEventsFetch";
 
 type HomescreenProps = {
   activitiesList: any;
@@ -14,6 +13,8 @@ type HomescreenProps = {
   userPreferences: Array<CATEGORY>;
   showcurrentlyopen: boolean;
   guestUserSession: boolean;
+
+  eventsList: Array<any>;
 };
 
 const _EventsListView: React.FC<HomescreenProps> = (props) => {
@@ -30,13 +31,12 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
 
   const fetchData = async (page: number) => {
     try {
-      const data = await fetchPublicEventsList(page);
+      const data = await fetchEventsTodayList(page);
       setEvents([...events, ...data]);
     } catch (error) {
       console.log(error);
     }
   };
-
 
   return (
     <FlatList
@@ -55,6 +55,8 @@ const mapToStateProps = (state: ApplicationState) => ({
   showcurrentlyopen: state.UserReducer.showCurrentlyOpen,
   userPreferences: state.UserReducer.preferences,
   guestUserSession: state.UserReducer.guestUserSession,
+
+  eventsList: state.EventsReducer.eventsList,
 });
 
 const EventsListView = connect(mapToStateProps)(_EventsListView);

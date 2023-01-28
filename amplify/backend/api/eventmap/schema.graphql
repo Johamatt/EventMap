@@ -1,12 +1,12 @@
+
 type Name {
   fi: String!
   en: String
   sv: String
   jp: String
   es: String
-    de: String
+  de: String
 }
-
 type Description {
   fi: String!
   en: String
@@ -15,8 +15,6 @@ type Description {
   es: String
   de: String
 }
-
-
 type Location {
   lat: Float!
   lon: Float!
@@ -25,7 +23,6 @@ type Location {
   city: String
   country: String
 }
-
 type Event @model @auth(rules: [{allow: owner},  
  {allow: groups, groups: ["Admin"]},  
  {allow: groups, groups: ["DefaultUser"], operations: [read]},
@@ -47,9 +44,6 @@ type Event @model @auth(rules: [{allow: owner},
   ageRestriction: String
   isFree: Boolean
   Ticket: [Ticket] @hasMany
-  
-  
-
 }
 
 type Ticket @model @auth(rules: [{allow: owner},  

@@ -1,16 +1,16 @@
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
-import { ApplicationState } from "../../../Store";
+import { ApplicationState } from "../../../../../Store";
 import { connect } from "react-redux";
-import React, { useState } from "react";
-import { Activity, CATEGORY, Event } from "../../../API";
-import ActivitiesListView from "./tabs/HomescreenTabs/ActivitiesListView";
-import Colors from "../../../constants/Colors";
+import React, { useMemo, useState } from "react";
+import { Activity, CATEGORY, Event } from "../../../../../API";
+import ActivitiesListView from "./ActivitiesListView";
+import Colors from "../../../../../constants/Colors";
 import Constants from "expo-constants";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../../../navigation/types";
-import EventsListView from "./tabs/HomescreenTabs/EventsListView";
+import { RootStackParamList } from "../../../../../navigation/types";
+import EventsListView from "./EventsListView";
 
 type HomescreenProps = {
   activitiesList: any;
@@ -21,12 +21,12 @@ type HomescreenProps = {
 
 const _HomeScreen: React.FC<HomescreenProps> = (props) => {
   const [tabView, setTabView] = useState<"Activities" | "Events" | "Friends">(
-    "Activities"
+    "Events"
   );
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const renderList = () => {
+  const renderList = useMemo(() => {
     switch (tabView) {
       case "Activities":
         return <ActivitiesListView />;
@@ -45,7 +45,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
       default:
         return null;
     }
-  };
+  }, [tabView]);
 
   return (
     <View style={styles.container}>
@@ -59,6 +59,15 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
       </View>
       {/* {countryListVisible && renderCountryList()} */}
       <View style={styles.tabContainer}>
+        <TouchableOpacity onPress={() => setTabView("Events")}>
+          <Text
+            style={
+              tabView === "Events" ? styles.selectedHeaderTab : styles.headerTab
+            }
+          >
+            Events
+          </Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => setTabView("Activities")}>
           <Text
             style={
@@ -70,15 +79,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
             Activities
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setTabView("Events")}>
-          <Text
-            style={
-              tabView === "Events" ? styles.selectedHeaderTab : styles.headerTab
-            }
-          >
-            Events
-          </Text>
-        </TouchableOpacity>
+
         <TouchableOpacity onPress={() => setTabView("Friends")}>
           <Text
             style={
@@ -91,7 +92,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
           </Text>
         </TouchableOpacity>
       </View>
-      {renderList()}
+      {renderList}
     </View>
   );
 };

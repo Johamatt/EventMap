@@ -14,7 +14,7 @@ import {
   ScrollView,
 } from "react-native";
 import { ListIconDynamoDB } from "../Lists/ListIconDynamoDB";
-import { StarRating } from "../Util/StarRaiting";
+
 import Colors from "../../constants/Colors";
 
 interface ActivityCardProps {
@@ -94,16 +94,6 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
         </View>
       </TouchableOpacity>
       <View style={styles.cardBottomContainer}>
-        {activity.raiting && activity.user_raitings_total && (
-          <View style={styles.ratingContainer}>
-            <StarRating rating={activity.raiting} />
-            <Text style={styles.ratingText}>
-              {activity.raiting}/5 based on {activity.user_raitings_total}{" "}
-              ratings
-            </Text>
-          </View>
-        )}
-
         <ScrollView horizontal={true} style={styles.pictureContainer}>
           {/* {pictures.map((img, i) => (
                 <Image

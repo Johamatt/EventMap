@@ -8,11 +8,13 @@ import {
   Image,
   TouchableOpacity,
   ImageBackground,
+  Button,
 } from "react-native";
 import { RootStackParamList } from "../../../navigation/types";
 import { store } from "../../../Store";
 import LottieView from "lottie-react-native";
 import Layout from "../../../constants/Layout";
+import { fetchEventsTodayList } from "../../../hooks/fetch/linkedEvents/ListLinkedEvents/linkedEventsFetch";
 
 export const UserLandingScreen: React.FC = () => {
   const navigation =
@@ -26,6 +28,10 @@ export const UserLandingScreen: React.FC = () => {
       payload: true,
     });
   };
+
+  //
+
+  //
   return (
     // <ImageBackground source={backgroundImage} style={styles.background}>
     <View style={styles.container}>
@@ -65,10 +71,6 @@ export const UserLandingScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    zIndex: 5,
-  },
   container: {
     flex: 1,
   },

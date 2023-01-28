@@ -1,27 +1,25 @@
 import { Dimensions, ScrollView } from "react-native";
-import { RootStackParamList } from "../../navigation/types";
-import { Event as LiveEvent } from "../../API";
 import { View, Text, Image } from "react-native";
-import { ApplicationState, UserState } from "../../Store";
+
 import { connect } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import MapView, { Marker } from "react-native-maps";
 import { StyleSheet } from "react-native";
-import Layout from "../../constants/Layout";
+import { ApplicationState, UserState } from "../../../Store";
+import { RootStackParamList } from "../../../navigation/types";
 
-interface EventScreenProps {
-  userReducer: UserState;
+interface EventModalProps {
   navigation: any;
   route: any;
 }
 
-const _EventScreen: React.FC<EventScreenProps> = (props) => {
+export const EventModal: React.FC<EventModalProps> = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const event: LiveEvent = props.route.params.liveEvent;
+  const event: any = props.route.params.liveEvent;
 
   return (
     // Header starts
@@ -93,14 +91,6 @@ const _EventScreen: React.FC<EventScreenProps> = (props) => {
     </ScrollView>
   );
 };
-
-const mapToStateProps = (state: ApplicationState) => ({
-  userReducer: state.UserReducer,
-});
-
-const EventScreen = connect(mapToStateProps)(_EventScreen);
-
-export default EventScreen;
 
 export const styles = StyleSheet.create({
   container: {

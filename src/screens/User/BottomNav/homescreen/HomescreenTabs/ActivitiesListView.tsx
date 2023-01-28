@@ -2,13 +2,14 @@ import { FlatList } from "react-native";
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { CATEGORY } from "../../../../../API";
-import { fetchGuestActivitiesList } from "../../../../../hooks/fetch/PublicAccessFetch";
-import { fetchUserActivitiesList } from "../../../../../hooks/fetch/UserAccessFetch";
+import { fetchGuestActivitiesList } from "../../../../../hooks/fetch/linkedEvents/Appsync/PublicAccessFetch";
+
 import { ActivityCard } from "../../../../../components/Cards/ActivityCard";
 import { ApplicationState } from "../../../../../Store";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../../../navigation/types";
+import { fetchUserActivitiesList } from "../../../../../hooks/fetch/linkedEvents/Appsync/UserAccessFetch";
 
 type HomescreenProps = {
   activitiesList: any;

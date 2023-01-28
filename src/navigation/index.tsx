@@ -6,10 +6,8 @@ import * as React from "react";
 import { View } from "react-native";
 import Colors from "../constants/Colors";
 import { RootStackParamList, RootTabParamList } from "./types";
-import LandingLocationScreen from "../screens/User/LandingLocationScreen";
-import MapScreen from "../screens/User/BottomNav/MapScreen";
-import EventScreen from "../screens/User/EventScreen";
-import HomeScreen from "../screens/User/BottomNav/HomeScreen";
+import MapScreen from "../screens/User/BottomNav/mapscreen/MapScreen";
+import HomeScreen from "../screens/User/BottomNav/homescreen/HomescreenTabs/HomeScreen";
 import FavouritesScreen from "../screens/User/BottomNav/FavouritesScreen";
 import { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
@@ -21,9 +19,9 @@ import {
   ON_UPDATE_GUESTUSER_SESSION,
 } from "../Store";
 import { connect } from "react-redux";
-import { ActivityModal } from "../screens/User/ActivityModal";
 import { AuthNavigator } from "./AuthNavigator";
-import PreferenceScreen from "../screens/User/PreferenceScreen";
+import { ActivityModal } from "../screens/User/modals/ActivityModal";
+import { EventModal } from "../screens/User/modals/EventModal";
 
 interface NavigationProps {
   userAuth: any;
@@ -117,20 +115,6 @@ const MainNavigation = () => {
           ),
         }}
       />
-      <Stack.Screen
-        name="LandingLocationScreen"
-        component={LandingLocationScreen}
-        options={{
-          title: "Landing Location",
-        }}
-      />
-      <Stack.Screen
-        name="PreferenceScreen"
-        component={PreferenceScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
 
       {/* asd */}
       {/* <Stack.Screen
@@ -148,7 +132,7 @@ const MainNavigation = () => {
       <Stack.Group
         screenOptions={{ presentation: "modal", headerShown: false }}
       >
-        <Stack.Screen name="EventScreen" component={EventScreen} />
+        <Stack.Screen name="EventModal" component={EventModal} />
         <Stack.Screen name="ActivityModal" component={ActivityModal} />
       </Stack.Group>
     </Stack.Group>

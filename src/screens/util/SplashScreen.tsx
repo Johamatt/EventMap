@@ -1,36 +1,14 @@
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import * as Splash from "expo-splash-screen";
 import LottieView from "lottie-react-native";
-import Layout from "../constants/Layout";
-import loadResources from "../hooks/loadResources";
+import Layout from "../../constants/Layout";
 
 export default function SplashScreen() {
   const animation = useRef(null);
-  const appIsReady = loadResources();
-
-  useEffect(() => {
-    async function prepare() {
-      await Splash.preventAutoHideAsync();
-    }
-
-    prepare();
-  }, []);
-
-  const onLayoutRootView = useCallback(async () => {
-    if (await appIsReady) {
-      await Splash.hideAsync();
-      await new Promise((resolve) => setTimeout(resolve, 4000));
-      //
-    }
-  }, [appIsReady]);
-
-  if (!appIsReady) {
-    return null;
-  }
 
   return (
-    <View onLayout={onLayoutRootView} style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.absoluteView}>
         <Text
           style={{
@@ -49,7 +27,7 @@ export default function SplashScreen() {
           ref={animation}
           style={styles.lottie}
           loop={true}
-          source={require("../assets/lottie/splash.json")}
+          source={require("../../assets/lottie/splash.json")}
         ></LottieView>
       </View>
     </View>

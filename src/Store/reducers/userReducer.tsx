@@ -2,11 +2,10 @@ import { LocationGeocodedLocation } from "expo-location";
 import { CATEGORY } from "../../API";
 import { UserAction } from "../actions/userAction";
 import { UserState } from "../types";
-import { CognitoUserInterface } from "@aws-amplify/ui-components";
 
 const initialState: UserState = {
   location: {} as LocationGeocodedLocation,
-  userAuth: {} as CognitoUserInterface,
+  userAuth: {} as any,
   preferences: [] as Array<CATEGORY>,
   error: undefined,
   showCurrentlyOpen: true,

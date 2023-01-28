@@ -74,50 +74,54 @@ const UserLoginScreen: React.FC = (props) => {
 
   return (
     <View style={styles.container}>
-      <LottieView
-        resizeMode="cover"
-        autoPlay
-        ref={animation}
-        loop={true}
-        source={require("../../../assets/lottie/login.json")}
-      />
-
-      <View style={styles.TextInput}>
-        <TextInput
-          placeholder="Email"
-          placeholderTextColor="#003f5c"
-          onChangeText={(username: string) => setUsername(username)}
-          textAlign="center"
+      <View style={styles.animationContainer}>
+        <LottieView
+          resizeMode="contain"
+          autoPlay
+          ref={animation}
+          loop={true}
+          source={require("../../../assets/lottie/login-2.json")}
         />
       </View>
 
-      <View style={styles.TextInput}>
-        <TextInput
-          secureTextEntry={true}
-          placeholder="Password"
-          placeholderTextColor="#003f5c"
-          onChangeText={(password: string) => setPassword(password)}
-          textAlign="center"
-        />
+      <View style={styles.formContainer}>
+        <View style={styles.TextInput}>
+          <TextInput
+            placeholder="Email"
+            placeholderTextColor="#003f5c"
+            onChangeText={(username: string) => setUsername(username)}
+            textAlign="center"
+          />
+        </View>
+
+        <View style={styles.TextInput}>
+          <TextInput
+            secureTextEntry={true}
+            placeholder="Password"
+            placeholderTextColor="#003f5c"
+            onChangeText={(password: string) => setPassword(password)}
+            textAlign="center"
+          />
+        </View>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate("UserForgotPasswordScreen")}
+          style={styles.forgotBtn}
+        >
+          <Text style={styles.loginBtnText}> Forgot your Password?</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.loginBtn} onPress={onSignInPressed}>
+          <Text style={styles.loginBtnText}>
+            {loading ? "Loading..." : "LOGIN"}
+          </Text>
+        </TouchableOpacity>
       </View>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate("UserForgotPasswordScreen")}
-        style={styles.forgotBtn}
-      >
-        <Text> Forgot your Password?</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.loginBtn} onPress={onSignInPressed}>
-        <Text style={styles.loginBtnText}>
-          {loading ? "Loading..." : "LOGIN"}
-        </Text>
-      </TouchableOpacity>
 
       {!keyboardVisible && (
-        <>
+        <View style={styles.buttonsContainer}>
           <TouchableOpacity
-            style={styles.loginBtn}
+            style={styles.questBtn}
             onPress={() => onContinueAsGuest()}
           >
             <Text style={styles.loginBtnText}>Continue as Guest</Text>
@@ -131,7 +135,7 @@ const UserLoginScreen: React.FC = (props) => {
               <Text style={styles.linkText}>Sign up</Text>
             </Text>
           </TouchableOpacity>
-        </>
+        </View>
       )}
     </View>
   );
@@ -140,20 +144,45 @@ const UserLoginScreen: React.FC = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.light.containerBackground,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "black",
   },
   TextInput: {
-    backgroundColor: Colors.light.inputBackground,
+    width: "80%",
+    height: 50,
+    backgroundColor: "white",
     borderRadius: 25,
-    width: "70%",
-    height: 52,
-    margin: 10,
-    borderColor: "grey",
-    borderWidth: 1,
+    justifyContent: "center",
+    marginVertical: 10,
+  },
+  loginBtn: {
+    width: "80%",
+    height: 50,
+    backgroundColor: "blue",
+    borderRadius: 25,
     alignItems: "center",
     justifyContent: "center",
+    marginVertical: 10,
+  },
+
+  questBtn: {
+    width: "100%",
+    height: 50,
+    backgroundColor: "gray",
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 10,
+    alignSelf: "center",
+  },
+
+  loginBtnText: {
+    color: "white",
+  },
+
+  buttonsContainer: {
+    bottom: 10,
+    position: "absolute",
+    alignSelf: "center",
   },
 
   signUpBtn: {
@@ -163,31 +192,33 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.light.secondary,
     color: "#fff",
     fontWeight: "bold",
-    bottom: 30,
-    position: "absolute",
+
     backgroundColor: "white",
+
+    alignSelf: "center",
   },
 
   forgotBtn: {
     marginBottom: 15,
-  },
-  loginBtn: {
-    width: "80%",
-    backgroundColor: Colors.light.secondary,
-    margin: 5,
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  loginBtnText: {
-    color: "white",
   },
 
   linkText: {
     color: Colors.light.primary,
     fontWeight: "bold",
     textDecorationLine: "underline",
+  },
+
+  animationContainer: {
+    height: "33.33%",
+  },
+  animation: {
+    flex: 1,
+  },
+  formContainer: {
+    flex: 0.5,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 20,
   },
 });
 

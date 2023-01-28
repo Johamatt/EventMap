@@ -8,18 +8,19 @@ import React, {
 import { Dimensions, View, StyleSheet, Text } from "react-native";
 import MapView, { Marker, Region } from "react-native-maps";
 import { connect } from "react-redux";
-import { ApplicationState } from "../../../Store";
-import { Activity, CATEGORY } from "../../../API";
-import { fetchGuestActivitiesMap } from "../../../hooks/fetch/PublicAccessFetch";
-import { fetchUserActivitiesMap } from "../../../hooks/fetch/UserAccessFetch";
+import { ApplicationState } from "../../../../Store";
+import { Activity, CATEGORY } from "../../../../API";
+import { fetchGuestActivitiesMap } from "../../../../hooks/fetch/linkedEvents/Appsync/PublicAccessFetch";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../../../navigation/types";
+import { RootStackParamList } from "../../../../navigation/types";
 import type { PointFeature } from "supercluster";
 import type { BBox } from "geojson";
 import useSupercluster from "use-supercluster";
-import MapCard from "../../../components/Cards/MapCard";
-import ShowMapCardModal from "../Map/ShowMapCardModal";
+import MapCard from "../../../../components/Cards/MapCard";
+import ShowMapCardModal from "./ShowMapCardModal";
+import { fetchEventsTodayList } from "../../../../hooks/fetch/linkedEvents/ListLinkedEvents/linkedEventsFetch";
+import { fetchUserActivitiesMap } from "../../../../hooks/fetch/linkedEvents/Appsync/UserAccessFetch";
 
 interface MapProps {
   activitiesList: Activity[];
@@ -27,6 +28,7 @@ interface MapProps {
   userPreferences: Array<CATEGORY>;
   showcurrentlyopen: boolean;
   guestUserSession: boolean;
+  eventsList: any;
 }
 
 const _MapScreen: React.FC<MapProps> = (props) => {
@@ -36,8 +38,13 @@ const _MapScreen: React.FC<MapProps> = (props) => {
   const [zoom, setZoom] = useState(10);
   const [activities, setActivities] = useState<any>([]);
   const [nextToken, setNextToken] = useState<any>();
+
+  const [events, setEvents] = useState<Array<any>>(props.eventsList);
+  const [page, setPage] = useState<number>(1);
+
   useEffect(() => {
     fetchActivities(nextToken);
+    fetchActivitiesMapToday(page);
   }, []);
 
   const fetchActivities = useCallback(async (nextToken: any) => {
@@ -59,6 +66,17 @@ const _MapScreen: React.FC<MapProps> = (props) => {
         ...activitiesDataList.data?.listActivities?.items!,
       ]);
     }
+  }, []);
+
+  const fetchActivitiesMapToday = useCallback(async (page: number) => {
+    const eventsDataList = await fetchEventsTodayList(page);
+    setPage(page + 1);
+
+    setEvents([
+      ...events,
+      // @ts-ignore
+      ...eventsDataList,
+    ]);
   }, []);
 
   const getMyLocation = () => {
@@ -89,6 +107,8 @@ const _MapScreen: React.FC<MapProps> = (props) => {
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  //
 
   const points = useMemo<PointFeature<any>[]>(() => {
     return activities.map((m: Activity) => ({
@@ -170,6 +190,7 @@ const mapToStateProps = (state: ApplicationState) => ({
   showcurrentlyopen: state.UserReducer.showCurrentlyOpen,
   userPreferences: state.UserReducer.preferences,
   guestUserSession: state.UserReducer.guestUserSession,
+  eventsList: state.EventsReducer.eventsList,
 });
 const MapScreen = connect(mapToStateProps)(_MapScreen);
 

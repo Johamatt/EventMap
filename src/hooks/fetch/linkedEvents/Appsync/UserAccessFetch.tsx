@@ -1,7 +1,7 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { listActivities } from "../../graphql/queries";
+import { ListActivitiesQuery } from "../../../../API";
+import { listActivities } from "../../../../graphql/queries";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
-import { ListActivitiesQuery } from "../../API";
 
 export const fetchUserActivitiesList = async (nextToken: any) => {
   let day = new Date().getDay();

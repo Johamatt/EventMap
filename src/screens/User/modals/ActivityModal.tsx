@@ -1,22 +1,22 @@
 import { Dimensions, ScrollView, TouchableOpacity } from "react-native";
-import { RootStackParamList } from "../../navigation/types";
-import { Activity, GetActivityQuery } from "../../API";
+import { RootStackParamList } from "../../../navigation/types";
+import { Activity, GetActivityQuery } from "../../../API";
 import { View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useRef, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
-import { getActivity } from "../../graphql/queries";
+import { getActivity } from "../../../graphql/queries";
 import { Analytics, API, graphqlOperation } from "aws-amplify";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { StyleSheet } from "react-native";
-import Layout from "../../constants/Layout";
+import Layout from "../../../constants/Layout";
 import LottieView from "lottie-react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Colors from "../../constants/Colors";
+import Colors from "../../../constants/Colors";
 import Constants from "expo-constants";
-import { ListIconDynamoDB } from "../../components/Lists/ListIconDynamoDB";
+import { ListIconDynamoDB } from "../../../components/Lists/ListIconDynamoDB";
 
 interface ActivityInfoModalProps {
   navigation: any;
@@ -74,7 +74,7 @@ export const ActivityModal: React.FC<ActivityInfoModalProps> = (props) => {
           autoPlay
           ref={animation}
           loop={true}
-          source={require("../../assets/lottie/Loading.json")}
+          source={require("../../../assets/lottie/Loading.json")}
           colorFilters={[
             {
               keypath: "**",

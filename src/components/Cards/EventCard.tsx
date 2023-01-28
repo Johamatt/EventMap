@@ -16,38 +16,46 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  // just temporary...
-  const categories = [];
-  categories.push(event.classifications[0].segment?.name);
-  categories.push(event.classifications[0].genre?.name);
-  categories.push(event.classifications[0].subgenre?.name);
-  //
+  const startTime = new Date(event.start_time);
+  const endTime = new Date(event.end_time);
 
-  console.log(event);
+  const difference =
+    (endTime.getTime() - startTime.getTime()) / (1000 * 3600 * 24);
+
+  if (difference > 15) {
+    return <View />;
+  }
+
   return (
     <TouchableOpacity
       style={styles.cardContainer}
-      onPress={() => navigation.navigate("ActivityModal", { id: event.id })}
+      onPress={() => navigation.navigate("EventModal", { id: event.id })}
     >
       <View style={styles.cardTopContainer}>
         <View style={styles.cardHostContainer}></View>
       </View>
       <View style={styles.cardParticipantListContainer}></View>
       <View style={styles.cardBottomContainer}>
-        <Text style={styles.cardTitle}>{event.name}</Text>
-        <Image style={styles.tinyImage} source={{ uri: event.images[0].url }} />
-        <ListIconExternalAPI data={categories} />
+        <Text style={styles.cardTitle}>{event.name.fi}</Text>
+        {event.images.map((image: any, index: number) => {
+          if (image.url) {
+            return (
+              <Image
+                key={index}
+                style={styles.tinyImage}
+                source={{ uri: image.url }}
+              />
+            );
+          }
+          return null;
+        })}
+
+        {/* <ListIconExternalAPI data={categories} /> */}
 
         <View style={styles.cardTimeContainer}>
           <Text style={styles.cardTimeLabel}>Starts:</Text>
           <Text style={styles.time}>
-            {event.dates.start.localDate} - {event.dates.start.localDate} ||
-          </Text>
-        </View>
-        <View style={styles.cardTimeContainer}>
-          <Text style={styles.cardTimeLabel}>Ends:</Text>
-          <Text style={styles.cardTimeValue}>
-            {event.dates.start.localDate}
+            {startTime.toLocaleString()} - {endTime.toLocaleString()}
           </Text>
         </View>
       </View>

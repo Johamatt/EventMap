@@ -1,7 +1,6 @@
 import { LocationGeocodedLocation } from "expo-location";
 import { Dispatch } from "react";
 import { CATEGORY } from "../../API";
-import { CognitoUserInterface } from "@aws-amplify/ui-components";
 
 export interface UpdateLocationAction {
   readonly type: "ON_UPDATE_LOCATION";
@@ -10,7 +9,7 @@ export interface UpdateLocationAction {
 
 export interface UpdateAuthAction {
   readonly type: "ON_UPDATE_AUTH";
-  payload: CognitoUserInterface;
+  payload: any;
 }
 
 export interface UpdateEventPreferencesAction {
@@ -79,7 +78,7 @@ export const ON_UPDATE_EVENTPREFERENCES = (preferences: Array<CATEGORY>) => {
   };
 };
 
-export const ON_UPDATE_AUTH = (userAuth: CognitoUserInterface) => {
+export const ON_UPDATE_AUTH = (userAuth: any) => {
   return (dispatch: Dispatch<UserAction>) => {
     try {
       dispatch({
