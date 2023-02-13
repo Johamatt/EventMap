@@ -6,7 +6,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "eventmap32ff6c1932ff6c19",
+          "resourceName": "eventmap4d4b89934d4b8993",
           "attributes": [
             "UserPoolId",
             "AppClientIDWeb",
@@ -16,13 +16,13 @@
         }
       ]
     },
-    "eventmap32ff6c1932ff6c19": {
+    "eventmap4d4b89934d4b8993": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "eventmap32ff6c1932ff6c19PostConfirmation",
+          "resourceName": "eventmap4d4b89934d4b8993PostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -53,6 +53,13 @@
       }
     }
   },
+  "function": {
+    "eventmap4d4b89934d4b8993PostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "api": {
     "eventmap": {
       "service": "AppSync",
@@ -60,7 +67,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "eventmap32ff6c1932ff6c19",
+          "resourceName": "eventmap4d4b89934d4b8993",
           "attributes": [
             "UserPoolId"
           ]
@@ -71,37 +78,16 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "autheventmap32ff6c1932ff6c19"
+              "userPoolId": "autheventmap4d4b89934d4b8993"
             }
           },
           "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "API_KEY",
-              "apiKeyConfig": {
-                "apiKeyExpirationDays": 7,
-                "apiKeyExpirationDate": "2022-12-10T23:46:56.890Z",
-                "description": ""
-              }
-            },
             {
               "authenticationType": "AWS_IAM"
             }
           ]
         }
       }
-    }
-  },
-  "analytics": {
-    "eventmap": {
-      "service": "Pinpoint",
-      "providerPlugin": "awscloudformation"
-    }
-  },
-  "function": {
-    "eventmap32ff6c1932ff6c19PostConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
     }
   }
 }

@@ -33,10 +33,10 @@ export const createEvent = /* GraphQL */ `
         events {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         userFavouriteCompaniesId
-        owner
       }
       eventPictures
       Descriptions {
@@ -80,20 +80,20 @@ export const createEvent = /* GraphQL */ `
           startSaleDate
           endSaleDate
           type
+          owner
           id
           createdAt
           updatedAt
           eventTicketId
           activityTicketId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       companyEventsId
       userFavouriteEventsId
-      owner
     }
   }
 `;
@@ -128,10 +128,10 @@ export const updateEvent = /* GraphQL */ `
         events {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         userFavouriteCompaniesId
-        owner
       }
       eventPictures
       Descriptions {
@@ -175,20 +175,20 @@ export const updateEvent = /* GraphQL */ `
           startSaleDate
           endSaleDate
           type
+          owner
           id
           createdAt
           updatedAt
           eventTicketId
           activityTicketId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       companyEventsId
       userFavouriteEventsId
-      owner
     }
   }
 `;
@@ -223,10 +223,10 @@ export const deleteEvent = /* GraphQL */ `
         events {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         userFavouriteCompaniesId
-        owner
       }
       eventPictures
       Descriptions {
@@ -270,20 +270,20 @@ export const deleteEvent = /* GraphQL */ `
           startSaleDate
           endSaleDate
           type
+          owner
           id
           createdAt
           updatedAt
           eventTicketId
           activityTicketId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       companyEventsId
       userFavouriteEventsId
-      owner
     }
   }
 `;
@@ -301,12 +301,12 @@ export const createTicket = /* GraphQL */ `
       startSaleDate
       endSaleDate
       type
+      owner
       id
       createdAt
       updatedAt
       eventTicketId
       activityTicketId
-      owner
     }
   }
 `;
@@ -324,12 +324,12 @@ export const updateTicket = /* GraphQL */ `
       startSaleDate
       endSaleDate
       type
+      owner
       id
       createdAt
       updatedAt
       eventTicketId
       activityTicketId
-      owner
     }
   }
 `;
@@ -347,12 +347,12 @@ export const deleteTicket = /* GraphQL */ `
       startSaleDate
       endSaleDate
       type
+      owner
       id
       createdAt
       updatedAt
       eventTicketId
       activityTicketId
-      owner
     }
   }
 `;
@@ -384,11 +384,11 @@ export const createCompany = /* GraphQL */ `
           ageRestriction
           isFree
           priceRange
+          owner
           createdAt
           updatedAt
           companyActivitiesId
           userFavouriteActivitiesId
-          owner
         }
         nextToken
       }
@@ -405,18 +405,18 @@ export const createCompany = /* GraphQL */ `
           attendees
           ageRestriction
           isFree
+          owner
           createdAt
           updatedAt
           companyEventsId
           userFavouriteEventsId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       userFavouriteCompaniesId
-      owner
     }
   }
 `;
@@ -448,11 +448,11 @@ export const updateCompany = /* GraphQL */ `
           ageRestriction
           isFree
           priceRange
+          owner
           createdAt
           updatedAt
           companyActivitiesId
           userFavouriteActivitiesId
-          owner
         }
         nextToken
       }
@@ -469,18 +469,18 @@ export const updateCompany = /* GraphQL */ `
           attendees
           ageRestriction
           isFree
+          owner
           createdAt
           updatedAt
           companyEventsId
           userFavouriteEventsId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       userFavouriteCompaniesId
-      owner
     }
   }
 `;
@@ -512,11 +512,11 @@ export const deleteCompany = /* GraphQL */ `
           ageRestriction
           isFree
           priceRange
+          owner
           createdAt
           updatedAt
           companyActivitiesId
           userFavouriteActivitiesId
-          owner
         }
         nextToken
       }
@@ -533,18 +533,18 @@ export const deleteCompany = /* GraphQL */ `
           attendees
           ageRestriction
           isFree
+          owner
           createdAt
           updatedAt
           companyEventsId
           userFavouriteEventsId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       userFavouriteCompaniesId
-      owner
     }
   }
 `;
@@ -566,10 +566,10 @@ export const createUser = /* GraphQL */ `
           email
           profilePicture
           birthday
+          owner
           createdAt
           updatedAt
           userFriendsId
-          owner
         }
         nextToken
       }
@@ -586,11 +586,11 @@ export const createUser = /* GraphQL */ `
           attendees
           ageRestriction
           isFree
+          owner
           createdAt
           updatedAt
           companyEventsId
           userFavouriteEventsId
-          owner
         }
         nextToken
       }
@@ -610,11 +610,11 @@ export const createUser = /* GraphQL */ `
           ageRestriction
           isFree
           priceRange
+          owner
           createdAt
           updatedAt
           companyActivitiesId
           userFavouriteActivitiesId
-          owner
         }
         nextToken
       }
@@ -626,17 +626,17 @@ export const createUser = /* GraphQL */ `
           phone
           name
           website
+          owner
           createdAt
           updatedAt
           userFavouriteCompaniesId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       userFriendsId
-      owner
     }
   }
 `;
@@ -658,10 +658,10 @@ export const updateUser = /* GraphQL */ `
           email
           profilePicture
           birthday
+          owner
           createdAt
           updatedAt
           userFriendsId
-          owner
         }
         nextToken
       }
@@ -678,11 +678,11 @@ export const updateUser = /* GraphQL */ `
           attendees
           ageRestriction
           isFree
+          owner
           createdAt
           updatedAt
           companyEventsId
           userFavouriteEventsId
-          owner
         }
         nextToken
       }
@@ -702,11 +702,11 @@ export const updateUser = /* GraphQL */ `
           ageRestriction
           isFree
           priceRange
+          owner
           createdAt
           updatedAt
           companyActivitiesId
           userFavouriteActivitiesId
-          owner
         }
         nextToken
       }
@@ -718,17 +718,17 @@ export const updateUser = /* GraphQL */ `
           phone
           name
           website
+          owner
           createdAt
           updatedAt
           userFavouriteCompaniesId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       userFriendsId
-      owner
     }
   }
 `;
@@ -750,10 +750,10 @@ export const deleteUser = /* GraphQL */ `
           email
           profilePicture
           birthday
+          owner
           createdAt
           updatedAt
           userFriendsId
-          owner
         }
         nextToken
       }
@@ -770,11 +770,11 @@ export const deleteUser = /* GraphQL */ `
           attendees
           ageRestriction
           isFree
+          owner
           createdAt
           updatedAt
           companyEventsId
           userFavouriteEventsId
-          owner
         }
         nextToken
       }
@@ -794,11 +794,11 @@ export const deleteUser = /* GraphQL */ `
           ageRestriction
           isFree
           priceRange
+          owner
           createdAt
           updatedAt
           companyActivitiesId
           userFavouriteActivitiesId
-          owner
         }
         nextToken
       }
@@ -810,17 +810,17 @@ export const deleteUser = /* GraphQL */ `
           phone
           name
           website
+          owner
           createdAt
           updatedAt
           userFavouriteCompaniesId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       userFriendsId
-      owner
     }
   }
 `;
@@ -844,10 +844,10 @@ export const createActivity = /* GraphQL */ `
         events {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         userFavouriteCompaniesId
-        owner
       }
       duration
       durationType
@@ -908,22 +908,22 @@ export const createActivity = /* GraphQL */ `
           startSaleDate
           endSaleDate
           type
+          owner
           id
           createdAt
           updatedAt
           eventTicketId
           activityTicketId
-          owner
         }
         nextToken
       }
       isFree
       priceRange
+      owner
       createdAt
       updatedAt
       companyActivitiesId
       userFavouriteActivitiesId
-      owner
     }
   }
 `;
@@ -947,10 +947,10 @@ export const updateActivity = /* GraphQL */ `
         events {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         userFavouriteCompaniesId
-        owner
       }
       duration
       durationType
@@ -1011,22 +1011,22 @@ export const updateActivity = /* GraphQL */ `
           startSaleDate
           endSaleDate
           type
+          owner
           id
           createdAt
           updatedAt
           eventTicketId
           activityTicketId
-          owner
         }
         nextToken
       }
       isFree
       priceRange
+      owner
       createdAt
       updatedAt
       companyActivitiesId
       userFavouriteActivitiesId
-      owner
     }
   }
 `;
@@ -1050,10 +1050,10 @@ export const deleteActivity = /* GraphQL */ `
         events {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         userFavouriteCompaniesId
-        owner
       }
       duration
       durationType
@@ -1114,22 +1114,22 @@ export const deleteActivity = /* GraphQL */ `
           startSaleDate
           endSaleDate
           type
+          owner
           id
           createdAt
           updatedAt
           eventTicketId
           activityTicketId
-          owner
         }
         nextToken
       }
       isFree
       priceRange
+      owner
       createdAt
       updatedAt
       companyActivitiesId
       userFavouriteActivitiesId
-      owner
     }
   }
 `;

@@ -67,12 +67,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "eventmap32ff6c1932ff6c19PostConfirmation",
+            "eventmap4d4b89934d4b8993PostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "eventmap32ff6c1932ff6c19PostConfirmation",
+                  "eventmap4d4b89934d4b8993PostConfirmation",
                   "-",
                   {
                     "Ref": "env"
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "eventmap32ff6c1932ff6c19PostConfirmation",
+            "eventmap4d4b89934d4b8993PostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "eventmap32ff6c1932ff6c19PostConfirmation",
+                  "eventmap4d4b89934d4b8993PostConfirmation",
                   "-",
                   {
                     "Ref": "env"

@@ -50,7 +50,10 @@ const _UserProfileScreen: React.FC<UserProfileScreenProps> = (props) => {
       {profileImage ? (
         <Image source={{ uri: profileImage }} style={styles.profileImage} />
       ) : (
-        <Text style={styles.noProfileImageText}>No profile image set</Text>
+        <Image
+          source={require("../../../assets/pictures/profile-Default-Avatar.png")}
+          style={styles.profileImage}
+        />
       )}
       <TouchableOpacity
         style={styles.changeProfileImageButton}
@@ -79,6 +82,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "black",
   },
   welcomeText: {
     fontSize: 20,

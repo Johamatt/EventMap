@@ -43,35 +43,12 @@ const _MapScreen: React.FC<MapProps> = (props) => {
   const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
-    fetchActivities(nextToken);
-    fetchActivitiesMapToday(page);
+    fetchEventsMapToday(page);
   }, []);
 
-  const fetchActivities = useCallback(async (nextToken: any) => {
-    if (props.guestUserSession) {
-      const activitiesDataList = await fetchGuestActivitiesMap(nextToken);
-      setNextToken(activitiesDataList.data?.listActivities?.nextToken);
-      setActivities([
-        ...activities,
-        ...activitiesDataList.data?.listActivities?.items!,
-      ]);
-    } else {
-      const activitiesDataList = await fetchUserActivitiesMap(nextToken);
-      // @ts-ignore
-      setNextToken(activitiesDataList.data?.listActivities?.nextToken);
-
-      setActivities([
-        ...activities,
-        // @ts-ignore
-        ...activitiesDataList.data?.listActivities?.items!,
-      ]);
-    }
-  }, []);
-
-  const fetchActivitiesMapToday = useCallback(async (page: number) => {
+  const fetchEventsMapToday = useCallback(async (page: number) => {
     const eventsDataList = await fetchEventsTodayList(page);
     setPage(page + 1);
-
     setEvents([
       ...events,
       // @ts-ignore
@@ -110,8 +87,10 @@ const _MapScreen: React.FC<MapProps> = (props) => {
 
   //
 
+  console.log(events);
+
   const points = useMemo<PointFeature<any>[]>(() => {
-    return activities.map((m: Activity) => ({
+    return events.map((m: Activity) => ({
       type: "Feature",
       properties: {
         cluster: false,
@@ -123,7 +102,7 @@ const _MapScreen: React.FC<MapProps> = (props) => {
         coordinates: [m.Location?.lon, m.Location?.lat],
       },
     }));
-  }, [activities]);
+  }, [events]);
 
   const { clusters, supercluster } = useSupercluster({
     points,

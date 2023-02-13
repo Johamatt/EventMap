@@ -5,7 +5,6 @@ export const fetchEventsTodayList = async (page: number) => {
 
   const currentDate = new Date();
   currentDate.setUTCHours(23, 58, 99);
-  console.log(currentDate);
 
   //   while (true) {
   try {
@@ -28,4 +27,28 @@ export const fetchEventsTodayList = async (page: number) => {
 
   //   }
   return events;
+};
+
+export const fetchEvent = async (id: string) => {
+  //   while (true) {
+
+  try {
+    const res = await axios.get(
+      `https://api.hel.fi/linkedevents/v1/event/${id}/`,
+      {
+        headers: {
+          "Access-Control-Allow-Methods": "GET",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const event = res.data;
+
+    return event;
+  } catch (error) {
+    console.log(error);
+  }
+
+  //   }
 };

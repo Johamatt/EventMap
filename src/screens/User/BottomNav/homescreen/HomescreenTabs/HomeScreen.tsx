@@ -20,16 +20,17 @@ type HomescreenProps = {
 };
 
 const _HomeScreen: React.FC<HomescreenProps> = (props) => {
-  const [tabView, setTabView] = useState<"Activities" | "Events" | "Friends">(
-    "Events"
-  );
+  const [tabView, setTabView] = useState<
+    //"Activities"
+    "Events" | "Friends"
+  >("Events");
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const renderList = useMemo(() => {
     switch (tabView) {
-      case "Activities":
-        return <ActivitiesListView />;
+      //    case "Activities":
+      //     return <ActivitiesListView />;
       case "Events":
         return <EventsListView />;
       case "Friends":
@@ -68,7 +69,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
             Events
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setTabView("Activities")}>
+        {/* <TouchableOpacity onPress={() => setTabView("Activities")}>
           <Text
             style={
               tabView === "Activities"
@@ -78,7 +79,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
           >
             Activities
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity onPress={() => setTabView("Friends")}>
           <Text

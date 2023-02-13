@@ -4,22 +4,39 @@ import { View, Text, Image } from "react-native";
 import { connect } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { StyleSheet } from "react-native";
 import { ApplicationState, UserState } from "../../../Store";
 import { RootStackParamList } from "../../../navigation/types";
+import { fetchEvent } from "../../../hooks/fetch/linkedEvents/ListLinkedEvents/linkedEventsFetch";
 
 interface EventModalProps {
   navigation: any;
   route: any;
+  id: string;
 }
 
 export const EventModal: React.FC<EventModalProps> = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const event: any = props.route.params.liveEvent;
+  const [event, setEvent] = useState<any>();
+
+  const regex = /(<([^>]+)>)/gi;
+
+  useEffect(() => {
+    fetch();
+    async function fetch() {
+      const res = await fetchEvent(props.route.params.id);
+
+      setEvent(res);
+    }
+  }, []);
+
+  if (event === undefined) {
+    return <View />;
+  }
 
   return (
     // Header starts
@@ -30,7 +47,9 @@ export const EventModal: React.FC<EventModalProps> = (props) => {
             uri: "https://reactnative.dev/img/tiny_logo.png",
           }}
         />
-        <Text style={styles.description}>{event.Descriptions.fi}</Text>
+        <Text style={styles.description}>
+          {event.description.fi.replace(regex, "")}
+        </Text>
       </View>
       <View>
         <View>
@@ -55,10 +74,6 @@ export const EventModal: React.FC<EventModalProps> = (props) => {
               <Text>{event.location.postalCode}</Text>
             </View>
           </View>
-        </View>
-
-        <View style={styles.descriptionContainer}>
-          <Text>{event.Descriptions.fi}</Text>
         </View>
 
         <View>

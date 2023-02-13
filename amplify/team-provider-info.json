@@ -1,34 +1,31 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-eventmap-dev-23220-authRole",
-      "UnauthRoleArn": "arn:aws:iam::773034789363:role/amplify-eventmap-dev-23220-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::773034789363:role/amplify-eventmap-dev-23220-authRole",
+      "AuthRoleName": "amplify-eventmap-dev-144723-authRole",
+      "UnauthRoleArn": "arn:aws:iam::773034789363:role/amplify-eventmap-dev-144723-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::773034789363:role/amplify-eventmap-dev-144723-authRole",
       "Region": "eu-north-1",
-      "DeploymentBucketName": "amplify-eventmap-dev-23220-deployment",
-      "UnauthRoleName": "amplify-eventmap-dev-23220-unauthRole",
-      "StackName": "amplify-eventmap-dev-23220",
-      "StackId": "arn:aws:cloudformation:eu-north-1:773034789363:stack/amplify-eventmap-dev-23220/7a1a64a0-5d6a-11ed-962a-060043f7fa5e",
-      "AmplifyAppId": "d6li8szgue7ym",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-eventmap-dev-23220-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "DeploymentBucketName": "amplify-eventmap-dev-144723-deployment",
+      "UnauthRoleName": "amplify-eventmap-dev-144723-unauthRole",
+      "StackName": "amplify-eventmap-dev-144723",
+      "StackId": "arn:aws:cloudformation:eu-north-1:773034789363:stack/amplify-eventmap-dev-144723/10e6c140-a941-11ed-b11e-0e23b2218c88",
+      "AmplifyAppId": "d3gskipgks2nkg",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-eventmap-dev-144723-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
-        "userPoolGroups": {},
-        "eventmap32ff6c1932ff6c19": {}
+        "eventmap4d4b89934d4b8993": {},
+        "userPoolGroups": {}
       },
-      "analytics": {
-        "eventmap": {}
+      "function": {
+        "eventmap4d4b89934d4b8993PostConfirmation": {
+          "GROUP": "DefaultUser",
+          "deploymentBucketName": "amplify-eventmap-dev-144723-deployment",
+          "s3Key": "amplify-builds/eventmap4d4b89934d4b8993PostConfirmation-786b7655577858424768-build.zip"
+        }
       },
       "api": {
         "eventmap": {}
-      },
-      "function": {
-        "eventmap32ff6c1932ff6c19PostConfirmation": {
-          "GROUP": "DefaultUser",
-          "deploymentBucketName": "amplify-eventmap-dev-23220-deployment",
-          "s3Key": "amplify-builds/eventmap32ff6c1932ff6c19PostConfirmation-4a4a4c2f4c7662507468-build.zip"
-        }
       }
     }
   }

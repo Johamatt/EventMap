@@ -30,10 +30,10 @@ export const getEvent = /* GraphQL */ `
         events {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         userFavouriteCompaniesId
-        owner
       }
       eventPictures
       Descriptions {
@@ -77,20 +77,20 @@ export const getEvent = /* GraphQL */ `
           startSaleDate
           endSaleDate
           type
+          owner
           id
           createdAt
           updatedAt
           eventTicketId
           activityTicketId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       companyEventsId
       userFavouriteEventsId
-      owner
     }
   }
 `;
@@ -121,10 +121,10 @@ export const listEvents = /* GraphQL */ `
           phone
           name
           website
+          owner
           createdAt
           updatedAt
           userFavouriteCompaniesId
-          owner
         }
         eventPictures
         Descriptions {
@@ -161,11 +161,11 @@ export const listEvents = /* GraphQL */ `
         Ticket {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         companyEventsId
         userFavouriteEventsId
-        owner
       }
       nextToken
     }
@@ -208,10 +208,10 @@ export const eventByDates = /* GraphQL */ `
           phone
           name
           website
+          owner
           createdAt
           updatedAt
           userFavouriteCompaniesId
-          owner
         }
         eventPictures
         Descriptions {
@@ -248,11 +248,11 @@ export const eventByDates = /* GraphQL */ `
         Ticket {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         companyEventsId
         userFavouriteEventsId
-        owner
       }
       nextToken
     }
@@ -269,12 +269,12 @@ export const getTicket = /* GraphQL */ `
       startSaleDate
       endSaleDate
       type
+      owner
       id
       createdAt
       updatedAt
       eventTicketId
       activityTicketId
-      owner
     }
   }
 `;
@@ -294,12 +294,12 @@ export const listTickets = /* GraphQL */ `
         startSaleDate
         endSaleDate
         type
+        owner
         id
         createdAt
         updatedAt
         eventTicketId
         activityTicketId
-        owner
       }
       nextToken
     }
@@ -330,11 +330,11 @@ export const getCompany = /* GraphQL */ `
           ageRestriction
           isFree
           priceRange
+          owner
           createdAt
           updatedAt
           companyActivitiesId
           userFavouriteActivitiesId
-          owner
         }
         nextToken
       }
@@ -351,18 +351,18 @@ export const getCompany = /* GraphQL */ `
           attendees
           ageRestriction
           isFree
+          owner
           createdAt
           updatedAt
           companyEventsId
           userFavouriteEventsId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       userFavouriteCompaniesId
-      owner
     }
   }
 `;
@@ -394,10 +394,10 @@ export const listCompanies = /* GraphQL */ `
         events {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         userFavouriteCompaniesId
-        owner
       }
       nextToken
     }
@@ -418,10 +418,10 @@ export const getUser = /* GraphQL */ `
           email
           profilePicture
           birthday
+          owner
           createdAt
           updatedAt
           userFriendsId
-          owner
         }
         nextToken
       }
@@ -438,11 +438,11 @@ export const getUser = /* GraphQL */ `
           attendees
           ageRestriction
           isFree
+          owner
           createdAt
           updatedAt
           companyEventsId
           userFavouriteEventsId
-          owner
         }
         nextToken
       }
@@ -462,11 +462,11 @@ export const getUser = /* GraphQL */ `
           ageRestriction
           isFree
           priceRange
+          owner
           createdAt
           updatedAt
           companyActivitiesId
           userFavouriteActivitiesId
-          owner
         }
         nextToken
       }
@@ -478,17 +478,17 @@ export const getUser = /* GraphQL */ `
           phone
           name
           website
+          owner
           createdAt
           updatedAt
           userFavouriteCompaniesId
-          owner
         }
         nextToken
       }
+      owner
       createdAt
       updatedAt
       userFriendsId
-      owner
     }
   }
 `;
@@ -517,10 +517,10 @@ export const listUsers = /* GraphQL */ `
         favouriteCompanies {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         userFriendsId
-        owner
       }
       nextToken
     }
@@ -543,10 +543,10 @@ export const getActivity = /* GraphQL */ `
         events {
           nextToken
         }
+        owner
         createdAt
         updatedAt
         userFavouriteCompaniesId
-        owner
       }
       duration
       durationType
@@ -607,22 +607,22 @@ export const getActivity = /* GraphQL */ `
           startSaleDate
           endSaleDate
           type
+          owner
           id
           createdAt
           updatedAt
           eventTicketId
           activityTicketId
-          owner
         }
         nextToken
       }
       isFree
       priceRange
+      owner
       createdAt
       updatedAt
       companyActivitiesId
       userFavouriteActivitiesId
-      owner
     }
   }
 `;
@@ -642,10 +642,10 @@ export const listActivities = /* GraphQL */ `
           phone
           name
           website
+          owner
           createdAt
           updatedAt
           userFavouriteCompaniesId
-          owner
         }
         duration
         durationType
@@ -701,11 +701,11 @@ export const listActivities = /* GraphQL */ `
         }
         isFree
         priceRange
+        owner
         createdAt
         updatedAt
         companyActivitiesId
         userFavouriteActivitiesId
-        owner
       }
       nextToken
     }

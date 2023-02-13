@@ -62,21 +62,17 @@ export const UserRegisterScreen: React.FC = (props) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons
-            name="arrow-back-sharp"
-            size={24}
-            color="white"
-          />
+          <Ionicons name="arrow-back-sharp" size={24} color="white" />
         </TouchableOpacity>
       </View>
       <View style={styles.body}>
-        <LottieView
+        {/* <LottieView
           resizeMode="cover"
           autoPlay
           ref={animation}
           loop={true}
           source={require("../../../assets/lottie/register.json")}
-        />
+        /> */}
 
         <View style={styles.textInputView}>
           <TextInput

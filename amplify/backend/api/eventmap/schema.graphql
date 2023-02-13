@@ -1,12 +1,12 @@
-
 type Name {
   fi: String!
   en: String
   sv: String
   jp: String
   es: String
-  de: String
+    de: String
 }
+
 type Description {
   fi: String!
   en: String
@@ -15,6 +15,8 @@ type Description {
   es: String
   de: String
 }
+
+
 type Location {
   lat: Float!
   lon: Float!
@@ -23,6 +25,7 @@ type Location {
   city: String
   country: String
 }
+
 type Event @model @auth(rules: [{allow: owner},  
  {allow: groups, groups: ["Admin"]},  
  {allow: groups, groups: ["DefaultUser"], operations: [read]},
@@ -44,6 +47,10 @@ type Event @model @auth(rules: [{allow: owner},
   ageRestriction: String
   isFree: Boolean
   Ticket: [Ticket] @hasMany
+    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  
+  
+
 }
 
 type Ticket @model @auth(rules: [{allow: owner},  
@@ -58,6 +65,7 @@ type Ticket @model @auth(rules: [{allow: owner},
     startSaleDate: String
     endSaleDate: String
     type: String
+      owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 
@@ -73,6 +81,7 @@ type Company @model @auth(rules: [{allow: owner},
   website: String
   activities: [Activity] @hasMany
   events: [Event] @hasMany
+    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 
@@ -119,6 +128,7 @@ type Activity @model @auth(rules: [{allow: owner},
   Ticket: [Ticket] @hasMany
   isFree: Boolean
   priceRange: Float
+    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 type OpenDays {
