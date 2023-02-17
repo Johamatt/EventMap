@@ -44,7 +44,6 @@ export const ON_UPDATE_ACTIVITIESMAP = (
   activitiesMap: Array<Activity>,
   nextToken: string
 ) => {
-  console.log(activitiesMap);
   return (dispatch: Dispatch<ActivitiesAction>) => {
     try {
       dispatch({

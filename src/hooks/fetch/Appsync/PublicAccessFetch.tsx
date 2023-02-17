@@ -1,9 +1,9 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { ListActivitiesQuery } from "../../../../API";
-import { listActivities } from "../../../../graphql/queries";
+import { ListActivitiesQuery } from "../../../API";
+import { listActivities } from "../../../graphql/queries";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import axios from "axios";
-import { TICKETMASTER_KEY } from "../../../../constants/keys/TICKETMASTER_KEY";
+import { TICKETMASTER_KEY } from "../../../constants/keys/TICKETMASTER_KEY";
 
 export const fetchGuestActivitiesList = async (nextToken: any) => {
   let day = new Date().getDay();

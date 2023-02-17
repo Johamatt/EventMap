@@ -2,6 +2,282 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateOffer = /* GraphQL */ `
+  subscription OnCreateOffer(
+    $filter: ModelSubscriptionOfferFilterInput
+    $owner: String
+  ) {
+    onCreateOffer(filter: $filter, owner: $owner) {
+      id
+      name
+      description
+      type
+      coinCost
+      value
+      discount
+      bundleSize
+      gift
+      owner
+      createdAt
+      updatedAt
+      ticketOfferId
+    }
+  }
+`;
+export const onUpdateOffer = /* GraphQL */ `
+  subscription OnUpdateOffer(
+    $filter: ModelSubscriptionOfferFilterInput
+    $owner: String
+  ) {
+    onUpdateOffer(filter: $filter, owner: $owner) {
+      id
+      name
+      description
+      type
+      coinCost
+      value
+      discount
+      bundleSize
+      gift
+      owner
+      createdAt
+      updatedAt
+      ticketOfferId
+    }
+  }
+`;
+export const onDeleteOffer = /* GraphQL */ `
+  subscription OnDeleteOffer(
+    $filter: ModelSubscriptionOfferFilterInput
+    $owner: String
+  ) {
+    onDeleteOffer(filter: $filter, owner: $owner) {
+      id
+      name
+      description
+      type
+      coinCost
+      value
+      discount
+      bundleSize
+      gift
+      owner
+      createdAt
+      updatedAt
+      ticketOfferId
+    }
+  }
+`;
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onCreateUser(filter: $filter, owner: $owner) {
+      id
+      name
+      email
+      profilePicture
+      birthday
+      friends {
+        items {
+          id
+          name
+          email
+          profilePicture
+          birthday
+          tokens
+          owner
+          createdAt
+          updatedAt
+          userFriendsId
+        }
+        nextToken
+      }
+      favouriteEvents {
+        items {
+          id
+          startingDateTime
+          endingDateTime
+          category
+          MainPicture
+          eventPictures
+          source
+          website
+          updated_at_Source
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyEventsId
+          userFavouriteEventsId
+        }
+        nextToken
+      }
+      favouriteCompanies {
+        items {
+          businessId
+          email
+          industry
+          phone
+          name
+          website
+          owner
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+        }
+        nextToken
+      }
+      tokens
+      owner
+      createdAt
+      updatedAt
+      userFriendsId
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onUpdateUser(filter: $filter, owner: $owner) {
+      id
+      name
+      email
+      profilePicture
+      birthday
+      friends {
+        items {
+          id
+          name
+          email
+          profilePicture
+          birthday
+          tokens
+          owner
+          createdAt
+          updatedAt
+          userFriendsId
+        }
+        nextToken
+      }
+      favouriteEvents {
+        items {
+          id
+          startingDateTime
+          endingDateTime
+          category
+          MainPicture
+          eventPictures
+          source
+          website
+          updated_at_Source
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyEventsId
+          userFavouriteEventsId
+        }
+        nextToken
+      }
+      favouriteCompanies {
+        items {
+          businessId
+          email
+          industry
+          phone
+          name
+          website
+          owner
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+        }
+        nextToken
+      }
+      tokens
+      owner
+      createdAt
+      updatedAt
+      userFriendsId
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onDeleteUser(filter: $filter, owner: $owner) {
+      id
+      name
+      email
+      profilePicture
+      birthday
+      friends {
+        items {
+          id
+          name
+          email
+          profilePicture
+          birthday
+          tokens
+          owner
+          createdAt
+          updatedAt
+          userFriendsId
+        }
+        nextToken
+      }
+      favouriteEvents {
+        items {
+          id
+          startingDateTime
+          endingDateTime
+          category
+          MainPicture
+          eventPictures
+          source
+          website
+          updated_at_Source
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyEventsId
+          userFavouriteEventsId
+        }
+        nextToken
+      }
+      favouriteCompanies {
+        items {
+          businessId
+          email
+          industry
+          phone
+          name
+          website
+          owner
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+        }
+        nextToken
+      }
+      tokens
+      owner
+      createdAt
+      updatedAt
+      userFriendsId
+    }
+  }
+`;
 export const onCreateEvent = /* GraphQL */ `
   subscription OnCreateEvent(
     $filter: ModelSubscriptionEventFilterInput
@@ -27,9 +303,6 @@ export const onCreateEvent = /* GraphQL */ `
         phone
         name
         website
-        activities {
-          nextToken
-        }
         events {
           nextToken
         }
@@ -38,6 +311,7 @@ export const onCreateEvent = /* GraphQL */ `
         updatedAt
         userFavouriteCompaniesId
       }
+      MainPicture
       eventPictures
       Descriptions {
         fi
@@ -67,7 +341,6 @@ export const onCreateEvent = /* GraphQL */ `
       source
       website
       updated_at_Source
-      attendees
       ageRestriction
       isFree
       Ticket {
@@ -85,7 +358,6 @@ export const onCreateEvent = /* GraphQL */ `
           createdAt
           updatedAt
           eventTicketId
-          activityTicketId
         }
         nextToken
       }
@@ -122,9 +394,6 @@ export const onUpdateEvent = /* GraphQL */ `
         phone
         name
         website
-        activities {
-          nextToken
-        }
         events {
           nextToken
         }
@@ -133,6 +402,7 @@ export const onUpdateEvent = /* GraphQL */ `
         updatedAt
         userFavouriteCompaniesId
       }
+      MainPicture
       eventPictures
       Descriptions {
         fi
@@ -162,7 +432,6 @@ export const onUpdateEvent = /* GraphQL */ `
       source
       website
       updated_at_Source
-      attendees
       ageRestriction
       isFree
       Ticket {
@@ -180,7 +449,6 @@ export const onUpdateEvent = /* GraphQL */ `
           createdAt
           updatedAt
           eventTicketId
-          activityTicketId
         }
         nextToken
       }
@@ -217,9 +485,6 @@ export const onDeleteEvent = /* GraphQL */ `
         phone
         name
         website
-        activities {
-          nextToken
-        }
         events {
           nextToken
         }
@@ -228,6 +493,7 @@ export const onDeleteEvent = /* GraphQL */ `
         updatedAt
         userFavouriteCompaniesId
       }
+      MainPicture
       eventPictures
       Descriptions {
         fi
@@ -257,7 +523,6 @@ export const onDeleteEvent = /* GraphQL */ `
       source
       website
       updated_at_Source
-      attendees
       ageRestriction
       isFree
       Ticket {
@@ -275,7 +540,6 @@ export const onDeleteEvent = /* GraphQL */ `
           createdAt
           updatedAt
           eventTicketId
-          activityTicketId
         }
         nextToken
       }
@@ -301,12 +565,29 @@ export const onCreateTicket = /* GraphQL */ `
       startSaleDate
       endSaleDate
       type
+      Offer {
+        items {
+          id
+          name
+          description
+          type
+          coinCost
+          value
+          discount
+          bundleSize
+          gift
+          owner
+          createdAt
+          updatedAt
+          ticketOfferId
+        }
+        nextToken
+      }
       owner
       id
       createdAt
       updatedAt
       eventTicketId
-      activityTicketId
     }
   }
 `;
@@ -324,12 +605,29 @@ export const onUpdateTicket = /* GraphQL */ `
       startSaleDate
       endSaleDate
       type
+      Offer {
+        items {
+          id
+          name
+          description
+          type
+          coinCost
+          value
+          discount
+          bundleSize
+          gift
+          owner
+          createdAt
+          updatedAt
+          ticketOfferId
+        }
+        nextToken
+      }
       owner
       id
       createdAt
       updatedAt
       eventTicketId
-      activityTicketId
     }
   }
 `;
@@ -347,12 +645,29 @@ export const onDeleteTicket = /* GraphQL */ `
       startSaleDate
       endSaleDate
       type
+      Offer {
+        items {
+          id
+          name
+          description
+          type
+          coinCost
+          value
+          discount
+          bundleSize
+          gift
+          owner
+          createdAt
+          updatedAt
+          ticketOfferId
+        }
+        nextToken
+      }
       owner
       id
       createdAt
       updatedAt
       eventTicketId
-      activityTicketId
     }
   }
 `;
@@ -368,41 +683,17 @@ export const onCreateCompany = /* GraphQL */ `
       phone
       name
       website
-      activities {
-        items {
-          id
-          duration
-          durationType
-          categories
-          activityPictures
-          source
-          updated_at_Source
-          availableDays
-          availableMonths
-          raiting
-          user_raitings_total
-          ageRestriction
-          isFree
-          priceRange
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
       events {
         items {
           id
           startingDateTime
           endingDateTime
           category
+          MainPicture
           eventPictures
           source
           website
           updated_at_Source
-          attendees
           ageRestriction
           isFree
           owner
@@ -432,41 +723,17 @@ export const onUpdateCompany = /* GraphQL */ `
       phone
       name
       website
-      activities {
-        items {
-          id
-          duration
-          durationType
-          categories
-          activityPictures
-          source
-          updated_at_Source
-          availableDays
-          availableMonths
-          raiting
-          user_raitings_total
-          ageRestriction
-          isFree
-          priceRange
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
       events {
         items {
           id
           startingDateTime
           endingDateTime
           category
+          MainPicture
           eventPictures
           source
           website
           updated_at_Source
-          attendees
           ageRestriction
           isFree
           owner
@@ -496,41 +763,17 @@ export const onDeleteCompany = /* GraphQL */ `
       phone
       name
       website
-      activities {
-        items {
-          id
-          duration
-          durationType
-          categories
-          activityPictures
-          source
-          updated_at_Source
-          availableDays
-          availableMonths
-          raiting
-          user_raitings_total
-          ageRestriction
-          isFree
-          priceRange
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
       events {
         items {
           id
           startingDateTime
           endingDateTime
           category
+          MainPicture
           eventPictures
           source
           website
           updated_at_Source
-          attendees
           ageRestriction
           isFree
           owner
@@ -545,591 +788,6 @@ export const onDeleteCompany = /* GraphQL */ `
       createdAt
       updatedAt
       userFavouriteCompaniesId
-    }
-  }
-`;
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onCreateUser(filter: $filter, owner: $owner) {
-      id
-      name
-      email
-      profilePicture
-      birthday
-      friends {
-        items {
-          id
-          name
-          email
-          profilePicture
-          birthday
-          owner
-          createdAt
-          updatedAt
-          userFriendsId
-        }
-        nextToken
-      }
-      favouriteEvents {
-        items {
-          id
-          startingDateTime
-          endingDateTime
-          category
-          eventPictures
-          source
-          website
-          updated_at_Source
-          attendees
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyEventsId
-          userFavouriteEventsId
-        }
-        nextToken
-      }
-      favouriteActivities {
-        items {
-          id
-          duration
-          durationType
-          categories
-          activityPictures
-          source
-          updated_at_Source
-          availableDays
-          availableMonths
-          raiting
-          user_raitings_total
-          ageRestriction
-          isFree
-          priceRange
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
-      favouriteCompanies {
-        items {
-          businessId
-          email
-          industry
-          phone
-          name
-          website
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      userFriendsId
-    }
-  }
-`;
-export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onUpdateUser(filter: $filter, owner: $owner) {
-      id
-      name
-      email
-      profilePicture
-      birthday
-      friends {
-        items {
-          id
-          name
-          email
-          profilePicture
-          birthday
-          owner
-          createdAt
-          updatedAt
-          userFriendsId
-        }
-        nextToken
-      }
-      favouriteEvents {
-        items {
-          id
-          startingDateTime
-          endingDateTime
-          category
-          eventPictures
-          source
-          website
-          updated_at_Source
-          attendees
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyEventsId
-          userFavouriteEventsId
-        }
-        nextToken
-      }
-      favouriteActivities {
-        items {
-          id
-          duration
-          durationType
-          categories
-          activityPictures
-          source
-          updated_at_Source
-          availableDays
-          availableMonths
-          raiting
-          user_raitings_total
-          ageRestriction
-          isFree
-          priceRange
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
-      favouriteCompanies {
-        items {
-          businessId
-          email
-          industry
-          phone
-          name
-          website
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      userFriendsId
-    }
-  }
-`;
-export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onDeleteUser(filter: $filter, owner: $owner) {
-      id
-      name
-      email
-      profilePicture
-      birthday
-      friends {
-        items {
-          id
-          name
-          email
-          profilePicture
-          birthday
-          owner
-          createdAt
-          updatedAt
-          userFriendsId
-        }
-        nextToken
-      }
-      favouriteEvents {
-        items {
-          id
-          startingDateTime
-          endingDateTime
-          category
-          eventPictures
-          source
-          website
-          updated_at_Source
-          attendees
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyEventsId
-          userFavouriteEventsId
-        }
-        nextToken
-      }
-      favouriteActivities {
-        items {
-          id
-          duration
-          durationType
-          categories
-          activityPictures
-          source
-          updated_at_Source
-          availableDays
-          availableMonths
-          raiting
-          user_raitings_total
-          ageRestriction
-          isFree
-          priceRange
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
-      favouriteCompanies {
-        items {
-          businessId
-          email
-          industry
-          phone
-          name
-          website
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      userFriendsId
-    }
-  }
-`;
-export const onCreateActivity = /* GraphQL */ `
-  subscription OnCreateActivity(
-    $filter: ModelSubscriptionActivityFilterInput
-    $owner: String
-  ) {
-    onCreateActivity(filter: $filter, owner: $owner) {
-      id
-      company {
-        businessId
-        email
-        industry
-        phone
-        name
-        website
-        activities {
-          nextToken
-        }
-        events {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        userFavouriteCompaniesId
-      }
-      duration
-      durationType
-      categories
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-        country
-      }
-      activityPictures
-      Descriptions {
-        fi
-        en
-        sv
-        jp
-        es
-        de
-      }
-      Names {
-        fi
-        en
-        sv
-        jp
-        es
-        de
-      }
-      Links {
-        eventURL
-        otherURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      source
-      updated_at_Source
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      availableDays
-      availableMonths
-      raiting
-      user_raitings_total
-      ageRestriction
-      Ticket {
-        items {
-          name
-          price
-          currency
-          description
-          available
-          startSaleDate
-          endSaleDate
-          type
-          owner
-          id
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      priceRange
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
-      userFavouriteActivitiesId
-    }
-  }
-`;
-export const onUpdateActivity = /* GraphQL */ `
-  subscription OnUpdateActivity(
-    $filter: ModelSubscriptionActivityFilterInput
-    $owner: String
-  ) {
-    onUpdateActivity(filter: $filter, owner: $owner) {
-      id
-      company {
-        businessId
-        email
-        industry
-        phone
-        name
-        website
-        activities {
-          nextToken
-        }
-        events {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        userFavouriteCompaniesId
-      }
-      duration
-      durationType
-      categories
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-        country
-      }
-      activityPictures
-      Descriptions {
-        fi
-        en
-        sv
-        jp
-        es
-        de
-      }
-      Names {
-        fi
-        en
-        sv
-        jp
-        es
-        de
-      }
-      Links {
-        eventURL
-        otherURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      source
-      updated_at_Source
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      availableDays
-      availableMonths
-      raiting
-      user_raitings_total
-      ageRestriction
-      Ticket {
-        items {
-          name
-          price
-          currency
-          description
-          available
-          startSaleDate
-          endSaleDate
-          type
-          owner
-          id
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      priceRange
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
-      userFavouriteActivitiesId
-    }
-  }
-`;
-export const onDeleteActivity = /* GraphQL */ `
-  subscription OnDeleteActivity(
-    $filter: ModelSubscriptionActivityFilterInput
-    $owner: String
-  ) {
-    onDeleteActivity(filter: $filter, owner: $owner) {
-      id
-      company {
-        businessId
-        email
-        industry
-        phone
-        name
-        website
-        activities {
-          nextToken
-        }
-        events {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        userFavouriteCompaniesId
-      }
-      duration
-      durationType
-      categories
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-        country
-      }
-      activityPictures
-      Descriptions {
-        fi
-        en
-        sv
-        jp
-        es
-        de
-      }
-      Names {
-        fi
-        en
-        sv
-        jp
-        es
-        de
-      }
-      Links {
-        eventURL
-        otherURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      source
-      updated_at_Source
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      availableDays
-      availableMonths
-      raiting
-      user_raitings_total
-      ageRestriction
-      Ticket {
-        items {
-          name
-          price
-          currency
-          description
-          available
-          startSaleDate
-          endSaleDate
-          type
-          owner
-          id
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      priceRange
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
-      userFavouriteActivitiesId
     }
   }
 `;

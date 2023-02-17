@@ -2,6 +2,150 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getOffer = /* GraphQL */ `
+  query GetOffer($id: ID!) {
+    getOffer(id: $id) {
+      id
+      name
+      description
+      type
+      coinCost
+      value
+      discount
+      bundleSize
+      gift
+      owner
+      createdAt
+      updatedAt
+      ticketOfferId
+    }
+  }
+`;
+export const listOffers = /* GraphQL */ `
+  query ListOffers(
+    $filter: ModelOfferFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listOffers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        type
+        coinCost
+        value
+        discount
+        bundleSize
+        gift
+        owner
+        createdAt
+        updatedAt
+        ticketOfferId
+      }
+      nextToken
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      name
+      email
+      profilePicture
+      birthday
+      friends {
+        items {
+          id
+          name
+          email
+          profilePicture
+          birthday
+          tokens
+          owner
+          createdAt
+          updatedAt
+          userFriendsId
+        }
+        nextToken
+      }
+      favouriteEvents {
+        items {
+          id
+          startingDateTime
+          endingDateTime
+          category
+          MainPicture
+          eventPictures
+          source
+          website
+          updated_at_Source
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyEventsId
+          userFavouriteEventsId
+        }
+        nextToken
+      }
+      favouriteCompanies {
+        items {
+          businessId
+          email
+          industry
+          phone
+          name
+          website
+          owner
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+        }
+        nextToken
+      }
+      tokens
+      owner
+      createdAt
+      updatedAt
+      userFriendsId
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        email
+        profilePicture
+        birthday
+        friends {
+          nextToken
+        }
+        favouriteEvents {
+          nextToken
+        }
+        favouriteCompanies {
+          nextToken
+        }
+        tokens
+        owner
+        createdAt
+        updatedAt
+        userFriendsId
+      }
+      nextToken
+    }
+  }
+`;
 export const getEvent = /* GraphQL */ `
   query GetEvent($id: ID!) {
     getEvent(id: $id) {
@@ -24,9 +168,6 @@ export const getEvent = /* GraphQL */ `
         phone
         name
         website
-        activities {
-          nextToken
-        }
         events {
           nextToken
         }
@@ -35,6 +176,7 @@ export const getEvent = /* GraphQL */ `
         updatedAt
         userFavouriteCompaniesId
       }
+      MainPicture
       eventPictures
       Descriptions {
         fi
@@ -64,7 +206,6 @@ export const getEvent = /* GraphQL */ `
       source
       website
       updated_at_Source
-      attendees
       ageRestriction
       isFree
       Ticket {
@@ -82,7 +223,6 @@ export const getEvent = /* GraphQL */ `
           createdAt
           updatedAt
           eventTicketId
-          activityTicketId
         }
         nextToken
       }
@@ -126,6 +266,7 @@ export const listEvents = /* GraphQL */ `
           updatedAt
           userFavouriteCompaniesId
         }
+        MainPicture
         eventPictures
         Descriptions {
           fi
@@ -155,7 +296,6 @@ export const listEvents = /* GraphQL */ `
         source
         website
         updated_at_Source
-        attendees
         ageRestriction
         isFree
         Ticket {
@@ -213,6 +353,7 @@ export const eventByDates = /* GraphQL */ `
           updatedAt
           userFavouriteCompaniesId
         }
+        MainPicture
         eventPictures
         Descriptions {
           fi
@@ -242,7 +383,6 @@ export const eventByDates = /* GraphQL */ `
         source
         website
         updated_at_Source
-        attendees
         ageRestriction
         isFree
         Ticket {
@@ -269,12 +409,29 @@ export const getTicket = /* GraphQL */ `
       startSaleDate
       endSaleDate
       type
+      Offer {
+        items {
+          id
+          name
+          description
+          type
+          coinCost
+          value
+          discount
+          bundleSize
+          gift
+          owner
+          createdAt
+          updatedAt
+          ticketOfferId
+        }
+        nextToken
+      }
       owner
       id
       createdAt
       updatedAt
       eventTicketId
-      activityTicketId
     }
   }
 `;
@@ -294,12 +451,14 @@ export const listTickets = /* GraphQL */ `
         startSaleDate
         endSaleDate
         type
+        Offer {
+          nextToken
+        }
         owner
         id
         createdAt
         updatedAt
         eventTicketId
-        activityTicketId
       }
       nextToken
     }
@@ -314,41 +473,17 @@ export const getCompany = /* GraphQL */ `
       phone
       name
       website
-      activities {
-        items {
-          id
-          duration
-          durationType
-          categories
-          activityPictures
-          source
-          updated_at_Source
-          availableDays
-          availableMonths
-          raiting
-          user_raitings_total
-          ageRestriction
-          isFree
-          priceRange
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
       events {
         items {
           id
           startingDateTime
           endingDateTime
           category
+          MainPicture
           eventPictures
           source
           website
           updated_at_Source
-          attendees
           ageRestriction
           isFree
           owner
@@ -388,9 +523,6 @@ export const listCompanies = /* GraphQL */ `
         phone
         name
         website
-        activities {
-          nextToken
-        }
         events {
           nextToken
         }
@@ -398,314 +530,6 @@ export const listCompanies = /* GraphQL */ `
         createdAt
         updatedAt
         userFavouriteCompaniesId
-      }
-      nextToken
-    }
-  }
-`;
-export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      name
-      email
-      profilePicture
-      birthday
-      friends {
-        items {
-          id
-          name
-          email
-          profilePicture
-          birthday
-          owner
-          createdAt
-          updatedAt
-          userFriendsId
-        }
-        nextToken
-      }
-      favouriteEvents {
-        items {
-          id
-          startingDateTime
-          endingDateTime
-          category
-          eventPictures
-          source
-          website
-          updated_at_Source
-          attendees
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyEventsId
-          userFavouriteEventsId
-        }
-        nextToken
-      }
-      favouriteActivities {
-        items {
-          id
-          duration
-          durationType
-          categories
-          activityPictures
-          source
-          updated_at_Source
-          availableDays
-          availableMonths
-          raiting
-          user_raitings_total
-          ageRestriction
-          isFree
-          priceRange
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
-      favouriteCompanies {
-        items {
-          businessId
-          email
-          industry
-          phone
-          name
-          website
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      userFriendsId
-    }
-  }
-`;
-export const listUsers = /* GraphQL */ `
-  query ListUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        email
-        profilePicture
-        birthday
-        friends {
-          nextToken
-        }
-        favouriteEvents {
-          nextToken
-        }
-        favouriteActivities {
-          nextToken
-        }
-        favouriteCompanies {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        userFriendsId
-      }
-      nextToken
-    }
-  }
-`;
-export const getActivity = /* GraphQL */ `
-  query GetActivity($id: ID!) {
-    getActivity(id: $id) {
-      id
-      company {
-        businessId
-        email
-        industry
-        phone
-        name
-        website
-        activities {
-          nextToken
-        }
-        events {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        userFavouriteCompaniesId
-      }
-      duration
-      durationType
-      categories
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-        country
-      }
-      activityPictures
-      Descriptions {
-        fi
-        en
-        sv
-        jp
-        es
-        de
-      }
-      Names {
-        fi
-        en
-        sv
-        jp
-        es
-        de
-      }
-      Links {
-        eventURL
-        otherURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      source
-      updated_at_Source
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      availableDays
-      availableMonths
-      raiting
-      user_raitings_total
-      ageRestriction
-      Ticket {
-        items {
-          name
-          price
-          currency
-          description
-          available
-          startSaleDate
-          endSaleDate
-          type
-          owner
-          id
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      priceRange
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
-      userFavouriteActivitiesId
-    }
-  }
-`;
-export const listActivities = /* GraphQL */ `
-  query ListActivities(
-    $filter: ModelActivityFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listActivities(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        company {
-          businessId
-          email
-          industry
-          phone
-          name
-          website
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        duration
-        durationType
-        categories
-        Location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-          country
-        }
-        activityPictures
-        Descriptions {
-          fi
-          en
-          sv
-          jp
-          es
-          de
-        }
-        Names {
-          fi
-          en
-          sv
-          jp
-          es
-          de
-        }
-        Links {
-          eventURL
-          otherURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        source
-        updated_at_Source
-        OpenDays {
-          day
-          timeFrom
-          timeTo
-        }
-        availableDays
-        availableMonths
-        raiting
-        user_raitings_total
-        ageRestriction
-        Ticket {
-          nextToken
-        }
-        isFree
-        priceRange
-        owner
-        createdAt
-        updatedAt
-        companyActivitiesId
-        userFavouriteActivitiesId
       }
       nextToken
     }

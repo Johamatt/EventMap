@@ -5,8 +5,6 @@ import {
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { Event as LiveEvent } from "../API";
-
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
@@ -16,13 +14,8 @@ declare global {
 export type RootStackParamList = {
   UserRoot: NavigatorScreenParams<RootTabParamList> | undefined;
   Splash: undefined;
-  Modal: undefined;
-
   UserProfileScreen: undefined;
   EventModal: { id: string };
-  ActivityModal: { id: string };
-  EventListTab: undefined;
-  ActivityListTab: undefined;
 
   UserNewPasswordScreen: { username: string };
   UserRegisterScreen: undefined;

@@ -14,7 +14,7 @@ import { RootStackParamList } from "../../../navigation/types";
 import { store } from "../../../Store";
 import LottieView from "lottie-react-native";
 import Layout from "../../../constants/Layout";
-import { fetchEventsTodayList } from "../../../hooks/fetch/linkedEvents/ListLinkedEvents/linkedEventsFetch";
+
 
 export const UserLandingScreen: React.FC = () => {
   const navigation =

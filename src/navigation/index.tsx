@@ -20,7 +20,6 @@ import {
 } from "../Store";
 import { connect } from "react-redux";
 import { AuthNavigator } from "./AuthNavigator";
-import { ActivityModal } from "../screens/User/modals/ActivityModal";
 import { EventModal } from "../screens/User/modals/EventModal";
 
 interface NavigationProps {
@@ -28,7 +27,6 @@ interface NavigationProps {
   activitiesReducer: ActivitiesState;
   ON_UPDATE_AUTH: Function;
   ON_UPDATE_GUESTUSER_SESSION: Function;
-
   guestSession: boolean;
 }
 
@@ -133,7 +131,6 @@ const MainNavigation = () => {
         screenOptions={{ presentation: "modal", headerShown: false }}
       >
         <Stack.Screen name="EventModal" component={EventModal} />
-        <Stack.Screen name="ActivityModal" component={ActivityModal} />
       </Stack.Group>
     </Stack.Group>
   );

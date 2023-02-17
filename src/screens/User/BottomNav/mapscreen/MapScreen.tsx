@@ -5,12 +5,12 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Dimensions, View, StyleSheet, Text } from "react-native";
+import { Dimensions, View, StyleSheet, Text, Image } from "react-native";
 import MapView, { Marker, Region } from "react-native-maps";
 import { connect } from "react-redux";
 import { ApplicationState } from "../../../../Store";
-import { Activity, CATEGORY } from "../../../../API";
-import { fetchGuestActivitiesMap } from "../../../../hooks/fetch/linkedEvents/Appsync/PublicAccessFetch";
+import { CATEGORY } from "../../../../API";
+import { fetchGuestActivitiesMap } from "../../../../hooks/fetch/Appsync/PublicAccessFetch";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../../../navigation/types";
@@ -19,11 +19,9 @@ import type { BBox } from "geojson";
 import useSupercluster from "use-supercluster";
 import MapCard from "../../../../components/Cards/MapCard";
 import ShowMapCardModal from "./ShowMapCardModal";
-import { fetchEventsTodayList } from "../../../../hooks/fetch/linkedEvents/ListLinkedEvents/linkedEventsFetch";
-import { fetchUserActivitiesMap } from "../../../../hooks/fetch/linkedEvents/Appsync/UserAccessFetch";
+import { fetchTicketMasterToday } from "../../../../hooks/fetch/TicketMaster/TicketMasterList";
 
 interface MapProps {
-  activitiesList: Activity[];
   nextToken: string;
   userPreferences: Array<CATEGORY>;
   showcurrentlyopen: boolean;
@@ -36,9 +34,6 @@ const _MapScreen: React.FC<MapProps> = (props) => {
   const [showCard, setShowCard] = useState<boolean>(true);
   const [bounds, setBounds] = useState<BBox>();
   const [zoom, setZoom] = useState(10);
-  const [activities, setActivities] = useState<any>([]);
-  const [nextToken, setNextToken] = useState<any>();
-
   const [events, setEvents] = useState<Array<any>>(props.eventsList);
   const [page, setPage] = useState<number>(1);
 
@@ -47,7 +42,7 @@ const _MapScreen: React.FC<MapProps> = (props) => {
   }, []);
 
   const fetchEventsMapToday = useCallback(async (page: number) => {
-    const eventsDataList = await fetchEventsTodayList(page);
+    const eventsDataList = await fetchTicketMasterToday(page, 100, "any");
     setPage(page + 1);
     setEvents([
       ...events,
@@ -86,30 +81,30 @@ const _MapScreen: React.FC<MapProps> = (props) => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   //
+  // const points = useMemo<PointFeature<any>[]>(() => {
+  //   return events.map((m: any) => ({
+  //     type: "Feature",
+  //     properties: {
+  //       cluster: false,
+  //       category: "markers",
+  //       id: m.id,
+  //     },
+  //     geometry: {
+  //       type: "Point",
+  //       coordinates: [
+  //         m._embedded.venues[0].location.latitude,
+  //         m._embedded.venues[0].location.longitude,
+  //       ],
+  //     },
+  //   }));
+  // }, [events]);
 
-  console.log(events);
-
-  const points = useMemo<PointFeature<any>[]>(() => {
-    return events.map((m: Activity) => ({
-      type: "Feature",
-      properties: {
-        cluster: false,
-        category: "markers",
-        id: m.id,
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [m.Location?.lon, m.Location?.lat],
-      },
-    }));
-  }, [events]);
-
-  const { clusters, supercluster } = useSupercluster({
-    points,
-    bounds,
-    zoom,
-    options: { radius: 90, maxZoom: 20 },
-  });
+  // const { clusters, supercluster } = useSupercluster({
+  //   points,
+  //   bounds,
+  //   zoom,
+  //   options: { radius: 90, maxZoom: 20 },
+  // });
 
   return (
     <View style={styles.container}>
@@ -121,7 +116,7 @@ const _MapScreen: React.FC<MapProps> = (props) => {
         mapType="satellite"
         showsUserLocation
       >
-        {clusters?.map((point) => {
+        {/* {clusters?.map((point) => {
           const [longitude, latitude] = point.geometry.coordinates;
           const coordinates = { latitude, longitude };
           const properties = point.properties;
@@ -151,6 +146,35 @@ const _MapScreen: React.FC<MapProps> = (props) => {
                 navigation.navigate("ActivityModal", { id: properties.id })
               }
             />
+          );
+        })} */}
+
+        {events.map((ev, i) => {
+          let randomAnchorX = Math.random() * (1 - 2) + 0.4;
+          let randomAnchorY = Math.random() * (1 - 2) + 0.4;
+          return (
+            <Marker
+              key={i}
+              coordinate={{
+                latitude: parseFloat(ev._embedded.venues[0].location.latitude),
+                longitude: parseFloat(
+                  ev._embedded.venues[0].location.longitude
+                ),
+              }}
+              onPress={() => navigation.navigate("EventModal", { id: ev.id })}
+              anchor={{ x: randomAnchorX, y: randomAnchorY }}
+            >
+              {/* <Image
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 50,
+                  borderColor: "green",
+                  borderWidth: 1,
+                }}
+                source={{ uri: ev.images[0].url }}
+              /> */}
+            </Marker>
           );
         })}
       </MapView>

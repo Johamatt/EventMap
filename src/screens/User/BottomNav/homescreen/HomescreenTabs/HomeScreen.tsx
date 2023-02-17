@@ -1,48 +1,55 @@
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import React, { useMemo, useRef, useState } from "react";
+
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  ScrollView,
+} from "react-native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import LottieView from "lottie-react-native";
+
 import { ApplicationState } from "../../../../../Store";
+import { RootStackParamList } from "../../../../../navigation/types";
 import { connect } from "react-redux";
-import React, { useMemo, useState } from "react";
-import { Activity, CATEGORY, Event } from "../../../../../API";
-import ActivitiesListView from "./ActivitiesListView";
+
 import Colors from "../../../../../constants/Colors";
 import Constants from "expo-constants";
-import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../../../../../navigation/types";
+
 import EventsListView from "./EventsListView";
 
 type HomescreenProps = {
-  activitiesList: any;
   nextToken: any;
-  showcurrentlyopen: boolean;
   guestUserSession: boolean;
 };
 
 const _HomeScreen: React.FC<HomescreenProps> = (props) => {
   const [tabView, setTabView] = useState<
-    //"Activities"
-    "Events" | "Friends"
-  >("Events");
+    "Home" | "All" | "Music" | "Festivals" | "Entertainment" | "Sports"
+  >("Home");
+
+  const animation = useRef(null);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const renderList = useMemo(() => {
     switch (tabView) {
-      //    case "Activities":
-      //     return <ActivitiesListView />;
-      case "Events":
+      case "All":
         return <EventsListView />;
-      case "Friends":
-        return (
-          // <FlatList
-          //   style={{ backgroundColor: "black", marginBottom: 50 }}
-          //   keyExtractor={(item) => item.id}
-          //   data={friendsEvents}
-          //   renderItem={({ item }) => <FeedCard activity={item} />}
-          // />
-          <></>
-        );
+      case "Music":
+        return <EventsListView category="Music" />;
+      case "Festivals":
+        return <EventsListView category="Festivals" />;
+      case "Sports":
+        return <EventsListView category="Sports" />;
+      case "Entertainment":
+        return <EventsListView category="Entertainment" />;
+
+      case "Home":
+        return <View />;
       default:
         return null;
     }
@@ -51,47 +58,120 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.headerButton}>
-          <Ionicons name="options-outline" size={24} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.headerButton}>
-          <Ionicons name="search-outline" size={24} color="white" />
-        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <TouchableOpacity style={styles.headerButton}>
+            <Ionicons name="options-outline" size={24} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.headerButton}>
+            <Ionicons name="search-outline" size={24} color="white" />
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <TouchableOpacity style={styles.coinButton}>
+            <LottieView
+              autoPlay
+              ref={animation}
+              loop={true}
+              source={require("../../../../../assets/lottie/coin.json")}
+            />
+          </TouchableOpacity>
+          <Text
+            style={{
+              color: "white",
+              marginLeft: 10,
+              fontWeight: "bold",
+              fontSize: 18,
+              textTransform: "uppercase",
+            }}
+          >
+            0
+          </Text>
+        </View>
       </View>
-      {/* {countryListVisible && renderCountryList()} */}
-      <View style={styles.tabContainer}>
-        <TouchableOpacity onPress={() => setTabView("Events")}>
-          <Text
-            style={
-              tabView === "Events" ? styles.selectedHeaderTab : styles.headerTab
-            }
-          >
-            Events
-          </Text>
+      <View style={styles.tabWrapper}>
+        <TouchableOpacity
+          style={styles.homeButton}
+          onPress={() => setTabView("Home")}
+        >
+          <Ionicons
+            name="home"
+            size={24}
+            color={tabView === "Home" ? Colors.light.primary : "white"}
+          />
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={() => setTabView("Activities")}>
-          <Text
-            style={
-              tabView === "Activities"
-                ? styles.selectedHeaderTab
-                : styles.headerTab
-            }
-          >
-            Activities
-          </Text>
-        </TouchableOpacity> */}
 
-        <TouchableOpacity onPress={() => setTabView("Friends")}>
-          <Text
-            style={
-              tabView === "Friends"
-                ? styles.selectedHeaderTab
-                : styles.headerTab
-            }
+        <ScrollView horizontal={true} style={styles.tabScrollView}>
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => setTabView("All")}
           >
-            Friends
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={tabView === "All" ? styles.selectedTab : styles.headerTab}
+            >
+              All
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => setTabView("Music")}
+          >
+            <Text
+              style={
+                tabView === "Music" ? styles.selectedTab : styles.headerTab
+              }
+            >
+              Concerts
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => setTabView("Festivals")}
+          >
+            <Text
+              style={
+                tabView === "Festivals" ? styles.selectedTab : styles.headerTab
+              }
+            >
+              Festivals
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => setTabView("Entertainment")}
+          >
+            <Text
+              style={
+                tabView === "Entertainment"
+                  ? styles.selectedTab
+                  : styles.headerTab
+              }
+            >
+              Entertainment
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => setTabView("Sports")}
+          >
+            <Text
+              style={
+                tabView === "Sports" ? styles.selectedTab : styles.headerTab
+              }
+            >
+              Sports
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
       {renderList}
     </View>
@@ -99,9 +179,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  activitiesList: state.ActivitiesReducer.activitiesList,
   nextToken: state.ActivitiesReducer.nextToken,
-  showcurrentlyopen: state.UserReducer.showCurrentlyOpen,
   guestUserSession: state.UserReducer.guestUserSession,
 });
 
@@ -115,47 +193,63 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
     flex: 1,
   },
-  tabContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+
+  homeButton: {
     alignItems: "center",
-    paddingHorizontal: 20,
-    margin: 20,
+    justifyContent: "center",
+    padding: 10,
   },
+
+  tabWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 10,
+  },
+
+  tabScrollView: {
+    margin: 10,
+  },
+
+  tab: {
+    paddingHorizontal: 20,
+  },
+
   headerTab: {
     fontSize: 18,
     color: "white",
-  },
-  selectedHeaderTab: {
-    fontSize: 18,
-    color: "yellow",
     fontWeight: "bold",
-
-    borderWidth: 2,
+    textAlign: "center",
+  },
+  selectedTab: {
+    fontSize: 18,
+    color: Colors.light.primary,
+    fontWeight: "bold",
+    textAlign: "center",
+    paddingBottom: 5,
+    borderBottomWidth: 3,
     borderBottomColor: Colors.light.primary,
   },
 
   header: {
-    height: 50,
-    flexDirection: "row-reverse",
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "black",
-    paddingHorizontal: 15,
+    paddingHorizontal: 16,
+    height: 56,
+    backgroundColor: Colors.light.headerBackground,
   },
+
   headerButton: {
     width: 40,
     height: 28,
     justifyContent: "center",
     alignItems: "center",
   },
-  flag: {
-    width: 40,
-    height: 28,
-    borderColor: Colors.light.primary,
-    borderWidth: 0.5,
-  },
-  countryName: {
-    fontSize: 18,
-    color: "white",
+
+  coinButton: {
+    width: 100,
+    height: 100,
+    right: -10,
+    position: "absolute",
   },
 });

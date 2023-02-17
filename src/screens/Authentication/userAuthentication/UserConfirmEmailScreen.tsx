@@ -31,8 +31,6 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
 
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
-  console.log(username);
-
   useEffect(() => {
     if (props.route.params?.username) {
       setUsername(props.route.params.username);

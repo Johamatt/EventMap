@@ -16,7 +16,7 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const startTime = new Date(event.start_time);
+  const startTime = new Date(event.dates.start);
   const endTime = new Date(event.end_time);
 
   const difference =
@@ -31,31 +31,22 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
       style={styles.cardContainer}
       onPress={() => navigation.navigate("EventModal", { id: event.id })}
     >
-      <View style={styles.cardTopContainer}>
-        <View style={styles.cardHostContainer}></View>
-      </View>
-      <View style={styles.cardParticipantListContainer}></View>
+      <View style={styles.cardTopContainer}></View>
       <View style={styles.cardBottomContainer}>
-        <Text style={styles.cardTitle}>{event.name.fi}</Text>
-        {event.images.map((image: any, index: number) => {
-          if (image.url) {
-            return (
-              <Image
-                key={index}
-                style={styles.tinyImage}
-                source={{ uri: image.url }}
-              />
-            );
-          }
-          return null;
-        })}
+        <Text style={styles.cardTitle}>{event.name}</Text>
+
+        {/* <Image
+          key={event.id}
+          style={styles.tinyImage}
+          source={{ uri: event.images[0].url }}
+        /> */}
 
         {/* <ListIconExternalAPI data={categories} /> */}
 
         <View style={styles.cardTimeContainer}>
           <Text style={styles.cardTimeLabel}>Starts:</Text>
           <Text style={styles.time}>
-            {startTime.toLocaleString()} - {endTime.toLocaleString()}
+            {event.dates.start.localDate} - {event.dates.start.localTime}
           </Text>
         </View>
       </View>
@@ -110,11 +101,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
   },
-  cardHostContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
-  },
   cardProfileImage: {
     width: 40, // set a fixed width for the cover image
     height: 40,
@@ -126,13 +112,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   cardUsername: { fontSize: 24, fontWeight: "bold", color: "#FFFFFF" },
-  cardParticipantCountContainer: {
-    alignItems: "center",
-  },
-  cardParticipantCount: {
-    fontSize: 16,
-    color: "#FFFFFF",
-  },
+
   cardBottomContainer: {
     padding: 10,
   },

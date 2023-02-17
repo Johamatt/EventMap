@@ -12,10 +12,9 @@ import awsmobile from "./src/aws-exports";
 import * as Splash from "expo-splash-screen";
 import Colors from "./src/constants/Colors";
 import SplashScreen from "./src/screens/util/SplashScreen";
-import { useCachedResources } from "./src/hooks/fetch/linkedEvents/loadResources/useCachedResources";
-import { fetchEventsTodayList } from "./src/hooks/fetch/linkedEvents/ListLinkedEvents/linkedEventsFetch";
-import LottieView from "lottie-react-native";
 import Layout from "./src/constants/Layout";
+import { useCachedResources } from "./src/hooks/fetch/loadResources/useCachedResources";
+
 Amplify.configure({ ...awsmobile });
 
 const App: React.FC = () => {
@@ -26,7 +25,6 @@ const App: React.FC = () => {
     const loadResources = async () => {
       try {
         // Fetch and load resources here
-        await fetchEvents();
         await useCachedResources();
         setIsLoadingComplete(true);
       } catch (err) {
@@ -37,15 +35,6 @@ const App: React.FC = () => {
 
     loadResources();
   }, []);
-
-  const fetchEvents = async () => {
-    const events = await fetchEventsTodayList(1);
-
-    store.dispatch({
-      type: "ON_INITIAL_FETCH",
-      payload: events,
-    });
-  };
 
   const colorScheme = useColorScheme();
   if (!isLoadingComplete) {

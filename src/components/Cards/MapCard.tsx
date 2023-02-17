@@ -13,39 +13,7 @@ const MapCard = ({ closeCard }: MapCardProps) => {
           <Entypo name="circle-with-cross" size={24} color="black" />
         </TouchableOpacity>
       </View>
-      <View style={styles.mapModal}>
-        <View style={styles.flexContainer}>
-          <TouchableOpacity style={styles.touchable}>
-            <Text style={styles.whiteTextBold}>Events</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.touchable}>
-            <Text style={styles.whiteTextBold}>Activities</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.flexContainer}>
-          <View style={styles.flexContainer}>
-            <TouchableOpacity style={styles.touchable2}>
-              <Text style={styles.whiteTextBold}>Today</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.touchable2}>
-              <Text style={styles.whiteTextBold}>Tomorrow</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.flexContainer}>
-            <TouchableOpacity style={styles.touchable2}>
-              <Text style={styles.whiteTextBold}>Weekend</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.touchable2}>
-              <Text style={styles.whiteTextBold}>All</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+      <View style={styles.mapModal}></View>
     </View>
   );
 };

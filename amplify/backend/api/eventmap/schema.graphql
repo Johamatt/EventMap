@@ -4,7 +4,7 @@ type Name {
   sv: String
   jp: String
   es: String
-    de: String
+  de: String
 }
 
 type Description {
@@ -36,6 +36,7 @@ type Event @model @auth(rules: [{allow: owner},
   location: Location!
   category: [CATEGORY!] 
   company: Company
+  MainPicture: String
   eventPictures: [String]
   Descriptions: Description!
   name: Name!
@@ -43,14 +44,10 @@ type Event @model @auth(rules: [{allow: owner},
   source: String
   website: String
   updated_at_Source: AWSDateTime
-  attendees: Int
   ageRestriction: String
   isFree: Boolean
   Ticket: [Ticket] @hasMany
     owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
-  
-  
-
 }
 
 type Ticket @model @auth(rules: [{allow: owner},  
@@ -65,6 +62,7 @@ type Ticket @model @auth(rules: [{allow: owner},
     startSaleDate: String
     endSaleDate: String
     type: String
+    Offer: [Offer] @hasMany
       owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
@@ -79,18 +77,35 @@ type Company @model @auth(rules: [{allow: owner},
   phone: String
   name: String
   website: String
-  activities: [Activity] @hasMany
   events: [Event] @hasMany
     owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+type Offer @model @auth(rules: [{allow: owner},  
+{allow: groups, groups: ["Admin"]}]) {
+  id: ID!
+  name: String!
+  description: String
+  type: OfferType!
+  coinCost: Int!
+  value: Float
+  discount: Float 
+  bundleSize: Int 
+  gift: String
+    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+enum OfferType {
+  DISCOUNT
+  BUNDLE
+  GIFT
 }
 
 
 
 
 type User @model @auth(rules: [{allow: owner},  
- {allow: groups, groups: ["DefaultUser"], operations: [read]},
- {allow: groups, groups: ["Admin"]},
- {allow: public, provider: iam operations: [read]}]) {
+ {allow: groups, groups: ["Admin"]}]) {
   id: ID!
   name: String!
   email: String! 
@@ -98,37 +113,9 @@ type User @model @auth(rules: [{allow: owner},
   birthday: AWSDate
   friends: [User] @hasMany
   favouriteEvents: [Event] @hasMany
-  favouriteActivities: [Activity] @hasMany
   favouriteCompanies: [Company] @hasMany
+  tokens: Int
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
-}
-
-type Activity @model @auth(rules: [{allow: owner},  
- {allow: groups, groups: ["DefaultUser"], operations: [read]},
- {allow: groups, groups: ["Admin"]},
- {allow: public, provider: iam operations: [read]}]) {
-  id: ID!
-  company: Company
-  duration: String
-  durationType: String
-  categories: [CATEGORY!] 
-  Location: Location!
-  activityPictures: [String]
-  Descriptions: Description!
-  Names: Name!
-  Links: Links
-  source: String
-  updated_at_Source: AWSDateTime
-  OpenDays: [OpenDays!] ## 
-  availableDays: [Int]  # TODO ADD CUSTOM RESOLVER (?)
-  availableMonths: [Int]##
-  raiting: Float
-  user_raitings_total: Int
-  ageRestriction: String
-  Ticket: [Ticket] @hasMany
-  isFree: Boolean
-  priceRange: Float
-    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 type OpenDays {
