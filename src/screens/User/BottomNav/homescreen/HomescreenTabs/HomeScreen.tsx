@@ -20,6 +20,7 @@ import Colors from "../../../../../constants/Colors";
 import Constants from "expo-constants";
 
 import EventsListView from "./EventsListView";
+import HomeTabView from "./HomeTabView";
 
 type HomescreenProps = {
   nextToken: any;
@@ -49,7 +50,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
         return <EventsListView category="Entertainment" />;
 
       case "Home":
-        return <View />;
+        return <HomeTabView />;
       default:
         return null;
     }

@@ -62,6 +62,4 @@ export const fetchEvent = async (id: string) => {
   } catch (error) {
     console.log(error);
   }
-
-  //   }
 };

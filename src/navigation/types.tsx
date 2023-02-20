@@ -16,7 +16,6 @@ export type RootStackParamList = {
   Splash: undefined;
   UserProfileScreen: undefined;
   EventModal: { id: string };
-
   UserNewPasswordScreen: { username: string };
   UserRegisterScreen: undefined;
   UserLoginScreen: undefined;
