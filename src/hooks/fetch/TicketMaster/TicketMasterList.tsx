@@ -13,7 +13,7 @@ export const fetchTicketMasterToday = async (
     try {
       const res = await axios.get(
         //@ts-ignore
-        `https://app.ticketmaster.com/discovery/v2/events.json?page=${page}&size=${size}&startDateTime=${isoDateString}&classificationName=${category}&sort=date,asc&city=Helsinki,Espoo,Vantaa&apikey=${Constants.expoConfig.extra.TICKETMASTER_KEY}`,
+        `https://app.ticketmaster.com/discovery/v2/events.json?page=${page}&classificationName=${category}&sort=date,asc&city=Helsinki,Espoo,Vantaa&apikey=${Constants.expoConfig.extra.TICKETMASTER_KEY}`,
         {
           headers: {
             "Access-Control-Allow-Methods": "GET",
@@ -22,6 +22,9 @@ export const fetchTicketMasterToday = async (
         }
       );
       const data = res.data._embedded.events;
+      if (data === undefined) {
+        return false;
+      }
       return data;
     } catch (error) {
       console.log(error);
@@ -39,6 +42,9 @@ export const fetchTicketMasterToday = async (
       }
     );
     const data = res.data._embedded.events;
+    if (data === undefined) {
+      return false;
+    }
     return data;
   } catch (error) {
     console.log(error);

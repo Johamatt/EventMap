@@ -22,10 +22,6 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
 
   const [activities, setActvities] = useState<any>();
 
-  const handleChangeProfileImage = () => {
-    navigation.navigate("EventListTab");
-  };
-
   return (
     <View style={styles.container}>
       {events ? (
@@ -38,10 +34,7 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
       )}
       <Text style={styles.welcomeText}>No Favourites yet!</Text>
 
-      <TouchableOpacity
-        style={styles.changeProfileImageButton}
-        onPress={handleChangeProfileImage}
-      >
+      <TouchableOpacity style={styles.changeProfileImageButton}>
         <Text style={styles.buttonText}>Browse Events</Text>
       </TouchableOpacity>
     </View>

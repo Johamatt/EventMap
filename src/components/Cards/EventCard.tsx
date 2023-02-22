@@ -3,20 +3,20 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { RootStackParamList } from "../../navigation/types";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { ListIconExternalAPI } from "../Lists/ListIconExternalAPI";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import { TicketMasterEvent } from "../../types/TicketMasterType";
 
 interface EventCardProps {
-  event: any;
+  event: TicketMasterEvent;
 }
 
 export const EventCard: React.FC<EventCardProps> = (props) => {
-  const event: any = props.event;
+  const event: TicketMasterEvent = props.event;
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const startTime = new Date(event.dates.start);
+  const startTime = new Date(event.dates.start.dateTime);
   const endTime = new Date(event.end_time);
 
   const difference =

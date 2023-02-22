@@ -12,9 +12,11 @@ type HomescreenProps = {
 };
 
 const _EventsListView: React.FC<HomescreenProps> = (props) => {
-  const [page, setPage] = useState(1);
-  const [events, setEvents] = useState<any>([]);
+  const [page, setPage] = useState(0);
+  const [events, setEvents] = useState<Array<any>>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [category, setCategory] = useState(props.category);
 
   useEffect(() => {
     fetchData(page);
@@ -33,6 +35,8 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
       console.log(error);
     }
   };
+
+
 
   const renderFooter = () => {
     if (!isLoading) return null;

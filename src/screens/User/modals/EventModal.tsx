@@ -53,6 +53,7 @@ export const EventModal: React.FC<EventModalProps> = (props) => {
           </View>
         );
       })}
+
       <Text style={styles.title}>External Links:</Text>
       <View style={styles.linksContainer}>
         {event._embedded.attractions[0].externalLinks &&

@@ -1,40 +1,25 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { Dimensions, View, StyleSheet, Text, Image } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Dimensions, View, StyleSheet, TouchableOpacity } from "react-native";
 import MapView, { Marker, Region } from "react-native-maps";
 import { connect } from "react-redux";
 import { ApplicationState } from "../../../../Store";
-import { CATEGORY } from "../../../../API";
-import { fetchGuestActivitiesMap } from "../../../../hooks/fetch/Appsync/PublicAccessFetch";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, DrawerActions } from "@react-navigation/native";
 import { RootStackParamList } from "../../../../navigation/types";
-import type { PointFeature } from "supercluster";
-import type { BBox } from "geojson";
-import useSupercluster from "use-supercluster";
-import MapCard from "../../../../components/Cards/MapCard";
-import ShowMapCardModal from "./ShowMapCardModal";
+import OpenModalButton from "../../../../components/Buttons/OpenListModalButton";
 import { fetchTicketMasterToday } from "../../../../hooks/fetch/TicketMaster/TicketMasterList";
+import MapListModal from "../../modals/MapListModal";
 
 interface MapProps {
   nextToken: string;
-  userPreferences: Array<CATEGORY>;
-  showcurrentlyopen: boolean;
   guestUserSession: boolean;
-  eventsList: any;
 }
 
 const _MapScreen: React.FC<MapProps> = (props) => {
   const mapRef = useRef<MapView>(null);
   const [showCard, setShowCard] = useState<boolean>(true);
-  const [bounds, setBounds] = useState<BBox>();
-  const [zoom, setZoom] = useState(10);
-  const [events, setEvents] = useState<Array<any>>(props.eventsList);
+  const [region, setRegion] = useState<Region>();
+  const [events, setEvents] = useState<Array<any>>([]);
   const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
@@ -42,7 +27,7 @@ const _MapScreen: React.FC<MapProps> = (props) => {
   }, []);
 
   const fetchEventsMapToday = useCallback(async (page: number) => {
-    const eventsDataList = await fetchTicketMasterToday(page, 100, "any");
+    const eventsDataList = await fetchTicketMasterToday(page, 100);
     setPage(page + 1);
     setEvents([
       ...events,
@@ -52,7 +37,7 @@ const _MapScreen: React.FC<MapProps> = (props) => {
   }, []);
 
   const getMyLocation = () => {
-    const region = {
+    const region: Region = {
       latitude: 60.192059,
       longitude: 24.945831,
       latitudeDelta: 0.0922,
@@ -61,97 +46,29 @@ const _MapScreen: React.FC<MapProps> = (props) => {
     return region;
   };
 
-  const regionToBoundingBox = (region: Region): BBox => {
-    return [
-      region.longitude - region.longitudeDelta,
-      region.latitude - region.latitudeDelta,
-      region.longitude + region.longitudeDelta,
-      region.latitude + region.latitudeDelta,
-    ];
-  };
-
   const onRegionChangeComplete = async (region: Region) => {
-    const mapBounds = regionToBoundingBox(region);
-    setBounds(mapBounds);
-    const camera = await mapRef.current?.getCamera();
-    setZoom(camera?.zoom ?? 10);
+    setRegion(region);
+    mapRef.current?.animateToRegion(region, 1000);
   };
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  //
-  // const points = useMemo<PointFeature<any>[]>(() => {
-  //   return events.map((m: any) => ({
-  //     type: "Feature",
-  //     properties: {
-  //       cluster: false,
-  //       category: "markers",
-  //       id: m.id,
-  //     },
-  //     geometry: {
-  //       type: "Point",
-  //       coordinates: [
-  //         m._embedded.venues[0].location.latitude,
-  //         m._embedded.venues[0].location.longitude,
-  //       ],
-  //     },
-  //   }));
-  // }, [events]);
-
-  // const { clusters, supercluster } = useSupercluster({
-  //   points,
-  //   bounds,
-  //   zoom,
-  //   options: { radius: 90, maxZoom: 20 },
-  // });
+  const openDrawer = () => {
+    navigation.dispatch(DrawerActions.openDrawer());
+  };
 
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
         ref={mapRef}
-        initialRegion={getMyLocation()}
+        region={region || getMyLocation()}
         onRegionChangeComplete={onRegionChangeComplete}
         mapType="satellite"
         showsUserLocation
       >
-        {/* {clusters?.map((point) => {
-          const [longitude, latitude] = point.geometry.coordinates;
-          const coordinates = { latitude, longitude };
-          const properties = point.properties;
-
-          if (properties?.cluster) {
-            const size = 25 + (properties.point_count * 75) / points.length;
-            return (
-              <Marker
-                key={`cluster-${properties.cluster_id}`}
-                coordinate={coordinates}
-              >
-                <View style={[styles.cluster, { width: size, height: size }]}>
-                  <Text style={styles.clusterCount}>
-                    {properties.point_count}
-                  </Text>
-                </View>
-              </Marker>
-            );
-          }
-
-          return (
-            <Marker
-              key={properties.id}
-              coordinate={coordinates}
-              pinColor={properties.color}
-              onPress={() =>
-                navigation.navigate("ActivityModal", { id: properties.id })
-              }
-            />
-          );
-        })} */}
-
         {events.map((ev, i) => {
-          let randomAnchorX = Math.random() * (1 - 2) + 0.4;
-          let randomAnchorY = Math.random() * (1 - 2) + 0.4;
           return (
             <Marker
               key={i}
@@ -162,38 +79,26 @@ const _MapScreen: React.FC<MapProps> = (props) => {
                 ),
               }}
               onPress={() => navigation.navigate("EventModal", { id: ev.id })}
-              anchor={{ x: randomAnchorX, y: randomAnchorY }}
-            >
-              {/* <Image
-                style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: 50,
-                  borderColor: "green",
-                  borderWidth: 1,
-                }}
-                source={{ uri: ev.images[0].url }}
-              /> */}
-            </Marker>
+            ></Marker>
           );
         })}
       </MapView>
       {showCard ? (
-        <MapCard closeCard={() => setShowCard(false)} />
+        <MapListModal
+          closeCard={() => setShowCard(false)}
+          onEventPress={(coordinates) => onRegionChangeComplete(coordinates)}
+          events={events}
+        />
       ) : (
-        <ShowMapCardModal openModal={() => setShowCard(true)} />
+        <OpenModalButton openModal={() => setShowCard(true)} />
       )}
     </View>
   );
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  activitiesList: state.ActivitiesReducer.activitiesList,
   nextToken: state.ActivitiesReducer.nextToken,
-  showcurrentlyopen: state.UserReducer.showCurrentlyOpen,
-  userPreferences: state.UserReducer.preferences,
   guestUserSession: state.UserReducer.guestUserSession,
-  eventsList: state.EventsReducer.eventsList,
 });
 const MapScreen = connect(mapToStateProps)(_MapScreen);
 
@@ -209,16 +114,5 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
-  },
-  cluster: {
-    borderRadius: 100,
-    backgroundColor: "#334155",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  clusterCount: {
-    color: "#FFF",
-    fontWeight: "bold",
   },
 });

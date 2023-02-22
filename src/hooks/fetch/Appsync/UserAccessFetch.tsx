@@ -1,6 +1,5 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { ListActivitiesQuery } from "../../../API";
-import { listActivities } from "../../../graphql/queries";
+
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 
 export const fetchUserActivitiesList = async (nextToken: any) => {

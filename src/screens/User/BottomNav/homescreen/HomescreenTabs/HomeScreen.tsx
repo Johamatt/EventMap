@@ -29,32 +29,17 @@ type HomescreenProps = {
 
 const _HomeScreen: React.FC<HomescreenProps> = (props) => {
   const [tabView, setTabView] = useState<
-    "Home" | "All" | "Music" | "Festivals" | "Entertainment" | "Sports"
+    | "Home"
+    | "All"
+    | "Activities & Games"
+    | "Festivals"
+    | "Entertainment"
+    | "Sports"
   >("Home");
 
   const animation = useRef(null);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-  const renderList = useMemo(() => {
-    switch (tabView) {
-      case "All":
-        return <EventsListView />;
-      case "Music":
-        return <EventsListView category="Music" />;
-      case "Festivals":
-        return <EventsListView category="Festivals" />;
-      case "Sports":
-        return <EventsListView category="Sports" />;
-      case "Entertainment":
-        return <EventsListView category="Entertainment" />;
-
-      case "Home":
-        return <HomeTabView />;
-      default:
-        return null;
-    }
-  }, [tabView]);
 
   return (
     <View style={styles.container}>
@@ -121,14 +106,16 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
 
           <TouchableOpacity
             style={styles.tab}
-            onPress={() => setTabView("Music")}
+            onPress={() => setTabView("Activities & Games")}
           >
             <Text
               style={
-                tabView === "Music" ? styles.selectedTab : styles.headerTab
+                tabView === "Activities & Games"
+                  ? styles.selectedTab
+                  : styles.headerTab
               }
             >
-              Concerts
+              Activities & Games
             </Text>
           </TouchableOpacity>
 
@@ -174,7 +161,21 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
           </TouchableOpacity>
         </ScrollView>
       </View>
-      {renderList}
+      {/* {renderList} */}
+      {/*...*/}
+      {tabView === "All" ? (
+        <EventsListView key="All" />
+      ) : tabView === "Activities & Games" ? (
+        <EventsListView key="Activities & Games" category="Miscellaneous" />
+      ) : tabView === "Festivals" ? (
+        <EventsListView key="Festivals" category="festival" />
+      ) : tabView === "Sports" ? (
+        <EventsListView key="Sports" category="sport" />
+      ) : tabView === "Entertainment" ? (
+        <EventsListView key="Entertainment" category="Entertainment" />
+      ) : (
+        <HomeTabView key="Home" />
+      )}
     </View>
   );
 };

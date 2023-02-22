@@ -32,7 +32,8 @@ export const AutoScrollList: React.FC<AutoScrollListProps> = ({ data }) => {
     <ScrollView ref={scrollViewRef} horizontal={true}>
       {data.map((value, index) => (
         <TouchableOpacity
-        // onPress={() => navigation.navigate("EventModal", { id: value.id })}
+          key={value.id}
+          // onPress={() => navigation.navigate("EventModal", { id: value.id })}
         >
           <Image
             resizeMode="contain"
