@@ -22,11 +22,6 @@ export interface UpdateShowOpenHoursAction {
   payload: boolean;
 }
 
-export interface UpdateSelectAllCategoriesAction {
-  readonly type: "ON_UPDATE_SELECTALL_CATEGORIES";
-  payload: boolean;
-}
-
 export interface UserErrorAction {
   readonly type: "ON_USER_ERROR";
   payload: any;
@@ -43,7 +38,6 @@ export type UserAction =
   | UserErrorAction
   | UpdateAuthAction
   | UpdateShowOpenHoursAction
-  | UpdateSelectAllCategoriesAction
   | UpdateGuestUserSession;
 
 export const ON_UPDATE_LOCATION = (location: LocationGeocodedLocation) => {
@@ -100,22 +94,6 @@ export const ON_UPDATE_OPENINGHOURS_ONLY = (showCurrentlyOpen: boolean) => {
       dispatch({
         type: "ON_UPDATE_OPENINGHOURS_ONLY",
         payload: showCurrentlyOpen,
-      });
-    } catch (error) {
-      dispatch({
-        type: "ON_USER_ERROR",
-        payload: error,
-      });
-    }
-  };
-};
-
-export const ON_UPDATE_SELECTALL_CATEGORIES = (showAllCategories: boolean) => {
-  return (dispatch: Dispatch<UserAction>) => {
-    try {
-      dispatch({
-        type: "ON_UPDATE_SELECTALL_CATEGORIES",
-        payload: showAllCategories,
       });
     } catch (error) {
       dispatch({

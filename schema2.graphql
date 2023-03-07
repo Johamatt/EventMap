@@ -16,6 +16,21 @@ type Description {
   de: String
 }
 
+type OpenDays {
+  day: Int
+  timeFrom: AWSTime
+  timeTo: AWSTime
+}
+
+type Links {
+  eventURL: AWSURL
+  otherURL: AWSURL
+  storeURL: AWSURL
+  facebookURL: AWSURL
+  twitterURL: AWSURL
+  instagramURL: AWSURL
+  youtubeURL: AWSURL
+}
 
 type Location {
   lat: Float!
@@ -47,23 +62,23 @@ type Event @model @auth(rules: [{allow: owner},
   ageRestriction: String
   isFree: Boolean
   Ticket: [Ticket] @hasMany
-    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 type Ticket @model @auth(rules: [{allow: owner},  
 {allow: groups, groups: ["Admin"]}, 
  {allow: groups, groups: ["DefaultUser"], operations: [read]},
  {allow: public, provider: iam operations: [read]}]) {
-    name: String
-    price: Float
-    currency: String
-    description: String
-    available: String
-    startSaleDate: String
-    endSaleDate: String
-    type: String
-    Offer: [Offer] @hasMany
-      owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  name: String
+  price: Float
+  currency: String
+  description: String
+  available: String
+  startSaleDate: String
+  endSaleDate: String
+  type: String
+  Offer: [Offer] @hasMany
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 
@@ -78,31 +93,8 @@ type Company @model @auth(rules: [{allow: owner},
   name: String
   website: String
   events: [Event] @hasMany
-    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
-
-type Offer @model @auth(rules: [{allow: owner},  
-{allow: groups, groups: ["Admin"]}]) {
-  id: ID!
-  name: String!
-  description: String
-  type: OfferType!
-  coinCost: Int!
-  value: Float
-  discount: Float 
-  bundleSize: Int 
-  gift: String
-    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
-}
-
-enum OfferType {
-  DISCOUNT
-  BUNDLE
-  GIFT
-}
-
-
-
 
 type User @model @auth(rules: [{allow: owner},  
  {allow: groups, groups: ["Admin"]}]) {
@@ -118,21 +110,26 @@ type User @model @auth(rules: [{allow: owner},
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
-type OpenDays {
-  day: Int
-  timeFrom: AWSTime
-  timeTo: AWSTime
+
+type Offer @model @auth(rules: [{allow: owner},  
+{allow: groups, groups: ["Admin"]}]) {
+  id: ID!
+  name: String!
+  description: String
+  type: OfferType!
+  coinCost: Int!
+  value: Float
+  discount: Float 
+  bundleSize: Int 
+  gift: String
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 
-type Links {
-  eventURL: AWSURL
-  otherURL: AWSURL
-  storeURL: AWSURL
-    facebookURL: AWSURL
-    twitterURL: AWSURL
-    instagramURL: AWSURL
-    youtubeURL: AWSURL
+enum OfferType {
+  DISCOUNT
+  BUNDLE
+  GIFT
 }
 
 enum CATEGORY {

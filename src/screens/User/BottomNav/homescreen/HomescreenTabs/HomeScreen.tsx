@@ -23,7 +23,6 @@ import EventsListView from "./EventsListView";
 import HomeTabView from "./HomeTabView";
 
 type HomescreenProps = {
-  nextToken: any;
   guestUserSession: boolean;
 };
 
@@ -161,8 +160,6 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
           </TouchableOpacity>
         </ScrollView>
       </View>
-      {/* {renderList} */}
-      {/*...*/}
       {tabView === "All" ? (
         <EventsListView key="All" />
       ) : tabView === "Activities & Games" ? (
@@ -181,7 +178,6 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  nextToken: state.ActivitiesReducer.nextToken,
   guestUserSession: state.UserReducer.guestUserSession,
 });
 

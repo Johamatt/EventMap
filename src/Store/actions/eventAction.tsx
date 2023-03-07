@@ -1,28 +1,51 @@
 import { Dispatch } from "react";
-import { Activity } from "../../API";
 
 export interface UpdateEventsListAction {
-  readonly type: "ON_INITIAL_FETCH";
-  payload: Array<any>;
+  readonly type: "ON_UPDATE_EVENTSLIST";
+  payload: { nextToken: string };
 }
 
-export interface EventsErrorAction {
-  readonly type: "ON_EVENTS_ERROR";
+export interface ActivitiesErrorAction {
+  readonly type: "ON_ACTIVITIES_ERROR";
   payload: any;
 }
 
-export type EventsAction = UpdateEventsListAction | EventsErrorAction;
+export interface UpdateEventsMapAction {
+  readonly type: "ON_UPDATE_EVENTSMAP";
+  payload: { nextToken: string };
+}
 
-export const ON_INITIAL_FETCH = (eventsList: Array<any>) => {
+export type EventsAction =
+  | UpdateEventsListAction
+  | ActivitiesErrorAction
+  | UpdateEventsMapAction;
+
+export const ON_UPDATE_ACTIVITIES = (nextToken: string) => {
   return (dispatch: Dispatch<EventsAction>) => {
     try {
       dispatch({
-        type: "ON_INITIAL_FETCH",
-        payload: eventsList,
+        type: "ON_UPDATE_EVENTSLIST",
+        payload: { nextToken },
       });
     } catch (error) {
       dispatch({
-        type: "ON_EVENTS_ERROR",
+        type: "ON_ACTIVITIES_ERROR",
+        payload: error,
+      });
+    }
+  };
+};
+
+export const ON_UPDATE_ACTIVITIESMAP = (nextToken: string) => {
+  return (dispatch: Dispatch<EventsAction>) => {
+    try {
+      dispatch({
+        type: "ON_UPDATE_EVENTSMAP",
+        payload: { nextToken },
+      });
+    } catch (error) {
+      dispatch({
+        type: "ON_ACTIVITIES_ERROR",
         payload: error,
       });
     }

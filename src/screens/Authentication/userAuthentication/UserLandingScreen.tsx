@@ -1,20 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  ImageBackground,
-  Button,
-} from "react-native";
+import React, { useRef } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { RootStackParamList } from "../../../navigation/types";
 import { store } from "../../../Store";
 import LottieView from "lottie-react-native";
-import Layout from "../../../constants/Layout";
-
 
 export const UserLandingScreen: React.FC = () => {
   const navigation =
@@ -28,12 +18,7 @@ export const UserLandingScreen: React.FC = () => {
       payload: true,
     });
   };
-
-  //
-
-  //
   return (
-    // <ImageBackground source={backgroundImage} style={styles.background}>
     <View style={styles.container}>
       <View style={styles.lottieContainer}>
         <LottieView
@@ -66,7 +51,6 @@ export const UserLandingScreen: React.FC = () => {
         </TouchableOpacity>
       </View>
     </View>
-    // </ImageBackground>
   );
 };
 

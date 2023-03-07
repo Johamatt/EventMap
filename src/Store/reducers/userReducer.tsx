@@ -9,9 +9,6 @@ const initialState: UserState = {
   preferences: [] as Array<CATEGORY>,
   error: undefined,
   showCurrentlyOpen: true,
-  showAllCategories: true,
-
-  //
   guestUserSession: false,
 };
 
@@ -41,13 +38,6 @@ const userReducer = (state: UserState = initialState, action: UserAction) => {
         showCurrentlyOpen: action.payload,
       };
 
-    case "ON_UPDATE_SELECTALL_CATEGORIES":
-      return {
-        ...state,
-        showAllCategories: action.payload,
-      };
-
-    //
     case "ON_UPDATE_GUESTUSER_SESSION":
       return {
         ...state,

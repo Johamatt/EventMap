@@ -1,10 +1,10 @@
-import { Activity, CATEGORY, Location, OpenDays } from "../../API";
-import { ActivitiesState, EventsState } from "../types";
+import { EventsState } from "../types";
 import { EventsAction } from "../actions/eventAction";
 
 const initialState: EventsState = {
-  eventsList: [] as Array<any>,
   error: undefined,
+  nextToken: "",
+  nextTokenMap: "",
 };
 
 const eventReducer = (
@@ -12,10 +12,16 @@ const eventReducer = (
   action: EventsAction
 ) => {
   switch (action.type) {
-    case "ON_INITIAL_FETCH":
+    case "ON_UPDATE_EVENTSLIST":
       return {
         ...state,
-        eventsList: action.payload,
+        nextToken: action.payload.nextToken,
+      };
+
+    case "ON_UPDATE_EVENTSMAP":
+      return {
+        ...state,
+        nextTokenMap: action.payload.nextToken,
       };
     default:
       return state;

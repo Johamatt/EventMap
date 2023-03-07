@@ -114,40 +114,40 @@ export interface Embedded {
 }
 
 export interface TicketMasterEvent {
-  end_time: string | number | Date;
-  name: string;
-  eventType: string;
-  id: string;
-  test: boolean;
-  url: string;
-  locale: string;
-  images: Image[];
-  sales: {
-    public: PublicSale;
-  };
-  dates: {
-    start: StartDate;
-    timezone: string;
-    status: Code;
-    spanMultipleDays: boolean;
-  };
-  classifications: Classification[];
-  promoter: Promoter;
-  promoters: Promoter[];
-  info: string;
-  pleaseNote: string;
-  priceRanges: PriceRange[];
-  seatmap: StaticUrl;
-  accessibility: Record<string, never>;
-  ticketLimit: TicketLimit;
-  ageRestrictions: AgeRestrictions;
-  ticketing: {
-    safeTix: SafeTix;
-  };
-  _links: {
-    self: Link;
-    attractions: Link[];
-    venues: Link[];
-  };
-  _embedded: Embedded;
-}
+    end_time: string | number | Date;
+    name: string;
+    eventType: string;
+    id: string;
+    test: boolean;
+    url: string;
+    locale: string;
+    images: Image[];
+    sales: {
+      public: PublicSale;
+    };
+    dates: {
+      start: StartDate;
+      timezone: string;
+      status: Code;
+      spanMultipleDays: boolean;
+    };
+    classifications: Classification[];
+    promoter: Promoter;
+    promoters: Promoter[];
+    info: string;
+    pleaseNote: string;
+    priceRanges: PriceRange[];
+    seatmap: StaticUrl;
+    accessibility: Record<string, never>;
+    ticketLimit: TicketLimit;
+    ageRestrictions: AgeRestrictions;
+    ticketing: {
+      safeTix: SafeTix;
+    };
+    _links: {
+      self: Link;
+      attractions: Link[];
+      venues: Link[];
+    };
+    _embedded: Embedded;
+  }

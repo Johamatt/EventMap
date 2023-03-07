@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
 import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
 import {
-  ActivitiesState,
   ApplicationState,
   ON_UPDATE_AUTH,
   ON_UPDATE_GUESTUSER_SESSION,
@@ -21,7 +20,6 @@ import {
 import { connect } from "react-redux";
 import { AuthNavigator } from "./AuthNavigator";
 import { EventModal } from "../screens/User/modals/EventModal";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 
 interface NavigationProps {
   userAuth: any;
@@ -33,8 +31,6 @@ interface NavigationProps {
 const _Navigation: React.FC<NavigationProps> = (props) => {
   const [user, setUser] = useState<any>(undefined);
   const [guestSession, setGuestSession] = useState<boolean>();
-
-  const date = new Date();
 
   useEffect(() => {
     setGuestSession(props.guestSession);

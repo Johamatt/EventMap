@@ -3,7 +3,7 @@ import { Activity } from "../../API";
 
 export interface UpdateActivitiesListAction {
   readonly type: "ON_UPDATE_ACTIVITIESLIST";
-  payload: { activitiesList: Activity[]; nextToken: string };
+  payload: { nextToken: string };
 }
 
 export interface ActivitiesErrorAction {
@@ -13,7 +13,7 @@ export interface ActivitiesErrorAction {
 
 export interface UpdateActivitiesMapAction {
   readonly type: "ON_UPDATE_ACTIVITIESMAP";
-  payload: { activitiesMap: Activity[]; nextToken: string };
+  payload: { nextToken: string };
 }
 
 export type ActivitiesAction =
@@ -21,40 +21,38 @@ export type ActivitiesAction =
   | ActivitiesErrorAction
   | UpdateActivitiesMapAction;
 
-export const ON_UPDATE_ACTIVITIES = (
-  activitiesList: Array<Activity>,
-  nextToken: string
-) => {
-  return (dispatch: Dispatch<ActivitiesAction>) => {
-    try {
-      dispatch({
-        type: "ON_UPDATE_ACTIVITIESLIST",
-        payload: { activitiesList, nextToken },
-      });
-    } catch (error) {
-      dispatch({
-        type: "ON_ACTIVITIES_ERROR",
-        payload: error,
-      });
-    }
+  export const ON_UPDATE_ACTIVITIES = (nextToken: string) => {
+    return (dispatch: Dispatch<ActivitiesAction>) => {
+      try {
+        dispatch({
+          type: "ON_UPDATE_ACTIVITIESLIST",
+          payload: { nextToken },
+        });
+      } catch (error) {
+        dispatch({
+          type: "ON_ACTIVITIES_ERROR",
+          payload: error,
+        });
+      }
+    };
   };
-};
-
-export const ON_UPDATE_ACTIVITIESMAP = (
-  activitiesMap: Array<Activity>,
-  nextToken: string
-) => {
-  return (dispatch: Dispatch<ActivitiesAction>) => {
-    try {
-      dispatch({
-        type: "ON_UPDATE_ACTIVITIESMAP",
-        payload: { activitiesMap, nextToken },
-      });
-    } catch (error) {
-      dispatch({
-        type: "ON_ACTIVITIES_ERROR",
-        payload: error,
-      });
-    }
+  
+  export const ON_UPDATE_ACTIVITIESMAP = (
+    activitiesMap: Array<Activity>,
+    nextToken: string
+  ) => {
+    return (dispatch: Dispatch<ActivitiesAction>) => {
+      try {
+        dispatch({
+          type: "ON_UPDATE_ACTIVITIESMAP",
+          payload: { nextToken },
+        });
+      } catch (error) {
+        dispatch({
+          type: "ON_ACTIVITIES_ERROR",
+          payload: error,
+        });
+      }
+    };
   };
-};
+  

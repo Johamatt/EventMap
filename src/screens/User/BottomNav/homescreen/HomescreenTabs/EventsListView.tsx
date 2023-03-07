@@ -4,16 +4,16 @@ import React, { useEffect, useState } from "react";
 import { EventCard } from "../../../../../components/Cards/EventCard";
 import { ApplicationState } from "../../../../../Store";
 import { fetchTicketMasterToday } from "../../../../../hooks/fetch/TicketMaster/TicketMasterList";
+import { TicketMasterEvent } from "../../../../../types/TicketMasterType";
 
 type HomescreenProps = {
-  nextToken: any;
   guestUserSession: boolean;
   category?: string;
 };
 
 const _EventsListView: React.FC<HomescreenProps> = (props) => {
   const [page, setPage] = useState(0);
-  const [events, setEvents] = useState<Array<any>>([]);
+  const [events, setEvents] = useState<Array<TicketMasterEvent>>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [category, setCategory] = useState(props.category);
@@ -35,8 +35,6 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
       console.log(error);
     }
   };
-
-
 
   const renderFooter = () => {
     if (!isLoading) return null;
@@ -61,7 +59,6 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  nextToken: state.ActivitiesReducer.nextToken,
   guestUserSession: state.UserReducer.guestUserSession,
 });
 

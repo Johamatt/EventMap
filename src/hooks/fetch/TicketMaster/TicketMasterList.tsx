@@ -1,11 +1,12 @@
 import axios from "axios";
 import Constants from "expo-constants";
+import { TicketMasterEvent } from "../../../types/TicketMasterType";
 
 export const fetchTicketMasterToday = async (
   page: number,
   size: number,
   category?: string
-) => {
+): Promise<TicketMasterEvent[]> => {
   const date = new Date();
   const isoDateString = date.toISOString().slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
 
@@ -21,15 +22,11 @@ export const fetchTicketMasterToday = async (
           },
         }
       );
-      const data = res.data._embedded.events;
-      if (data === undefined) {
-        return false;
-      }
+      const data: Array<TicketMasterEvent> = res.data._embedded.events;
       return data;
     } catch (error) {
       console.log(error);
     }
-
   try {
     const res = await axios.get(
       //@ts-ignore
@@ -41,17 +38,18 @@ export const fetchTicketMasterToday = async (
         },
       }
     );
-    const data = res.data._embedded.events;
-    if (data === undefined) {
-      return false;
-    }
+    const data: Array<TicketMasterEvent> = res.data._embedded.events;
     return data;
   } catch (error) {
     console.log(error);
   }
+
+  return new Array<TicketMasterEvent>();
 };
 
-export const fetchEvent = async (id: string) => {
+export const fetchEvent = async (
+  id: string
+): Promise<TicketMasterEvent | undefined> => {
   try {
     const res = await axios.get(
       //@ts-ignore
@@ -63,7 +61,7 @@ export const fetchEvent = async (id: string) => {
         },
       }
     );
-    const event = res.data._embedded.events[0];
+    const event: TicketMasterEvent = res.data._embedded.events[0];
     return event;
   } catch (error) {
     console.log(error);

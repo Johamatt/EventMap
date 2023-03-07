@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { CATEGORY } from "../../../../../API";
 import { fetchGuestActivitiesList } from "../../../../../hooks/fetch/Appsync/PublicAccessFetch";
 
-import { ActivityCard } from "../../../../../components/Cards/ActivityCard";
 import { ApplicationState } from "../../../../../Store";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -61,7 +60,7 @@ const _ActivitiesListView: React.FC<HomescreenProps> = (props) => {
     <FlatList
       keyExtractor={(item) => item.id}
       data={activities}
-      renderItem={({ item }) => <ActivityCard activity={item} />}
+      renderItem={({ item }) => <div />} //<ActivityCard activity={item} />
       onEndReached={fetchMoreData}
       onEndReachedThreshold={0.3}
     />
@@ -69,7 +68,6 @@ const _ActivitiesListView: React.FC<HomescreenProps> = (props) => {
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  activitiesList: state.ActivitiesReducer.activitiesList,
   nextToken: state.ActivitiesReducer.nextToken,
   showcurrentlyopen: state.UserReducer.showCurrentlyOpen,
   userPreferences: state.UserReducer.preferences,
