@@ -15,7 +15,9 @@ interface FavouritesScreenProps {
   guestUserSession: Boolean;
 }
 
-export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
+export const _FavouritesScreen: React.FC<FavouritesScreenProps> = ({
+  guestUserSession,
+}) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [events, setEvents] = useState<string | null>(null);
@@ -23,21 +25,35 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = (props) => {
   const [activities, setActvities] = useState<any>();
 
   return (
-    <View style={styles.container}>
-      {events ? (
-        <Image source={{ uri: events }} style={styles.profileImage} />
-      ) : (
-        <Image
-          source={require("../../../assets/pictures/no-favourites-Avatar.jpg")}
-          style={styles.profileImage}
-        />
-      )}
-      <Text style={styles.welcomeText}>No Favourites yet!</Text>
+    <>
+      {!guestUserSession ? (
+        <View style={styles.container}>
+          {events ? (
+            <Image source={{ uri: events }} style={styles.profileImage} />
+          ) : (
+            <Image
+              source={require("../../../assets/pictures/no-favourites-Avatar.jpg")}
+              style={styles.profileImage}
+            />
+          )}
+          <Text style={styles.welcomeText}>No Favourites yet!</Text>
 
-      <TouchableOpacity style={styles.changeProfileImageButton}>
-        <Text style={styles.buttonText}>Browse Events</Text>
-      </TouchableOpacity>
-    </View>
+          <TouchableOpacity style={styles.changeProfileImageButton}>
+            <Text style={styles.buttonText}>Browse Events</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <Image
+            source={require("../../../assets/pictures/no-favourites-Avatar.jpg")}
+            style={styles.profileImage}
+          />
+          <Text style={styles.welcomeText}>
+            Guest users are not allowed to view this content.
+          </Text>
+        </View>
+      )}
+    </>
   );
 };
 

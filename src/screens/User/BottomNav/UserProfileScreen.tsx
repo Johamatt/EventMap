@@ -1,13 +1,6 @@
 import { Auth } from "aws-amplify";
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  Button,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 import { connect } from "react-redux";
 import {
@@ -20,9 +13,12 @@ import {
 interface UserProfileScreenProps {
   userReducer: UserState;
   activitiesReducer: ActivitiesState;
+  guestUserSession: Boolean;
 }
 
-const _UserProfileScreen: React.FC<UserProfileScreenProps> = (props) => {
+const _UserProfileScreen: React.FC<UserProfileScreenProps> = ({
+  guestUserSession,
+}) => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
 
   const handleSignOut = async () => {
@@ -45,32 +41,52 @@ const _UserProfileScreen: React.FC<UserProfileScreenProps> = (props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcomeText}>Welcome to your profile!</Text>
-      {profileImage ? (
-        <Image source={{ uri: profileImage }} style={styles.profileImage} />
+    <>
+      {!guestUserSession ? (
+        <View style={styles.container}>
+          <Text style={styles.welcomeText}>Welcome to your profile!</Text>
+          {profileImage ? (
+            <Image source={{ uri: profileImage }} style={styles.profileImage} />
+          ) : (
+            <Image
+              source={require("../../../assets/pictures/profile-Default-Avatar.png")}
+              style={styles.profileImage}
+            />
+          )}
+          <TouchableOpacity
+            style={styles.changeProfileImageButton}
+            onPress={handleChangeProfileImage}
+          >
+            <Text style={styles.buttonText}>Change Profile Image</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.signOutButton}
+            onPress={handleSignOut}
+          >
+            <Text style={styles.buttonText}>Sign Out</Text>
+          </TouchableOpacity>
+        </View>
       ) : (
-        <Image
-          source={require("../../../assets/pictures/profile-Default-Avatar.png")}
-          style={styles.profileImage}
-        />
+        <View style={styles.container}>
+          <Text style={styles.welcomeText}>
+            Guest users are not allowed to view this content.
+          </Text>
+          <TouchableOpacity
+            style={styles.signOutButton}
+            onPress={handleSignOut}
+          >
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
       )}
-      <TouchableOpacity
-        style={styles.changeProfileImageButton}
-        onPress={handleChangeProfileImage}
-      >
-        <Text style={styles.buttonText}>Change Profile Image</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
-        <Text style={styles.buttonText}>Sign Out</Text>
-      </TouchableOpacity>
-    </View>
+    </>
   );
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
   userReducer: state.UserReducer,
   activitiesReducer: state.ActivitiesReducer,
+  guestUserSession: state.UserReducer.guestUserSession,
 });
 
 const UserProfileScreen = connect(mapToStateProps, {})(_UserProfileScreen);
@@ -88,6 +104,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     margin: 10,
+    color: "white",
   },
   profileImage: {
     width: 200,

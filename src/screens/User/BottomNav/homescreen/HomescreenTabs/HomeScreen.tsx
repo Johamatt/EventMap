@@ -11,22 +11,20 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
-
 import { ApplicationState } from "../../../../../Store";
 import { RootStackParamList } from "../../../../../navigation/types";
 import { connect } from "react-redux";
-
 import Colors from "../../../../../constants/Colors";
 import Constants from "expo-constants";
-
 import EventsListView from "./EventsListView";
 import HomeTabView from "./HomeTabView";
 
 type HomescreenProps = {
   guestUserSession: boolean;
+  user: any;
 };
 
-const _HomeScreen: React.FC<HomescreenProps> = (props) => {
+const _HomeScreen: React.FC<HomescreenProps> = ({ guestUserSession }) => {
   const [tabView, setTabView] = useState<
     | "Home"
     | "All"
@@ -37,8 +35,6 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
   >("Home");
 
   const animation = useRef(null);
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <View style={styles.container}>
@@ -57,27 +53,31 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
             <Ionicons name="search-outline" size={24} color="white" />
           </TouchableOpacity>
         </View>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <TouchableOpacity style={styles.coinButton}>
-            <LottieView
-              autoPlay
-              ref={animation}
-              loop={true}
-              source={require("../../../../../assets/lottie/coin.json")}
-            />
-          </TouchableOpacity>
-          <Text
-            style={{
-              color: "white",
-              marginLeft: 10,
-              fontWeight: "bold",
-              fontSize: 18,
-              textTransform: "uppercase",
-            }}
-          >
-            0
-          </Text>
-        </View>
+
+        {!guestUserSession && (
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <TouchableOpacity style={styles.coinButton}>
+              <LottieView
+                autoPlay
+                ref={animation}
+                loop={true}
+                source={require("../../../../../assets/lottie/coin.json")}
+              />
+            </TouchableOpacity>
+
+            <Text
+              style={{
+                color: "white",
+                marginLeft: 10,
+                fontWeight: "bold",
+                fontSize: 18,
+                textTransform: "uppercase",
+              }}
+            >
+              0
+            </Text>
+          </View>
+        )}
       </View>
       <View style={styles.tabWrapper}>
         <TouchableOpacity
@@ -179,6 +179,7 @@ const _HomeScreen: React.FC<HomescreenProps> = (props) => {
 
 const mapToStateProps = (state: ApplicationState) => ({
   guestUserSession: state.UserReducer.guestUserSession,
+  user: state.UserReducer.userAuth,
 });
 
 const HomeScreen = connect(mapToStateProps)(_HomeScreen);

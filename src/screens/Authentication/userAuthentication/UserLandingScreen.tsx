@@ -18,6 +18,7 @@ export const UserLandingScreen: React.FC = () => {
       payload: true,
     });
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.lottieContainer}>

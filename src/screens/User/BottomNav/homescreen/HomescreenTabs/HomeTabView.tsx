@@ -11,7 +11,7 @@ type HomeTabViewProps = {
   guestUserSession: boolean;
 };
 
-const _HomeTabView: React.FC<HomeTabViewProps> = (props) => {
+const _HomeTabView: React.FC<HomeTabViewProps> = ({ guestUserSession }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const renderFooter = () => {
@@ -26,7 +26,7 @@ const _HomeTabView: React.FC<HomeTabViewProps> = (props) => {
 
   return (
     <View style={styles.container}>
-      <DailyCoinBanner />
+      {!guestUserSession && <DailyCoinBanner />}
       <AutoScrollList data={promotionsPlaceHolder} />
     </View>
   );
