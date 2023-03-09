@@ -11,6 +11,7 @@ import { RouteProp, useNavigation } from "@react-navigation/native";
 import { Auth } from "aws-amplify";
 import { RootStackParamList } from "../../../navigation/types";
 import Colors from "../../../constants/Colors";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type UserNewPasswordScreenProp = RouteProp<
   RootStackParamList,
@@ -26,7 +27,8 @@ export const UserNewPasswordScreen: React.FC<Props> = ({ route }) => {
   const [newPassword, setNewPassword] = useState("");
   const { username } = route.params;
 
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const onSubmitPressed = async () => {
     try {

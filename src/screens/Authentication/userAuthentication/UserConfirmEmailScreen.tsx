@@ -14,6 +14,7 @@ import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../../../navigation/types";
 import { Auth } from "aws-amplify";
 import Colors from "../../../constants/Colors";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type UserConfirmEmailScreenProp = RouteProp<
   RootStackParamList,
@@ -27,14 +28,14 @@ interface Props {
 export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   const [code, setCode] = useState("");
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
   const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   useEffect(() => {
     if (props.route.params?.username) {
       setUsername(props.route.params.username);
-      setPassword(props.route.params.password);
     }
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
@@ -50,8 +51,6 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
       keyboardDidHideListener.remove();
     };
   }, []);
-
-  const navigation = useNavigation();
 
   const onConfirmPressed = async () => {
     try {
@@ -84,6 +83,20 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
       <Text style={styles.title}>Confirm your email</Text>
 
       <View style={styles.textInputView}>
+        {props.route.params?.username ? (
+          <View style={styles.textInputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Email"
+              placeholderTextColor="#003f5c"
+              textAlign="center"
+              onChangeText={(username: string) => setUsername(username)}
+            />
+          </View>
+        ) : (
+          <View />
+        )}
+
         <TextInput
           keyboardType="number-pad"
           placeholder="Enter your confirmation code"
@@ -116,6 +129,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  TextInput: {
+    width: "80%",
+    height: 50,
+    backgroundColor: "white",
+    borderRadius: 25,
+    justifyContent: "center",
+    marginVertical: 10,
   },
   title: {
     fontSize: 24,

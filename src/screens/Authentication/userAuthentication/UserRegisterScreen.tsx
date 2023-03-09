@@ -10,20 +10,25 @@ import {
   Keyboard,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import { Auth } from "aws-amplify";
+import { API, Auth, graphqlOperation } from "aws-amplify";
 import Colors from "../../../constants/Colors";
 import Layout from "../../../constants/Layout";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import LottieView from "lottie-react-native";
+import { createUser } from "../../../graphql/mutations";
+import { CreateUserInput } from "../../../API";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../../navigation/types";
 
 export const UserRegisterScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const animation = useRef(null);
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -49,7 +54,19 @@ export const UserRegisterScreen: React.FC = (props) => {
           username,
           password,
         });
-        navigation.navigate("UserConfirmEmailScreen", { username, password });
+
+        const user: CreateUserInput = {
+          name: "",
+          email: username,
+        };
+
+        await API.graphql(
+          graphqlOperation(createUser, {
+            input: user,
+          })
+        );
+
+        navigation.navigate("UserConfirmEmailScreen", { username });
       } catch (error: any) {
         Alert.alert("Oops!", error.message);
       }
@@ -74,7 +91,7 @@ export const UserRegisterScreen: React.FC = (props) => {
           source={require("../../../assets/lottie/register.json")}
         /> */}
 
-        <View style={styles.textInputView}>
+<View style={styles.textInputView}>
           <TextInput
             style={styles.TextInput}
             placeholder="Email"

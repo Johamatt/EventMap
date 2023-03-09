@@ -12,10 +12,13 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import { Auth } from "aws-amplify";
 import Colors from "../../../constants/Colors";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../../navigation/types";
 
 export const UserForgotPasswordScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 

@@ -1,19 +1,17 @@
 type Name {
-  fi: String!
+  fi: String
   en: String
   sv: String
   jp: String
   es: String
-  de: String
 }
 
 type Description {
-  fi: String!
+  fi: String
   en: String
   sv: String
   jp: String
   es: String
-  de: String
 }
 
 
@@ -31,22 +29,20 @@ type Event @model @auth(rules: [{allow: owner},
  {allow: groups, groups: ["DefaultUser"], operations: [read]},
  {allow: public, provider: iam operations: [read]}]) {
   id: ID!
-  startingDateTime: String! @index(name: "byStartingDateTimeAndEndingDateTime", sortKeyFields: ["endingDateTime"], queryField: "eventByDates")
-  endingDateTime: String!
+  startingDateTime: AWSDateTime! @index(name: "byStartingDateTimeAndEndingDateTime", sortKeyFields: ["endingDateTime"], queryField: "eventByDates")
+  endingDateTime: AWSDateTime!
   location: Location!
   category: [CATEGORY!] 
-  company: Company
-  MainPicture: String
-  eventPictures: [String]
-  Descriptions: Description!
+  company: Company!
+  mainPicture: AWSURL
+  secondaryPictures: [AWSURL]
+  description: Description!
   name: Name!
   Links: Links
-  source: String
-  website: String
-  updated_at_Source: AWSDateTime
   ageRestriction: String
   isFree: Boolean
   Ticket: [Ticket] @hasMany
+  FeedBack: [EventFeedback] @hasMany
     owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
@@ -54,15 +50,14 @@ type Ticket @model @auth(rules: [{allow: owner},
 {allow: groups, groups: ["Admin"]}, 
  {allow: groups, groups: ["DefaultUser"], operations: [read]},
  {allow: public, provider: iam operations: [read]}]) {
-    name: String
+    name: Name
     price: Float
     currency: String
-    description: String
-    available: String
-    startSaleDate: String
-    endSaleDate: String
-    type: String
-    Offer: [Offer] @hasMany
+    description: Description
+    available: Boolean
+    startSaleDate: AWSDateTime
+    endSaleDate: AWSDateTime
+    Offers: [Offer] @hasMany
       owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
@@ -71,27 +66,30 @@ type Company @model @auth(rules: [{allow: owner},
 {allow: groups, groups: ["Admin"]}, 
  {allow: groups, groups: ["DefaultUser"], operations: [read]},
  {allow: public, provider: iam operations: [read]}]) {
-  businessId: ID! @primaryKey
+  id: ID! 
   email: String
-  industry: String
+  description: Description
+  logo: String
+  categories: [CATEGORY]
   phone: String
   name: String
-  website: String
+  links: Links
   events: [Event] @hasMany
+  activities: [Activity] @hasMany
     owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 type Offer @model @auth(rules: [{allow: owner},  
 {allow: groups, groups: ["Admin"]}]) {
   id: ID!
-  name: String!
-  description: String
+  name: Name
+  description: Description
   type: OfferType!
-  coinCost: Int!
-  value: Float
+  creditCost: Int!
+  price: Float
+  currency: String
   discount: Float 
   bundleSize: Int 
-  gift: String
     owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
@@ -101,33 +99,33 @@ enum OfferType {
   GIFT
 }
 
-
-
-
 type User @model @auth(rules: [{allow: owner},  
  {allow: groups, groups: ["Admin"]}]) {
   id: ID!
   name: String!
   email: String! 
-  profilePicture: String
+  profilePicture: AWSURL
   birthday: AWSDate
-  friends: [User] @hasMany
   favouriteEvents: [Event] @hasMany
+  favouriteActivities: [Activity] @hasMany
   favouriteCompanies: [Company] @hasMany
-  tokens: Int
+  preferences: [CATEGORY]
+  credits: Int
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
-type OpenDays {
-  day: Int
-  timeFrom: AWSTime
-  timeTo: AWSTime
+
+enum FriendshipStatus {
+  REQUESTED
+  ACCEPTED
+  DECLINED
 }
 
 
+
 type Links {
-  eventURL: AWSURL
-  otherURL: AWSURL
+  mainURL: AWSURL
+  secondaryURL: AWSURL
   storeURL: AWSURL
     facebookURL: AWSURL
     twitterURL: AWSURL
@@ -138,43 +136,84 @@ type Links {
 enum CATEGORY {
   MUSIC
   FESTIVAL
+  EXPO
   SPORT
-  PARTIESNIGHTLIFE
-  KIDS
+  MOTORSPORTS
+  GAMES
+  NIGHTLIFE
+  FOODDRINKS
+  TECHNOLOGY
+  TRIP
+
+  CONCERT
+  STANDUP
   FAMILY
   HEALTH
-  TRIP
-  FOOD
+  
   WORKSHOP
-  COOKING
-  BUSINESS
-  ACTIVITY
-  CULTURE
-  COMEDY
-  CONCERT
-  PERFORMANCE
-  FINEARTS
-  THEATRE
-  LITERATURE
-  PHOTOGRAPHY
-  TECHNOLOGY
-  MARKET
-  SIGHTSEEING
-  MUSEUM
-  OTHER
-  ACCOMMODATION
-  NATURE
-  MOTORSPORTS
-  LUXURY
-  GUIDEDSERVICE
-  SAUNA
-  ANIMALS
   EDUCATION
+  BUSINESS
+
+  PERFORMANCE
+  MUSEUM
+
+  NATURE
   SCIENCE
-  FASHION
-  TOUR
-  DANCE
+
   BOARDGAMES
   VIDEOGAMES
   GAMBLING
+  OTHER
+}
+
+type Activity @model @auth(rules: [{allow: owner},  
+ {allow: groups, groups: ["DefaultUser"], operations: [read]},
+ {allow: groups, groups: ["Admin"]},
+ {allow: public, provider: iam operations: [read]}]) {
+  id: ID!
+  name: Name!
+  description: Description!
+  company: Company!
+  categories: [CATEGORY!] 
+  Location: Location!
+  mainPicture: AWSURL
+  secondaryPictures: [AWSURL]
+  Links: Links
+  OpenDays: [OpenDays!]
+  ageRestriction: String
+  Ticket: [Ticket] @hasMany
+  isFree: Boolean
+  FeedBack: [ActivityFeedback] @hasMany
+    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+type OpenDays {
+  day: Int
+  timeFrom: AWSTime
+  timeTo: AWSTime
+}
+
+
+type ActivityFeedback @model @auth(rules: [{allow: owner},  
+ {allow: groups, groups: ["DefaultUser"], operations: [read]},
+ {allow: groups, groups: ["Admin"]}]) {
+  id: ID!
+    rating: Int!
+  user: User!
+  activity: Activity!
+  comment: String
+  createdAt: String!
+    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+type EventFeedback @model @auth(rules: [{allow: owner},  
+ {allow: groups, groups: ["DefaultUser"], operations: [read]},
+ {allow: groups, groups: ["Admin"]}]) {
+  id: ID!
+    rating: Int!
+  user: User!
+  event: Event!
+  comment: String
+  createdAt: String!
+    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }

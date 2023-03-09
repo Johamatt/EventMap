@@ -21,13 +21,32 @@ export const createEvent = /* GraphQL */ `
       }
       category
       company {
-        businessId
+        id
         email
-        industry
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        logo
+        categories
         phone
         name
-        website
+        links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
         events {
+          nextToken
+        }
+        activities {
           nextToken
         }
         owner
@@ -35,15 +54,14 @@ export const createEvent = /* GraphQL */ `
         updatedAt
         userFavouriteCompaniesId
       }
-      MainPicture
-      eventPictures
-      Descriptions {
+      mainPicture
+      secondaryPictures
+      description {
         fi
         en
         sv
         jp
         es
-        de
       }
       name {
         fi
@@ -51,37 +69,43 @@ export const createEvent = /* GraphQL */ `
         sv
         jp
         es
-        de
       }
       Links {
-        eventURL
-        otherURL
+        mainURL
+        secondaryURL
         storeURL
         facebookURL
         twitterURL
         instagramURL
         youtubeURL
       }
-      source
-      website
-      updated_at_Source
       ageRestriction
       isFree
       Ticket {
         items {
-          name
           price
           currency
-          description
           available
           startSaleDate
           endSaleDate
-          type
           owner
           id
           createdAt
           updatedAt
           eventTicketId
+          activityTicketId
+        }
+        nextToken
+      }
+      FeedBack {
+        items {
+          id
+          rating
+          comment
+          createdAt
+          owner
+          updatedAt
+          eventFeedBackId
         }
         nextToken
       }
@@ -112,13 +136,32 @@ export const updateEvent = /* GraphQL */ `
       }
       category
       company {
-        businessId
+        id
         email
-        industry
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        logo
+        categories
         phone
         name
-        website
+        links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
         events {
+          nextToken
+        }
+        activities {
           nextToken
         }
         owner
@@ -126,15 +169,14 @@ export const updateEvent = /* GraphQL */ `
         updatedAt
         userFavouriteCompaniesId
       }
-      MainPicture
-      eventPictures
-      Descriptions {
+      mainPicture
+      secondaryPictures
+      description {
         fi
         en
         sv
         jp
         es
-        de
       }
       name {
         fi
@@ -142,37 +184,43 @@ export const updateEvent = /* GraphQL */ `
         sv
         jp
         es
-        de
       }
       Links {
-        eventURL
-        otherURL
+        mainURL
+        secondaryURL
         storeURL
         facebookURL
         twitterURL
         instagramURL
         youtubeURL
       }
-      source
-      website
-      updated_at_Source
       ageRestriction
       isFree
       Ticket {
         items {
-          name
           price
           currency
-          description
           available
           startSaleDate
           endSaleDate
-          type
           owner
           id
           createdAt
           updatedAt
           eventTicketId
+          activityTicketId
+        }
+        nextToken
+      }
+      FeedBack {
+        items {
+          id
+          rating
+          comment
+          createdAt
+          owner
+          updatedAt
+          eventFeedBackId
         }
         nextToken
       }
@@ -203,13 +251,32 @@ export const deleteEvent = /* GraphQL */ `
       }
       category
       company {
-        businessId
+        id
         email
-        industry
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        logo
+        categories
         phone
         name
-        website
+        links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
         events {
+          nextToken
+        }
+        activities {
           nextToken
         }
         owner
@@ -217,15 +284,14 @@ export const deleteEvent = /* GraphQL */ `
         updatedAt
         userFavouriteCompaniesId
       }
-      MainPicture
-      eventPictures
-      Descriptions {
+      mainPicture
+      secondaryPictures
+      description {
         fi
         en
         sv
         jp
         es
-        de
       }
       name {
         fi
@@ -233,37 +299,43 @@ export const deleteEvent = /* GraphQL */ `
         sv
         jp
         es
-        de
       }
       Links {
-        eventURL
-        otherURL
+        mainURL
+        secondaryURL
         storeURL
         facebookURL
         twitterURL
         instagramURL
         youtubeURL
       }
-      source
-      website
-      updated_at_Source
       ageRestriction
       isFree
       Ticket {
         items {
-          name
           price
           currency
-          description
           available
           startSaleDate
           endSaleDate
-          type
           owner
           id
           createdAt
           updatedAt
           eventTicketId
+          activityTicketId
+        }
+        nextToken
+      }
+      FeedBack {
+        items {
+          id
+          rating
+          comment
+          createdAt
+          owner
+          updatedAt
+          eventFeedBackId
         }
         nextToken
       }
@@ -281,29 +353,38 @@ export const createTicket = /* GraphQL */ `
     $condition: ModelTicketConditionInput
   ) {
     createTicket(input: $input, condition: $condition) {
-      name
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
       price
       currency
-      description
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
       available
       startSaleDate
       endSaleDate
-      type
-      Offer {
+      Offers {
         items {
           id
-          name
-          description
           type
-          coinCost
-          value
+          creditCost
+          price
+          currency
           discount
           bundleSize
-          gift
           owner
           createdAt
           updatedAt
-          ticketOfferId
+          ticketOffersId
         }
         nextToken
       }
@@ -312,6 +393,7 @@ export const createTicket = /* GraphQL */ `
       createdAt
       updatedAt
       eventTicketId
+      activityTicketId
     }
   }
 `;
@@ -321,29 +403,38 @@ export const updateTicket = /* GraphQL */ `
     $condition: ModelTicketConditionInput
   ) {
     updateTicket(input: $input, condition: $condition) {
-      name
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
       price
       currency
-      description
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
       available
       startSaleDate
       endSaleDate
-      type
-      Offer {
+      Offers {
         items {
           id
-          name
-          description
           type
-          coinCost
-          value
+          creditCost
+          price
+          currency
           discount
           bundleSize
-          gift
           owner
           createdAt
           updatedAt
-          ticketOfferId
+          ticketOffersId
         }
         nextToken
       }
@@ -352,6 +443,7 @@ export const updateTicket = /* GraphQL */ `
       createdAt
       updatedAt
       eventTicketId
+      activityTicketId
     }
   }
 `;
@@ -361,29 +453,38 @@ export const deleteTicket = /* GraphQL */ `
     $condition: ModelTicketConditionInput
   ) {
     deleteTicket(input: $input, condition: $condition) {
-      name
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
       price
       currency
-      description
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
       available
       startSaleDate
       endSaleDate
-      type
-      Offer {
+      Offers {
         items {
           id
-          name
-          description
           type
-          coinCost
-          value
+          creditCost
+          price
+          currency
           discount
           bundleSize
-          gift
           owner
           createdAt
           updatedAt
-          ticketOfferId
+          ticketOffersId
         }
         nextToken
       }
@@ -392,6 +493,7 @@ export const deleteTicket = /* GraphQL */ `
       createdAt
       updatedAt
       eventTicketId
+      activityTicketId
     }
   }
 `;
@@ -401,23 +503,36 @@ export const createCompany = /* GraphQL */ `
     $condition: ModelCompanyConditionInput
   ) {
     createCompany(input: $input, condition: $condition) {
-      businessId
+      id
       email
-      industry
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      logo
+      categories
       phone
       name
-      website
+      links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
       events {
         items {
           id
           startingDateTime
           endingDateTime
           category
-          MainPicture
-          eventPictures
-          source
-          website
-          updated_at_Source
+          mainPicture
+          secondaryPictures
           ageRestriction
           isFree
           owner
@@ -425,6 +540,22 @@ export const createCompany = /* GraphQL */ `
           updatedAt
           companyEventsId
           userFavouriteEventsId
+        }
+        nextToken
+      }
+      activities {
+        items {
+          id
+          categories
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyActivitiesId
+          userFavouriteActivitiesId
         }
         nextToken
       }
@@ -441,23 +572,36 @@ export const updateCompany = /* GraphQL */ `
     $condition: ModelCompanyConditionInput
   ) {
     updateCompany(input: $input, condition: $condition) {
-      businessId
+      id
       email
-      industry
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      logo
+      categories
       phone
       name
-      website
+      links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
       events {
         items {
           id
           startingDateTime
           endingDateTime
           category
-          MainPicture
-          eventPictures
-          source
-          website
-          updated_at_Source
+          mainPicture
+          secondaryPictures
           ageRestriction
           isFree
           owner
@@ -465,6 +609,22 @@ export const updateCompany = /* GraphQL */ `
           updatedAt
           companyEventsId
           userFavouriteEventsId
+        }
+        nextToken
+      }
+      activities {
+        items {
+          id
+          categories
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyActivitiesId
+          userFavouriteActivitiesId
         }
         nextToken
       }
@@ -481,23 +641,36 @@ export const deleteCompany = /* GraphQL */ `
     $condition: ModelCompanyConditionInput
   ) {
     deleteCompany(input: $input, condition: $condition) {
-      businessId
+      id
       email
-      industry
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      logo
+      categories
       phone
       name
-      website
+      links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
       events {
         items {
           id
           startingDateTime
           endingDateTime
           category
-          MainPicture
-          eventPictures
-          source
-          website
-          updated_at_Source
+          mainPicture
+          secondaryPictures
           ageRestriction
           isFree
           owner
@@ -505,6 +678,22 @@ export const deleteCompany = /* GraphQL */ `
           updatedAt
           companyEventsId
           userFavouriteEventsId
+        }
+        nextToken
+      }
+      activities {
+        items {
+          id
+          categories
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyActivitiesId
+          userFavouriteActivitiesId
         }
         nextToken
       }
@@ -522,18 +711,30 @@ export const createOffer = /* GraphQL */ `
   ) {
     createOffer(input: $input, condition: $condition) {
       id
-      name
-      description
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
       type
-      coinCost
-      value
+      creditCost
+      price
+      currency
       discount
       bundleSize
-      gift
       owner
       createdAt
       updatedAt
-      ticketOfferId
+      ticketOffersId
     }
   }
 `;
@@ -544,18 +745,30 @@ export const updateOffer = /* GraphQL */ `
   ) {
     updateOffer(input: $input, condition: $condition) {
       id
-      name
-      description
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
       type
-      coinCost
-      value
+      creditCost
+      price
+      currency
       discount
       bundleSize
-      gift
       owner
       createdAt
       updatedAt
-      ticketOfferId
+      ticketOffersId
     }
   }
 `;
@@ -566,18 +779,30 @@ export const deleteOffer = /* GraphQL */ `
   ) {
     deleteOffer(input: $input, condition: $condition) {
       id
-      name
-      description
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
       type
-      coinCost
-      value
+      creditCost
+      price
+      currency
       discount
       bundleSize
-      gift
       owner
       createdAt
       updatedAt
-      ticketOfferId
+      ticketOffersId
     }
   }
 `;
@@ -592,32 +817,14 @@ export const createUser = /* GraphQL */ `
       email
       profilePicture
       birthday
-      friends {
-        items {
-          id
-          name
-          email
-          profilePicture
-          birthday
-          tokens
-          owner
-          createdAt
-          updatedAt
-          userFriendsId
-        }
-        nextToken
-      }
       favouriteEvents {
         items {
           id
           startingDateTime
           endingDateTime
           category
-          MainPicture
-          eventPictures
-          source
-          website
-          updated_at_Source
+          mainPicture
+          secondaryPictures
           ageRestriction
           isFree
           owner
@@ -628,14 +835,30 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
+      favouriteActivities {
+        items {
+          id
+          categories
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyActivitiesId
+          userFavouriteActivitiesId
+        }
+        nextToken
+      }
       favouriteCompanies {
         items {
-          businessId
+          id
           email
-          industry
+          logo
+          categories
           phone
           name
-          website
           owner
           createdAt
           updatedAt
@@ -643,11 +866,11 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
-      tokens
+      preferences
+      credits
       owner
       createdAt
       updatedAt
-      userFriendsId
     }
   }
 `;
@@ -662,32 +885,14 @@ export const updateUser = /* GraphQL */ `
       email
       profilePicture
       birthday
-      friends {
-        items {
-          id
-          name
-          email
-          profilePicture
-          birthday
-          tokens
-          owner
-          createdAt
-          updatedAt
-          userFriendsId
-        }
-        nextToken
-      }
       favouriteEvents {
         items {
           id
           startingDateTime
           endingDateTime
           category
-          MainPicture
-          eventPictures
-          source
-          website
-          updated_at_Source
+          mainPicture
+          secondaryPictures
           ageRestriction
           isFree
           owner
@@ -698,14 +903,30 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
+      favouriteActivities {
+        items {
+          id
+          categories
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyActivitiesId
+          userFavouriteActivitiesId
+        }
+        nextToken
+      }
       favouriteCompanies {
         items {
-          businessId
+          id
           email
-          industry
+          logo
+          categories
           phone
           name
-          website
           owner
           createdAt
           updatedAt
@@ -713,11 +934,11 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
-      tokens
+      preferences
+      credits
       owner
       createdAt
       updatedAt
-      userFriendsId
     }
   }
 `;
@@ -732,32 +953,14 @@ export const deleteUser = /* GraphQL */ `
       email
       profilePicture
       birthday
-      friends {
-        items {
-          id
-          name
-          email
-          profilePicture
-          birthday
-          tokens
-          owner
-          createdAt
-          updatedAt
-          userFriendsId
-        }
-        nextToken
-      }
       favouriteEvents {
         items {
           id
           startingDateTime
           endingDateTime
           category
-          MainPicture
-          eventPictures
-          source
-          website
-          updated_at_Source
+          mainPicture
+          secondaryPictures
           ageRestriction
           isFree
           owner
@@ -768,14 +971,30 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      favouriteActivities {
+        items {
+          id
+          categories
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyActivitiesId
+          userFavouriteActivitiesId
+        }
+        nextToken
+      }
       favouriteCompanies {
         items {
-          businessId
+          id
           email
-          industry
+          logo
+          categories
           phone
           name
-          website
           owner
           createdAt
           updatedAt
@@ -783,11 +1002,980 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
-      tokens
+      preferences
+      credits
       owner
       createdAt
       updatedAt
-      userFriendsId
+    }
+  }
+`;
+export const createActivity = /* GraphQL */ `
+  mutation CreateActivity(
+    $input: CreateActivityInput!
+    $condition: ModelActivityConditionInput
+  ) {
+    createActivity(input: $input, condition: $condition) {
+      id
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      company {
+        id
+        email
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        logo
+        categories
+        phone
+        name
+        links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        userFavouriteCompaniesId
+      }
+      categories
+      Location {
+        lat
+        lon
+        streetAddress
+        postalCode
+        city
+        country
+      }
+      mainPicture
+      secondaryPictures
+      Links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      OpenDays {
+        day
+        timeFrom
+        timeTo
+      }
+      ageRestriction
+      Ticket {
+        items {
+          price
+          currency
+          available
+          startSaleDate
+          endSaleDate
+          owner
+          id
+          createdAt
+          updatedAt
+          eventTicketId
+          activityTicketId
+        }
+        nextToken
+      }
+      isFree
+      FeedBack {
+        items {
+          id
+          rating
+          comment
+          createdAt
+          owner
+          updatedAt
+          activityFeedBackId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      companyActivitiesId
+      userFavouriteActivitiesId
+    }
+  }
+`;
+export const updateActivity = /* GraphQL */ `
+  mutation UpdateActivity(
+    $input: UpdateActivityInput!
+    $condition: ModelActivityConditionInput
+  ) {
+    updateActivity(input: $input, condition: $condition) {
+      id
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      company {
+        id
+        email
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        logo
+        categories
+        phone
+        name
+        links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        userFavouriteCompaniesId
+      }
+      categories
+      Location {
+        lat
+        lon
+        streetAddress
+        postalCode
+        city
+        country
+      }
+      mainPicture
+      secondaryPictures
+      Links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      OpenDays {
+        day
+        timeFrom
+        timeTo
+      }
+      ageRestriction
+      Ticket {
+        items {
+          price
+          currency
+          available
+          startSaleDate
+          endSaleDate
+          owner
+          id
+          createdAt
+          updatedAt
+          eventTicketId
+          activityTicketId
+        }
+        nextToken
+      }
+      isFree
+      FeedBack {
+        items {
+          id
+          rating
+          comment
+          createdAt
+          owner
+          updatedAt
+          activityFeedBackId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      companyActivitiesId
+      userFavouriteActivitiesId
+    }
+  }
+`;
+export const deleteActivity = /* GraphQL */ `
+  mutation DeleteActivity(
+    $input: DeleteActivityInput!
+    $condition: ModelActivityConditionInput
+  ) {
+    deleteActivity(input: $input, condition: $condition) {
+      id
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      company {
+        id
+        email
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        logo
+        categories
+        phone
+        name
+        links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        userFavouriteCompaniesId
+      }
+      categories
+      Location {
+        lat
+        lon
+        streetAddress
+        postalCode
+        city
+        country
+      }
+      mainPicture
+      secondaryPictures
+      Links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      OpenDays {
+        day
+        timeFrom
+        timeTo
+      }
+      ageRestriction
+      Ticket {
+        items {
+          price
+          currency
+          available
+          startSaleDate
+          endSaleDate
+          owner
+          id
+          createdAt
+          updatedAt
+          eventTicketId
+          activityTicketId
+        }
+        nextToken
+      }
+      isFree
+      FeedBack {
+        items {
+          id
+          rating
+          comment
+          createdAt
+          owner
+          updatedAt
+          activityFeedBackId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      companyActivitiesId
+      userFavouriteActivitiesId
+    }
+  }
+`;
+export const createActivityFeedback = /* GraphQL */ `
+  mutation CreateActivityFeedback(
+    $input: CreateActivityFeedbackInput!
+    $condition: ModelActivityFeedbackConditionInput
+  ) {
+    createActivityFeedback(input: $input, condition: $condition) {
+      id
+      rating
+      user {
+        id
+        name
+        email
+        profilePicture
+        birthday
+        favouriteEvents {
+          nextToken
+        }
+        favouriteActivities {
+          nextToken
+        }
+        favouriteCompanies {
+          nextToken
+        }
+        preferences
+        credits
+        owner
+        createdAt
+        updatedAt
+      }
+      activity {
+        id
+        name {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        company {
+          id
+          email
+          logo
+          categories
+          phone
+          name
+          owner
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+        }
+        categories
+        Location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+          country
+        }
+        mainPicture
+        secondaryPictures
+        Links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        OpenDays {
+          day
+          timeFrom
+          timeTo
+        }
+        ageRestriction
+        Ticket {
+          nextToken
+        }
+        isFree
+        FeedBack {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyActivitiesId
+        userFavouriteActivitiesId
+      }
+      comment
+      createdAt
+      owner
+      updatedAt
+      activityFeedBackId
+    }
+  }
+`;
+export const updateActivityFeedback = /* GraphQL */ `
+  mutation UpdateActivityFeedback(
+    $input: UpdateActivityFeedbackInput!
+    $condition: ModelActivityFeedbackConditionInput
+  ) {
+    updateActivityFeedback(input: $input, condition: $condition) {
+      id
+      rating
+      user {
+        id
+        name
+        email
+        profilePicture
+        birthday
+        favouriteEvents {
+          nextToken
+        }
+        favouriteActivities {
+          nextToken
+        }
+        favouriteCompanies {
+          nextToken
+        }
+        preferences
+        credits
+        owner
+        createdAt
+        updatedAt
+      }
+      activity {
+        id
+        name {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        company {
+          id
+          email
+          logo
+          categories
+          phone
+          name
+          owner
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+        }
+        categories
+        Location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+          country
+        }
+        mainPicture
+        secondaryPictures
+        Links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        OpenDays {
+          day
+          timeFrom
+          timeTo
+        }
+        ageRestriction
+        Ticket {
+          nextToken
+        }
+        isFree
+        FeedBack {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyActivitiesId
+        userFavouriteActivitiesId
+      }
+      comment
+      createdAt
+      owner
+      updatedAt
+      activityFeedBackId
+    }
+  }
+`;
+export const deleteActivityFeedback = /* GraphQL */ `
+  mutation DeleteActivityFeedback(
+    $input: DeleteActivityFeedbackInput!
+    $condition: ModelActivityFeedbackConditionInput
+  ) {
+    deleteActivityFeedback(input: $input, condition: $condition) {
+      id
+      rating
+      user {
+        id
+        name
+        email
+        profilePicture
+        birthday
+        favouriteEvents {
+          nextToken
+        }
+        favouriteActivities {
+          nextToken
+        }
+        favouriteCompanies {
+          nextToken
+        }
+        preferences
+        credits
+        owner
+        createdAt
+        updatedAt
+      }
+      activity {
+        id
+        name {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        company {
+          id
+          email
+          logo
+          categories
+          phone
+          name
+          owner
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+        }
+        categories
+        Location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+          country
+        }
+        mainPicture
+        secondaryPictures
+        Links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        OpenDays {
+          day
+          timeFrom
+          timeTo
+        }
+        ageRestriction
+        Ticket {
+          nextToken
+        }
+        isFree
+        FeedBack {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyActivitiesId
+        userFavouriteActivitiesId
+      }
+      comment
+      createdAt
+      owner
+      updatedAt
+      activityFeedBackId
+    }
+  }
+`;
+export const createEventFeedback = /* GraphQL */ `
+  mutation CreateEventFeedback(
+    $input: CreateEventFeedbackInput!
+    $condition: ModelEventFeedbackConditionInput
+  ) {
+    createEventFeedback(input: $input, condition: $condition) {
+      id
+      rating
+      user {
+        id
+        name
+        email
+        profilePicture
+        birthday
+        favouriteEvents {
+          nextToken
+        }
+        favouriteActivities {
+          nextToken
+        }
+        favouriteCompanies {
+          nextToken
+        }
+        preferences
+        credits
+        owner
+        createdAt
+        updatedAt
+      }
+      event {
+        id
+        startingDateTime
+        endingDateTime
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+          country
+        }
+        category
+        company {
+          id
+          email
+          logo
+          categories
+          phone
+          name
+          owner
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+        }
+        mainPicture
+        secondaryPictures
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        name {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        Links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        ageRestriction
+        isFree
+        Ticket {
+          nextToken
+        }
+        FeedBack {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyEventsId
+        userFavouriteEventsId
+      }
+      comment
+      createdAt
+      owner
+      updatedAt
+      eventFeedBackId
+    }
+  }
+`;
+export const updateEventFeedback = /* GraphQL */ `
+  mutation UpdateEventFeedback(
+    $input: UpdateEventFeedbackInput!
+    $condition: ModelEventFeedbackConditionInput
+  ) {
+    updateEventFeedback(input: $input, condition: $condition) {
+      id
+      rating
+      user {
+        id
+        name
+        email
+        profilePicture
+        birthday
+        favouriteEvents {
+          nextToken
+        }
+        favouriteActivities {
+          nextToken
+        }
+        favouriteCompanies {
+          nextToken
+        }
+        preferences
+        credits
+        owner
+        createdAt
+        updatedAt
+      }
+      event {
+        id
+        startingDateTime
+        endingDateTime
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+          country
+        }
+        category
+        company {
+          id
+          email
+          logo
+          categories
+          phone
+          name
+          owner
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+        }
+        mainPicture
+        secondaryPictures
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        name {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        Links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        ageRestriction
+        isFree
+        Ticket {
+          nextToken
+        }
+        FeedBack {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyEventsId
+        userFavouriteEventsId
+      }
+      comment
+      createdAt
+      owner
+      updatedAt
+      eventFeedBackId
+    }
+  }
+`;
+export const deleteEventFeedback = /* GraphQL */ `
+  mutation DeleteEventFeedback(
+    $input: DeleteEventFeedbackInput!
+    $condition: ModelEventFeedbackConditionInput
+  ) {
+    deleteEventFeedback(input: $input, condition: $condition) {
+      id
+      rating
+      user {
+        id
+        name
+        email
+        profilePicture
+        birthday
+        favouriteEvents {
+          nextToken
+        }
+        favouriteActivities {
+          nextToken
+        }
+        favouriteCompanies {
+          nextToken
+        }
+        preferences
+        credits
+        owner
+        createdAt
+        updatedAt
+      }
+      event {
+        id
+        startingDateTime
+        endingDateTime
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+          country
+        }
+        category
+        company {
+          id
+          email
+          logo
+          categories
+          phone
+          name
+          owner
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+        }
+        mainPicture
+        secondaryPictures
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        name {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        Links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        ageRestriction
+        isFree
+        Ticket {
+          nextToken
+        }
+        FeedBack {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyEventsId
+        userFavouriteEventsId
+      }
+      comment
+      createdAt
+      owner
+      updatedAt
+      eventFeedBackId
     }
   }
 `;

@@ -20,7 +20,7 @@ export type RootStackParamList = {
   UserNewPasswordScreen: { username: string };
   UserRegisterScreen: undefined;
   UserLoginScreen: undefined;
-  UserConfirmEmailScreen: { username: string; password: string } | undefined;
+  UserConfirmEmailScreen?: { username: string } | undefined;
   UserForgotPasswordScreen: undefined;
   UserLandingScreen: undefined;
 };
