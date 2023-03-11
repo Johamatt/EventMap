@@ -1,6 +1,7 @@
 import { LocationGeocodedLocation } from "expo-location";
 import { Dispatch } from "react";
 import { CATEGORY } from "../../API";
+import { GraphQLOptions } from "@aws-amplify/api-graphql";
 
 export interface UpdateLocationAction {
   readonly type: "ON_UPDATE_LOCATION";
@@ -27,9 +28,9 @@ export interface UserErrorAction {
   payload: any;
 }
 
-export interface UpdateGuestUserSession {
-  readonly type: "ON_UPDATE_GUESTUSER_SESSION";
-  payload: boolean;
+export interface UpdateAuthenticationmode {
+  readonly type: "ON_UPDATE_AUTHENTICATIONMODE";
+  payload: GraphQLOptions["authMode"];
 }
 
 export type UserAction =
@@ -38,7 +39,25 @@ export type UserAction =
   | UserErrorAction
   | UpdateAuthAction
   | UpdateShowOpenHoursAction
-  | UpdateGuestUserSession;
+  | UpdateAuthenticationmode;
+
+export const ON_UPDATE_AUTHENTICATIONMODE = (
+  AuthenticationMode: GraphQLOptions["authMode"]
+) => {
+  return async (dispatch: Dispatch<UserAction>) => {
+    try {
+      dispatch({
+        type: "ON_UPDATE_AUTHENTICATIONMODE",
+        payload: AuthenticationMode,
+      });
+    } catch (error) {
+      dispatch({
+        type: "ON_USER_ERROR",
+        payload: error,
+      });
+    }
+  };
+};
 
 export const ON_UPDATE_LOCATION = (location: LocationGeocodedLocation) => {
   return async (dispatch: Dispatch<UserAction>) => {
@@ -94,23 +113,6 @@ export const ON_UPDATE_OPENINGHOURS_ONLY = (showCurrentlyOpen: boolean) => {
       dispatch({
         type: "ON_UPDATE_OPENINGHOURS_ONLY",
         payload: showCurrentlyOpen,
-      });
-    } catch (error) {
-      dispatch({
-        type: "ON_USER_ERROR",
-        payload: error,
-      });
-    }
-  };
-};
-
-//
-export const ON_UPDATE_GUESTUSER_SESSION = (guestUserSession: boolean) => {
-  return (dispatch: Dispatch<UserAction>) => {
-    try {
-      dispatch({
-        type: "ON_UPDATE_GUESTUSER_SESSION",
-        payload: guestUserSession,
       });
     } catch (error) {
       dispatch({

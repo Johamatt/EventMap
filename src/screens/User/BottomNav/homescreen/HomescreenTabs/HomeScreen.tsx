@@ -18,13 +18,13 @@ import Colors from "../../../../../constants/Colors";
 import Constants from "expo-constants";
 import EventsListView from "./EventsListView";
 import HomeTabView from "./HomeTabView";
+import { GraphQLOptions } from "@aws-amplify/api-graphql";
 
 type HomescreenProps = {
-  guestUserSession: boolean;
-  user: any;
+  authenticationMode: GraphQLOptions["authMode"];
 };
 
-const _HomeScreen: React.FC<HomescreenProps> = ({ guestUserSession }) => {
+const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
   const [tabView, setTabView] = useState<
     | "Home"
     | "All"
@@ -54,7 +54,7 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ guestUserSession }) => {
           </TouchableOpacity>
         </View>
 
-        {!guestUserSession && (
+        {authenticationMode === "AMAZON_COGNITO_USER_POOLS" && (
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <TouchableOpacity style={styles.coinButton}>
               <LottieView
@@ -178,8 +178,7 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ guestUserSession }) => {
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  guestUserSession: state.UserReducer.guestUserSession,
-  user: state.UserReducer.userAuth,
+  authenticationMode: state.UserReducer.AuthenticationMode,
 });
 
 const HomeScreen = connect(mapToStateProps)(_HomeScreen);

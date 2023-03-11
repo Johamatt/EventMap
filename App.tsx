@@ -49,7 +49,7 @@ const App: React.FC = () => {
     return (
       <Provider store={store}>
         <SafeAreaProvider>
-          <Navigation />
+          <Navigation authmode={undefined} />
           <StatusBar style="inverted" backgroundColor="black" />
         </SafeAreaProvider>
       </Provider>

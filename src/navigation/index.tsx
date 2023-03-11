@@ -15,25 +15,26 @@ import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
 import {
   ApplicationState,
   ON_UPDATE_AUTH,
-  ON_UPDATE_GUESTUSER_SESSION,
+  ON_UPDATE_AUTHENTICATIONMODE,
+  RootState,
 } from "../Store";
 import { connect } from "react-redux";
 import { AuthNavigator } from "./AuthNavigator";
 import { EventModal } from "../screens/User/modals/EventModal";
+import { GraphQLOptions } from "@aws-amplify/api-graphql";
+import { useSelector } from "react-redux";
 
 interface NavigationProps {
   userAuth: any;
   ON_UPDATE_AUTH: Function;
-  ON_UPDATE_GUESTUSER_SESSION: Function;
-  guestSession: boolean;
+  ON_UPDATE_AUTHENTICATIONMODE: Function;
+  authmode: GraphQLOptions["authMode"];
 }
 
 const _Navigation: React.FC<NavigationProps> = (props) => {
   const [user, setUser] = useState<any>(undefined);
-  const [guestSession, setGuestSession] = useState<boolean>();
 
   useEffect(() => {
-    setGuestSession(props.guestSession);
     const checkUser = async () => {
       try {
         const authUser = await Auth.currentAuthenticatedUser({
@@ -45,9 +46,13 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
       }
     };
     checkUser();
-  }, [props.userAuth, props.guestSession]);
+  }, [props.userAuth, props.authmode]);
 
-  if (guestSession) {
+  const authmode = useSelector(
+    (state: RootState) => state.UserReducer.AuthenticationMode
+  );
+
+  if (authmode !== undefined) {
     return (
       <NavigationContainer>
         <Stack.Navigator>{MainNavigation()}</Stack.Navigator>
@@ -69,13 +74,13 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
 const mapToStateProps = (state: ApplicationState) => ({
   activitiesReducer: state.ActivitiesReducer,
   userAuth: state.UserReducer.userAuth,
-
-  guestSession: state.UserReducer.guestUserSession,
+  authMode: state.UserReducer.AuthenticationMode,
 });
 
 const Navigation = connect(mapToStateProps, {
   ON_UPDATE_AUTH,
-  ON_UPDATE_GUESTUSER_SESSION,
+  // ON_UPDATE_GUESTUSER_SESSION,
+  ON_UPDATE_AUTHENTICATIONMODE,
 })(_Navigation);
 export default Navigation;
 

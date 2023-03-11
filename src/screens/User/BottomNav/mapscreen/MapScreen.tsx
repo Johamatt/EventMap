@@ -12,7 +12,6 @@ import MapListModal from "../../modals/MapListModal";
 
 interface MapProps {
   nextToken: string;
-  guestUserSession: boolean;
 }
 
 const _MapScreen: React.FC<MapProps> = (props) => {
@@ -98,7 +97,6 @@ const _MapScreen: React.FC<MapProps> = (props) => {
 
 const mapToStateProps = (state: ApplicationState) => ({
   nextToken: state.ActivitiesReducer.nextToken,
-  guestUserSession: state.UserReducer.guestUserSession,
 });
 const MapScreen = connect(mapToStateProps)(_MapScreen);
 

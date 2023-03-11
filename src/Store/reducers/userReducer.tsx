@@ -2,6 +2,7 @@ import { LocationGeocodedLocation } from "expo-location";
 import { CATEGORY } from "../../API";
 import { UserAction } from "../actions/userAction";
 import { UserState } from "../types";
+import { GraphQLOptions } from "@aws-amplify/api-graphql";
 
 const initialState: UserState = {
   location: {} as LocationGeocodedLocation,
@@ -9,7 +10,7 @@ const initialState: UserState = {
   preferences: [] as Array<CATEGORY>,
   error: undefined,
   showCurrentlyOpen: true,
-  guestUserSession: false,
+  AuthenticationMode: undefined as GraphQLOptions["authMode"],
 };
 
 const userReducer = (state: UserState = initialState, action: UserAction) => {
@@ -38,10 +39,10 @@ const userReducer = (state: UserState = initialState, action: UserAction) => {
         showCurrentlyOpen: action.payload,
       };
 
-    case "ON_UPDATE_GUESTUSER_SESSION":
+    case "ON_UPDATE_AUTHENTICATIONMODE":
       return {
         ...state,
-        guestUserSession: action.payload,
+        AuthenticationMode: action.payload,
       };
 
     default:

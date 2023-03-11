@@ -3,36 +3,31 @@ import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 import { connect } from "react-redux";
-import {
-  ApplicationState,
-  UserState,
-  ActivitiesState,
-  store,
-} from "../../../Store";
+import { ApplicationState, UserState, store } from "../../../Store";
+
+import { GraphQLOptions } from "@aws-amplify/api-graphql";
 
 interface UserProfileScreenProps {
   userReducer: UserState;
-  activitiesReducer: ActivitiesState;
-  guestUserSession: Boolean;
+  authMode: GraphQLOptions["authMode"];
 }
 
-const _UserProfileScreen: React.FC<UserProfileScreenProps> = ({
-  guestUserSession,
-}) => {
+const _UserProfileScreen: React.FC<UserProfileScreenProps> = ({ authMode }) => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  console.log(authMode);
 
   const handleSignOut = async () => {
     await Auth.signOut();
-    // ON_UPDATE_AUTH(signout);
-
-    store.dispatch({
-      type: "ON_UPDATE_GUESTUSER_SESSION",
-      payload: false,
-    });
 
     store.dispatch({
       type: "ON_UPDATE_AUTH",
       payload: null,
+    });
+
+    store.dispatch({
+      type: "ON_UPDATE_AUTHENTICATIONMODE",
+      payload: undefined,
     });
   };
 
@@ -42,7 +37,7 @@ const _UserProfileScreen: React.FC<UserProfileScreenProps> = ({
 
   return (
     <>
-      {!guestUserSession ? (
+      {authMode === "AMAZON_COGNITO_USER_POOLS" ? (
         <View style={styles.container}>
           <Text style={styles.welcomeText}>Welcome to your profile!</Text>
           {profileImage ? (
@@ -85,8 +80,7 @@ const _UserProfileScreen: React.FC<UserProfileScreenProps> = ({
 
 const mapToStateProps = (state: ApplicationState) => ({
   userReducer: state.UserReducer,
-  activitiesReducer: state.ActivitiesReducer,
-  guestUserSession: state.UserReducer.guestUserSession,
+  authMode: state.UserReducer.AuthenticationMode,
 });
 
 const UserProfileScreen = connect(mapToStateProps, {})(_UserProfileScreen);

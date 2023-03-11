@@ -3,21 +3,32 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { RootStackParamList } from "../../../navigation/types";
-import { store } from "../../../Store";
+import { RootState, store } from "../../../Store";
 import LottieView from "lottie-react-native";
-
+import { GraphQLOptions } from "@aws-amplify/api-graphql";
+import { useSelector } from "react-redux";
 export const UserLandingScreen: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const animation = useRef(null);
 
+  // const onContinueAsGuest = () => {
+  //   store.dispatch({
+  //     type: "ON_UPDATE_GUESTUSER_SESSION",
+  //     payload: true,
+  //   });
+  // };
+
   const onContinueAsGuest = () => {
+    const AuthenticationMode: GraphQLOptions["authMode"] = "AWS_IAM";
     store.dispatch({
-      type: "ON_UPDATE_GUESTUSER_SESSION",
-      payload: true,
+      type: "ON_UPDATE_AUTHENTICATIONMODE",
+      payload: AuthenticationMode,
     });
   };
+
+  // ...
 
   return (
     <View style={styles.container}>

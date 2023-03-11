@@ -5,13 +5,14 @@ import { ApplicationState } from "../../../../../Store";
 import AutoScrollList from "../../../../../components/Lists/AutoScrollList";
 import { promotionsPlaceHolder } from "../../../../../util/helpers/promotionsPlaceHolder";
 import DailyCoinBanner from "../../../../../components/Banners/DailyCoinBanner";
+import { GraphQLOptions } from "@aws-amplify/api-graphql";
 
 type HomeTabViewProps = {
   nextToken: any;
-  guestUserSession: boolean;
+  authenticationMode: GraphQLOptions["authMode"];
 };
 
-const _HomeTabView: React.FC<HomeTabViewProps> = ({ guestUserSession }) => {
+const _HomeTabView: React.FC<HomeTabViewProps> = ({ authenticationMode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const renderFooter = () => {
@@ -26,7 +27,9 @@ const _HomeTabView: React.FC<HomeTabViewProps> = ({ guestUserSession }) => {
 
   return (
     <View style={styles.container}>
-      {!guestUserSession && <DailyCoinBanner />}
+      {authenticationMode === "AMAZON_COGNITO_USER_POOLS" && (
+        <DailyCoinBanner />
+      )}
       <AutoScrollList data={promotionsPlaceHolder} />
     </View>
   );
@@ -34,7 +37,7 @@ const _HomeTabView: React.FC<HomeTabViewProps> = ({ guestUserSession }) => {
 
 const mapToStateProps = (state: ApplicationState) => ({
   nextToken: state.ActivitiesReducer.nextToken,
-  guestUserSession: state.UserReducer.guestUserSession,
+  authenticationMode: state.UserReducer.AuthenticationMode,
 });
 
 const HomeTabView = connect(mapToStateProps)(_HomeTabView);

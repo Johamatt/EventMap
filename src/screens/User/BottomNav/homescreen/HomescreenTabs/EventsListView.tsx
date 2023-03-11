@@ -5,36 +5,52 @@ import { EventCard } from "../../../../../components/Cards/EventCard";
 import { ApplicationState } from "../../../../../Store";
 import { fetchTicketMasterToday } from "../../../../../hooks/fetch/TicketMaster/TicketMasterList";
 import { TicketMasterEvent } from "../../../../../types/TicketMasterType";
+import { ListEventsQuery } from "../../../../../API";
+import { GraphQLResult } from "@aws-amplify/api-graphql";
+import { listEventsCustom } from "../../../../../hooks/fetch/Appsync/AppsyncEvents";
 
 type HomescreenProps = {
-  guestUserSession: boolean;
   category?: string;
 };
 
 const _EventsListView: React.FC<HomescreenProps> = (props) => {
   const [page, setPage] = useState(0);
-  const [events, setEvents] = useState<Array<TicketMasterEvent>>([]);
+  const [eventsTM, setEventsTM] = useState<Array<TicketMasterEvent>>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [category, setCategory] = useState(props.category);
+  // const [eventsAS, setEventsAS] = useState<GraphQLResult<ListEventsQuery>>();
+  // const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
+  // const [category, setCategory] = useState(props.category);
 
   useEffect(() => {
-    fetchData(page);
+    fetchDataTM(page);
+
+    // fetchDataEventsAS(nextTokenEvents);
   }, [page]);
 
   const fetchMoreData = () => {
     setPage(page + 1);
   };
 
-  const fetchData = async (page: number) => {
+  const fetchDataTM = async (page: number) => {
     try {
       const data = await fetchTicketMasterToday(page, 10, props.category);
-      setEvents([...events, ...data]);
+      setEventsTM([...eventsTM, ...data]);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // const fetchDataEventsAS = async (page: string) => {
+  //   try {
+  //     const data = await listEventsCustom(page, 10, props.category);
+  //     setEventsAS([...eventsAS, ...data]);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const renderFooter = () => {
     if (!isLoading) return null;
@@ -49,7 +65,7 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
   return (
     <FlatList
       keyExtractor={(item) => item.id}
-      data={events}
+      data={eventsTM}
       renderItem={({ item }) => <EventCard event={item} />}
       onEndReached={fetchMoreData}
       onEndReachedThreshold={0.3}
@@ -59,7 +75,7 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  guestUserSession: state.UserReducer.guestUserSession,
+  authenticationMode: state.UserReducer.AuthenticationMode,
 });
 
 const EventsListView = connect(mapToStateProps)(_EventsListView);

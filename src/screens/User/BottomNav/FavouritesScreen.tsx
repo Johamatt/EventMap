@@ -1,44 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import {
-  ActivitiesState,
-  ApplicationState,
-  ON_UPDATE_EVENTPREFERENCES,
-} from "../../../Store";
+import { ApplicationState, ON_UPDATE_EVENTPREFERENCES } from "../../../Store";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../../navigation/types";
-import { API, graphqlOperation } from "aws-amplify";
-import {
-  CATEGORY,
-  CreateCompanyInput,
-  CreateEventInput,
-  DescriptionInput,
-  LinksInput,
-  LocationInput,
-  NameInput,
-} from "../../../API";
-import { createEvent } from "../../../graphql/mutations";
-import { listEventsCustom } from "../../../hooks/fetch/Appsync/AppsyncEvents";
+import { GraphQLOptions } from "@aws-amplify/api-graphql";
 
 interface FavouritesScreenProps {
-  activitiesReducer: ActivitiesState;
-  guestUserSession: Boolean;
+  authenticationMode: GraphQLOptions["authMode"];
 }
 
 export const _FavouritesScreen: React.FC<FavouritesScreenProps> = ({
-  guestUserSession,
+  authenticationMode,
 }) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const [events, setEvents] = useState<string | null>(null);
-
-  const [activities, setActvities] = useState<any>();
+  const [events, setEvents] = useState<string | null>(null); // todo fetch user
 
   return (
     <>
-      {!guestUserSession ? (
+      {authenticationMode === "AMAZON_COGNITO_USER_POOLS" ? (
         <View style={styles.container}>
           {events ? (
             <Image source={{ uri: events }} style={styles.profileImage} />
@@ -71,7 +53,7 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = ({
 
 export const mapToStateProps = (state: ApplicationState) => ({
   activitiesReducer: state.ActivitiesReducer,
-  guestUserSession: state.UserReducer.guestUserSession,
+  authenticationMode: state.UserReducer.AuthenticationMode,
 });
 
 const FavouritesScreen = connect(mapToStateProps, {
