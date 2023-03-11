@@ -9,6 +9,7 @@ export const onCreateEvent = /* GraphQL */ `
   ) {
     onCreateEvent(filter: $filter, owner: $owner) {
       id
+      type
       startingDateTime
       endingDateTime
       location {
@@ -124,6 +125,7 @@ export const onUpdateEvent = /* GraphQL */ `
   ) {
     onUpdateEvent(filter: $filter, owner: $owner) {
       id
+      type
       startingDateTime
       endingDateTime
       location {
@@ -239,6 +241,7 @@ export const onDeleteEvent = /* GraphQL */ `
   ) {
     onDeleteEvent(filter: $filter, owner: $owner) {
       id
+      type
       startingDateTime
       endingDateTime
       location {
@@ -344,6 +347,216 @@ export const onDeleteEvent = /* GraphQL */ `
       updatedAt
       companyEventsId
       userFavouriteEventsId
+    }
+  }
+`;
+export const onCreateCompany = /* GraphQL */ `
+  subscription OnCreateCompany(
+    $filter: ModelSubscriptionCompanyFilterInput
+    $owner: String
+  ) {
+    onCreateCompany(filter: $filter, owner: $owner) {
+      id
+      email
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      logo
+      categories
+      phone
+      name
+      links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      events {
+        items {
+          id
+          type
+          startingDateTime
+          endingDateTime
+          category
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyEventsId
+          userFavouriteEventsId
+        }
+        nextToken
+      }
+      activities {
+        items {
+          id
+          categories
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyActivitiesId
+          userFavouriteActivitiesId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      userFavouriteCompaniesId
+    }
+  }
+`;
+export const onUpdateCompany = /* GraphQL */ `
+  subscription OnUpdateCompany(
+    $filter: ModelSubscriptionCompanyFilterInput
+    $owner: String
+  ) {
+    onUpdateCompany(filter: $filter, owner: $owner) {
+      id
+      email
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      logo
+      categories
+      phone
+      name
+      links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      events {
+        items {
+          id
+          type
+          startingDateTime
+          endingDateTime
+          category
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyEventsId
+          userFavouriteEventsId
+        }
+        nextToken
+      }
+      activities {
+        items {
+          id
+          categories
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyActivitiesId
+          userFavouriteActivitiesId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      userFavouriteCompaniesId
+    }
+  }
+`;
+export const onDeleteCompany = /* GraphQL */ `
+  subscription OnDeleteCompany(
+    $filter: ModelSubscriptionCompanyFilterInput
+    $owner: String
+  ) {
+    onDeleteCompany(filter: $filter, owner: $owner) {
+      id
+      email
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      logo
+      categories
+      phone
+      name
+      links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      events {
+        items {
+          id
+          type
+          startingDateTime
+          endingDateTime
+          category
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyEventsId
+          userFavouriteEventsId
+        }
+        nextToken
+      }
+      activities {
+        items {
+          id
+          categories
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyActivitiesId
+          userFavouriteActivitiesId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      userFavouriteCompaniesId
     }
   }
 `;
@@ -497,213 +710,6 @@ export const onDeleteTicket = /* GraphQL */ `
     }
   }
 `;
-export const onCreateCompany = /* GraphQL */ `
-  subscription OnCreateCompany(
-    $filter: ModelSubscriptionCompanyFilterInput
-    $owner: String
-  ) {
-    onCreateCompany(filter: $filter, owner: $owner) {
-      id
-      email
-      description {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      logo
-      categories
-      phone
-      name
-      links {
-        mainURL
-        secondaryURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      events {
-        items {
-          id
-          startingDateTime
-          endingDateTime
-          category
-          mainPicture
-          secondaryPictures
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyEventsId
-          userFavouriteEventsId
-        }
-        nextToken
-      }
-      activities {
-        items {
-          id
-          categories
-          mainPicture
-          secondaryPictures
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      userFavouriteCompaniesId
-    }
-  }
-`;
-export const onUpdateCompany = /* GraphQL */ `
-  subscription OnUpdateCompany(
-    $filter: ModelSubscriptionCompanyFilterInput
-    $owner: String
-  ) {
-    onUpdateCompany(filter: $filter, owner: $owner) {
-      id
-      email
-      description {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      logo
-      categories
-      phone
-      name
-      links {
-        mainURL
-        secondaryURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      events {
-        items {
-          id
-          startingDateTime
-          endingDateTime
-          category
-          mainPicture
-          secondaryPictures
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyEventsId
-          userFavouriteEventsId
-        }
-        nextToken
-      }
-      activities {
-        items {
-          id
-          categories
-          mainPicture
-          secondaryPictures
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      userFavouriteCompaniesId
-    }
-  }
-`;
-export const onDeleteCompany = /* GraphQL */ `
-  subscription OnDeleteCompany(
-    $filter: ModelSubscriptionCompanyFilterInput
-    $owner: String
-  ) {
-    onDeleteCompany(filter: $filter, owner: $owner) {
-      id
-      email
-      description {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      logo
-      categories
-      phone
-      name
-      links {
-        mainURL
-        secondaryURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      events {
-        items {
-          id
-          startingDateTime
-          endingDateTime
-          category
-          mainPicture
-          secondaryPictures
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyEventsId
-          userFavouriteEventsId
-        }
-        nextToken
-      }
-      activities {
-        items {
-          id
-          categories
-          mainPicture
-          secondaryPictures
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      userFavouriteCompaniesId
-    }
-  }
-`;
 export const onCreateOffer = /* GraphQL */ `
   subscription OnCreateOffer(
     $filter: ModelSubscriptionOfferFilterInput
@@ -820,6 +826,7 @@ export const onCreateUser = /* GraphQL */ `
       favouriteEvents {
         items {
           id
+          type
           startingDateTime
           endingDateTime
           category
@@ -888,6 +895,7 @@ export const onUpdateUser = /* GraphQL */ `
       favouriteEvents {
         items {
           id
+          type
           startingDateTime
           endingDateTime
           category
@@ -956,6 +964,7 @@ export const onDeleteUser = /* GraphQL */ `
       favouriteEvents {
         items {
           id
+          type
           startingDateTime
           endingDateTime
           category
@@ -1707,6 +1716,7 @@ export const onCreateEventFeedback = /* GraphQL */ `
       }
       event {
         id
+        type
         startingDateTime
         endingDateTime
         location {
@@ -1808,6 +1818,7 @@ export const onUpdateEventFeedback = /* GraphQL */ `
       }
       event {
         id
+        type
         startingDateTime
         endingDateTime
         location {
@@ -1909,6 +1920,7 @@ export const onDeleteEventFeedback = /* GraphQL */ `
       }
       event {
         id
+        type
         startingDateTime
         endingDateTime
         location {

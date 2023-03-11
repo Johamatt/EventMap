@@ -6,6 +6,7 @@ export const getEvent = /* GraphQL */ `
   query GetEvent($id: ID!) {
     getEvent(id: $id) {
       id
+      type
       startingDateTime
       endingDateTime
       location {
@@ -123,6 +124,7 @@ export const listEvents = /* GraphQL */ `
     listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        type
         startingDateTime
         endingDateTime
         location {
@@ -189,18 +191,18 @@ export const listEvents = /* GraphQL */ `
     }
   }
 `;
-export const eventByDates = /* GraphQL */ `
-  query EventByDates(
-    $startingDateTime: AWSDateTime!
-    $endingDateTime: ModelStringKeyConditionInput
+export const byStartingDateTime = /* GraphQL */ `
+  query ByStartingDateTime(
+    $type: String!
+    $startingDateTime: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelEventFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    eventByDates(
+    byStartingDateTime(
+      type: $type
       startingDateTime: $startingDateTime
-      endingDateTime: $endingDateTime
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -208,6 +210,7 @@ export const eventByDates = /* GraphQL */ `
     ) {
       items {
         id
+        type
         startingDateTime
         endingDateTime
         location {
@@ -269,6 +272,118 @@ export const eventByDates = /* GraphQL */ `
         updatedAt
         companyEventsId
         userFavouriteEventsId
+      }
+      nextToken
+    }
+  }
+`;
+export const getCompany = /* GraphQL */ `
+  query GetCompany($id: ID!) {
+    getCompany(id: $id) {
+      id
+      email
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      logo
+      categories
+      phone
+      name
+      links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      events {
+        items {
+          id
+          type
+          startingDateTime
+          endingDateTime
+          category
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyEventsId
+          userFavouriteEventsId
+        }
+        nextToken
+      }
+      activities {
+        items {
+          id
+          categories
+          mainPicture
+          secondaryPictures
+          ageRestriction
+          isFree
+          owner
+          createdAt
+          updatedAt
+          companyActivitiesId
+          userFavouriteActivitiesId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      userFavouriteCompaniesId
+    }
+  }
+`;
+export const listCompanies = /* GraphQL */ `
+  query ListCompanies(
+    $filter: ModelCompanyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCompanies(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        email
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        logo
+        categories
+        phone
+        name
+        links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        userFavouriteCompaniesId
       }
       nextToken
     }
@@ -362,117 +477,6 @@ export const listTickets = /* GraphQL */ `
     }
   }
 `;
-export const getCompany = /* GraphQL */ `
-  query GetCompany($id: ID!) {
-    getCompany(id: $id) {
-      id
-      email
-      description {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      logo
-      categories
-      phone
-      name
-      links {
-        mainURL
-        secondaryURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      events {
-        items {
-          id
-          startingDateTime
-          endingDateTime
-          category
-          mainPicture
-          secondaryPictures
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyEventsId
-          userFavouriteEventsId
-        }
-        nextToken
-      }
-      activities {
-        items {
-          id
-          categories
-          mainPicture
-          secondaryPictures
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      userFavouriteCompaniesId
-    }
-  }
-`;
-export const listCompanies = /* GraphQL */ `
-  query ListCompanies(
-    $filter: ModelCompanyFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listCompanies(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        email
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        logo
-        categories
-        phone
-        name
-        links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        events {
-          nextToken
-        }
-        activities {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        userFavouriteCompaniesId
-      }
-      nextToken
-    }
-  }
-`;
 export const getOffer = /* GraphQL */ `
   query GetOffer($id: ID!) {
     getOffer(id: $id) {
@@ -553,6 +557,7 @@ export const getUser = /* GraphQL */ `
       favouriteEvents {
         items {
           id
+          type
           startingDateTime
           endingDateTime
           category
@@ -1010,6 +1015,7 @@ export const getEventFeedback = /* GraphQL */ `
       }
       event {
         id
+        type
         startingDateTime
         endingDateTime
         location {
@@ -1104,6 +1110,7 @@ export const listEventFeedbacks = /* GraphQL */ `
         }
         event {
           id
+          type
           startingDateTime
           endingDateTime
           category

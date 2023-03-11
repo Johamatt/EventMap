@@ -1,6 +1,6 @@
 import { CATEGORY, CreateCompanyInput } from "../../../API";
 
-const companies: CreateCompanyInput[] = [
+export const companies: CreateCompanyInput[] = [
   {
     description: {
       fi: "ohjelmistokehityspalveluja",

@@ -29,11 +29,14 @@ type Event @model @auth(rules: [{allow: owner},
  {allow: groups, groups: ["DefaultUser"], operations: [read]},
  {allow: public, provider: iam operations: [read]}]) {
   id: ID!
-  startingDateTime: AWSDateTime! @index(name: "byStartingDateTimeAndEndingDateTime", sortKeyFields: ["endingDateTime"], queryField: "eventByDates")
+
+  type: String! @index(name: "eventByDates", queryField: "byStartingDateTime", sortKeyFields: ["startingDateTime"])
+
+  startingDateTime: AWSDateTime! 
   endingDateTime: AWSDateTime!
   location: Location!
   category: [CATEGORY!] 
-  company: Company!
+  company: Company 
   mainPicture: AWSURL
   secondaryPictures: [AWSURL]
   description: Description!
@@ -43,6 +46,23 @@ type Event @model @auth(rules: [{allow: owner},
   isFree: Boolean
   Ticket: [Ticket] @hasMany
   FeedBack: [EventFeedback] @hasMany
+    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+type Company @model @auth(rules: [{allow: owner},  
+{allow: groups, groups: ["Admin"]}, 
+ {allow: groups, groups: ["DefaultUser"], operations: [read]},
+ {allow: public, provider: iam operations: [read]}]) {
+  id: ID! 
+  email: String
+  description: Description
+  logo: String
+  categories: [CATEGORY]
+  phone: String
+  name: String
+  links: Links
+  events: [Event] @hasMany
+  activities: [Activity] @hasMany
     owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
@@ -62,29 +82,14 @@ type Ticket @model @auth(rules: [{allow: owner},
 }
 
 
-type Company @model @auth(rules: [{allow: owner},  
-{allow: groups, groups: ["Admin"]}, 
- {allow: groups, groups: ["DefaultUser"], operations: [read]},
- {allow: public, provider: iam operations: [read]}]) {
-  id: ID! 
-  email: String
-  description: Description
-  logo: String
-  categories: [CATEGORY]
-  phone: String
-  name: String
-  links: Links
-  events: [Event] @hasMany
-  activities: [Activity] @hasMany
-    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
-}
+
 
 type Offer @model @auth(rules: [{allow: owner},  
 {allow: groups, groups: ["Admin"]}]) {
   id: ID!
   name: Name
   description: Description
-  type: OfferType!
+  type: OfferType
   creditCost: Int!
   price: Float
   currency: String
@@ -145,10 +150,13 @@ enum CATEGORY {
   TECHNOLOGY
   TRIP
 
+  ARTSCULTURE
+  FASHION 
+
   CONCERT
   STANDUP
   FAMILY
-  HEALTH
+  HEALTHWELLNESS
   
   WORKSHOP
   EDUCATION
@@ -173,7 +181,7 @@ type Activity @model @auth(rules: [{allow: owner},
   id: ID!
   name: Name!
   description: Description!
-  company: Company!
+  company: Company
   categories: [CATEGORY!] 
   Location: Location!
   mainPicture: AWSURL

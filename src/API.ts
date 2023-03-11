@@ -4,6 +4,7 @@
 
 export type CreateEventInput = {
   id?: string | null;
+  type: string;
   startingDateTime: string;
   endingDateTime: string;
   location: LocationInput;
@@ -84,6 +85,7 @@ export type LinksInput = {
 };
 
 export type ModelEventConditionInput = {
+  type?: ModelStringInput | null;
   startingDateTime?: ModelStringInput | null;
   endingDateTime?: ModelStringInput | null;
   category?: ModelCATEGORYListInput | null;
@@ -171,11 +173,12 @@ export type ModelIDInput = {
 export type Event = {
   __typename: "Event";
   id: string;
+  type: string;
   startingDateTime: string;
   endingDateTime: string;
   location: Location;
   category?: Array<CATEGORY> | null;
-  company: Company;
+  company?: Company | null;
   mainPicture?: string | null;
   secondaryPictures?: Array<string | null> | null;
   description: Description;
@@ -257,7 +260,7 @@ export type Activity = {
   id: string;
   name: Name;
   description: Description;
-  company: Company;
+  company?: Company | null;
   categories?: Array<CATEGORY> | null;
   Location: Location;
   mainPicture?: string | null;
@@ -326,7 +329,7 @@ export type Offer = {
   id: string;
   name?: Name | null;
   description?: Description | null;
-  type: OfferType;
+  type?: OfferType | null;
   creditCost: number;
   price?: number | null;
   currency?: string | null;
@@ -407,6 +410,7 @@ export type EventFeedback = {
 
 export type UpdateEventInput = {
   id: string;
+  type?: string | null;
   startingDateTime?: string | null;
   endingDateTime?: string | null;
   location?: LocationInput | null;
@@ -424,6 +428,49 @@ export type UpdateEventInput = {
 };
 
 export type DeleteEventInput = {
+  id: string;
+};
+
+export type CreateCompanyInput = {
+  id?: string | null;
+  email?: string | null;
+  description?: DescriptionInput | null;
+  logo?: string | null;
+  categories?: Array<CATEGORY | null> | null;
+  phone?: string | null;
+  name?: string | null;
+  links?: LinksInput | null;
+  owner?: string | null;
+  userFavouriteCompaniesId?: string | null;
+};
+
+export type ModelCompanyConditionInput = {
+  email?: ModelStringInput | null;
+  logo?: ModelStringInput | null;
+  categories?: ModelCATEGORYListInput | null;
+  phone?: ModelStringInput | null;
+  name?: ModelStringInput | null;
+  owner?: ModelStringInput | null;
+  and?: Array<ModelCompanyConditionInput | null> | null;
+  or?: Array<ModelCompanyConditionInput | null> | null;
+  not?: ModelCompanyConditionInput | null;
+  userFavouriteCompaniesId?: ModelIDInput | null;
+};
+
+export type UpdateCompanyInput = {
+  id: string;
+  email?: string | null;
+  description?: DescriptionInput | null;
+  logo?: string | null;
+  categories?: Array<CATEGORY | null> | null;
+  phone?: string | null;
+  name?: string | null;
+  links?: LinksInput | null;
+  owner?: string | null;
+  userFavouriteCompaniesId?: string | null;
+};
+
+export type DeleteCompanyInput = {
   id: string;
 };
 
@@ -485,54 +532,11 @@ export type DeleteTicketInput = {
   id: string;
 };
 
-export type CreateCompanyInput = {
-  id?: string | null;
-  email?: string | null;
-  description?: DescriptionInput | null;
-  logo?: string | null;
-  categories?: Array<CATEGORY | null> | null;
-  phone?: string | null;
-  name?: string | null;
-  links?: LinksInput | null;
-  owner?: string | null;
-  userFavouriteCompaniesId?: string | null;
-};
-
-export type ModelCompanyConditionInput = {
-  email?: ModelStringInput | null;
-  logo?: ModelStringInput | null;
-  categories?: ModelCATEGORYListInput | null;
-  phone?: ModelStringInput | null;
-  name?: ModelStringInput | null;
-  owner?: ModelStringInput | null;
-  and?: Array<ModelCompanyConditionInput | null> | null;
-  or?: Array<ModelCompanyConditionInput | null> | null;
-  not?: ModelCompanyConditionInput | null;
-  userFavouriteCompaniesId?: ModelIDInput | null;
-};
-
-export type UpdateCompanyInput = {
-  id: string;
-  email?: string | null;
-  description?: DescriptionInput | null;
-  logo?: string | null;
-  categories?: Array<CATEGORY | null> | null;
-  phone?: string | null;
-  name?: string | null;
-  links?: LinksInput | null;
-  owner?: string | null;
-  userFavouriteCompaniesId?: string | null;
-};
-
-export type DeleteCompanyInput = {
-  id: string;
-};
-
 export type CreateOfferInput = {
   id?: string | null;
   name?: NameInput | null;
   description?: DescriptionInput | null;
-  type: OfferType;
+  type?: OfferType | null;
   creditCost: number;
   price?: number | null;
   currency?: string | null;
@@ -756,6 +760,7 @@ export type DeleteEventFeedbackInput = {
 
 export type ModelEventFilterInput = {
   id?: ModelIDInput | null;
+  type?: ModelStringInput | null;
   startingDateTime?: ModelStringInput | null;
   endingDateTime?: ModelStringInput | null;
   category?: ModelCATEGORYListInput | null;
@@ -786,20 +791,6 @@ export enum ModelSortDirection {
   DESC = "DESC",
 }
 
-export type ModelTicketFilterInput = {
-  price?: ModelFloatInput | null;
-  currency?: ModelStringInput | null;
-  available?: ModelBooleanInput | null;
-  startSaleDate?: ModelStringInput | null;
-  endSaleDate?: ModelStringInput | null;
-  owner?: ModelStringInput | null;
-  and?: Array<ModelTicketFilterInput | null> | null;
-  or?: Array<ModelTicketFilterInput | null> | null;
-  not?: ModelTicketFilterInput | null;
-  eventTicketId?: ModelIDInput | null;
-  activityTicketId?: ModelIDInput | null;
-};
-
 export type ModelCompanyFilterInput = {
   id?: ModelIDInput | null;
   email?: ModelStringInput | null;
@@ -812,6 +803,20 @@ export type ModelCompanyFilterInput = {
   or?: Array<ModelCompanyFilterInput | null> | null;
   not?: ModelCompanyFilterInput | null;
   userFavouriteCompaniesId?: ModelIDInput | null;
+};
+
+export type ModelTicketFilterInput = {
+  price?: ModelFloatInput | null;
+  currency?: ModelStringInput | null;
+  available?: ModelBooleanInput | null;
+  startSaleDate?: ModelStringInput | null;
+  endSaleDate?: ModelStringInput | null;
+  owner?: ModelStringInput | null;
+  and?: Array<ModelTicketFilterInput | null> | null;
+  or?: Array<ModelTicketFilterInput | null> | null;
+  not?: ModelTicketFilterInput | null;
+  eventTicketId?: ModelIDInput | null;
+  activityTicketId?: ModelIDInput | null;
 };
 
 export type ModelOfferFilterInput = {
@@ -890,6 +895,7 @@ export type ModelEventFeedbackFilterInput = {
 
 export type ModelSubscriptionEventFilterInput = {
   id?: ModelSubscriptionIDInput | null;
+  type?: ModelSubscriptionStringInput | null;
   startingDateTime?: ModelSubscriptionStringInput | null;
   endingDateTime?: ModelSubscriptionStringInput | null;
   category?: ModelSubscriptionStringInput | null;
@@ -936,6 +942,17 @@ export type ModelSubscriptionBooleanInput = {
   eq?: boolean | null;
 };
 
+export type ModelSubscriptionCompanyFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  email?: ModelSubscriptionStringInput | null;
+  logo?: ModelSubscriptionStringInput | null;
+  categories?: ModelSubscriptionStringInput | null;
+  phone?: ModelSubscriptionStringInput | null;
+  name?: ModelSubscriptionStringInput | null;
+  and?: Array<ModelSubscriptionCompanyFilterInput | null> | null;
+  or?: Array<ModelSubscriptionCompanyFilterInput | null> | null;
+};
+
 export type ModelSubscriptionTicketFilterInput = {
   price?: ModelSubscriptionFloatInput | null;
   currency?: ModelSubscriptionStringInput | null;
@@ -956,17 +973,6 @@ export type ModelSubscriptionFloatInput = {
   between?: Array<number | null> | null;
   in?: Array<number | null> | null;
   notIn?: Array<number | null> | null;
-};
-
-export type ModelSubscriptionCompanyFilterInput = {
-  id?: ModelSubscriptionIDInput | null;
-  email?: ModelSubscriptionStringInput | null;
-  logo?: ModelSubscriptionStringInput | null;
-  categories?: ModelSubscriptionStringInput | null;
-  phone?: ModelSubscriptionStringInput | null;
-  name?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionCompanyFilterInput | null> | null;
-  or?: Array<ModelSubscriptionCompanyFilterInput | null> | null;
 };
 
 export type ModelSubscriptionOfferFilterInput = {
@@ -1043,6 +1049,7 @@ export type CreateEventMutation = {
   createEvent?: {
     __typename: "Event";
     id: string;
+    type: string;
     startingDateTime: string;
     endingDateTime: string;
     location: {
@@ -1055,7 +1062,7 @@ export type CreateEventMutation = {
       country?: string | null;
     };
     category?: Array<CATEGORY> | null;
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -1093,7 +1100,7 @@ export type CreateEventMutation = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     mainPicture?: string | null;
     secondaryPictures?: Array<string | null> | null;
     description: {
@@ -1173,6 +1180,7 @@ export type UpdateEventMutation = {
   updateEvent?: {
     __typename: "Event";
     id: string;
+    type: string;
     startingDateTime: string;
     endingDateTime: string;
     location: {
@@ -1185,7 +1193,7 @@ export type UpdateEventMutation = {
       country?: string | null;
     };
     category?: Array<CATEGORY> | null;
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -1223,7 +1231,7 @@ export type UpdateEventMutation = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     mainPicture?: string | null;
     secondaryPictures?: Array<string | null> | null;
     description: {
@@ -1303,6 +1311,7 @@ export type DeleteEventMutation = {
   deleteEvent?: {
     __typename: "Event";
     id: string;
+    type: string;
     startingDateTime: string;
     endingDateTime: string;
     location: {
@@ -1315,7 +1324,7 @@ export type DeleteEventMutation = {
       country?: string | null;
     };
     category?: Array<CATEGORY> | null;
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -1353,7 +1362,7 @@ export type DeleteEventMutation = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     mainPicture?: string | null;
     secondaryPictures?: Array<string | null> | null;
     description: {
@@ -1424,174 +1433,6 @@ export type DeleteEventMutation = {
   } | null;
 };
 
-export type CreateTicketMutationVariables = {
-  input: CreateTicketInput;
-  condition?: ModelTicketConditionInput | null;
-};
-
-export type CreateTicketMutation = {
-  createTicket?: {
-    __typename: "Ticket";
-    name?: {
-      __typename: "Name";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    price?: number | null;
-    currency?: string | null;
-    description?: {
-      __typename: "Description";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    available?: boolean | null;
-    startSaleDate?: string | null;
-    endSaleDate?: string | null;
-    Offers?: {
-      __typename: "ModelOfferConnection";
-      items: Array<{
-        __typename: "Offer";
-        id: string;
-        type: OfferType;
-        creditCost: number;
-        price?: number | null;
-        currency?: string | null;
-        discount?: number | null;
-        bundleSize?: number | null;
-        owner?: string | null;
-        createdAt: string;
-        updatedAt: string;
-        ticketOffersId?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    owner?: string | null;
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    eventTicketId?: string | null;
-    activityTicketId?: string | null;
-  } | null;
-};
-
-export type UpdateTicketMutationVariables = {
-  input: UpdateTicketInput;
-  condition?: ModelTicketConditionInput | null;
-};
-
-export type UpdateTicketMutation = {
-  updateTicket?: {
-    __typename: "Ticket";
-    name?: {
-      __typename: "Name";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    price?: number | null;
-    currency?: string | null;
-    description?: {
-      __typename: "Description";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    available?: boolean | null;
-    startSaleDate?: string | null;
-    endSaleDate?: string | null;
-    Offers?: {
-      __typename: "ModelOfferConnection";
-      items: Array<{
-        __typename: "Offer";
-        id: string;
-        type: OfferType;
-        creditCost: number;
-        price?: number | null;
-        currency?: string | null;
-        discount?: number | null;
-        bundleSize?: number | null;
-        owner?: string | null;
-        createdAt: string;
-        updatedAt: string;
-        ticketOffersId?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    owner?: string | null;
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    eventTicketId?: string | null;
-    activityTicketId?: string | null;
-  } | null;
-};
-
-export type DeleteTicketMutationVariables = {
-  input: DeleteTicketInput;
-  condition?: ModelTicketConditionInput | null;
-};
-
-export type DeleteTicketMutation = {
-  deleteTicket?: {
-    __typename: "Ticket";
-    name?: {
-      __typename: "Name";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    price?: number | null;
-    currency?: string | null;
-    description?: {
-      __typename: "Description";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    available?: boolean | null;
-    startSaleDate?: string | null;
-    endSaleDate?: string | null;
-    Offers?: {
-      __typename: "ModelOfferConnection";
-      items: Array<{
-        __typename: "Offer";
-        id: string;
-        type: OfferType;
-        creditCost: number;
-        price?: number | null;
-        currency?: string | null;
-        discount?: number | null;
-        bundleSize?: number | null;
-        owner?: string | null;
-        createdAt: string;
-        updatedAt: string;
-        ticketOffersId?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    owner?: string | null;
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    eventTicketId?: string | null;
-    activityTicketId?: string | null;
-  } | null;
-};
-
 export type CreateCompanyMutationVariables = {
   input: CreateCompanyInput;
   condition?: ModelCompanyConditionInput | null;
@@ -1629,6 +1470,7 @@ export type CreateCompanyMutation = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -1706,6 +1548,7 @@ export type UpdateCompanyMutation = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -1783,6 +1626,7 @@ export type DeleteCompanyMutation = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -1823,6 +1667,174 @@ export type DeleteCompanyMutation = {
   } | null;
 };
 
+export type CreateTicketMutationVariables = {
+  input: CreateTicketInput;
+  condition?: ModelTicketConditionInput | null;
+};
+
+export type CreateTicketMutation = {
+  createTicket?: {
+    __typename: "Ticket";
+    name?: {
+      __typename: "Name";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    price?: number | null;
+    currency?: string | null;
+    description?: {
+      __typename: "Description";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    available?: boolean | null;
+    startSaleDate?: string | null;
+    endSaleDate?: string | null;
+    Offers?: {
+      __typename: "ModelOfferConnection";
+      items: Array<{
+        __typename: "Offer";
+        id: string;
+        type?: OfferType | null;
+        creditCost: number;
+        price?: number | null;
+        currency?: string | null;
+        discount?: number | null;
+        bundleSize?: number | null;
+        owner?: string | null;
+        createdAt: string;
+        updatedAt: string;
+        ticketOffersId?: string | null;
+      } | null>;
+      nextToken?: string | null;
+    } | null;
+    owner?: string | null;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    eventTicketId?: string | null;
+    activityTicketId?: string | null;
+  } | null;
+};
+
+export type UpdateTicketMutationVariables = {
+  input: UpdateTicketInput;
+  condition?: ModelTicketConditionInput | null;
+};
+
+export type UpdateTicketMutation = {
+  updateTicket?: {
+    __typename: "Ticket";
+    name?: {
+      __typename: "Name";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    price?: number | null;
+    currency?: string | null;
+    description?: {
+      __typename: "Description";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    available?: boolean | null;
+    startSaleDate?: string | null;
+    endSaleDate?: string | null;
+    Offers?: {
+      __typename: "ModelOfferConnection";
+      items: Array<{
+        __typename: "Offer";
+        id: string;
+        type?: OfferType | null;
+        creditCost: number;
+        price?: number | null;
+        currency?: string | null;
+        discount?: number | null;
+        bundleSize?: number | null;
+        owner?: string | null;
+        createdAt: string;
+        updatedAt: string;
+        ticketOffersId?: string | null;
+      } | null>;
+      nextToken?: string | null;
+    } | null;
+    owner?: string | null;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    eventTicketId?: string | null;
+    activityTicketId?: string | null;
+  } | null;
+};
+
+export type DeleteTicketMutationVariables = {
+  input: DeleteTicketInput;
+  condition?: ModelTicketConditionInput | null;
+};
+
+export type DeleteTicketMutation = {
+  deleteTicket?: {
+    __typename: "Ticket";
+    name?: {
+      __typename: "Name";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    price?: number | null;
+    currency?: string | null;
+    description?: {
+      __typename: "Description";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    available?: boolean | null;
+    startSaleDate?: string | null;
+    endSaleDate?: string | null;
+    Offers?: {
+      __typename: "ModelOfferConnection";
+      items: Array<{
+        __typename: "Offer";
+        id: string;
+        type?: OfferType | null;
+        creditCost: number;
+        price?: number | null;
+        currency?: string | null;
+        discount?: number | null;
+        bundleSize?: number | null;
+        owner?: string | null;
+        createdAt: string;
+        updatedAt: string;
+        ticketOffersId?: string | null;
+      } | null>;
+      nextToken?: string | null;
+    } | null;
+    owner?: string | null;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    eventTicketId?: string | null;
+    activityTicketId?: string | null;
+  } | null;
+};
+
 export type CreateOfferMutationVariables = {
   input: CreateOfferInput;
   condition?: ModelOfferConditionInput | null;
@@ -1848,7 +1860,7 @@ export type CreateOfferMutation = {
       jp?: string | null;
       es?: string | null;
     } | null;
-    type: OfferType;
+    type?: OfferType | null;
     creditCost: number;
     price?: number | null;
     currency?: string | null;
@@ -1886,7 +1898,7 @@ export type UpdateOfferMutation = {
       jp?: string | null;
       es?: string | null;
     } | null;
-    type: OfferType;
+    type?: OfferType | null;
     creditCost: number;
     price?: number | null;
     currency?: string | null;
@@ -1924,7 +1936,7 @@ export type DeleteOfferMutation = {
       jp?: string | null;
       es?: string | null;
     } | null;
-    type: OfferType;
+    type?: OfferType | null;
     creditCost: number;
     price?: number | null;
     currency?: string | null;
@@ -1955,6 +1967,7 @@ export type CreateUserMutation = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -2031,6 +2044,7 @@ export type UpdateUserMutation = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -2107,6 +2121,7 @@ export type DeleteUserMutation = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -2190,7 +2205,7 @@ export type CreateActivityMutation = {
       jp?: string | null;
       es?: string | null;
     };
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -2228,7 +2243,7 @@ export type CreateActivityMutation = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     categories?: Array<CATEGORY> | null;
     Location: {
       __typename: "Location";
@@ -2324,7 +2339,7 @@ export type UpdateActivityMutation = {
       jp?: string | null;
       es?: string | null;
     };
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -2362,7 +2377,7 @@ export type UpdateActivityMutation = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     categories?: Array<CATEGORY> | null;
     Location: {
       __typename: "Location";
@@ -2458,7 +2473,7 @@ export type DeleteActivityMutation = {
       jp?: string | null;
       es?: string | null;
     };
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -2496,7 +2511,7 @@ export type DeleteActivityMutation = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     categories?: Array<CATEGORY> | null;
     Location: {
       __typename: "Location";
@@ -2621,7 +2636,7 @@ export type CreateActivityFeedbackMutation = {
         jp?: string | null;
         es?: string | null;
       };
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -2633,7 +2648,7 @@ export type CreateActivityFeedbackMutation = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       categories?: Array<CATEGORY> | null;
       Location: {
         __typename: "Location";
@@ -2740,7 +2755,7 @@ export type UpdateActivityFeedbackMutation = {
         jp?: string | null;
         es?: string | null;
       };
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -2752,7 +2767,7 @@ export type UpdateActivityFeedbackMutation = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       categories?: Array<CATEGORY> | null;
       Location: {
         __typename: "Location";
@@ -2859,7 +2874,7 @@ export type DeleteActivityFeedbackMutation = {
         jp?: string | null;
         es?: string | null;
       };
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -2871,7 +2886,7 @@ export type DeleteActivityFeedbackMutation = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       categories?: Array<CATEGORY> | null;
       Location: {
         __typename: "Location";
@@ -2962,6 +2977,7 @@ export type CreateEventFeedbackMutation = {
     event: {
       __typename: "Event";
       id: string;
+      type: string;
       startingDateTime: string;
       endingDateTime: string;
       location: {
@@ -2974,7 +2990,7 @@ export type CreateEventFeedbackMutation = {
         country?: string | null;
       };
       category?: Array<CATEGORY> | null;
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -2986,7 +3002,7 @@ export type CreateEventFeedbackMutation = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       mainPicture?: string | null;
       secondaryPictures?: Array<string | null> | null;
       description: {
@@ -3077,6 +3093,7 @@ export type UpdateEventFeedbackMutation = {
     event: {
       __typename: "Event";
       id: string;
+      type: string;
       startingDateTime: string;
       endingDateTime: string;
       location: {
@@ -3089,7 +3106,7 @@ export type UpdateEventFeedbackMutation = {
         country?: string | null;
       };
       category?: Array<CATEGORY> | null;
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -3101,7 +3118,7 @@ export type UpdateEventFeedbackMutation = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       mainPicture?: string | null;
       secondaryPictures?: Array<string | null> | null;
       description: {
@@ -3192,6 +3209,7 @@ export type DeleteEventFeedbackMutation = {
     event: {
       __typename: "Event";
       id: string;
+      type: string;
       startingDateTime: string;
       endingDateTime: string;
       location: {
@@ -3204,7 +3222,7 @@ export type DeleteEventFeedbackMutation = {
         country?: string | null;
       };
       category?: Array<CATEGORY> | null;
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -3216,7 +3234,7 @@ export type DeleteEventFeedbackMutation = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       mainPicture?: string | null;
       secondaryPictures?: Array<string | null> | null;
       description: {
@@ -3277,6 +3295,7 @@ export type GetEventQuery = {
   getEvent?: {
     __typename: "Event";
     id: string;
+    type: string;
     startingDateTime: string;
     endingDateTime: string;
     location: {
@@ -3289,7 +3308,7 @@ export type GetEventQuery = {
       country?: string | null;
     };
     category?: Array<CATEGORY> | null;
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -3327,7 +3346,7 @@ export type GetEventQuery = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     mainPicture?: string | null;
     secondaryPictures?: Array<string | null> | null;
     description: {
@@ -3410,6 +3429,7 @@ export type ListEventsQuery = {
     items: Array<{
       __typename: "Event";
       id: string;
+      type: string;
       startingDateTime: string;
       endingDateTime: string;
       location: {
@@ -3422,7 +3442,7 @@ export type ListEventsQuery = {
         country?: string | null;
       };
       category?: Array<CATEGORY> | null;
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -3434,7 +3454,7 @@ export type ListEventsQuery = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       mainPicture?: string | null;
       secondaryPictures?: Array<string | null> | null;
       description: {
@@ -3483,21 +3503,22 @@ export type ListEventsQuery = {
   } | null;
 };
 
-export type EventByDatesQueryVariables = {
-  startingDateTime: string;
-  endingDateTime?: ModelStringKeyConditionInput | null;
+export type ByStartingDateTimeQueryVariables = {
+  type: string;
+  startingDateTime?: ModelStringKeyConditionInput | null;
   sortDirection?: ModelSortDirection | null;
   filter?: ModelEventFilterInput | null;
   limit?: number | null;
   nextToken?: string | null;
 };
 
-export type EventByDatesQuery = {
-  eventByDates?: {
+export type ByStartingDateTimeQuery = {
+  byStartingDateTime?: {
     __typename: "ModelEventConnection";
     items: Array<{
       __typename: "Event";
       id: string;
+      type: string;
       startingDateTime: string;
       endingDateTime: string;
       location: {
@@ -3510,7 +3531,7 @@ export type EventByDatesQuery = {
         country?: string | null;
       };
       category?: Array<CATEGORY> | null;
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -3522,7 +3543,7 @@ export type EventByDatesQuery = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       mainPicture?: string | null;
       secondaryPictures?: Array<string | null> | null;
       description: {
@@ -3566,108 +3587,6 @@ export type EventByDatesQuery = {
       updatedAt: string;
       companyEventsId?: string | null;
       userFavouriteEventsId?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
-};
-
-export type GetTicketQueryVariables = {
-  id: string;
-};
-
-export type GetTicketQuery = {
-  getTicket?: {
-    __typename: "Ticket";
-    name?: {
-      __typename: "Name";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    price?: number | null;
-    currency?: string | null;
-    description?: {
-      __typename: "Description";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    available?: boolean | null;
-    startSaleDate?: string | null;
-    endSaleDate?: string | null;
-    Offers?: {
-      __typename: "ModelOfferConnection";
-      items: Array<{
-        __typename: "Offer";
-        id: string;
-        type: OfferType;
-        creditCost: number;
-        price?: number | null;
-        currency?: string | null;
-        discount?: number | null;
-        bundleSize?: number | null;
-        owner?: string | null;
-        createdAt: string;
-        updatedAt: string;
-        ticketOffersId?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    owner?: string | null;
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    eventTicketId?: string | null;
-    activityTicketId?: string | null;
-  } | null;
-};
-
-export type ListTicketsQueryVariables = {
-  filter?: ModelTicketFilterInput | null;
-  limit?: number | null;
-  nextToken?: string | null;
-};
-
-export type ListTicketsQuery = {
-  listTickets?: {
-    __typename: "ModelTicketConnection";
-    items: Array<{
-      __typename: "Ticket";
-      name?: {
-        __typename: "Name";
-        fi?: string | null;
-        en?: string | null;
-        sv?: string | null;
-        jp?: string | null;
-        es?: string | null;
-      } | null;
-      price?: number | null;
-      currency?: string | null;
-      description?: {
-        __typename: "Description";
-        fi?: string | null;
-        en?: string | null;
-        sv?: string | null;
-        jp?: string | null;
-        es?: string | null;
-      } | null;
-      available?: boolean | null;
-      startSaleDate?: string | null;
-      endSaleDate?: string | null;
-      Offers?: {
-        __typename: "ModelOfferConnection";
-        nextToken?: string | null;
-      } | null;
-      owner?: string | null;
-      id: string;
-      createdAt: string;
-      updatedAt: string;
-      eventTicketId?: string | null;
-      activityTicketId?: string | null;
     } | null>;
     nextToken?: string | null;
   } | null;
@@ -3709,6 +3628,7 @@ export type GetCompanyQuery = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -3801,6 +3721,108 @@ export type ListCompaniesQuery = {
   } | null;
 };
 
+export type GetTicketQueryVariables = {
+  id: string;
+};
+
+export type GetTicketQuery = {
+  getTicket?: {
+    __typename: "Ticket";
+    name?: {
+      __typename: "Name";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    price?: number | null;
+    currency?: string | null;
+    description?: {
+      __typename: "Description";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    available?: boolean | null;
+    startSaleDate?: string | null;
+    endSaleDate?: string | null;
+    Offers?: {
+      __typename: "ModelOfferConnection";
+      items: Array<{
+        __typename: "Offer";
+        id: string;
+        type?: OfferType | null;
+        creditCost: number;
+        price?: number | null;
+        currency?: string | null;
+        discount?: number | null;
+        bundleSize?: number | null;
+        owner?: string | null;
+        createdAt: string;
+        updatedAt: string;
+        ticketOffersId?: string | null;
+      } | null>;
+      nextToken?: string | null;
+    } | null;
+    owner?: string | null;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    eventTicketId?: string | null;
+    activityTicketId?: string | null;
+  } | null;
+};
+
+export type ListTicketsQueryVariables = {
+  filter?: ModelTicketFilterInput | null;
+  limit?: number | null;
+  nextToken?: string | null;
+};
+
+export type ListTicketsQuery = {
+  listTickets?: {
+    __typename: "ModelTicketConnection";
+    items: Array<{
+      __typename: "Ticket";
+      name?: {
+        __typename: "Name";
+        fi?: string | null;
+        en?: string | null;
+        sv?: string | null;
+        jp?: string | null;
+        es?: string | null;
+      } | null;
+      price?: number | null;
+      currency?: string | null;
+      description?: {
+        __typename: "Description";
+        fi?: string | null;
+        en?: string | null;
+        sv?: string | null;
+        jp?: string | null;
+        es?: string | null;
+      } | null;
+      available?: boolean | null;
+      startSaleDate?: string | null;
+      endSaleDate?: string | null;
+      Offers?: {
+        __typename: "ModelOfferConnection";
+        nextToken?: string | null;
+      } | null;
+      owner?: string | null;
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+      eventTicketId?: string | null;
+      activityTicketId?: string | null;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
+};
+
 export type GetOfferQueryVariables = {
   id: string;
 };
@@ -3825,7 +3847,7 @@ export type GetOfferQuery = {
       jp?: string | null;
       es?: string | null;
     } | null;
-    type: OfferType;
+    type?: OfferType | null;
     creditCost: number;
     price?: number | null;
     currency?: string | null;
@@ -3866,7 +3888,7 @@ export type ListOffersQuery = {
         jp?: string | null;
         es?: string | null;
       } | null;
-      type: OfferType;
+      type?: OfferType | null;
       creditCost: number;
       price?: number | null;
       currency?: string | null;
@@ -3898,6 +3920,7 @@ export type GetUserQuery = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -4018,7 +4041,7 @@ export type GetActivityQuery = {
       jp?: string | null;
       es?: string | null;
     };
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -4056,7 +4079,7 @@ export type GetActivityQuery = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     categories?: Array<CATEGORY> | null;
     Location: {
       __typename: "Location";
@@ -4155,7 +4178,7 @@ export type ListActivitiesQuery = {
         jp?: string | null;
         es?: string | null;
       };
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -4167,7 +4190,7 @@ export type ListActivitiesQuery = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       categories?: Array<CATEGORY> | null;
       Location: {
         __typename: "Location";
@@ -4269,7 +4292,7 @@ export type GetActivityFeedbackQuery = {
         jp?: string | null;
         es?: string | null;
       };
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -4281,7 +4304,7 @@ export type GetActivityFeedbackQuery = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       categories?: Array<CATEGORY> | null;
       Location: {
         __typename: "Location";
@@ -4421,6 +4444,7 @@ export type GetEventFeedbackQuery = {
     event: {
       __typename: "Event";
       id: string;
+      type: string;
       startingDateTime: string;
       endingDateTime: string;
       location: {
@@ -4433,7 +4457,7 @@ export type GetEventFeedbackQuery = {
         country?: string | null;
       };
       category?: Array<CATEGORY> | null;
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -4445,7 +4469,7 @@ export type GetEventFeedbackQuery = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       mainPicture?: string | null;
       secondaryPictures?: Array<string | null> | null;
       description: {
@@ -4527,6 +4551,7 @@ export type ListEventFeedbacksQuery = {
       event: {
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -4559,6 +4584,7 @@ export type OnCreateEventSubscription = {
   onCreateEvent?: {
     __typename: "Event";
     id: string;
+    type: string;
     startingDateTime: string;
     endingDateTime: string;
     location: {
@@ -4571,7 +4597,7 @@ export type OnCreateEventSubscription = {
       country?: string | null;
     };
     category?: Array<CATEGORY> | null;
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -4609,7 +4635,7 @@ export type OnCreateEventSubscription = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     mainPicture?: string | null;
     secondaryPictures?: Array<string | null> | null;
     description: {
@@ -4689,6 +4715,7 @@ export type OnUpdateEventSubscription = {
   onUpdateEvent?: {
     __typename: "Event";
     id: string;
+    type: string;
     startingDateTime: string;
     endingDateTime: string;
     location: {
@@ -4701,7 +4728,7 @@ export type OnUpdateEventSubscription = {
       country?: string | null;
     };
     category?: Array<CATEGORY> | null;
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -4739,7 +4766,7 @@ export type OnUpdateEventSubscription = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     mainPicture?: string | null;
     secondaryPictures?: Array<string | null> | null;
     description: {
@@ -4819,6 +4846,7 @@ export type OnDeleteEventSubscription = {
   onDeleteEvent?: {
     __typename: "Event";
     id: string;
+    type: string;
     startingDateTime: string;
     endingDateTime: string;
     location: {
@@ -4831,7 +4859,7 @@ export type OnDeleteEventSubscription = {
       country?: string | null;
     };
     category?: Array<CATEGORY> | null;
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -4869,7 +4897,7 @@ export type OnDeleteEventSubscription = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     mainPicture?: string | null;
     secondaryPictures?: Array<string | null> | null;
     description: {
@@ -4940,174 +4968,6 @@ export type OnDeleteEventSubscription = {
   } | null;
 };
 
-export type OnCreateTicketSubscriptionVariables = {
-  filter?: ModelSubscriptionTicketFilterInput | null;
-  owner?: string | null;
-};
-
-export type OnCreateTicketSubscription = {
-  onCreateTicket?: {
-    __typename: "Ticket";
-    name?: {
-      __typename: "Name";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    price?: number | null;
-    currency?: string | null;
-    description?: {
-      __typename: "Description";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    available?: boolean | null;
-    startSaleDate?: string | null;
-    endSaleDate?: string | null;
-    Offers?: {
-      __typename: "ModelOfferConnection";
-      items: Array<{
-        __typename: "Offer";
-        id: string;
-        type: OfferType;
-        creditCost: number;
-        price?: number | null;
-        currency?: string | null;
-        discount?: number | null;
-        bundleSize?: number | null;
-        owner?: string | null;
-        createdAt: string;
-        updatedAt: string;
-        ticketOffersId?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    owner?: string | null;
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    eventTicketId?: string | null;
-    activityTicketId?: string | null;
-  } | null;
-};
-
-export type OnUpdateTicketSubscriptionVariables = {
-  filter?: ModelSubscriptionTicketFilterInput | null;
-  owner?: string | null;
-};
-
-export type OnUpdateTicketSubscription = {
-  onUpdateTicket?: {
-    __typename: "Ticket";
-    name?: {
-      __typename: "Name";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    price?: number | null;
-    currency?: string | null;
-    description?: {
-      __typename: "Description";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    available?: boolean | null;
-    startSaleDate?: string | null;
-    endSaleDate?: string | null;
-    Offers?: {
-      __typename: "ModelOfferConnection";
-      items: Array<{
-        __typename: "Offer";
-        id: string;
-        type: OfferType;
-        creditCost: number;
-        price?: number | null;
-        currency?: string | null;
-        discount?: number | null;
-        bundleSize?: number | null;
-        owner?: string | null;
-        createdAt: string;
-        updatedAt: string;
-        ticketOffersId?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    owner?: string | null;
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    eventTicketId?: string | null;
-    activityTicketId?: string | null;
-  } | null;
-};
-
-export type OnDeleteTicketSubscriptionVariables = {
-  filter?: ModelSubscriptionTicketFilterInput | null;
-  owner?: string | null;
-};
-
-export type OnDeleteTicketSubscription = {
-  onDeleteTicket?: {
-    __typename: "Ticket";
-    name?: {
-      __typename: "Name";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    price?: number | null;
-    currency?: string | null;
-    description?: {
-      __typename: "Description";
-      fi?: string | null;
-      en?: string | null;
-      sv?: string | null;
-      jp?: string | null;
-      es?: string | null;
-    } | null;
-    available?: boolean | null;
-    startSaleDate?: string | null;
-    endSaleDate?: string | null;
-    Offers?: {
-      __typename: "ModelOfferConnection";
-      items: Array<{
-        __typename: "Offer";
-        id: string;
-        type: OfferType;
-        creditCost: number;
-        price?: number | null;
-        currency?: string | null;
-        discount?: number | null;
-        bundleSize?: number | null;
-        owner?: string | null;
-        createdAt: string;
-        updatedAt: string;
-        ticketOffersId?: string | null;
-      } | null>;
-      nextToken?: string | null;
-    } | null;
-    owner?: string | null;
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    eventTicketId?: string | null;
-    activityTicketId?: string | null;
-  } | null;
-};
-
 export type OnCreateCompanySubscriptionVariables = {
   filter?: ModelSubscriptionCompanyFilterInput | null;
   owner?: string | null;
@@ -5145,6 +5005,7 @@ export type OnCreateCompanySubscription = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -5222,6 +5083,7 @@ export type OnUpdateCompanySubscription = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -5299,6 +5161,7 @@ export type OnDeleteCompanySubscription = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -5339,6 +5202,174 @@ export type OnDeleteCompanySubscription = {
   } | null;
 };
 
+export type OnCreateTicketSubscriptionVariables = {
+  filter?: ModelSubscriptionTicketFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnCreateTicketSubscription = {
+  onCreateTicket?: {
+    __typename: "Ticket";
+    name?: {
+      __typename: "Name";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    price?: number | null;
+    currency?: string | null;
+    description?: {
+      __typename: "Description";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    available?: boolean | null;
+    startSaleDate?: string | null;
+    endSaleDate?: string | null;
+    Offers?: {
+      __typename: "ModelOfferConnection";
+      items: Array<{
+        __typename: "Offer";
+        id: string;
+        type?: OfferType | null;
+        creditCost: number;
+        price?: number | null;
+        currency?: string | null;
+        discount?: number | null;
+        bundleSize?: number | null;
+        owner?: string | null;
+        createdAt: string;
+        updatedAt: string;
+        ticketOffersId?: string | null;
+      } | null>;
+      nextToken?: string | null;
+    } | null;
+    owner?: string | null;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    eventTicketId?: string | null;
+    activityTicketId?: string | null;
+  } | null;
+};
+
+export type OnUpdateTicketSubscriptionVariables = {
+  filter?: ModelSubscriptionTicketFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnUpdateTicketSubscription = {
+  onUpdateTicket?: {
+    __typename: "Ticket";
+    name?: {
+      __typename: "Name";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    price?: number | null;
+    currency?: string | null;
+    description?: {
+      __typename: "Description";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    available?: boolean | null;
+    startSaleDate?: string | null;
+    endSaleDate?: string | null;
+    Offers?: {
+      __typename: "ModelOfferConnection";
+      items: Array<{
+        __typename: "Offer";
+        id: string;
+        type?: OfferType | null;
+        creditCost: number;
+        price?: number | null;
+        currency?: string | null;
+        discount?: number | null;
+        bundleSize?: number | null;
+        owner?: string | null;
+        createdAt: string;
+        updatedAt: string;
+        ticketOffersId?: string | null;
+      } | null>;
+      nextToken?: string | null;
+    } | null;
+    owner?: string | null;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    eventTicketId?: string | null;
+    activityTicketId?: string | null;
+  } | null;
+};
+
+export type OnDeleteTicketSubscriptionVariables = {
+  filter?: ModelSubscriptionTicketFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnDeleteTicketSubscription = {
+  onDeleteTicket?: {
+    __typename: "Ticket";
+    name?: {
+      __typename: "Name";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    price?: number | null;
+    currency?: string | null;
+    description?: {
+      __typename: "Description";
+      fi?: string | null;
+      en?: string | null;
+      sv?: string | null;
+      jp?: string | null;
+      es?: string | null;
+    } | null;
+    available?: boolean | null;
+    startSaleDate?: string | null;
+    endSaleDate?: string | null;
+    Offers?: {
+      __typename: "ModelOfferConnection";
+      items: Array<{
+        __typename: "Offer";
+        id: string;
+        type?: OfferType | null;
+        creditCost: number;
+        price?: number | null;
+        currency?: string | null;
+        discount?: number | null;
+        bundleSize?: number | null;
+        owner?: string | null;
+        createdAt: string;
+        updatedAt: string;
+        ticketOffersId?: string | null;
+      } | null>;
+      nextToken?: string | null;
+    } | null;
+    owner?: string | null;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    eventTicketId?: string | null;
+    activityTicketId?: string | null;
+  } | null;
+};
+
 export type OnCreateOfferSubscriptionVariables = {
   filter?: ModelSubscriptionOfferFilterInput | null;
   owner?: string | null;
@@ -5364,7 +5395,7 @@ export type OnCreateOfferSubscription = {
       jp?: string | null;
       es?: string | null;
     } | null;
-    type: OfferType;
+    type?: OfferType | null;
     creditCost: number;
     price?: number | null;
     currency?: string | null;
@@ -5402,7 +5433,7 @@ export type OnUpdateOfferSubscription = {
       jp?: string | null;
       es?: string | null;
     } | null;
-    type: OfferType;
+    type?: OfferType | null;
     creditCost: number;
     price?: number | null;
     currency?: string | null;
@@ -5440,7 +5471,7 @@ export type OnDeleteOfferSubscription = {
       jp?: string | null;
       es?: string | null;
     } | null;
-    type: OfferType;
+    type?: OfferType | null;
     creditCost: number;
     price?: number | null;
     currency?: string | null;
@@ -5471,6 +5502,7 @@ export type OnCreateUserSubscription = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -5547,6 +5579,7 @@ export type OnUpdateUserSubscription = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -5623,6 +5656,7 @@ export type OnDeleteUserSubscription = {
       items: Array<{
         __typename: "Event";
         id: string;
+        type: string;
         startingDateTime: string;
         endingDateTime: string;
         category?: Array<CATEGORY> | null;
@@ -5706,7 +5740,7 @@ export type OnCreateActivitySubscription = {
       jp?: string | null;
       es?: string | null;
     };
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -5744,7 +5778,7 @@ export type OnCreateActivitySubscription = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     categories?: Array<CATEGORY> | null;
     Location: {
       __typename: "Location";
@@ -5840,7 +5874,7 @@ export type OnUpdateActivitySubscription = {
       jp?: string | null;
       es?: string | null;
     };
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -5878,7 +5912,7 @@ export type OnUpdateActivitySubscription = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     categories?: Array<CATEGORY> | null;
     Location: {
       __typename: "Location";
@@ -5974,7 +6008,7 @@ export type OnDeleteActivitySubscription = {
       jp?: string | null;
       es?: string | null;
     };
-    company: {
+    company?: {
       __typename: "Company";
       id: string;
       email?: string | null;
@@ -6012,7 +6046,7 @@ export type OnDeleteActivitySubscription = {
       createdAt: string;
       updatedAt: string;
       userFavouriteCompaniesId?: string | null;
-    };
+    } | null;
     categories?: Array<CATEGORY> | null;
     Location: {
       __typename: "Location";
@@ -6137,7 +6171,7 @@ export type OnCreateActivityFeedbackSubscription = {
         jp?: string | null;
         es?: string | null;
       };
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -6149,7 +6183,7 @@ export type OnCreateActivityFeedbackSubscription = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       categories?: Array<CATEGORY> | null;
       Location: {
         __typename: "Location";
@@ -6256,7 +6290,7 @@ export type OnUpdateActivityFeedbackSubscription = {
         jp?: string | null;
         es?: string | null;
       };
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -6268,7 +6302,7 @@ export type OnUpdateActivityFeedbackSubscription = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       categories?: Array<CATEGORY> | null;
       Location: {
         __typename: "Location";
@@ -6375,7 +6409,7 @@ export type OnDeleteActivityFeedbackSubscription = {
         jp?: string | null;
         es?: string | null;
       };
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -6387,7 +6421,7 @@ export type OnDeleteActivityFeedbackSubscription = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       categories?: Array<CATEGORY> | null;
       Location: {
         __typename: "Location";
@@ -6478,6 +6512,7 @@ export type OnCreateEventFeedbackSubscription = {
     event: {
       __typename: "Event";
       id: string;
+      type: string;
       startingDateTime: string;
       endingDateTime: string;
       location: {
@@ -6490,7 +6525,7 @@ export type OnCreateEventFeedbackSubscription = {
         country?: string | null;
       };
       category?: Array<CATEGORY> | null;
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -6502,7 +6537,7 @@ export type OnCreateEventFeedbackSubscription = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       mainPicture?: string | null;
       secondaryPictures?: Array<string | null> | null;
       description: {
@@ -6593,6 +6628,7 @@ export type OnUpdateEventFeedbackSubscription = {
     event: {
       __typename: "Event";
       id: string;
+      type: string;
       startingDateTime: string;
       endingDateTime: string;
       location: {
@@ -6605,7 +6641,7 @@ export type OnUpdateEventFeedbackSubscription = {
         country?: string | null;
       };
       category?: Array<CATEGORY> | null;
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -6617,7 +6653,7 @@ export type OnUpdateEventFeedbackSubscription = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       mainPicture?: string | null;
       secondaryPictures?: Array<string | null> | null;
       description: {
@@ -6708,6 +6744,7 @@ export type OnDeleteEventFeedbackSubscription = {
     event: {
       __typename: "Event";
       id: string;
+      type: string;
       startingDateTime: string;
       endingDateTime: string;
       location: {
@@ -6720,7 +6757,7 @@ export type OnDeleteEventFeedbackSubscription = {
         country?: string | null;
       };
       category?: Array<CATEGORY> | null;
-      company: {
+      company?: {
         __typename: "Company";
         id: string;
         email?: string | null;
@@ -6732,7 +6769,7 @@ export type OnDeleteEventFeedbackSubscription = {
         createdAt: string;
         updatedAt: string;
         userFavouriteCompaniesId?: string | null;
-      };
+      } | null;
       mainPicture?: string | null;
       secondaryPictures?: Array<string | null> | null;
       description: {
