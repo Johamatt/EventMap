@@ -26,6 +26,9 @@
       },
       "api": {
         "eventmap": {}
+      },
+      "analytics": {
+        "eventmap": {}
       }
     }
   }

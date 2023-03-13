@@ -5,12 +5,15 @@ import { EventCard } from "../../../../../components/Cards/EventCard";
 import { ApplicationState } from "../../../../../Store";
 import { fetchTicketMasterToday } from "../../../../../hooks/fetch/TicketMaster/TicketMasterList";
 import { TicketMasterEvent } from "../../../../../types/TicketMasterType";
-import { ListEventsQuery } from "../../../../../API";
+import { CATEGORY, ListEventsQuery } from "../../../../../API";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { listEventsCustom } from "../../../../../hooks/fetch/Appsync/AppsyncEvents";
+import { GraphQLOptions } from "@aws-amplify/api-graphql";
 
 type HomescreenProps = {
-  category?: string;
+  tmCategory?: string;
+  asCategory?: CATEGORY | undefined;
+  authenticationMode: GraphQLOptions["authMode"];
 };
 
 const _EventsListView: React.FC<HomescreenProps> = (props) => {
@@ -18,14 +21,13 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
   const [eventsTM, setEventsTM] = useState<Array<TicketMasterEvent>>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // const [eventsAS, setEventsAS] = useState<GraphQLResult<ListEventsQuery>>();
-  // const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
-  // const [category, setCategory] = useState(props.category);
+  const [eventsAS, setEventsAS] =
+    useState<GraphQLResult<ListEventsQuery | undefined>>();
+  const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
 
   useEffect(() => {
     fetchDataTM(page);
-
-    // fetchDataEventsAS(nextTokenEvents);
+    fetchDataEventsAS(nextTokenEvents);
   }, [page]);
 
   const fetchMoreData = () => {
@@ -34,7 +36,7 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
 
   const fetchDataTM = async (page: number) => {
     try {
-      const data = await fetchTicketMasterToday(page, 10, props.category);
+      const data = await fetchTicketMasterToday(page, 10, props.tmCategory);
       setEventsTM([...eventsTM, ...data]);
       setIsLoading(false);
     } catch (error) {
@@ -42,15 +44,28 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
     }
   };
 
-  // const fetchDataEventsAS = async (page: string) => {
-  //   try {
-  //     const data = await listEventsCustom(page, 10, props.category);
-  //     setEventsAS([...eventsAS, ...data]);
-  //     setIsLoading(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const fetchDataEventsAS = async (nextTokenEvents: string | undefined) => {
+    const dateTimeNow = new Date();
+    const dateTimeNowPlusWeek = new Date(
+      dateTimeNow.setDate(dateTimeNow.getDate() + 7)
+    );
+
+    try {
+      const data = await listEventsCustom(
+        // list events ranging from current time + 1 week
+        nextTokenEvents,
+        dateTimeNow.toISOString(),
+        dateTimeNowPlusWeek.toISOString(),
+        props.authenticationMode,
+        10,
+        props.asCategory
+      );
+      setEventsAS(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const renderFooter = () => {
     if (!isLoading) return null;

@@ -350,6 +350,360 @@ export const onDeleteEvent = /* GraphQL */ `
     }
   }
 `;
+export const onCreateActivity = /* GraphQL */ `
+  subscription OnCreateActivity(
+    $filter: ModelSubscriptionActivityFilterInput
+    $owner: String
+  ) {
+    onCreateActivity(filter: $filter, owner: $owner) {
+      id
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      company {
+        id
+        email
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        logo
+        categories
+        phone
+        name
+        links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        userFavouriteCompaniesId
+      }
+      categories
+      Location {
+        lat
+        lon
+        streetAddress
+        postalCode
+        city
+        country
+      }
+      mainPicture
+      secondaryPictures
+      Links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      OpenDays {
+        day
+        timeFrom
+        timeTo
+      }
+      ageRestriction
+      Ticket {
+        items {
+          price
+          currency
+          available
+          startSaleDate
+          endSaleDate
+          owner
+          id
+          createdAt
+          updatedAt
+          eventTicketId
+          activityTicketId
+        }
+        nextToken
+      }
+      isFree
+      FeedBack {
+        items {
+          id
+          rating
+          comment
+          createdAt
+          owner
+          updatedAt
+          activityFeedBackId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      companyActivitiesId
+      userFavouriteActivitiesId
+    }
+  }
+`;
+export const onUpdateActivity = /* GraphQL */ `
+  subscription OnUpdateActivity(
+    $filter: ModelSubscriptionActivityFilterInput
+    $owner: String
+  ) {
+    onUpdateActivity(filter: $filter, owner: $owner) {
+      id
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      company {
+        id
+        email
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        logo
+        categories
+        phone
+        name
+        links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        userFavouriteCompaniesId
+      }
+      categories
+      Location {
+        lat
+        lon
+        streetAddress
+        postalCode
+        city
+        country
+      }
+      mainPicture
+      secondaryPictures
+      Links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      OpenDays {
+        day
+        timeFrom
+        timeTo
+      }
+      ageRestriction
+      Ticket {
+        items {
+          price
+          currency
+          available
+          startSaleDate
+          endSaleDate
+          owner
+          id
+          createdAt
+          updatedAt
+          eventTicketId
+          activityTicketId
+        }
+        nextToken
+      }
+      isFree
+      FeedBack {
+        items {
+          id
+          rating
+          comment
+          createdAt
+          owner
+          updatedAt
+          activityFeedBackId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      companyActivitiesId
+      userFavouriteActivitiesId
+    }
+  }
+`;
+export const onDeleteActivity = /* GraphQL */ `
+  subscription OnDeleteActivity(
+    $filter: ModelSubscriptionActivityFilterInput
+    $owner: String
+  ) {
+    onDeleteActivity(filter: $filter, owner: $owner) {
+      id
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      company {
+        id
+        email
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        logo
+        categories
+        phone
+        name
+        links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        userFavouriteCompaniesId
+      }
+      categories
+      Location {
+        lat
+        lon
+        streetAddress
+        postalCode
+        city
+        country
+      }
+      mainPicture
+      secondaryPictures
+      Links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      OpenDays {
+        day
+        timeFrom
+        timeTo
+      }
+      ageRestriction
+      Ticket {
+        items {
+          price
+          currency
+          available
+          startSaleDate
+          endSaleDate
+          owner
+          id
+          createdAt
+          updatedAt
+          eventTicketId
+          activityTicketId
+        }
+        nextToken
+      }
+      isFree
+      FeedBack {
+        items {
+          id
+          rating
+          comment
+          createdAt
+          owner
+          updatedAt
+          activityFeedBackId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      companyActivitiesId
+      userFavouriteActivitiesId
+    }
+  }
+`;
 export const onCreateCompany = /* GraphQL */ `
   subscription OnCreateCompany(
     $filter: ModelSubscriptionCompanyFilterInput
@@ -1016,360 +1370,6 @@ export const onDeleteUser = /* GraphQL */ `
       owner
       createdAt
       updatedAt
-    }
-  }
-`;
-export const onCreateActivity = /* GraphQL */ `
-  subscription OnCreateActivity(
-    $filter: ModelSubscriptionActivityFilterInput
-    $owner: String
-  ) {
-    onCreateActivity(filter: $filter, owner: $owner) {
-      id
-      name {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      description {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      company {
-        id
-        email
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        logo
-        categories
-        phone
-        name
-        links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        events {
-          nextToken
-        }
-        activities {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        userFavouriteCompaniesId
-      }
-      categories
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-        country
-      }
-      mainPicture
-      secondaryPictures
-      Links {
-        mainURL
-        secondaryURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      ageRestriction
-      Ticket {
-        items {
-          price
-          currency
-          available
-          startSaleDate
-          endSaleDate
-          owner
-          id
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      FeedBack {
-        items {
-          id
-          rating
-          comment
-          createdAt
-          owner
-          updatedAt
-          activityFeedBackId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
-      userFavouriteActivitiesId
-    }
-  }
-`;
-export const onUpdateActivity = /* GraphQL */ `
-  subscription OnUpdateActivity(
-    $filter: ModelSubscriptionActivityFilterInput
-    $owner: String
-  ) {
-    onUpdateActivity(filter: $filter, owner: $owner) {
-      id
-      name {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      description {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      company {
-        id
-        email
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        logo
-        categories
-        phone
-        name
-        links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        events {
-          nextToken
-        }
-        activities {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        userFavouriteCompaniesId
-      }
-      categories
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-        country
-      }
-      mainPicture
-      secondaryPictures
-      Links {
-        mainURL
-        secondaryURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      ageRestriction
-      Ticket {
-        items {
-          price
-          currency
-          available
-          startSaleDate
-          endSaleDate
-          owner
-          id
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      FeedBack {
-        items {
-          id
-          rating
-          comment
-          createdAt
-          owner
-          updatedAt
-          activityFeedBackId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
-      userFavouriteActivitiesId
-    }
-  }
-`;
-export const onDeleteActivity = /* GraphQL */ `
-  subscription OnDeleteActivity(
-    $filter: ModelSubscriptionActivityFilterInput
-    $owner: String
-  ) {
-    onDeleteActivity(filter: $filter, owner: $owner) {
-      id
-      name {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      description {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      company {
-        id
-        email
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        logo
-        categories
-        phone
-        name
-        links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        events {
-          nextToken
-        }
-        activities {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        userFavouriteCompaniesId
-      }
-      categories
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-        country
-      }
-      mainPicture
-      secondaryPictures
-      Links {
-        mainURL
-        secondaryURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      ageRestriction
-      Ticket {
-        items {
-          price
-          currency
-          available
-          startSaleDate
-          endSaleDate
-          owner
-          id
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      FeedBack {
-        items {
-          id
-          rating
-          comment
-          createdAt
-          owner
-          updatedAt
-          activityFeedBackId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
-      userFavouriteActivitiesId
     }
   }
 `;

@@ -277,6 +277,199 @@ export const byStartingDateTime = /* GraphQL */ `
     }
   }
 `;
+export const getActivity = /* GraphQL */ `
+  query GetActivity($id: ID!) {
+    getActivity(id: $id) {
+      id
+      name {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      description {
+        fi
+        en
+        sv
+        jp
+        es
+      }
+      company {
+        id
+        email
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        logo
+        categories
+        phone
+        name
+        links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        userFavouriteCompaniesId
+      }
+      categories
+      Location {
+        lat
+        lon
+        streetAddress
+        postalCode
+        city
+        country
+      }
+      mainPicture
+      secondaryPictures
+      Links {
+        mainURL
+        secondaryURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      OpenDays {
+        day
+        timeFrom
+        timeTo
+      }
+      ageRestriction
+      Ticket {
+        items {
+          price
+          currency
+          available
+          startSaleDate
+          endSaleDate
+          owner
+          id
+          createdAt
+          updatedAt
+          eventTicketId
+          activityTicketId
+        }
+        nextToken
+      }
+      isFree
+      FeedBack {
+        items {
+          id
+          rating
+          comment
+          createdAt
+          owner
+          updatedAt
+          activityFeedBackId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      companyActivitiesId
+      userFavouriteActivitiesId
+    }
+  }
+`;
+export const listActivities = /* GraphQL */ `
+  query ListActivities(
+    $filter: ModelActivityFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listActivities(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        description {
+          fi
+          en
+          sv
+          jp
+          es
+        }
+        company {
+          id
+          email
+          logo
+          categories
+          phone
+          name
+          owner
+          createdAt
+          updatedAt
+          userFavouriteCompaniesId
+        }
+        categories
+        Location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+          country
+        }
+        mainPicture
+        secondaryPictures
+        Links {
+          mainURL
+          secondaryURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        OpenDays {
+          day
+          timeFrom
+          timeTo
+        }
+        ageRestriction
+        Ticket {
+          nextToken
+        }
+        isFree
+        FeedBack {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyActivitiesId
+        userFavouriteActivitiesId
+      }
+      nextToken
+    }
+  }
+`;
 export const getCompany = /* GraphQL */ `
   query GetCompany($id: ID!) {
     getCompany(id: $id) {
@@ -639,199 +832,6 @@ export const listUsers = /* GraphQL */ `
         owner
         createdAt
         updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getActivity = /* GraphQL */ `
-  query GetActivity($id: ID!) {
-    getActivity(id: $id) {
-      id
-      name {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      description {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      company {
-        id
-        email
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        logo
-        categories
-        phone
-        name
-        links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        events {
-          nextToken
-        }
-        activities {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        userFavouriteCompaniesId
-      }
-      categories
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-        country
-      }
-      mainPicture
-      secondaryPictures
-      Links {
-        mainURL
-        secondaryURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      ageRestriction
-      Ticket {
-        items {
-          price
-          currency
-          available
-          startSaleDate
-          endSaleDate
-          owner
-          id
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      FeedBack {
-        items {
-          id
-          rating
-          comment
-          createdAt
-          owner
-          updatedAt
-          activityFeedBackId
-        }
-        nextToken
-      }
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
-      userFavouriteActivitiesId
-    }
-  }
-`;
-export const listActivities = /* GraphQL */ `
-  query ListActivities(
-    $filter: ModelActivityFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listActivities(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        company {
-          id
-          email
-          logo
-          categories
-          phone
-          name
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        categories
-        Location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-          country
-        }
-        mainPicture
-        secondaryPictures
-        Links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        OpenDays {
-          day
-          timeFrom
-          timeTo
-        }
-        ageRestriction
-        Ticket {
-          nextToken
-        }
-        isFree
-        FeedBack {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyActivitiesId
-        userFavouriteActivitiesId
       }
       nextToken
     }

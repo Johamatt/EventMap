@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import {
   View,
@@ -7,12 +7,9 @@ import {
   Text,
   ScrollView,
 } from "react-native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import { ApplicationState } from "../../../../../Store";
-import { RootStackParamList } from "../../../../../navigation/types";
 import { connect } from "react-redux";
 import Colors from "../../../../../constants/Colors";
 import Constants from "expo-constants";
@@ -163,13 +160,13 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
       {tabView === "All" ? (
         <EventsListView key="All" />
       ) : tabView === "Activities & Games" ? (
-        <EventsListView key="Activities & Games" category="Miscellaneous" />
+        <EventsListView key="Activities & Games" tmCategory="Miscellaneous" />
       ) : tabView === "Festivals" ? (
-        <EventsListView key="Festivals" category="festival" />
+        <EventsListView key="Festivals" tmCategory="festival" />
       ) : tabView === "Sports" ? (
-        <EventsListView key="Sports" category="sport" />
+        <EventsListView key="Sports" tmCategory="sport" />
       ) : tabView === "Entertainment" ? (
-        <EventsListView key="Entertainment" category="Entertainment" />
+        <EventsListView key="Entertainment" tmCategory="Entertainment" />
       ) : (
         <HomeTabView key="Home" />
       )}
