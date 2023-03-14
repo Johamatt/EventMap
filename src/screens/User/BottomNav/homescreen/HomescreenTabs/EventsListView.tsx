@@ -1,14 +1,14 @@
-import { ActivityIndicator, FlatList, View } from "react-native";
+import { ActivityIndicator, FlatList, View, Text } from "react-native";
 import { connect } from "react-redux";
-import React, { useEffect, useState } from "react";
-import { EventCard } from "../../../../../components/Cards/EventCard";
+import React, { useEffect, useRef, useState } from "react";
+import { EventCardTicketMaster } from "../../../../../components/Cards/EventCardTicketMaster";
 import { ApplicationState } from "../../../../../Store";
 import { fetchTicketMasterToday } from "../../../../../hooks/fetch/TicketMaster/TicketMasterList";
-import { TicketMasterEvent } from "../../../../../types/TicketMasterType";
-import { CATEGORY, ListEventsQuery } from "../../../../../API";
+import { ByStartingDateTimeQuery, CATEGORY, Event } from "../../../../../API";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { listEventsCustom } from "../../../../../hooks/fetch/Appsync/AppsyncEvents";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
+import { EventCardAppSync } from "../../../../../components/Cards/EventCardAppsync";
 
 type HomescreenProps = {
   tmCategory?: string;
@@ -17,17 +17,19 @@ type HomescreenProps = {
 };
 
 const _EventsListView: React.FC<HomescreenProps> = (props) => {
+  const [events, setEvents] = useState<Array<TicketMasterEvent | Event>>([]);
   const [page, setPage] = useState(0);
-  const [eventsTM, setEventsTM] = useState<Array<TicketMasterEvent>>([]);
+  const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
+
   const [isLoading, setIsLoading] = useState(true);
 
-  const [eventsAS, setEventsAS] =
-    useState<GraphQLResult<ListEventsQuery | undefined>>();
-  const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
+  // Use useRef to track whether fetchDataEventsAS has been called at least once
+  const isFetchingEventsAS = useRef(false);
 
   useEffect(() => {
     fetchDataTM(page);
     fetchDataEventsAS(nextTokenEvents);
+    setIsLoading(false);
   }, [page]);
 
   const fetchMoreData = () => {
@@ -35,10 +37,17 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
   };
 
   const fetchDataTM = async (page: number) => {
+    const dateTimeNowString = new Date().toISOString();
+
     try {
-      const data = await fetchTicketMasterToday(page, 10, props.tmCategory);
-      setEventsTM([...eventsTM, ...data]);
-      setIsLoading(false);
+      const data = await fetchTicketMasterToday(
+        page,
+        10,
+        dateTimeNowString,
+        props.tmCategory
+      );
+
+      setEvents([...events, ...data]);
     } catch (error) {
       console.log(error);
     }
@@ -49,21 +58,30 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
     const dateTimeNowPlusWeek = new Date(
       dateTimeNow.setDate(dateTimeNow.getDate() + 7)
     );
+    const dateTimeNowPlus10Year = new Date(
+      new Date().setFullYear(new Date().getFullYear() + 10)
+    );
+    if (!isFetchingEventsAS.current || nextTokenEvents) {
+      try {
+        const data = await listEventsCustom(
+          nextTokenEvents,
+          dateTimeNow.toISOString(),
+          dateTimeNowPlus10Year.toISOString(),
+          props.authenticationMode,
+          10,
+          props.asCategory
+        );
 
-    try {
-      const data = await listEventsCustom(
-        // list events ranging from current time + 1 week
-        nextTokenEvents,
-        dateTimeNow.toISOString(),
-        dateTimeNowPlusWeek.toISOString(),
-        props.authenticationMode,
-        10,
-        props.asCategory
-      );
-      setEventsAS(data);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
+        if (data) {
+          const { items, nextToken } = data;
+
+          setNextTokenEvents(nextToken);
+          setEvents([...events, ...items]);
+          isFetchingEventsAS.current = true;
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -80,8 +98,15 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
   return (
     <FlatList
       keyExtractor={(item) => item.id}
-      data={eventsTM}
-      renderItem={({ item }) => <EventCard event={item} />}
+      data={events}
+      renderItem={({ item }) =>
+        item.__typename === "ticketmaster" ? (
+          <EventCardTicketMaster event={item} />
+        ) : (
+          //@ts-ignore
+          <EventCardAppSync event={item} />
+        )
+      }
       onEndReached={fetchMoreData}
       onEndReachedThreshold={0.3}
       ListFooterComponent={renderFooter}

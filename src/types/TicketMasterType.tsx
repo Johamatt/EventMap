@@ -1,153 +1,142 @@
-export interface Image {
-  ratio: string;
-  url: string;
-  width: number;
-  height: number;
-  fallback: boolean;
-}
-
-export interface PublicSale {
-  startDateTime: string;
-  startTBD: boolean;
-  startTBA: boolean;
-  endDateTime: string;
-}
-
-export interface StartDate {
-  localDate: string;
-  localTime: string;
-  dateTime: string;
-  dateTBD: boolean;
-  dateTBA: boolean;
-  timeTBA: boolean;
-  noSpecificTime: boolean;
-}
-
-export interface Code {
-  code: string;
-}
-
-export interface Segment {
-  id: string;
+interface TicketMasterEvent {
   name: string;
-}
-
-export interface Genre {
-  id: string;
-  name: string;
-}
-
-export interface SubGenre {
-  id: string;
-  name: string;
-}
-
-export interface Type {
-  id: string;
-  name: string;
-}
-
-export interface SubType {
-  id: string;
-  name: string;
-}
-
-export interface Classification {
-  primary: boolean;
-  segment: Segment;
-  genre: Genre;
-  subGenre: SubGenre;
-  type: Type;
-  subType: SubType;
-  family: boolean;
-}
-
-export interface Promoter {
-  id: string;
-  name: string;
-  description: string;
-}
-
-export interface PriceRange {
-  type: string;
-  currency: string;
-  min: number;
-  max: number;
-}
-
-export interface StaticUrl {
-  staticUrl: string;
-}
-
-export interface Info {
-  info: string;
-}
-
-export interface TicketLimit {
-  info: string;
-}
-
-export interface AgeRestrictions {
-  legalAgeEnforced: boolean;
-}
-
-export interface SafeTix {
-  enabled: boolean;
-}
-
-export interface Link {
-  href: string;
-}
-
-export interface Venue {
-  name: string;
-  type: string;
+  typee: string;
   id: string;
   test: boolean;
   url: string;
   locale: string;
-  images: Image[];
-}
-
-export interface Embedded {
-  venues: Venue[];
-}
-
-export interface TicketMasterEvent {
-    end_time: string | number | Date;
-    name: string;
-    eventType: string;
-    id: string;
-    test: boolean;
+  __typename: string;
+  images: {
+    ratio: string;
     url: string;
-    locale: string;
-    images: Image[];
-    sales: {
-      public: PublicSale;
+    width: number;
+    height: number;
+    fallback: boolean;
+  }[];
+  sales: {
+    public: {
+      startDateTime: string;
+      startTBD: boolean;
+      startTBA: boolean;
+      endDateTime: string;
     };
-    dates: {
-      start: StartDate;
+  };
+  dates: {
+    start: {
+      localDate: string;
+      localTime: string;
+      dateTime: string;
+      dateTBD: boolean;
+      dateTBA: boolean;
+      timeTBA: boolean;
+      noSpecificTime: boolean;
+    };
+    timezone: string;
+    status: {
+      code: string;
+    };
+    spanMultipleDays: boolean;
+  };
+  classifications: {
+    primary: boolean;
+    segment: {
+      id: string;
+      name: string;
+    };
+    genre: {
+      id: string;
+      name: string;
+    };
+    subGenre: {
+      id: string;
+      name: string;
+    };
+    family: boolean;
+  }[];
+  promoter: {
+    id: string;
+    name: string;
+  };
+  promoters: {
+    id: string;
+    name: string;
+  }[];
+  priceRanges: {
+    type: string;
+    currency: string;
+    min: number;
+    max: number;
+  }[];
+  seatmap: {
+    staticUrl: string;
+  };
+  _links: {
+    self: {
+      href: string;
+    };
+    attractions: {
+      href: string;
+    }[];
+    venues: {
+      href: string;
+    }[];
+  };
+  _embedded: {
+    venues: {
+      type: string;
+      id: string;
+      test: boolean;
+      url: string;
+      locale: string;
+      postalCode: string;
       timezone: string;
-      status: Code;
-      spanMultipleDays: boolean;
-    };
-    classifications: Classification[];
-    promoter: Promoter;
-    promoters: Promoter[];
-    info: string;
-    pleaseNote: string;
-    priceRanges: PriceRange[];
-    seatmap: StaticUrl;
-    accessibility: Record<string, never>;
-    ticketLimit: TicketLimit;
-    ageRestrictions: AgeRestrictions;
-    ticketing: {
-      safeTix: SafeTix;
-    };
-    _links: {
-      self: Link;
-      attractions: Link[];
-      venues: Link[];
-    };
-    _embedded: Embedded;
-  }
+      city: {
+        name: string;
+      };
+      country: {
+        name: string;
+        countryCode: string;
+      };
+      address: {
+        line1: string;
+      };
+      location: {
+        longitude: string;
+        latitude: string;
+      };
+      upcomingEvents: {
+        _total: number;
+        _filtered: number;
+        [key: string]: any;
+      };
+      _links: {
+        self: {
+          href: string;
+        };
+      };
+    }[];
+    attractions: {
+      name: string;
+      type: string;
+      id: string;
+      test: boolean;
+      url: string;
+      locale: string;
+      images: {
+        ratio: string;
+        url: string;
+        fallback: boolean;
+      }[];
+      _links: {
+        self: {
+          href: string;
+        };
+      };
+      externalLinks: {
+        [key: string]: {
+          url: string;
+        }[];
+      };
+    }[];
+  };
+}

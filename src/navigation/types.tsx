@@ -16,13 +16,15 @@ export type RootStackParamList = {
   UserRoot: NavigatorScreenParams<RootTabParamList> | undefined;
   Splash: undefined;
   UserProfileScreen: undefined;
-  EventModal: { id: string };
   UserNewPasswordScreen: { username: string };
   UserRegisterScreen: undefined;
   UserLoginScreen: undefined;
   UserConfirmEmailScreen?: { username: string } | undefined;
   UserForgotPasswordScreen: undefined;
   UserLandingScreen: undefined;
+
+  TicketMasterEventModal: { id: string };
+  AppSyncEventModal: { id: string };
 };
 
 export type RootTabParamList = {

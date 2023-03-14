@@ -20,9 +20,10 @@ import {
 } from "../Store";
 import { connect } from "react-redux";
 import { AuthNavigator } from "./AuthNavigator";
-import { EventModal } from "../screens/User/modals/EventModal";
+import { TicketMasterEventModal } from "../screens/User/modals/EventModal";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import { useSelector } from "react-redux";
+import { AppsyncEventModal } from "../screens/User/modals/AppsyncEventModal";
 
 interface NavigationProps {
   userAuth: any;
@@ -79,7 +80,6 @@ const mapToStateProps = (state: ApplicationState) => ({
 
 const Navigation = connect(mapToStateProps, {
   ON_UPDATE_AUTH,
-  // ON_UPDATE_GUESTUSER_SESSION,
   ON_UPDATE_AUTHENTICATIONMODE,
 })(_Navigation);
 export default Navigation;
@@ -122,7 +122,12 @@ const MainNavigation = () => {
           headerTitle: "",
         }}
       >
-        <Stack.Screen name="EventModal" component={EventModal} />
+        <Stack.Screen
+          name="TicketMasterEventModal"
+          component={TicketMasterEventModal}
+        />
+
+        <Stack.Screen name="AppSyncEventModal" component={AppsyncEventModal} />
       </Stack.Group>
     </Stack.Group>
   );

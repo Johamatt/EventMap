@@ -1,36 +1,19 @@
 import axios from "axios";
 import Constants from "expo-constants";
-import { TicketMasterEvent } from "../../../types/TicketMasterType";
 
 export const fetchTicketMasterToday = async (
   page: number,
   size: number,
+  datetimeISOstring: string,
   category?: string
-): Promise<TicketMasterEvent[]> => {
+): Promise<Array<TicketMasterEvent>> => {
   const date = new Date();
-  const isoDateString = date.toISOString().slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
+  const isoDateString = datetimeISOstring.slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
 
-  if (category)
-    try {
-      const res = await axios.get(
-        //@ts-ignore
-        `https://app.ticketmaster.com/discovery/v2/events.json?page=${page}&classificationName=${category}&sort=date,asc&city=Helsinki,Espoo,Vantaa&apikey=${Constants.expoConfig.extra.TICKETMASTER_KEY}`,
-        {
-          headers: {
-            "Access-Control-Allow-Methods": "GET",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data: Array<TicketMasterEvent> = res.data._embedded.events;
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
   try {
     const res = await axios.get(
       //@ts-ignore
-      `https://app.ticketmaster.com/discovery/v2/events.json?page=${page}&size=${size}&startDateTime=${isoDateString}&sort=date,asc&city=Helsinki,Espoo,Vantaa&apikey=${Constants.expoConfig.extra.TICKETMASTER_KEY}`,
+      `https://app.ticketmaster.com/discovery/v2/events.json?page=${page}&size=${size}&classificationName=${category}&startDateTime=${isoDateString}&sort=date,asc&city=Helsinki,Espoo,Vantaa&apikey=${Constants.expoConfig.extra.TICKETMASTER_KEY}`,
       {
         headers: {
           "Access-Control-Allow-Methods": "GET",
@@ -39,12 +22,15 @@ export const fetchTicketMasterToday = async (
       }
     );
     const data: Array<TicketMasterEvent> = res.data._embedded.events;
-    return data;
+    const dataWithSource = data.map((event) => ({
+      ...event,
+      __typename: "ticketmaster",
+    }));
+    return dataWithSource;
   } catch (error) {
     console.log(error);
   }
-
-  return new Array<TicketMasterEvent>();
+  return [];
 };
 
 export const fetchEvent = async (
@@ -61,7 +47,17 @@ export const fetchEvent = async (
         },
       }
     );
+
+    console.log(res);
+
     const event: TicketMasterEvent = res.data._embedded.events[0];
+
+    // for (let key in event) {
+    //   if (typeof event[key] === "object" && event[key] !== null) {
+    //     event[key].source = "Eventmaster";
+    //   }
+    // }
+
     return event;
   } catch (error) {
     console.log(error);

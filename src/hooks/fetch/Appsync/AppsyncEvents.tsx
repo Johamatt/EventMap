@@ -1,11 +1,20 @@
 import { API } from "aws-amplify";
-import { CATEGORY, GetEventQuery, ListEventsQuery } from "../../../API";
+import {
+  ByStartingDateTimeQuery,
+  CATEGORY,
+  GetEventQuery,
+  ListEventsQuery,
+  Event,
+} from "../../../API";
 import { GraphQLResult, GraphQLOptions } from "@aws-amplify/api-graphql";
-import { EventsbyStartingDateTimeCustomQuery } from "./QueriesCustom/CustomEventQueries";
+import {
+  EventsbyStartingDateTimeCustomQuery,
+  getEventCustomQuery,
+} from "./QueriesCustom/CustomEventQueries";
 import { GraphQLQuery } from "@aws-amplify/api";
 
 export const listEventsCustom = async (
-  nextToken: string | undefined,
+  token: string | undefined,
   dateStart: string,
   dateEnd: string,
   authMode: GraphQLOptions["authMode"],
@@ -16,22 +25,31 @@ export const listEventsCustom = async (
     const filter = asCategory
       ? { category: { contains: asCategory } }
       : undefined;
-    const eventsData = await API.graphql<GraphQLQuery<ListEventsQuery>>({
-      query: EventsbyStartingDateTimeCustomQuery,
-      variables: {
-        sortDirection: "ASC",
-        type: "Event",
-        startingDateTime: {
-          between: [dateStart, dateEnd],
+    const eventsData = await API.graphql<GraphQLQuery<ByStartingDateTimeQuery>>(
+      {
+        query: EventsbyStartingDateTimeCustomQuery,
+        variables: {
+          sortDirection: "ASC",
+          type: "Event",
+          startingDateTime: {
+            between: [dateStart, dateEnd],
+          },
+          filter,
+          nextToken: token,
+          limit: limit,
         },
-        filter,
-        nextToken: nextToken,
-        limit: limit,
-      },
-      authMode: authMode,
-    });
+        authMode: authMode,
+      }
+    );
+    //@ts-ignore
+    const { items, nextToken } = eventsData.data.byStartingDateTime;
+    // Add source "AppsyncEvent" to every item
+    const itemsWithSource = items.map((item: Event) => ({
+      ...item,
+      __typename: "AppsyncEvent",
+    }));
 
-    return eventsData as GraphQLResult<ListEventsQuery>;
+    return { items: itemsWithSource, nextToken };
   } catch (err) {
     console.log(err);
   }
@@ -42,8 +60,8 @@ export const getEventCustom = async (
   authMode: GraphQLOptions["authMode"]
 ) => {
   try {
-    const event = await API.graphql<GraphQLQuery<ListEventsQuery>>({
-      query: EventsbyStartingDateTimeCustomQuery,
+    const event = await API.graphql<GraphQLQuery<GetEventQuery>>({
+      query: getEventCustomQuery,
       variables: {
         id: id,
       },

@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  ImageURISource,
   Linking,
   ScrollView,
   TouchableOpacity,
@@ -13,23 +14,35 @@ import { StyleSheet } from "react-native";
 import { RootStackParamList } from "../../../navigation/types";
 import { fetchEvent } from "../../../hooks/fetch/TicketMaster/TicketMasterList";
 import { modalLinkIcon } from "../../../util/helpers/modalLinkIcon";
+import { getEventCustom } from "../../../hooks/fetch/Appsync/AppsyncEvents";
+import { GetEventQuery } from "../../../API";
+import { GraphQLResult } from "@aws-amplify/api-graphql";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Store";
 
-interface TicketMasterEventModalProps {
+interface EventModalProps {
   navigation: any;
   route: any;
 }
 
-
-
-export const TicketMasterEventModal: React.FC<TicketMasterEventModalProps> = (props) => {
+export const AppsyncEventModal: React.FC<EventModalProps> = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const [event, setEvent] = useState<TicketMasterEvent>();
+  const [event, setEvent] = useState<
+    GraphQLResult<GetEventQuery> | undefined
+  >();
+
+  const authmode = useSelector(
+    (state: RootState) => state.UserReducer.AuthenticationMode
+  );
 
   useEffect(() => {
     async function fetchData() {
-      const fetchedEvent = await fetchEvent(props.route.params.id);
+      const fetchedEvent = await getEventCustom(
+        props.route.params.id,
+        authmode
+      );
       setEvent(fetchedEvent);
     }
     fetchData();
@@ -41,17 +54,25 @@ export const TicketMasterEventModal: React.FC<TicketMasterEventModalProps> = (pr
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.name}>{event.name}</Text>
-      <Image source={{ uri: event.images[0].url }} style={styles.image} />
+      <Text style={styles.name}>{event.data?.getEvent?.name.fi}</Text>
+
+      {event.data?.getEvent?.mainPicture && (
+        <Image
+          source={{ uri: event.data.getEvent.mainPicture }}
+          style={styles.image}
+        />
+      )}
+
       <Text style={styles.date}>
-        {event.dates.start.localDate} {event.dates.start.localTime}
+        {event.data?.getEvent?.startingDateTime} -{" "}
+        {event.data?.getEvent?.endingDateTime}
       </Text>
       <Text style={styles.address}>
-        {event._embedded.venues[0].address.line1}
+        {event.data?.getEvent?.location.streetAddress}
       </Text>
-      <Text style={styles.promoter}>{event.promoter.name}</Text>
+      <Text style={styles.promoter}>{event.data?.getEvent?.company?.name}</Text>
       <Text style={styles.title}>Ticket Types:</Text>
-      {event.priceRanges.map((ticket: any, index: number) => {
+      {event.data?.getEvent?.Ticket?.items.map((ticket: any, index: number) => {
         return (
           <View key={index}>
             <Text style={styles.ticketName}>{ticket.type}</Text>
@@ -63,47 +84,42 @@ export const TicketMasterEventModal: React.FC<TicketMasterEventModalProps> = (pr
       })}
 
       <View style={styles.linksContainer}>
-        {event._embedded.attractions[0].externalLinks &&
-          Object.entries(event._embedded.attractions[0].externalLinks).map(
-            ([name, links]) => (
-              <View key={name}>
-                <View style={styles.linkList}>
-                  {links.map((link: any) => (
-                    <TouchableOpacity
-                      key={link.url}
-                      onPress={() => Linking.openURL(link.url)}
-                      style={styles.link}
-                    >
-                      {modalLinkIcon(name)}
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              </View>
-            )
-          )}
+        {event.data?.getEvent?.Links && (
+          <>
+            {Object.entries(event.data.getEvent.Links).map(([key, value]) => {
+              if (value) {
+                return (
+                  <TouchableOpacity
+                    key={key}
+                    onPress={() => Linking.openURL(value)}
+                    style={styles.link}
+                  >
+                    {/* Your link icon or label */}
+                  </TouchableOpacity>
+                );
+              }
+              return null;
+            })}
+          </>
+        )}
       </View>
 
-      {event._embedded.venues[0].location.latitude !== undefined &&
-        event._embedded.venues[0].location.longitude !== undefined && (
+      {event.data?.getEvent?.location.lat !== undefined &&
+        event.data?.getEvent?.location.lon !== undefined && (
           <MapView
             style={styles.mapContainer}
             initialRegion={{
-              latitude: parseFloat(event._embedded.venues[0].location.latitude),
-              longitude: parseFloat(
-                event._embedded.venues[0].location.longitude
-              ),
+              latitude: event.data.getEvent.location.lat,
+              longitude: event.data.getEvent.location.lon,
+
               latitudeDelta: 0.00922,
               longitudeDelta: 0.00421,
             }}
           >
             <Marker
               coordinate={{
-                latitude: parseFloat(
-                  event._embedded.venues[0].location.latitude
-                ),
-                longitude: parseFloat(
-                  event._embedded.venues[0].location.longitude
-                ),
+                latitude: event.data.getEvent.location.lat,
+                longitude: event.data.getEvent.location.lon,
               }}
             />
           </MapView>

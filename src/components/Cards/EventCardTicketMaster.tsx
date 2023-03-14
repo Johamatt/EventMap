@@ -2,47 +2,29 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { RootStackParamList } from "../../navigation/types";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import { TicketMasterEvent } from "../../types/TicketMasterType";
 
 interface EventCardProps {
   event: TicketMasterEvent;
 }
 
-export const EventCard: React.FC<EventCardProps> = (props) => {
+export const EventCardTicketMaster: React.FC<EventCardProps> = (props) => {
   const event: TicketMasterEvent = props.event;
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const startTime = new Date(event.dates.start.dateTime);
-  const endTime = new Date(event.end_time);
-
-  const difference =
-    (endTime.getTime() - startTime.getTime()) / (1000 * 3600 * 24);
-
-  if (difference > 15) {
-    return <View />;
-  }
-
   return (
     <TouchableOpacity
       style={styles.cardContainer}
-      onPress={() => navigation.navigate("EventModal", { id: event.id })}
+      onPress={() =>
+        navigation.navigate("TicketMasterEventModal", { id: event.id })
+      }
     >
       <View style={styles.cardTopContainer}></View>
       <View style={styles.cardBottomContainer}>
         <Text style={styles.cardTitle}>{event.name}</Text>
-
-        {/* <Image
-          key={event.id}
-          style={styles.tinyImage}
-          source={{ uri: event.images[0].url }}
-        /> */}
-
-        {/* <ListIconExternalAPI data={categories} /> */}
-
         <View style={styles.cardTimeContainer}>
           <Text style={styles.cardTimeLabel}>Starts:</Text>
           <Text style={styles.time}>
