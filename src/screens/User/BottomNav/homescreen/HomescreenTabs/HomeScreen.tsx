@@ -16,12 +16,14 @@ import Constants from "expo-constants";
 import EventsListView from "./EventsListView";
 import HomeTabView from "./HomeTabView";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
+import SearchBar from "../../../../../components/Input/SearchBar";
 
 type HomescreenProps = {
   authenticationMode: GraphQLOptions["authMode"];
 };
 
 const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [tabView, setTabView] = useState<
     | "Home"
     | "All"
@@ -30,6 +32,13 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
     | "Entertainment"
     | "Sports"
   >("Home");
+
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = (text: string) => {
+    setSearchText(text);
+    // implement search logic here
+  };
 
   const animation = useRef(null);
 
@@ -46,9 +55,18 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
           <TouchableOpacity style={styles.headerButton}>
             <Ionicons name="options-outline" size={24} color="white" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerButton}>
-            <Ionicons name="search-outline" size={24} color="white" />
+          <TouchableOpacity
+            style={styles.headerButton}
+            onPress={() => setIsSearchOpen(!isSearchOpen)}
+          >
+            {isSearchOpen ? (
+              <Ionicons name="close-outline" size={24} color="red" />
+            ) : (
+              <Ionicons name="search-outline" size={24} color="white" />
+            )}
           </TouchableOpacity>
+
+          {isSearchOpen ? <SearchBar onChangeText={handleSearch} /> : <View />}
         </View>
 
         {authenticationMode === "AMAZON_COGNITO_USER_POOLS" && (
@@ -246,5 +264,14 @@ const styles = StyleSheet.create({
     height: 100,
     right: -10,
     position: "absolute",
+  },
+
+  searchBar: {
+    backgroundColor: "white",
+    height: 50,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    marginBottom: 10,
   },
 });

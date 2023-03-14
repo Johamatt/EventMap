@@ -24,23 +24,6 @@ type Location {
   country: String
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 type Event @model @auth(rules: [{allow: owner},  
  {allow: groups, groups: ["Admin"]},  
  {allow: groups, groups: ["DefaultUser"], operations: [read]},
@@ -117,9 +100,6 @@ type Ticket @model @auth(rules: [{allow: owner},
       owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
-
-
-
 type Offer @model @auth(rules: [{allow: owner},  
 {allow: groups, groups: ["Admin"]}, 
  {allow: groups, groups: ["DefaultUser"], operations: [read]},
@@ -159,14 +139,11 @@ type User @model @auth(rules: [{allow: owner},
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
-
 enum FriendshipStatus {
   REQUESTED
   ACCEPTED
   DECLINED
 }
-
-
 
 type Links {
   mainURL: AWSURL
@@ -189,22 +166,17 @@ enum CATEGORY {
   FOODDRINKS
   TECHNOLOGY
   TRIP
-
   CONCERT
   STANDUP
   FAMILY
   HEALTH
-  
   WORKSHOP
   EDUCATION
   BUSINESS
-
   PERFORMANCE
   MUSEUM
-
   NATURE
   SCIENCE
-
   BOARDGAMES
   VIDEOGAMES
   GAMBLING
