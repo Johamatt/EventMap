@@ -1,6 +1,5 @@
-import React, { useEffect, useCallback, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Text, View, StyleSheet } from "react-native";
-import * as Splash from "expo-splash-screen";
 import LottieView from "lottie-react-native";
 import Layout from "../../constants/Layout";
 
@@ -27,7 +26,7 @@ export default function SplashScreen() {
           ref={animation}
           style={styles.lottie}
           loop={true}
-          source={require("../../assets/lottie/splash.json")}
+          source={require("../../assets/lottie/splashScreenLottie.json")}
         ></LottieView>
       </View>
     </View>

@@ -11,16 +11,16 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { API, Auth, graphqlOperation } from "aws-amplify";
-import Colors from "../../../constants/Colors";
-import Layout from "../../../constants/Layout";
+import Colors from "../../constants/Colors";
+import Layout from "../../constants/Layout";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import LottieView from "lottie-react-native";
-import { createUser } from "../../../graphql/mutations";
-import { CreateUserInput } from "../../../API";
+import { createUser } from "../../graphql/mutations";
+import { CreateUserInput } from "../../API";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../../navigation/types";
+import { RootStackParamList } from "../../types/navigationTypes";
 
 export const UserRegisterScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
@@ -91,7 +91,7 @@ export const UserRegisterScreen: React.FC = (props) => {
           source={require("../../../assets/lottie/register.json")}
         /> */}
 
-<View style={styles.textInputView}>
+        <View style={styles.textInputView}>
           <TextInput
             style={styles.TextInput}
             placeholder="Email"

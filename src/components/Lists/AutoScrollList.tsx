@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState, useEffect, useRef } from "react";
 import { ScrollView, Image, Dimensions, TouchableOpacity } from "react-native";
-import { RootStackParamList } from "../../navigation/types";
+import { RootStackParamList } from "../../types/navigationTypes";
 
 const AUTO_SCROLL_INTERVAL = 5000; // 5 seconds
 

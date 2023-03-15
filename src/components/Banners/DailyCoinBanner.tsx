@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 const DailyCoinBanner = () => {
   return (
@@ -16,42 +16,40 @@ const DailyCoinBanner = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F1F1F1",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+    padding: 0.03 * Dimensions.get("window").width,
+    borderRadius: 0.02 * Dimensions.get("window").width,
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
     elevation: 2,
   },
   text: {
-    fontSize: 16,
+    fontSize: 0.04 * Dimensions.get("window").width,
     fontWeight: "600",
     color: "#4A4A4A",
     flex: 1,
-    marginRight: 8,
+    marginRight: 0.02 * Dimensions.get("window").width,
   },
   iconContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
   icon: {
-    fontSize: 24,
+    fontSize: 0.06 * Dimensions.get("window").width,
     color: "#4A4A4A",
+    marginLeft: 0.01 * Dimensions.get("window").width,
   },
   iconText: {
-    marginRight: 4,
-    fontSize: 16,
+    fontSize: 0.04 * Dimensions.get("window").width,
     fontWeight: "600",
     color: "#4A4A4A",
+    marginRight: 0.01 * Dimensions.get("window").width,
   },
 });
+
 export default DailyCoinBanner;

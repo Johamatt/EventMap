@@ -11,9 +11,10 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { Auth } from "aws-amplify";
-import Colors from "../../../constants/Colors";
+
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../../navigation/types";
+import { RootStackParamList } from "../../types/navigationTypes";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export const UserForgotPasswordScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");

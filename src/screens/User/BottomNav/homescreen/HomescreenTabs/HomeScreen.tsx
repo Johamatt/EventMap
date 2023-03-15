@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
-import { ApplicationState } from "../../../../../Store";
 import { connect } from "react-redux";
 import Colors from "../../../../../constants/Colors";
 import Constants from "expo-constants";
@@ -17,6 +16,7 @@ import EventsListView from "./EventsListView";
 import HomeTabView from "./HomeTabView";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import SearchBar from "../../../../../components/Input/SearchBar";
+import { ApplicationState } from "../../../../../Store/reducers";
 
 type HomescreenProps = {
   authenticationMode: GraphQLOptions["authMode"];
@@ -76,7 +76,7 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
                 autoPlay
                 ref={animation}
                 loop={true}
-                source={require("../../../../../assets/lottie/coin.json")}
+                source={require("../../../../../assets/lottie/coinLottie.json")}
               />
             </TouchableOpacity>
 

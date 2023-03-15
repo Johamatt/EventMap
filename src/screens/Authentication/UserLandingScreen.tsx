@@ -2,24 +2,17 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { RootStackParamList } from "../../../navigation/types";
-import { RootState, store } from "../../../Store";
+
 import LottieView from "lottie-react-native";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
-import { useSelector } from "react-redux";
+import { store } from "../../Store/store";
+import { RootStackParamList } from "../../types/navigationTypes";
+
 export const UserLandingScreen: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const animation = useRef(null);
-
-  // const onContinueAsGuest = () => {
-  //   store.dispatch({
-  //     type: "ON_UPDATE_GUESTUSER_SESSION",
-  //     payload: true,
-  //   });
-  // };
-
   const onContinueAsGuest = () => {
     const AuthenticationMode: GraphQLOptions["authMode"] = "AWS_IAM";
     store.dispatch({
@@ -27,8 +20,6 @@ export const UserLandingScreen: React.FC = () => {
       payload: AuthenticationMode,
     });
   };
-
-  // ...
 
   return (
     <View style={styles.container}>
@@ -38,7 +29,7 @@ export const UserLandingScreen: React.FC = () => {
           autoPlay
           ref={animation}
           loop={true}
-          source={require("../../../assets/lottie/welcome4.json")}
+          source={require("../../assets/lottie/welcomeScreenLottie.json")}
         />
       </View>
       <View style={styles.buttonsContainer}>

@@ -11,14 +11,14 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { StyleSheet } from "react-native";
-import { RootStackParamList } from "../../../navigation/types";
+import { RootStackParamList } from "../../../types/navigationTypes";
 import { fetchEvent } from "../../../hooks/fetch/TicketMaster/TicketMasterList";
-import { modalLinkIcon } from "../../../util/helpers/modalLinkIcon";
+import { modalLinkIcon } from "../../../util/modalLinkIcon";
 import { getEventCustom } from "../../../hooks/fetch/Appsync/AppsyncEvents";
 import { GetEventQuery } from "../../../API";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../Store";
+import { RootState } from "../../../Store/store";
 
 interface EventModalProps {
   navigation: any;

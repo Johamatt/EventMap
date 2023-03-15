@@ -9,9 +9,10 @@ import {
 } from "react-native";
 import { RouteProp, useNavigation } from "@react-navigation/native";
 import { Auth } from "aws-amplify";
-import { RootStackParamList } from "../../../navigation/types";
-import Colors from "../../../constants/Colors";
+
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../types/navigationTypes";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 type UserNewPasswordScreenProp = RouteProp<
   RootStackParamList,

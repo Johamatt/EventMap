@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { ApplicationState, ON_UPDATE_EVENTPREFERENCES } from "../../../Store";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../../../navigation/types";
+import { RootStackParamList } from "../../../types/navigationTypes";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
+import { ApplicationState } from "../../../Store/reducers";
+import { ON_UPDATE_EVENTPREFERENCES } from "../../../Store/actions/userAction";
 
 interface FavouritesScreenProps {
   authenticationMode: GraphQLOptions["authMode"];
@@ -19,7 +20,7 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = ({
   const [events, setEvents] = useState<string | null>(null); // todo fetch user
 
   return (
-    <>
+    <React.Fragment>
       {authenticationMode === "AMAZON_COGNITO_USER_POOLS" ? (
         <View style={styles.container}>
           {events ? (
@@ -47,12 +48,11 @@ export const _FavouritesScreen: React.FC<FavouritesScreenProps> = ({
           </Text>
         </View>
       )}
-    </>
+    </React.Fragment>
   );
 };
 
 export const mapToStateProps = (state: ApplicationState) => ({
-  activitiesReducer: state.ActivitiesReducer,
   authenticationMode: state.UserReducer.AuthenticationMode,
 });
 

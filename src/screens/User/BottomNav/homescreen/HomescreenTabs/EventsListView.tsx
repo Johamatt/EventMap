@@ -2,13 +2,13 @@ import { ActivityIndicator, FlatList, View, Text } from "react-native";
 import { connect } from "react-redux";
 import React, { useEffect, useRef, useState } from "react";
 import { EventCardTicketMaster } from "../../../../../components/Cards/EventCardTicketMaster";
-import { ApplicationState } from "../../../../../Store";
 import { fetchTicketMasterToday } from "../../../../../hooks/fetch/TicketMaster/TicketMasterList";
 import { ByStartingDateTimeQuery, CATEGORY, Event } from "../../../../../API";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { listEventsCustom } from "../../../../../hooks/fetch/Appsync/AppsyncEvents";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import { EventCardAppSync } from "../../../../../components/Cards/EventCardAppsync";
+import { ApplicationState } from "../../../../../Store/reducers";
 
 type HomescreenProps = {
   tmCategory?: string;

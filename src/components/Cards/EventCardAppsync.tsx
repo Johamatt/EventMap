@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
-import { RootStackParamList } from "../../navigation/types";
+import { RootStackParamList } from "../../types/navigationTypes";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Event } from "../../API";

@@ -1,10 +1,10 @@
 import { LocationGeocodedLocation } from "expo-location";
 import { CATEGORY } from "../../API";
 import { UserAction } from "../actions/userAction";
-import { UserState } from "../types";
+import { UserState } from "../../types/typesRedux";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 
-const initialState: UserState = {
+export const initialState: UserState = {
   location: {} as LocationGeocodedLocation,
   userAuth: {} as any,
   preferences: [] as Array<CATEGORY>,
@@ -13,7 +13,10 @@ const initialState: UserState = {
   AuthenticationMode: undefined as GraphQLOptions["authMode"],
 };
 
-const userReducer = (state: UserState = initialState, action: UserAction) => {
+export const userReducer = (
+  state: UserState = initialState,
+  action: UserAction
+) => {
   switch (action.type) {
     case "ON_UPDATE_AUTH":
       return {
@@ -49,5 +52,3 @@ const userReducer = (state: UserState = initialState, action: UserAction) => {
       return state;
   }
 };
-
-export { userReducer };

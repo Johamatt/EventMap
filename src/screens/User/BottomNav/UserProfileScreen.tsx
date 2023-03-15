@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 import { connect } from "react-redux";
-import { ApplicationState, UserState, store } from "../../../Store";
 
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
+import { UserState } from "../../../types/typesRedux";
+import { store } from "../../../Store/store";
+import { ApplicationState } from "../../../Store/reducers";
 
 interface UserProfileScreenProps {
   userReducer: UserState;
@@ -14,8 +16,6 @@ interface UserProfileScreenProps {
 
 const _UserProfileScreen: React.FC<UserProfileScreenProps> = ({ authMode }) => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
-
-  console.log(authMode);
 
   const handleSignOut = async () => {
     await Auth.signOut();

@@ -2,17 +2,15 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Dimensions, View, StyleSheet, TouchableOpacity } from "react-native";
 import MapView, { Marker, Region } from "react-native-maps";
 import { connect } from "react-redux";
-import { ApplicationState } from "../../../../Store";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
-import { RootStackParamList } from "../../../../navigation/types";
-import OpenModalButton from "../../../../components/Buttons/OpenListModalButton";
-import { fetchTicketMasterToday } from "../../../../hooks/fetch/TicketMaster/TicketMasterList";
-import MapListModal from "../../modals/MapListModal";
+import { fetchTicketMasterToday } from "../../../hooks/fetch/TicketMaster/TicketMasterList";
+import { RootStackParamList } from "../../../types/navigationTypes";
+import MapListModal from "../modals/MapListModal";
+import OpenModalButton from "../../../components/Buttons/OpenListModalButton";
+import { ApplicationState } from "../../../Store/reducers";
 
-interface MapProps {
-  nextToken: string;
-}
+interface MapProps {}
 
 const _MapScreen: React.FC<MapProps> = (props) => {
   const mapRef = useRef<MapView>(null);
@@ -26,7 +24,13 @@ const _MapScreen: React.FC<MapProps> = (props) => {
   }, []);
 
   const fetchEventsMapToday = useCallback(async (page: number) => {
-    const eventsDataList = await fetchTicketMasterToday(page, 100);
+    const dateTimeNowString = new Date().toISOString();
+
+    const eventsDataList = await fetchTicketMasterToday(
+      page,
+      100,
+      dateTimeNowString
+    );
     setPage(page + 1);
     setEvents([
       ...events,
@@ -77,7 +81,9 @@ const _MapScreen: React.FC<MapProps> = (props) => {
                   ev._embedded.venues[0].location.longitude
                 ),
               }}
-              onPress={() => navigation.navigate("EventModal", { id: ev.id })}
+              onPress={() =>
+                navigation.navigate("TicketMasterEventModal", { id: ev.id })
+              }
             ></Marker>
           );
         })}
@@ -96,7 +102,7 @@ const _MapScreen: React.FC<MapProps> = (props) => {
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  nextToken: state.ActivitiesReducer.nextToken,
+  authenticationMode: state.UserReducer.AuthenticationMode,
 });
 const MapScreen = connect(mapToStateProps)(_MapScreen);
 

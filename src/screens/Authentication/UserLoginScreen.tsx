@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   Alert,
-  Image,
   TextInput,
   Text,
   TouchableOpacity,
@@ -11,12 +10,13 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../../navigation/types";
+import { RootStackParamList } from "../../types/navigationTypes";
 import { Auth } from "aws-amplify";
-import { connect } from "react-redux";
-import Colors from "../../../constants/Colors";
+import { store } from "../../Store/store";
 import LottieView from "lottie-react-native";
-import { ApplicationState, store, UserState } from "../../../Store";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import { ApplicationState } from "../../Store/reducers";
+import { connect } from "react-redux";
 
 const UserLoginScreen: React.FC = (props) => {
   const navigation =
@@ -80,7 +80,7 @@ const UserLoginScreen: React.FC = (props) => {
           autoPlay
           ref={animation}
           loop={true}
-          source={require("../../../assets/lottie/login-2.json")}
+          source={require("../../assets/lottie/loginScreenLottie.json")}
         />
       </View>
 

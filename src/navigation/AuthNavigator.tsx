@@ -1,9 +1,9 @@
-import { UserConfirmEmailScreen } from "../screens/Authentication/userAuthentication/UserConfirmEmailScreen";
-import { UserForgotPasswordScreen } from "../screens/Authentication/userAuthentication/UserForgotPasswordScreen";
-import { UserLandingScreen } from "../screens/Authentication/userAuthentication/UserLandingScreen";
-import UserLoginScreen from "../screens/Authentication/userAuthentication/UserLoginScreen";
-import { UserNewPasswordScreen } from "../screens/Authentication/userAuthentication/UserNewPasswordScreen";
-import { UserRegisterScreen } from "../screens/Authentication/userAuthentication/UserRegisterScreen";
+import { UserConfirmEmailScreen } from "../screens/Authentication/UserConfirmEmailScreen";
+import { UserForgotPasswordScreen } from "../screens/Authentication/UserForgotPasswordScreen";
+import { UserLandingScreen } from "../screens/Authentication/UserLandingScreen";
+import UserLoginScreen from "../screens/Authentication/UserLoginScreen";
+import { UserNewPasswordScreen } from "../screens/Authentication/UserNewPasswordScreen";
+import { UserRegisterScreen } from "../screens/Authentication/UserRegisterScreen";
 export const AuthNavigator = (Stack: any) => {
   return (
     <Stack.Group screenOptions={{ headerShown: false }}>

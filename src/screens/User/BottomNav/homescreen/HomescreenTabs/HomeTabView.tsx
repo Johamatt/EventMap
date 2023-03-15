@@ -1,14 +1,13 @@
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 import React, { useState } from "react";
-import { ApplicationState } from "../../../../../Store";
 import AutoScrollList from "../../../../../components/Lists/AutoScrollList";
 import { promotionsPlaceHolder } from "../../../../../util/helpers/promotionsPlaceHolder";
 import DailyCoinBanner from "../../../../../components/Banners/DailyCoinBanner";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
+import { ApplicationState } from "../../../../../Store/reducers";
 
 type HomeTabViewProps = {
-  nextToken: any;
   authenticationMode: GraphQLOptions["authMode"];
 };
 
@@ -25,6 +24,8 @@ const _HomeTabView: React.FC<HomeTabViewProps> = ({ authenticationMode }) => {
     );
   };
 
+  console.log(authenticationMode);
+
   return (
     <View style={styles.container}>
       {authenticationMode === "AMAZON_COGNITO_USER_POOLS" && (
@@ -36,7 +37,6 @@ const _HomeTabView: React.FC<HomeTabViewProps> = ({ authenticationMode }) => {
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  nextToken: state.ActivitiesReducer.nextToken,
   authenticationMode: state.UserReducer.AuthenticationMode,
 });
 

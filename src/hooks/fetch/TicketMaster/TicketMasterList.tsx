@@ -48,8 +48,6 @@ export const fetchEvent = async (
       }
     );
 
-    console.log(res);
-
     const event: TicketMasterEvent = res.data._embedded.events[0];
 
     // for (let key in event) {

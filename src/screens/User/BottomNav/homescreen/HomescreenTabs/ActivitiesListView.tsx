@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { CATEGORY } from "../../../../../API";
 
-import { ApplicationState } from "../../../../../Store";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../../../../navigation/types";
+import { RootStackParamList } from "../../../../../types/navigationTypes";
+import { ApplicationState } from "../../../../../Store/reducers";
 
 type HomescreenProps = {
   nextToken: any;
@@ -63,9 +63,7 @@ const _ActivitiesListView: React.FC<HomescreenProps> = (props) => {
 
   return <View />;
 };
-const mapToStateProps = (state: ApplicationState) => ({
-  nextToken: state.ActivitiesReducer.nextToken,
-});
+const mapToStateProps = (state: ApplicationState) => ({});
 
 const ActivitiesListView = connect(mapToStateProps)(_ActivitiesListView);
 
