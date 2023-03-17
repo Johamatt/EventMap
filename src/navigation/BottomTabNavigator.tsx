@@ -5,7 +5,7 @@ import HomeScreen from "../screens/User/BottomNav/homescreen/HomescreenTabs/Home
 import MapScreen from "../screens/User/BottomNav/MapScreen";
 import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
 
-export function BottomTabNavigator1(BottomTab: any): React.ComponentType<any> {
+export function BottomTabNavigator(BottomTab: any): React.ComponentType<any> {
   return () => (
     <BottomTab.Navigator
       screenOptions={{

@@ -11,16 +11,16 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { API, Auth, graphqlOperation } from "aws-amplify";
-import Colors from "../../constants/Colors";
-import Layout from "../../constants/Layout";
+
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import LottieView from "lottie-react-native";
-import { createUser } from "../../graphql/mutations";
-import { CreateUserInput } from "../../API";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigationTypes";
+import { CreateUserInput } from "../../API";
+import { createUser } from "../../graphql/mutations";
+import Colors from "../../constants/Colors";
 
 export const UserRegisterScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
@@ -77,11 +77,6 @@ export const UserRegisterScreen: React.FC = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back-sharp" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
       <View style={styles.body}>
         {/* <LottieView
           resizeMode="cover"
@@ -147,14 +142,6 @@ export const UserRegisterScreen: React.FC = (props) => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    flex: 0.1,
-    backgroundColor: Colors.light.headerBackground,
-    justifyContent: "center",
-    marginTop: StatusBar.length,
-    paddingLeft: 10,
-  },
-
   container: {
     flex: 1,
     backgroundColor: Colors.light.containerBackground,

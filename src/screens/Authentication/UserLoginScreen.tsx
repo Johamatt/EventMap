@@ -14,9 +14,11 @@ import { RootStackParamList } from "../../types/navigationTypes";
 import { Auth } from "aws-amplify";
 import { store } from "../../Store/store";
 import LottieView from "lottie-react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { ApplicationState } from "../../Store/reducers";
 import { connect } from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
+import Colors from "../../constants/Colors";
 
 const UserLoginScreen: React.FC = (props) => {
   const navigation =
@@ -67,53 +69,56 @@ const UserLoginScreen: React.FC = (props) => {
 
   const onContinueAsGuest = () => {
     store.dispatch({
-      type: "ON_UPDATE_GUESTUSER_SESSION",
-      payload: true,
+      type: "ON_UPDATE_AUTHENTICATIONMODE",
+      payload: "AWS_IAM",
     });
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.animationContainer}>
-        <LottieView
-          resizeMode="contain"
-          autoPlay
-          ref={animation}
-          loop={true}
-          source={require("../../assets/lottie/loginScreenLottie.json")}
-        />
-      </View>
+      <View style={{ flex: 0.33 }} />
 
       <View style={styles.formContainer}>
-        <View style={styles.TextInput}>
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor="#003f5c"
-            onChangeText={(username: string) => setUsername(username)}
-            textAlign="center"
-          />
-        </View>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Email"
+          placeholderTextColor="black"
+          onChangeText={(username: string) => setUsername(username)}
+          textAlign="center"
+        />
 
-        <View style={styles.TextInput}>
-          <TextInput
-            secureTextEntry={true}
-            placeholder="Password"
-            placeholderTextColor="#003f5c"
-            onChangeText={(password: string) => setPassword(password)}
-            textAlign="center"
-          />
-        </View>
+        <TextInput
+          style={styles.TextInput}
+          secureTextEntry={true}
+          placeholder="Password"
+          placeholderTextColor="black"
+          onChangeText={(password: string) => setPassword(password)}
+          textAlign="center"
+        />
+
+        <TouchableOpacity
+          style={{
+            width: "100%",
+            height: 50,
+            borderRadius: 5,
+            alignItems: "center",
+            justifyContent: "center",
+            marginVertical: 10,
+            backgroundColor: "teal",
+          }}
+          onPress={onSignInPressed}
+        >
+          <Text style={styles.buttonText}>
+            {loading ? "Loading..." : "LOGIN"}
+          </Text>
+        </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => navigation.navigate("UserForgotPasswordScreen")}
-          style={styles.forgotBtn}
         >
-          <Text style={styles.loginBtnText}> Forgot your Password?</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.loginBtn} onPress={onSignInPressed}>
-          <Text style={styles.loginBtnText}>
-            {loading ? "Loading..." : "LOGIN"}
+          <Text style={{ color: "white", paddingTop: 10 }}>
+            {" "}
+            Forgot Password?
           </Text>
         </TouchableOpacity>
       </View>
@@ -121,16 +126,24 @@ const UserLoginScreen: React.FC = (props) => {
       {!keyboardVisible && (
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
-            style={styles.questBtn}
+            style={{
+              width: "80%",
+              height: 50,
+              borderRadius: 5,
+              alignItems: "center",
+              justifyContent: "center",
+              marginVertical: 10,
+              backgroundColor: Colors.light.headerBackground,
+            }}
             onPress={() => onContinueAsGuest()}
           >
-            <Text style={styles.loginBtnText}>Continue as Guest</Text>
+            <Text style={styles.buttonText}>Continue as Guest</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate("UserRegisterScreen")}
-            style={styles.signUpBtn}
+            style={{ paddingBottom: 20 }}
           >
-            <Text>
+            <Text style={{ color: "white" }}>
               Don't have an account?{" "}
               <Text style={styles.linkText}>Sign up</Text>
             </Text>
@@ -146,76 +159,44 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
   },
+
   TextInput: {
-    width: "80%",
+    width: "100%",
     height: 50,
     backgroundColor: "white",
     borderRadius: 25,
     justifyContent: "center",
     marginVertical: 10,
   },
-  loginBtn: {
-    width: "80%",
-    height: 50,
-    backgroundColor: "blue",
-    borderRadius: 25,
-    alignItems: "center",
-    justifyContent: "center",
-    marginVertical: 10,
-  },
 
-  questBtn: {
+  button: {
     width: "100%",
     height: 50,
-    backgroundColor: "gray",
-    borderRadius: 25,
+    borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
     marginVertical: 10,
-    alignSelf: "center",
   },
 
-  loginBtnText: {
+  buttonText: {
     color: "white",
   },
 
   buttonsContainer: {
-    bottom: 10,
-    position: "absolute",
-    alignSelf: "center",
-  },
-
-  signUpBtn: {
-    padding: 8,
-    borderRadius: 25,
-    borderWidth: 1,
-    borderBottomColor: Colors.light.secondary,
-    color: "#fff",
-    fontWeight: "bold",
-
-    backgroundColor: "white",
-
-    alignSelf: "center",
-  },
-
-  forgotBtn: {
-    marginBottom: 15,
+    flex: 0.33,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column-reverse",
   },
 
   linkText: {
-    color: Colors.light.primary,
+    color: "teal",
     fontWeight: "bold",
     textDecorationLine: "underline",
   },
 
-  animationContainer: {
-    height: "33.33%",
-  },
-  animation: {
-    flex: 1,
-  },
   formContainer: {
-    flex: 0.5,
+    flex: 0.33,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 20,

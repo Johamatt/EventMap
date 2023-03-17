@@ -17,7 +17,7 @@ import {
 import { ApplicationState } from "../Store/reducers";
 import { RootStackParamList, RootTabParamList } from "../types/navigationTypes";
 import { TicketMasterEventModal } from "../screens/User/modals/TicketMasterEventModal";
-import { BottomTabNavigator1 } from "./BottomTabNavigator1";
+import { BottomTabNavigator } from "./BottomTabNavigator";
 
 interface NavigationProps {
   userAuth: any;
@@ -27,24 +27,26 @@ interface NavigationProps {
 }
 
 const _Navigation: React.FC<NavigationProps> = (props) => {
-  const [user, setUser] = useState<any>(undefined);
-
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const authUser = await Auth.currentAuthenticatedUser({
+        const user = await Auth.currentAuthenticatedUser({
           bypassCache: true,
         });
 
-        const AuthenticationMode: GraphQLOptions["authMode"] =
-          "AMAZON_COGNITO_USER_POOLS";
+        store.dispatch({
+          type: "ON_UPDATE_AUTH",
+          payload: user,
+        });
+
         store.dispatch({
           type: "ON_UPDATE_AUTHENTICATIONMODE",
-          payload: AuthenticationMode,
+          payload: "AMAZON_COGNITO_USER_POOLS",
         });
-        setUser(authUser);
       } catch (e) {
-        setUser(null);
+        // Auth.currentAuthenticatedUser returns either current user or "The user is not authenticated" -error msg
+        // amplify 10.8.1
+        console.log(e);
       }
     };
     checkUser();
@@ -54,20 +56,10 @@ const _Navigation: React.FC<NavigationProps> = (props) => {
     (state: RootState) => state.UserReducer.AuthenticationMode
   );
 
-  if (authmode !== undefined) {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>{MainNavigation()}</Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {user === null || user === undefined
-          ? AuthNavigator(Stack)
-          : MainNavigation()}
+        {authmode === undefined ? AuthNavigator(Stack) : MainNavigation()}
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -78,10 +70,7 @@ const mapToStateProps = (state: ApplicationState) => ({
   authMode: state.UserReducer.AuthenticationMode,
 });
 
-const Navigation = connect(mapToStateProps, {
-  ON_UPDATE_AUTH,
-  ON_UPDATE_AUTHENTICATIONMODE,
-})(_Navigation);
+const Navigation = connect(mapToStateProps, {})(_Navigation);
 export default Navigation;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -94,11 +83,7 @@ const MainNavigation = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen
-        name="UserRoot"
-        component={BottomTabNavigator1(BottomTab)}
-      />
-
+      <Stack.Screen name="UserRoot" component={BottomTabNavigator(BottomTab)} />
       <Stack.Group
         screenOptions={{
           presentation: "modal",
@@ -110,7 +95,6 @@ const MainNavigation = () => {
           name="TicketMasterEventModal"
           component={TicketMasterEventModal}
         />
-
         <Stack.Screen name="AppSyncEventModal" component={AppsyncEventModal} />
       </Stack.Group>
     </Stack.Group>

@@ -48,102 +48,73 @@ export const UserForgotPasswordScreen: React.FC = (props) => {
     }
   };
 
-  const onSignInPress = () => {
+  const handleBack = () => {
     navigation.navigate("UserLoginScreen");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Reset your password</Text>
-
-      <View style={styles.textInputView}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="User Email"
-          placeholderTextColor="#003f5c"
-          onChangeText={(username) => setUsername(username)}
-        />
-      </View>
-
-      <TouchableOpacity style={styles.sendBtn} onPress={onSendPressed}>
-        <Text style={styles.sendBtnText}>Send</Text>
+      <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        <Text style={styles.backButtonText}>Back</Text>
       </TouchableOpacity>
+      <Text style={styles.title}>Forgot Password</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        onChangeText={(text) => setUsername(text)}
+        value={username}
+        keyboardType="email-address"
+      />
 
-      {!keyboardVisible && (
-        <>
-          <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
-            <Text style={styles.backBtnText}>Back to Sign in</Text>
-          </TouchableOpacity>
-        </>
-      )}
+      <TouchableOpacity style={styles.button} onPress={onSendPressed}>
+        <Text style={styles.buttonText}>Send</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f2f2f2",
+  },
+  backButton: {
+    position: "absolute",
+    top: 16,
+    left: 16,
+  },
+  backButtonText: {
+    color: "#007AFF",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#051C60",
-    marginBottom: 10,
+    marginBottom: 24,
   },
-
-  container: {
-    flex: 1,
-    backgroundColor: Colors.light.containerBackground,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  image: {
-    maxWidth: 250,
-    maxHeight: 150,
-    width: 250,
-    height: 150,
-  },
-  textInputView: {
-    backgroundColor: Colors.light.inputBackground,
-    borderRadius: 25,
-    width: "70%",
-    height: 52,
-    marginBottom: 20,
-    borderColor: "grey",
+  input: {
+    width: "80%",
+    height: 48,
+    borderRadius: 8,
     borderWidth: 1,
-    alignItems: "center",
+    borderColor: "#ccc",
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  button: {
+    width: "80%",
+    height: 48,
+    backgroundColor: "#007AFF",
+    borderRadius: 8,
     justifyContent: "center",
-  },
-  textInput: {
-    height: 50,
-    flex: 1,
-  },
-  sendBtn: {
-    width: "40%",
-    borderRadius: 25,
-    height: 50,
     alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: Colors.light.secondary,
-    bottom: 0,
   },
-
-  sendBtnText: {
+  buttonText: {
     color: "#fff",
-    fontWeight: "bold",
-  },
-
-  backBtn: {
-    width: "90%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: Colors.light.primary,
-    bottom: 0,
-    position: "absolute",
-    marginBottom: 20,
-  },
-
-  backBtnText: {
-    color: "#fff",
+    fontSize: 16,
     fontWeight: "bold",
   },
 });
