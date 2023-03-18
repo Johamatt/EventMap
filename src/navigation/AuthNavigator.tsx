@@ -21,7 +21,7 @@ export const AuthNavigator = (Stack: any) => {
           headerShown: true,
           headerTitle: "",
           headerStyle: {
-            backgroundColor: Colors.light.headerBackground,
+            backgroundColor: "black",
           },
           headerTintColor: "#ffffff",
         }}
@@ -46,7 +46,7 @@ export const AuthNavigator = (Stack: any) => {
           headerShown: true,
           headerTitle: "",
           headerStyle: {
-            backgroundColor: Colors.light.headerBackground,
+            backgroundColor: "black",
           },
           headerTintColor: "#ffffff",
         }}
@@ -59,7 +59,7 @@ export const AuthNavigator = (Stack: any) => {
           headerShown: true,
           headerTitle: "",
           headerStyle: {
-            backgroundColor: Colors.light.headerBackground,
+            backgroundColor: "black",
           },
           headerTintColor: "#ffffff",
         }}
@@ -71,7 +71,7 @@ export const AuthNavigator = (Stack: any) => {
           headerShown: true,
           headerTitle: "",
           headerStyle: {
-            backgroundColor: Colors.light.headerBackground,
+            backgroundColor: "black",
           },
           headerTintColor: "#ffffff",
         }}

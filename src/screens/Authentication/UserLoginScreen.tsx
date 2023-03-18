@@ -13,11 +13,8 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigationTypes";
 import { Auth } from "aws-amplify";
 import { store } from "../../Store/store";
-import LottieView from "lottie-react-native";
 import { ApplicationState } from "../../Store/reducers";
 import { connect } from "react-redux";
-import { Ionicons } from "@expo/vector-icons";
-import { StatusBar } from "expo-status-bar";
 import Colors from "../../constants/Colors";
 
 const UserLoginScreen: React.FC = (props) => {
@@ -82,7 +79,7 @@ const UserLoginScreen: React.FC = (props) => {
         <TextInput
           style={styles.TextInput}
           placeholder="Email"
-          placeholderTextColor="black"
+          placeholderTextColor="#003f5c"
           onChangeText={(username: string) => setUsername(username)}
           textAlign="center"
         />
@@ -91,23 +88,12 @@ const UserLoginScreen: React.FC = (props) => {
           style={styles.TextInput}
           secureTextEntry={true}
           placeholder="Password"
-          placeholderTextColor="black"
+          placeholderTextColor="#003f5c"
           onChangeText={(password: string) => setPassword(password)}
           textAlign="center"
         />
 
-        <TouchableOpacity
-          style={{
-            width: "100%",
-            height: 50,
-            borderRadius: 5,
-            alignItems: "center",
-            justifyContent: "center",
-            marginVertical: 10,
-            backgroundColor: "teal",
-          }}
-          onPress={onSignInPressed}
-        >
+        <TouchableOpacity style={styles.button} onPress={onSignInPressed}>
           <Text style={styles.buttonText}>
             {loading ? "Loading..." : "LOGIN"}
           </Text>
@@ -116,7 +102,7 @@ const UserLoginScreen: React.FC = (props) => {
         <TouchableOpacity
           onPress={() => navigation.navigate("UserForgotPasswordScreen")}
         >
-          <Text style={{ color: "white", paddingTop: 10 }}>
+          <Text style={{ color: "white", paddingTop: 25 }}>
             {" "}
             Forgot Password?
           </Text>
@@ -162,20 +148,22 @@ const styles = StyleSheet.create({
 
   TextInput: {
     width: "100%",
-    height: 50,
-    backgroundColor: "white",
-    borderRadius: 25,
-    justifyContent: "center",
-    marginVertical: 10,
+    height: 48,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    paddingHorizontal: 16,
+    marginBottom: 16,
+    color: "white",
   },
 
   button: {
     width: "100%",
-    height: 50,
-    borderRadius: 5,
-    alignItems: "center",
+    height: 48,
+    backgroundColor: "#007AFF",
+    borderRadius: 8,
     justifyContent: "center",
-    marginVertical: 10,
+    alignItems: "center",
   },
 
   buttonText: {

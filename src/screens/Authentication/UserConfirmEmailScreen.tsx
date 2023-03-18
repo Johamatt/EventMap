@@ -14,7 +14,6 @@ import { RouteProp } from "@react-navigation/native";
 import { Auth } from "aws-amplify";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigationTypes";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 
 type UserConfirmEmailScreenProp = RouteProp<
   RootStackParamList,
@@ -61,13 +60,9 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
     }
   };
 
-  const onSignInPress = () => {
-    navigation.navigate("UserLoginScreen");
-  };
-
   const onResendPress = async () => {
     if (!username) {
-      Alert.alert("Enter Your Email");
+      Alert.alert("Oops!", "Enter Your Email");
     } else {
       try {
         await Auth.resendSignUp(username);
@@ -77,27 +72,23 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
       }
     }
   };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Confirm your email</Text>
-
-      <View style={styles.textInputView}>
-        {props.route.params?.username ? (
-          <View style={styles.textInputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder="Email"
-              placeholderTextColor="#003f5c"
-              textAlign="center"
-              onChangeText={(username: string) => setUsername(username)}
-            />
-          </View>
+      <View style={styles.formContainer}>
+        {!props.route.params?.username ? (
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Email"
+            placeholderTextColor="#003f5c"
+            textAlign="center"
+            onChangeText={(username: string) => setUsername(username)}
+          />
         ) : (
           <View />
         )}
 
         <TextInput
+          style={styles.TextInput}
           keyboardType="number-pad"
           placeholder="Enter your confirmation code"
           placeholderTextColor="#003f5c"
@@ -108,16 +99,13 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
         />
       </View>
 
-      <TouchableOpacity style={styles.confirmBtn} onPress={onConfirmPressed}>
-        <Text style={styles.confirmBtnText}>Confirm</Text>
+      <TouchableOpacity style={styles.confirmButton} onPress={onConfirmPressed}>
+        <Text style={styles.buttonText}>Confirm</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.resendBtn} onPress={onResendPress}>
-        <Text style={styles.resendBtnText}>Resend code</Text>
-      </TouchableOpacity>
       {!keyboardVisible && (
-        <TouchableOpacity style={styles.backBtn} onPress={onSignInPress}>
-          <Text style={styles.backBtnText}>Back to Sign in</Text>
+        <TouchableOpacity style={styles.resendButton} onPress={onResendPress}>
+          <Text style={styles.buttonText}>Resend code</Text>
         </TouchableOpacity>
       )}
     </View>
@@ -127,73 +115,53 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    backgroundColor: "black",
     justifyContent: "center",
   },
   TextInput: {
     width: "80%",
-    height: 50,
-    backgroundColor: "white",
-    borderRadius: 25,
-    justifyContent: "center",
-    marginVertical: 10,
+    height: 48,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    paddingHorizontal: 16,
+    marginBottom: 16,
+    color: "white",
   },
+
   title: {
     fontSize: 24,
     marginBottom: 16,
   },
-  textInputView: {
-    width: "80%",
-    borderRadius: 25,
-    height: 50,
-    borderWidth: 1,
 
+  confirmButton: {
+    marginTop: 20,
+    width: "80%",
+    height: 48,
+    backgroundColor: "#007AFF",
+    borderRadius: 8,
     justifyContent: "center",
-    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
   },
 
-  //
-  confirmBtn: {
-    width: "80%",
-    backgroundColor: Colors.light.secondary,
-    borderRadius: 25,
+  resendButton: {
+    backgroundColor: "black",
+
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
-    marginBottom: 10,
+    paddingTop: 30,
   },
-  confirmBtnText: {
+  buttonText: {
     color: "white",
+    fontWeight: "bold",
   },
 
-  //
-  resendBtn: {
-    width: "80%",
-    backgroundColor: "#000",
-    borderRadius: 25,
-    height: 50,
+  formContainer: {
+    flex: 0.33,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 10,
-  },
-  resendBtnText: {
-    color: "white",
-  },
-
-  //
-  backBtn: {
-    width: "80%",
-    backgroundColor: Colors.light.primary,
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    bottom: 30,
-    position: "absolute",
-  },
-  backBtnText: {
-    color: "#fff",
+    paddingHorizontal: 20,
   },
 });
