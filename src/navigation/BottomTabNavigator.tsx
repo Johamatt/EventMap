@@ -1,5 +1,6 @@
 import { Feather } from "@expo/vector-icons";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import Colors from "../constants/Colors";
+
 import FavouritesScreen from "../screens/User/BottomNav/FavouritesScreen";
 import HomeScreen from "../screens/User/BottomNav/homescreen/HomescreenTabs/HomeScreen";
 import MapScreen from "../screens/User/BottomNav/MapScreen";

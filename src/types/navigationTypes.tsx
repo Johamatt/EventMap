@@ -23,6 +23,7 @@ export type RootStackParamList = {
   UserForgotPasswordScreen: undefined;
   UserLandingScreen: undefined;
 
+  UserPreferenceModal: undefined;
   TicketMasterEventModal: { id: string };
   AppSyncEventModal: { id: string };
 };

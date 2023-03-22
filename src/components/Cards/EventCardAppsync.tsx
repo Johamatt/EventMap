@@ -3,128 +3,82 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { RootStackParamList } from "../../types/navigationTypes";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Event } from "../../API";
+import moment from "moment";
 
 interface EventCardProps {
   event: Event;
 }
 
-export const EventCardAppSync: React.FC<EventCardProps> = (props) => {
-  const event: Event = props.event;
+export const EventCardAppSync: React.FC<EventCardProps> = ({ event }) => {
+  const formattedDate = moment(event.startingDateTime).format("MMM DD");
+  const formattedTime = moment(event.startingDateTime).format("HH:MM");
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  return (
-    <TouchableOpacity
-      style={styles.cardContainer}
-      onPress={() => navigation.navigate("AppSyncEventModal", { id: event.id })}
-    >
-      <View style={styles.cardTopContainer}></View>
-      <View style={styles.cardBottomContainer}>
-        <Text style={styles.cardTitle}>{event.name.fi}</Text>
-        <View style={styles.cardTimeContainer}>
-          <Text style={styles.cardTimeLabel}>Starts:</Text>
-          <Text style={styles.time}>{event.startingDateTime}</Text>
+    return (
+      <TouchableOpacity
+        style={styles.cardContainer}
+        onPress={() => navigation.navigate("AppSyncEventModal", { id: event.id })}
+      >
+        <View style={{ flexDirection: "row", flex: 1 }}>
+          <View style={[styles.cardTimeContainer, { flex: 1 / 4 }]}>
+            <Text style={styles.date}>{formattedDate}</Text>
+  
+            <Text style={styles.time}>{formattedTime}</Text>
+          </View>
+          <View style={styles.separator} />
+          <Text style={[styles.cardTitle, { flex: 4 / 4 }]}>{event.name.fi}</Text>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
-};
-
-const styles = StyleSheet.create({
-  card: {
-    flex: 1,
-    backgroundColor: "#fff",
-
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderBottomWidth: 0.5,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  imageContainer: {
-    flexDirection: "row",
-    marginVertical: 10,
-  },
-
-  timeContainer: {
-    flexDirection: "row",
-    paddingBottom: 10,
-  },
-
-  time: {
-    fontSize: 14,
-    color: "green",
-  },
-
-  tinyImage: {
-    margin: 5,
-    width: 50,
-    height: 50,
-  },
-
-  cardContainer: {
-    borderRadius: 14,
-    backgroundColor: "#000000",
-    flex: 1,
-    margin: 10,
-    borderColor: Colors.light.primary,
-    borderWidth: 1,
-  },
-  cardTopContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-  },
-  cardProfileImage: {
-    width: 40, // set a fixed width for the cover image
-    height: 40,
-    maxHeight: 40,
-    maxWidth: 40,
-    borderWidth: 2,
-    borderColor: Colors.light.primary,
-    borderRadius: 25,
-    marginRight: 10,
-  },
-  cardUsername: { fontSize: 24, fontWeight: "bold", color: "#FFFFFF" },
-
-  cardBottomContainer: {
-    padding: 10,
-  },
-  cardTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#FFFFFF",
-    marginBottom: 10,
-  },
-  cardParticipantListContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    marginHorizontal: 10,
-  },
-  cardParticipantImage: {
-    height: 30,
-    width: 30,
-    borderRadius: 25,
-    margin: 1,
-  },
-  cardTimeContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 5,
-  },
-  cardTimeLabel: {
-    fontSize: 16,
-    color: "#FFFFFF",
-    marginRight: 5,
-  },
-  cardTimeValue: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#FFFFFF",
-  },
-});
+      </TouchableOpacity>
+    );
+  };
+  
+  const styles = StyleSheet.create({
+    date: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: "#FFFFFF",
+    },
+    time: {
+      fontSize: 18,
+      color: "green",
+    },
+  
+    separator: {
+      borderRightWidth: 1,
+      borderColor: "#024DDF",
+      height: "100%",
+      marginRight: 10,
+    },
+  
+    cardContainer: {
+      flexDirection: "row",
+      padding: 10,
+      borderRadius: 14,
+      backgroundColor: "#000000",
+      flex: 1,
+      margin: 10,
+  
+      borderWidth: 1,
+    },
+  
+    cardTitle: {
+      fontSize: 24,
+      fontWeight: "bold",
+      color: "#FFFFFF",
+      marginBottom: 10,
+    },
+  
+    cardTimeContainer: {
+      flexDirection: "column",
+      alignItems: "center",
+    },
+    cardTimeLabel: {
+      fontSize: 16,
+      color: "#FFFFFF",
+      marginRight: 5,
+    },
+  });
+  

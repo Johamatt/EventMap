@@ -4,7 +4,7 @@ interface Props {
   openModal: () => void;
 }
 
-const OpenModalButton = ({ openModal }: Props) => {
+const MapModalButton = ({ openModal }: Props) => {
   return (
     <View style={styles.view}>
       <TouchableOpacity onPress={openModal} style={styles.button}>
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OpenModalButton;
+export default MapModalButton;

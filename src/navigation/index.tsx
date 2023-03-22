@@ -15,6 +15,8 @@ import { ApplicationState } from "../Store/reducers";
 import { RootStackParamList, RootTabParamList } from "../types/navigationTypes";
 import { TicketMasterEventModal } from "../screens/User/modals/TicketMasterEventModal";
 import { BottomTabNavigator } from "./BottomTabNavigator";
+import { UserPreferenceModal } from "../screens/User/modals/UserPreferenceModal";
+import Colors from "../constants/Colors";
 
 interface NavigationProps {
   userAuth: any;
@@ -83,6 +85,10 @@ const MainNavigation = () => {
           presentation: "modal",
           headerShown: true,
           headerTitle: "",
+          headerStyle: {
+            backgroundColor: Colors.light.headerBackground,
+          },
+          headerTintColor: "#ffffff",
         }}
       >
         <Stack.Screen
@@ -90,6 +96,11 @@ const MainNavigation = () => {
           component={TicketMasterEventModal}
         />
         <Stack.Screen name="AppSyncEventModal" component={AppsyncEventModal} />
+
+        <Stack.Screen
+          name="UserPreferenceModal"
+          component={UserPreferenceModal}
+        />
       </Stack.Group>
     </Stack.Group>
   );

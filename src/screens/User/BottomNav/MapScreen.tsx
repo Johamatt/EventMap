@@ -7,7 +7,7 @@ import { useNavigation, DrawerActions } from "@react-navigation/native";
 import { fetchTicketMasterToday } from "../../../hooks/fetch/TicketMaster/TicketMasterList";
 import { RootStackParamList } from "../../../types/navigationTypes";
 import MapListModal from "../modals/MapListModal";
-import OpenModalButton from "../../../components/Buttons/OpenListModalButton";
+import MapModalButton from "../../../components/Buttons/MapModalButton";
 import { ApplicationState } from "../../../Store/reducers";
 
 interface MapProps {}
@@ -95,7 +95,7 @@ const _MapScreen: React.FC<MapProps> = (props) => {
           events={events}
         />
       ) : (
-        <OpenModalButton openModal={() => setShowCard(true)} />
+        <MapModalButton openModal={() => setShowCard(true)} />
       )}
     </View>
   );

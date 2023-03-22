@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
-
 import {
   View,
   StyleSheet,
   TouchableOpacity,
   Text,
   ScrollView,
+  Modal,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
@@ -17,6 +17,11 @@ import HomeTabView from "./HomeTabView";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import SearchBar from "../../../../../components/Input/SearchBar";
 import { ApplicationState } from "../../../../../Store/reducers";
+import MapModalButton from "../../../../../components/Buttons/MapModalButton";
+import { UserPreferenceModal } from "../../../modals/UserPreferenceModal";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../../../../types/navigationTypes";
 
 type HomescreenProps = {
   authenticationMode: GraphQLOptions["authMode"];
@@ -24,16 +29,11 @@ type HomescreenProps = {
 
 const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [tabView, setTabView] = useState<
-    | "Home"
-    | "All"
-    | "Activities & Games"
-    | "Festivals"
-    | "Entertainment"
-    | "Sports"
-  >("Home");
+  const [tabView, setTabView] = useState<string>("Home");
 
   const [searchText, setSearchText] = useState("");
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handleSearch = (text: string) => {
     setSearchText(text);
@@ -41,6 +41,13 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
   };
 
   const animation = useRef(null);
+  const tabLabels = [
+    "All",
+    "Activities & Games",
+    "Festivals",
+    "Entertainment",
+    "Sports",
+  ];
 
   return (
     <View style={styles.container}>
@@ -52,7 +59,10 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity style={styles.headerButton}>
+          <TouchableOpacity
+            style={styles.headerButton}
+            onPress={() => navigation.navigate("UserPreferenceModal")}
+          >
             <Ionicons name="options-outline" size={24} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
@@ -107,72 +117,21 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
         </TouchableOpacity>
 
         <ScrollView horizontal={true} style={styles.tabScrollView}>
-          <TouchableOpacity
-            style={styles.tab}
-            onPress={() => setTabView("All")}
-          >
-            <Text
-              style={tabView === "All" ? styles.selectedTab : styles.headerTab}
+          {tabLabels.map((label: string) => (
+            <TouchableOpacity
+              key={label}
+              style={styles.tab}
+              onPress={() => setTabView(label)}
             >
-              All
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.tab}
-            onPress={() => setTabView("Activities & Games")}
-          >
-            <Text
-              style={
-                tabView === "Activities & Games"
-                  ? styles.selectedTab
-                  : styles.headerTab
-              }
-            >
-              Activities & Games
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.tab}
-            onPress={() => setTabView("Festivals")}
-          >
-            <Text
-              style={
-                tabView === "Festivals" ? styles.selectedTab : styles.headerTab
-              }
-            >
-              Festivals
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.tab}
-            onPress={() => setTabView("Entertainment")}
-          >
-            <Text
-              style={
-                tabView === "Entertainment"
-                  ? styles.selectedTab
-                  : styles.headerTab
-              }
-            >
-              Entertainment
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.tab}
-            onPress={() => setTabView("Sports")}
-          >
-            <Text
-              style={
-                tabView === "Sports" ? styles.selectedTab : styles.headerTab
-              }
-            >
-              Sports
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={
+                  tabView === label ? styles.selectedTab : styles.headerTab
+                }
+              >
+                {label}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
       {tabView === "All" ? (
