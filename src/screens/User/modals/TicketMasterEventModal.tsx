@@ -13,6 +13,9 @@ import { StyleSheet } from "react-native";
 import { RootStackParamList } from "../../../types/navigationTypes";
 import { fetchEvent } from "../../../hooks/fetch/TicketMaster/TicketMasterList";
 import { modalLinkIcon } from "../../../util/modalLinkIcon";
+import { Analytics } from "aws-amplify";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Store/store";
 
 interface TicketMasterEventModalProps {
   navigation: any;
@@ -27,10 +30,22 @@ export const TicketMasterEventModal: React.FC<TicketMasterEventModalProps> = (
 
   const [event, setEvent] = useState<TicketMasterEvent>();
 
+  const user = useSelector((state: RootState) => state.UserReducer);
+
   useEffect(() => {
     async function fetchData() {
       const fetchedEvent = await fetchEvent(props.route.params.id);
       setEvent(fetchedEvent);
+
+      Analytics.record({
+        name: "TMEventModalOpened",
+        attributes: {
+          ITEM_ID: props.route.params.id,
+          USER_ID: user.userAuth?.attributes?.sub,
+          GENRE: JSON.stringify(event?.classifications[0].genre),
+          timestamp: new Date().toISOString(),
+        },
+      });
     }
     fetchData();
   }, []);

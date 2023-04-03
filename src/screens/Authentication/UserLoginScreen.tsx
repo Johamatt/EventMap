@@ -57,6 +57,11 @@ const UserLoginScreen: React.FC = (props) => {
           userAuth: signIn,
         },
       });
+
+      store.dispatch({
+        type: "ON_UPDATE_AUTHENTICATIONMODE",
+        payload: "AMAZON_COGNITO_USER_POOLS",
+      });
     } catch (error: any) {
       Alert.alert("Oops!", error.message);
     }

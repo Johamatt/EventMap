@@ -12,20 +12,6 @@ type HomeTabViewProps = {
 };
 
 const _HomeTabView: React.FC<HomeTabViewProps> = ({ authenticationMode }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  const renderFooter = () => {
-    if (!isLoading) return null;
-
-    return (
-      <View style={styles.activityIndicatorContainer}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  };
-
-  console.log(authenticationMode);
-
   return (
     <View style={styles.container}>
       {authenticationMode === "AMAZON_COGNITO_USER_POOLS" && (
@@ -35,6 +21,7 @@ const _HomeTabView: React.FC<HomeTabViewProps> = ({ authenticationMode }) => {
     </View>
   );
 };
+
 
 const mapToStateProps = (state: ApplicationState) => ({
   authenticationMode: state.UserReducer.AuthenticationMode,

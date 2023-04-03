@@ -1,46 +1,3 @@
-type Name {
-  fi: String
-  en: String
-  sv: String
-  jp: String
-  es: String
-}
-
-type Description {
-  fi: String
-  en: String
-  sv: String
-  jp: String
-  es: String
-}
-
-
-type Location {
-  lat: Float!
-  lon: Float!
-  streetAddress: String
-  postalCode: String
-  city: String
-  country: String
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 type Event @model @auth(rules: [{allow: owner},  
  {allow: groups, groups: ["Admin"]},  
  {allow: groups, groups: ["DefaultUser"], operations: [read]},
@@ -117,9 +74,6 @@ type Ticket @model @auth(rules: [{allow: owner},
       owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
-
-
-
 type Offer @model @auth(rules: [{allow: owner},  
 {allow: groups, groups: ["Admin"]}, 
  {allow: groups, groups: ["DefaultUser"], operations: [read]},
@@ -134,12 +88,6 @@ type Offer @model @auth(rules: [{allow: owner},
   discount: Float 
   bundleSize: Int 
     owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
-}
-
-enum OfferType {
-  DISCOUNT
-  BUNDLE
-  GIFT
 }
 
 type User @model @auth(rules: [{allow: owner},  
@@ -159,15 +107,6 @@ type User @model @auth(rules: [{allow: owner},
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
-
-enum FriendshipStatus {
-  REQUESTED
-  ACCEPTED
-  DECLINED
-}
-
-
-
 type Links {
   mainURL: AWSURL
   secondaryURL: AWSURL
@@ -177,41 +116,6 @@ type Links {
     instagramURL: AWSURL
     youtubeURL: AWSURL
 }
-
-enum CATEGORY {
-  MUSIC
-  FESTIVAL
-  EXPO
-  SPORT
-  MOTORSPORTS
-  GAMES
-  NIGHTLIFE
-  FOODDRINKS
-  TECHNOLOGY
-  TRIP
-
-  CONCERT
-  STANDUP
-  FAMILY
-  HEALTH
-  
-  WORKSHOP
-  EDUCATION
-  BUSINESS
-
-  PERFORMANCE
-  MUSEUM
-
-  NATURE
-  SCIENCE
-
-  BOARDGAMES
-  VIDEOGAMES
-  GAMBLING
-  OTHER
-}
-
-
 
 type OpenDays {
   day: Int
@@ -244,4 +148,72 @@ type EventFeedback @model @auth(rules: [{allow: owner},
   comment: String
   createdAt: String!
     owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+type Name {
+  fi: String
+  en: String
+  sv: String
+  jp: String
+  es: String
+}
+
+type Description {
+  fi: String
+  en: String
+  sv: String
+  jp: String
+  es: String
+}
+
+
+type Location {
+  lat: Float!
+  lon: Float!
+  streetAddress: String
+  postalCode: String
+  city: String
+  country: String
+}
+
+
+enum FriendshipStatus {
+  REQUESTED
+  ACCEPTED
+  DECLINED
+}
+
+enum OfferType {
+  DISCOUNT
+  BUNDLE
+  GIFT
+}
+
+enum CATEGORY {
+  MUSIC
+  FESTIVAL
+  EXPO
+  SPORT
+  MOTORSPORTS
+  GAMES
+  NIGHTLIFE
+  FOODDRINKS
+  TECHNOLOGY
+  TRIP
+  CONCERT
+  STANDUP
+  FAMILY
+  HEALTH
+  WORKSHOP
+  EDUCATION
+  BUSINESS
+  PERFORMANCE
+  MUSEUM
+  CULTURE
+  NATURE
+  SCIENCE
+  BOARDGAMES
+  VIDEOGAMES
+  GAMBLING
+  OTHER
 }

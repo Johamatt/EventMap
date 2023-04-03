@@ -22,18 +22,15 @@ export const EventsbyStartingDateTimeCustomQuery = /* GraphQL */ `
         mainPicture
         name {
           fi
-          en
-          sv
-          jp
-          es
+        }
+        description {
+          fi
         }
         isFree
-        Ticket {
-          nextToken
+        company {
+          logo
+          name
         }
-        companyEventsId
-        createdAt
-        updatedAt
       }
       nextToken
     }

@@ -11,9 +11,10 @@ import {
 
 import { useNavigation } from "@react-navigation/core";
 import { RouteProp } from "@react-navigation/native";
-import { Auth } from "aws-amplify";
+import { API, Auth, graphqlOperation } from "aws-amplify";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigationTypes";
+import { createUser } from "../../graphql/mutations";
 
 type UserConfirmEmailScreenProp = RouteProp<
   RootStackParamList,
@@ -54,6 +55,8 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   const onConfirmPressed = async () => {
     try {
       await Auth.confirmSignUp(username, code);
+
+
       navigation.navigate("UserLoginScreen");
     } catch (error: any) {
       Alert.alert("Oops!", error.message);

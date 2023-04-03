@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Text,
   ScrollView,
-  Modal,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
@@ -17,8 +16,6 @@ import HomeTabView from "./HomeTabView";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import SearchBar from "../../../../../components/Input/SearchBar";
 import { ApplicationState } from "../../../../../Store/reducers";
-import MapModalButton from "../../../../../components/Buttons/MapModalButton";
-import { UserPreferenceModal } from "../../../modals/UserPreferenceModal";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../../../types/navigationTypes";
@@ -27,13 +24,41 @@ type HomescreenProps = {
   authenticationMode: GraphQLOptions["authMode"];
 };
 
+const tabLabels = [
+  "All",
+  "Activities & Games",
+  "Festivals",
+  "Entertainment",
+  "Sports",
+];
+
 const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [tabView, setTabView] = useState<string>("Home");
-
   const [searchText, setSearchText] = useState("");
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const [tabView, setTabView] = useState<string>("Home");
+
+  const renderTab = () => {
+    switch (tabView) {
+      case "All":
+        return <EventsListView key="All" />;
+      case "Activities & Games":
+        return (
+          <EventsListView key="Activities & Games" tmCategory="Miscellaneous" />
+        );
+      case "Festivals":
+        return <EventsListView key="Festivals" tmCategory="festival" />;
+      case "Sports":
+        return <EventsListView key="Sports" tmCategory="sport" />;
+      case "Entertainment":
+        return (
+          <EventsListView key="Entertainment" tmCategory="Entertainment" />
+        );
+      default:
+        return <HomeTabView key="Home" />;
+    }
+  };
 
   const handleSearch = (text: string) => {
     setSearchText(text);
@@ -41,13 +66,6 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
   };
 
   const animation = useRef(null);
-  const tabLabels = [
-    "All",
-    "Activities & Games",
-    "Festivals",
-    "Entertainment",
-    "Sports",
-  ];
 
   return (
     <View style={styles.container}>
@@ -115,7 +133,6 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
             color={tabView === "Home" ? Colors.light.primary : "white"}
           />
         </TouchableOpacity>
-
         <ScrollView horizontal={true} style={styles.tabScrollView}>
           {tabLabels.map((label: string) => (
             <TouchableOpacity
@@ -134,19 +151,7 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
           ))}
         </ScrollView>
       </View>
-      {tabView === "All" ? (
-        <EventsListView key="All" />
-      ) : tabView === "Activities & Games" ? (
-        <EventsListView key="Activities & Games" tmCategory="Miscellaneous" />
-      ) : tabView === "Festivals" ? (
-        <EventsListView key="Festivals" tmCategory="festival" />
-      ) : tabView === "Sports" ? (
-        <EventsListView key="Sports" tmCategory="sport" />
-      ) : tabView === "Entertainment" ? (
-        <EventsListView key="Entertainment" tmCategory="Entertainment" />
-      ) : (
-        <HomeTabView key="Home" />
-      )}
+      {renderTab()}
     </View>
   );
 };

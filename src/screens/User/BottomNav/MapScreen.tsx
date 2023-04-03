@@ -23,6 +23,8 @@ const _MapScreen: React.FC<MapProps> = (props) => {
     fetchEventsMapToday(page);
   }, []);
 
+
+
   const fetchEventsMapToday = useCallback(async (page: number) => {
     const dateTimeNowString = new Date().toISOString();
 

@@ -17,6 +17,7 @@ import { TicketMasterEventModal } from "../screens/User/modals/TicketMasterEvent
 import { BottomTabNavigator } from "./BottomTabNavigator";
 import { UserPreferenceModal } from "../screens/User/modals/UserPreferenceModal";
 import Colors from "../constants/Colors";
+import SplashScreen from "../screens/util/SplashScreen";
 
 interface NavigationProps {
   userAuth: any;
@@ -46,7 +47,7 @@ const _Navigation: React.FC<NavigationProps> = ({ userAuth, authmode }) => {
     };
 
     checkUser();
-  }, [userAuth, authmode]);
+  }, [authmode]);
 
   const auth = useSelector(
     (state: RootState) => state.UserReducer.AuthenticationMode

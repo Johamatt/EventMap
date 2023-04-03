@@ -1,49 +1,48 @@
 import {
   Dimensions,
-  ImageURISource,
   Linking,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
 import { View, Text, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { StyleSheet } from "react-native";
-import { RootStackParamList } from "../../../types/navigationTypes";
-import { fetchEvent } from "../../../hooks/fetch/TicketMaster/TicketMasterList";
-import { modalLinkIcon } from "../../../util/modalLinkIcon";
 import { getEventCustom } from "../../../hooks/fetch/Appsync/AppsyncEvents";
 import { GetEventQuery } from "../../../API";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Store/store";
+import { Analytics } from "aws-amplify";
 
 interface EventModalProps {
-  navigation: any;
   route: any;
 }
 
-export const AppsyncEventModal: React.FC<EventModalProps> = (props) => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
+export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
   const [event, setEvent] = useState<
     GraphQLResult<GetEventQuery> | undefined
   >();
 
-  const authmode = useSelector(
-    (state: RootState) => state.UserReducer.AuthenticationMode
-  );
+  const user = useSelector((state: RootState) => state.UserReducer);
 
   useEffect(() => {
     async function fetchData() {
       const fetchedEvent = await getEventCustom(
-        props.route.params.id,
-        authmode
+        route.params.id,
+        user.AuthenticationMode
       );
       setEvent(fetchedEvent);
+
+      Analytics.record({
+        name: "ASEventModalOpened",
+        attributes: {
+          ITEM_ID: route.params.id,
+          USER_ID: user.userAuth?.attributes?.sub,
+          CATEGORIES: JSON.stringify(event?.data?.getEvent?.category),
+          timestamp: new Date().toISOString(),
+        },
+      });
     }
     fetchData();
   }, []);
@@ -52,6 +51,7 @@ export const AppsyncEventModal: React.FC<EventModalProps> = (props) => {
     return <View />;
   }
 
+  console.log(JSON.stringify(event?.data?.getEvent?.category));
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.name}>{event.data?.getEvent?.name.fi}</Text>

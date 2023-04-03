@@ -42,19 +42,13 @@ export const UserRegisterScreen: React.FC = (props) => {
   const onRegisterPressed = async () => {
     if (passwordRepeat === password) {
       try {
-        await Auth.signUp({ username, password });
+        const ok = await Auth.signUp({ username, password });
         const user: CreateUserInput = {
           name: username,
           email: username,
         };
 
-        await API.graphql(
-          graphqlOperation(createUser, {
-            input: user,
-          })
-        );
-
-        navigation?.navigate("UserConfirmEmailScreen", { username });
+        navigation.navigate("UserConfirmEmailScreen", { username });
       } catch (error: any) {
         Alert.alert("Oops!", error.message);
       }

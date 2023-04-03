@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import React, { useEffect, useRef, useState } from "react";
 import { EventCardTicketMaster } from "../../../../../components/Cards/EventCardTicketMaster";
 import { fetchTicketMasterToday } from "../../../../../hooks/fetch/TicketMaster/TicketMasterList";
-import { ByStartingDateTimeQuery, CATEGORY, Event } from "../../../../../API";
-import { GraphQLResult } from "@aws-amplify/api-graphql";
+import { CATEGORY, Event } from "../../../../../API";
 import { listEventsCustom } from "../../../../../hooks/fetch/Appsync/AppsyncEvents";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import { EventCardAppSync } from "../../../../../components/Cards/EventCardAppsync";
@@ -13,6 +12,9 @@ import { ApplicationState } from "../../../../../Store/reducers";
 type HomescreenProps = {
   tmCategory?: string;
   asCategory?: CATEGORY | undefined;
+
+  etCategory?: string;
+
   authenticationMode: GraphQLOptions["authMode"];
 };
 
@@ -20,7 +22,6 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
   const [events, setEvents] = useState<Array<TicketMasterEvent | Event>>([]);
   const [page, setPage] = useState(0);
   const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
-
   const [isLoading, setIsLoading] = useState(true);
 
   // Use useRef to track whether fetchDataEventsAS has been called at least once
@@ -94,6 +95,8 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
       </View>
     );
   };
+
+  console.log(events[0]);
 
   return (
     <FlatList
