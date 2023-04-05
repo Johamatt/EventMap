@@ -22,7 +22,6 @@ const App: React.FC = () => {
         setIsLoadingComplete(true);
       } catch (err) {
         console.error(err);
-        setIsLoadingComplete(false);
       }
     };
     loadResources();
@@ -34,7 +33,7 @@ const App: React.FC = () => {
       {isLoadingComplete ? (
         <Provider store={store}>
           <SafeAreaProvider>
-            <Navigation authmode={undefined} />
+            <Navigation />
           </SafeAreaProvider>
         </Provider>
       ) : (

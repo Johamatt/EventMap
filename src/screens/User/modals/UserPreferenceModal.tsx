@@ -10,7 +10,7 @@ export const UserPreferenceModal: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<String>("ALL");
 
   const dateButtonLabels: Array<String> = [
-    "All Dates",
+    "All",
     "Today",
     "Tomorrow",
     "This week",
@@ -19,7 +19,7 @@ export const UserPreferenceModal: React.FC = () => {
   ];
 
   const categoryButtonLabels: Array<String> = [
-    "ALL Categories",
+    "ALL",
     "MUSIC",
     "FESTIVAL",
     "EXPO",
@@ -81,7 +81,15 @@ export const UserPreferenceModal: React.FC = () => {
         {categoryButtonLabels.map((label, index) => (
           <TouchableOpacity
             key={index}
-            onPress={() => setSelectedCategory(label)}
+            onPress={() => {
+              if (selectedCategory === label) {
+                // Unselect the category if it is already selected
+                setSelectedCategory("ALL");
+              } else {
+                // Select the category if it is not selected
+                setSelectedCategory(label);
+              }
+            }}
             style={
               selectedCategory === label
                 ? styles.selectedDateButton

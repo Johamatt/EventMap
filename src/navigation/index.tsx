@@ -17,14 +17,12 @@ import { TicketMasterEventModal } from "../screens/User/modals/TicketMasterEvent
 import { BottomTabNavigator } from "./BottomTabNavigator";
 import { UserPreferenceModal } from "../screens/User/modals/UserPreferenceModal";
 import Colors from "../constants/Colors";
-import SplashScreen from "../screens/util/SplashScreen";
 
 interface NavigationProps {
-  userAuth: any;
-  authmode: GraphQLOptions["authMode"];
+  authMode: GraphQLOptions["authMode"];
 }
 
-const _Navigation: React.FC<NavigationProps> = ({ userAuth, authmode }) => {
+const _Navigation: React.FC<NavigationProps> = ({ authMode }) => {
   useEffect(() => {
     const checkUser = async () => {
       try {
@@ -34,36 +32,28 @@ const _Navigation: React.FC<NavigationProps> = ({ userAuth, authmode }) => {
           type: "ON_UPDATE_AUTH",
           payload: user,
         });
-
         store.dispatch({
           type: "ON_UPDATE_AUTHENTICATIONMODE",
           payload: "AMAZON_COGNITO_USER_POOLS",
         });
+        
       } catch (error) {
-        // Auth.currentAuthenticatedUser returns either current user or "The user is not authenticated" -error msg
-        // amplify 10.8.1
         console.log(error);
       }
     };
-
     checkUser();
-  }, [authmode]);
-
-  const auth = useSelector(
-    (state: RootState) => state.UserReducer.AuthenticationMode
-  );
+  }, [authMode]);
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {auth === undefined ? AuthNavigator(Stack) : MainNavigation()}
+        {authMode === undefined ? AuthNavigator(Stack) : MainNavigation()}
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  userAuth: state.UserReducer.userAuth,
   authMode: state.UserReducer.AuthenticationMode,
 });
 

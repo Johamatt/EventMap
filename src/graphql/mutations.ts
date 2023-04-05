@@ -21,6 +21,7 @@ export const createEvent = /* GraphQL */ `
         country
       }
       category
+      primaryCategory
       company {
         id
         email
@@ -43,6 +44,7 @@ export const createEvent = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         events {
           nextToken
@@ -79,9 +81,9 @@ export const createEvent = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       ageRestriction
-      isFree
       Ticket {
         items {
           price
@@ -98,15 +100,20 @@ export const createEvent = /* GraphQL */ `
         }
         nextToken
       }
-      FeedBack {
+      Offers {
         items {
           id
-          rating
-          comment
-          createdAt
+          type
+          creditCost
+          price
+          currency
+          discount
+          bundleSize
           owner
+          createdAt
           updatedAt
-          eventFeedBackId
+          eventOffersId
+          activityOffersId
         }
         nextToken
       }
@@ -137,6 +144,7 @@ export const updateEvent = /* GraphQL */ `
         country
       }
       category
+      primaryCategory
       company {
         id
         email
@@ -159,6 +167,7 @@ export const updateEvent = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         events {
           nextToken
@@ -195,9 +204,9 @@ export const updateEvent = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       ageRestriction
-      isFree
       Ticket {
         items {
           price
@@ -214,15 +223,20 @@ export const updateEvent = /* GraphQL */ `
         }
         nextToken
       }
-      FeedBack {
+      Offers {
         items {
           id
-          rating
-          comment
-          createdAt
+          type
+          creditCost
+          price
+          currency
+          discount
+          bundleSize
           owner
+          createdAt
           updatedAt
-          eventFeedBackId
+          eventOffersId
+          activityOffersId
         }
         nextToken
       }
@@ -253,6 +267,7 @@ export const deleteEvent = /* GraphQL */ `
         country
       }
       category
+      primaryCategory
       company {
         id
         email
@@ -275,6 +290,7 @@ export const deleteEvent = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         events {
           nextToken
@@ -311,9 +327,9 @@ export const deleteEvent = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       ageRestriction
-      isFree
       Ticket {
         items {
           price
@@ -330,15 +346,20 @@ export const deleteEvent = /* GraphQL */ `
         }
         nextToken
       }
-      FeedBack {
+      Offers {
         items {
           id
-          rating
-          comment
-          createdAt
+          type
+          creditCost
+          price
+          currency
+          discount
+          bundleSize
           owner
+          createdAt
           updatedAt
-          eventFeedBackId
+          eventOffersId
+          activityOffersId
         }
         nextToken
       }
@@ -393,6 +414,7 @@ export const createActivity = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         events {
           nextToken
@@ -424,6 +446,7 @@ export const createActivity = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       OpenDays {
         day
@@ -447,16 +470,20 @@ export const createActivity = /* GraphQL */ `
         }
         nextToken
       }
-      isFree
-      FeedBack {
+      Offers {
         items {
           id
-          rating
-          comment
-          createdAt
+          type
+          creditCost
+          price
+          currency
+          discount
+          bundleSize
           owner
+          createdAt
           updatedAt
-          activityFeedBackId
+          eventOffersId
+          activityOffersId
         }
         nextToken
       }
@@ -511,6 +538,7 @@ export const updateActivity = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         events {
           nextToken
@@ -542,6 +570,7 @@ export const updateActivity = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       OpenDays {
         day
@@ -565,16 +594,20 @@ export const updateActivity = /* GraphQL */ `
         }
         nextToken
       }
-      isFree
-      FeedBack {
+      Offers {
         items {
           id
-          rating
-          comment
-          createdAt
+          type
+          creditCost
+          price
+          currency
+          discount
+          bundleSize
           owner
+          createdAt
           updatedAt
-          activityFeedBackId
+          eventOffersId
+          activityOffersId
         }
         nextToken
       }
@@ -629,6 +662,7 @@ export const deleteActivity = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         events {
           nextToken
@@ -660,6 +694,7 @@ export const deleteActivity = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       OpenDays {
         day
@@ -683,16 +718,20 @@ export const deleteActivity = /* GraphQL */ `
         }
         nextToken
       }
-      isFree
-      FeedBack {
+      Offers {
         items {
           id
-          rating
-          comment
-          createdAt
+          type
+          creditCost
+          price
+          currency
+          discount
+          bundleSize
           owner
+          createdAt
           updatedAt
-          activityFeedBackId
+          eventOffersId
+          activityOffersId
         }
         nextToken
       }
@@ -731,6 +770,7 @@ export const createCompany = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       events {
         items {
@@ -739,10 +779,10 @@ export const createCompany = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
+          primaryCategory
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -758,7 +798,6 @@ export const createCompany = /* GraphQL */ `
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -801,6 +840,7 @@ export const updateCompany = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       events {
         items {
@@ -809,10 +849,10 @@ export const updateCompany = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
+          primaryCategory
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -828,7 +868,6 @@ export const updateCompany = /* GraphQL */ `
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -871,6 +910,7 @@ export const deleteCompany = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       events {
         items {
@@ -879,10 +919,10 @@ export const deleteCompany = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
+          primaryCategory
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -898,7 +938,6 @@ export const deleteCompany = /* GraphQL */ `
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -939,22 +978,6 @@ export const createTicket = /* GraphQL */ `
       available
       startSaleDate
       endSaleDate
-      Offers {
-        items {
-          id
-          type
-          creditCost
-          price
-          currency
-          discount
-          bundleSize
-          owner
-          createdAt
-          updatedAt
-          ticketOffersId
-        }
-        nextToken
-      }
       owner
       id
       createdAt
@@ -989,22 +1012,6 @@ export const updateTicket = /* GraphQL */ `
       available
       startSaleDate
       endSaleDate
-      Offers {
-        items {
-          id
-          type
-          creditCost
-          price
-          currency
-          discount
-          bundleSize
-          owner
-          createdAt
-          updatedAt
-          ticketOffersId
-        }
-        nextToken
-      }
       owner
       id
       createdAt
@@ -1039,22 +1046,6 @@ export const deleteTicket = /* GraphQL */ `
       available
       startSaleDate
       endSaleDate
-      Offers {
-        items {
-          id
-          type
-          creditCost
-          price
-          currency
-          discount
-          bundleSize
-          owner
-          createdAt
-          updatedAt
-          ticketOffersId
-        }
-        nextToken
-      }
       owner
       id
       createdAt
@@ -1094,7 +1085,8 @@ export const createOffer = /* GraphQL */ `
       owner
       createdAt
       updatedAt
-      ticketOffersId
+      eventOffersId
+      activityOffersId
     }
   }
 `;
@@ -1128,7 +1120,8 @@ export const updateOffer = /* GraphQL */ `
       owner
       createdAt
       updatedAt
-      ticketOffersId
+      eventOffersId
+      activityOffersId
     }
   }
 `;
@@ -1162,7 +1155,8 @@ export const deleteOffer = /* GraphQL */ `
       owner
       createdAt
       updatedAt
-      ticketOffersId
+      eventOffersId
+      activityOffersId
     }
   }
 `;
@@ -1184,10 +1178,10 @@ export const createUser = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
+          primaryCategory
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -1203,7 +1197,6 @@ export const createUser = /* GraphQL */ `
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -1253,10 +1246,10 @@ export const updateUser = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
+          primaryCategory
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -1272,7 +1265,6 @@ export const updateUser = /* GraphQL */ `
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -1322,10 +1314,10 @@ export const deleteUser = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
+          primaryCategory
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -1341,7 +1333,6 @@ export const deleteUser = /* GraphQL */ `
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -1370,624 +1361,6 @@ export const deleteUser = /* GraphQL */ `
       owner
       createdAt
       updatedAt
-    }
-  }
-`;
-export const createActivityFeedback = /* GraphQL */ `
-  mutation CreateActivityFeedback(
-    $input: CreateActivityFeedbackInput!
-    $condition: ModelActivityFeedbackConditionInput
-  ) {
-    createActivityFeedback(input: $input, condition: $condition) {
-      id
-      rating
-      user {
-        id
-        name
-        email
-        profilePicture
-        birthday
-        favouriteEvents {
-          nextToken
-        }
-        favouriteActivities {
-          nextToken
-        }
-        favouriteCompanies {
-          nextToken
-        }
-        preferences
-        credits
-        owner
-        createdAt
-        updatedAt
-      }
-      activity {
-        id
-        name {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        company {
-          id
-          email
-          logo
-          categories
-          phone
-          name
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        categories
-        Location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-          country
-        }
-        mainPicture
-        secondaryPictures
-        Links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        OpenDays {
-          day
-          timeFrom
-          timeTo
-        }
-        ageRestriction
-        Ticket {
-          nextToken
-        }
-        isFree
-        FeedBack {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyActivitiesId
-        userFavouriteActivitiesId
-      }
-      comment
-      createdAt
-      owner
-      updatedAt
-      activityFeedBackId
-    }
-  }
-`;
-export const updateActivityFeedback = /* GraphQL */ `
-  mutation UpdateActivityFeedback(
-    $input: UpdateActivityFeedbackInput!
-    $condition: ModelActivityFeedbackConditionInput
-  ) {
-    updateActivityFeedback(input: $input, condition: $condition) {
-      id
-      rating
-      user {
-        id
-        name
-        email
-        profilePicture
-        birthday
-        favouriteEvents {
-          nextToken
-        }
-        favouriteActivities {
-          nextToken
-        }
-        favouriteCompanies {
-          nextToken
-        }
-        preferences
-        credits
-        owner
-        createdAt
-        updatedAt
-      }
-      activity {
-        id
-        name {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        company {
-          id
-          email
-          logo
-          categories
-          phone
-          name
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        categories
-        Location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-          country
-        }
-        mainPicture
-        secondaryPictures
-        Links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        OpenDays {
-          day
-          timeFrom
-          timeTo
-        }
-        ageRestriction
-        Ticket {
-          nextToken
-        }
-        isFree
-        FeedBack {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyActivitiesId
-        userFavouriteActivitiesId
-      }
-      comment
-      createdAt
-      owner
-      updatedAt
-      activityFeedBackId
-    }
-  }
-`;
-export const deleteActivityFeedback = /* GraphQL */ `
-  mutation DeleteActivityFeedback(
-    $input: DeleteActivityFeedbackInput!
-    $condition: ModelActivityFeedbackConditionInput
-  ) {
-    deleteActivityFeedback(input: $input, condition: $condition) {
-      id
-      rating
-      user {
-        id
-        name
-        email
-        profilePicture
-        birthday
-        favouriteEvents {
-          nextToken
-        }
-        favouriteActivities {
-          nextToken
-        }
-        favouriteCompanies {
-          nextToken
-        }
-        preferences
-        credits
-        owner
-        createdAt
-        updatedAt
-      }
-      activity {
-        id
-        name {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        company {
-          id
-          email
-          logo
-          categories
-          phone
-          name
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        categories
-        Location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-          country
-        }
-        mainPicture
-        secondaryPictures
-        Links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        OpenDays {
-          day
-          timeFrom
-          timeTo
-        }
-        ageRestriction
-        Ticket {
-          nextToken
-        }
-        isFree
-        FeedBack {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyActivitiesId
-        userFavouriteActivitiesId
-      }
-      comment
-      createdAt
-      owner
-      updatedAt
-      activityFeedBackId
-    }
-  }
-`;
-export const createEventFeedback = /* GraphQL */ `
-  mutation CreateEventFeedback(
-    $input: CreateEventFeedbackInput!
-    $condition: ModelEventFeedbackConditionInput
-  ) {
-    createEventFeedback(input: $input, condition: $condition) {
-      id
-      rating
-      user {
-        id
-        name
-        email
-        profilePicture
-        birthday
-        favouriteEvents {
-          nextToken
-        }
-        favouriteActivities {
-          nextToken
-        }
-        favouriteCompanies {
-          nextToken
-        }
-        preferences
-        credits
-        owner
-        createdAt
-        updatedAt
-      }
-      event {
-        id
-        type
-        startingDateTime
-        endingDateTime
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-          country
-        }
-        category
-        company {
-          id
-          email
-          logo
-          categories
-          phone
-          name
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        mainPicture
-        secondaryPictures
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        name {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        Links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        ageRestriction
-        isFree
-        Ticket {
-          nextToken
-        }
-        FeedBack {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyEventsId
-        userFavouriteEventsId
-      }
-      comment
-      createdAt
-      owner
-      updatedAt
-      eventFeedBackId
-    }
-  }
-`;
-export const updateEventFeedback = /* GraphQL */ `
-  mutation UpdateEventFeedback(
-    $input: UpdateEventFeedbackInput!
-    $condition: ModelEventFeedbackConditionInput
-  ) {
-    updateEventFeedback(input: $input, condition: $condition) {
-      id
-      rating
-      user {
-        id
-        name
-        email
-        profilePicture
-        birthday
-        favouriteEvents {
-          nextToken
-        }
-        favouriteActivities {
-          nextToken
-        }
-        favouriteCompanies {
-          nextToken
-        }
-        preferences
-        credits
-        owner
-        createdAt
-        updatedAt
-      }
-      event {
-        id
-        type
-        startingDateTime
-        endingDateTime
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-          country
-        }
-        category
-        company {
-          id
-          email
-          logo
-          categories
-          phone
-          name
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        mainPicture
-        secondaryPictures
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        name {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        Links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        ageRestriction
-        isFree
-        Ticket {
-          nextToken
-        }
-        FeedBack {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyEventsId
-        userFavouriteEventsId
-      }
-      comment
-      createdAt
-      owner
-      updatedAt
-      eventFeedBackId
-    }
-  }
-`;
-export const deleteEventFeedback = /* GraphQL */ `
-  mutation DeleteEventFeedback(
-    $input: DeleteEventFeedbackInput!
-    $condition: ModelEventFeedbackConditionInput
-  ) {
-    deleteEventFeedback(input: $input, condition: $condition) {
-      id
-      rating
-      user {
-        id
-        name
-        email
-        profilePicture
-        birthday
-        favouriteEvents {
-          nextToken
-        }
-        favouriteActivities {
-          nextToken
-        }
-        favouriteCompanies {
-          nextToken
-        }
-        preferences
-        credits
-        owner
-        createdAt
-        updatedAt
-      }
-      event {
-        id
-        type
-        startingDateTime
-        endingDateTime
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-          country
-        }
-        category
-        company {
-          id
-          email
-          logo
-          categories
-          phone
-          name
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        mainPicture
-        secondaryPictures
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        name {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        Links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        ageRestriction
-        isFree
-        Ticket {
-          nextToken
-        }
-        FeedBack {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyEventsId
-        userFavouriteEventsId
-      }
-      comment
-      createdAt
-      owner
-      updatedAt
-      eventFeedBackId
     }
   }
 `;

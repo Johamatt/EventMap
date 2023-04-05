@@ -18,6 +18,7 @@ export const getEvent = /* GraphQL */ `
         country
       }
       category
+      primaryCategory
       company {
         id
         email
@@ -40,6 +41,7 @@ export const getEvent = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         events {
           nextToken
@@ -76,9 +78,9 @@ export const getEvent = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       ageRestriction
-      isFree
       Ticket {
         items {
           price
@@ -95,15 +97,20 @@ export const getEvent = /* GraphQL */ `
         }
         nextToken
       }
-      FeedBack {
+      Offers {
         items {
           id
-          rating
-          comment
-          createdAt
+          type
+          creditCost
+          price
+          currency
+          discount
+          bundleSize
           owner
+          createdAt
           updatedAt
-          eventFeedBackId
+          eventOffersId
+          activityOffersId
         }
         nextToken
       }
@@ -136,6 +143,7 @@ export const listEvents = /* GraphQL */ `
           country
         }
         category
+        primaryCategory
         company {
           id
           email
@@ -172,13 +180,13 @@ export const listEvents = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         ageRestriction
-        isFree
         Ticket {
           nextToken
         }
-        FeedBack {
+        Offers {
           nextToken
         }
         owner
@@ -222,6 +230,7 @@ export const byStartingDateTime = /* GraphQL */ `
           country
         }
         category
+        primaryCategory
         company {
           id
           email
@@ -258,13 +267,13 @@ export const byStartingDateTime = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         ageRestriction
-        isFree
         Ticket {
           nextToken
         }
-        FeedBack {
+        Offers {
           nextToken
         }
         owner
@@ -317,6 +326,7 @@ export const getActivity = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         events {
           nextToken
@@ -348,6 +358,7 @@ export const getActivity = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       OpenDays {
         day
@@ -371,16 +382,20 @@ export const getActivity = /* GraphQL */ `
         }
         nextToken
       }
-      isFree
-      FeedBack {
+      Offers {
         items {
           id
-          rating
-          comment
-          createdAt
+          type
+          creditCost
+          price
+          currency
+          discount
+          bundleSize
           owner
+          createdAt
           updatedAt
-          activityFeedBackId
+          eventOffersId
+          activityOffersId
         }
         nextToken
       }
@@ -446,6 +461,7 @@ export const listActivities = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         OpenDays {
           day
@@ -456,8 +472,7 @@ export const listActivities = /* GraphQL */ `
         Ticket {
           nextToken
         }
-        isFree
-        FeedBack {
+        Offers {
           nextToken
         }
         owner
@@ -494,6 +509,7 @@ export const getCompany = /* GraphQL */ `
         twitterURL
         instagramURL
         youtubeURL
+        tiktokURL
       }
       events {
         items {
@@ -502,10 +518,10 @@ export const getCompany = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
+          primaryCategory
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -521,7 +537,6 @@ export const getCompany = /* GraphQL */ `
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -566,6 +581,7 @@ export const listCompanies = /* GraphQL */ `
           twitterURL
           instagramURL
           youtubeURL
+          tiktokURL
         }
         events {
           nextToken
@@ -604,22 +620,6 @@ export const getTicket = /* GraphQL */ `
       available
       startSaleDate
       endSaleDate
-      Offers {
-        items {
-          id
-          type
-          creditCost
-          price
-          currency
-          discount
-          bundleSize
-          owner
-          createdAt
-          updatedAt
-          ticketOffersId
-        }
-        nextToken
-      }
       owner
       id
       createdAt
@@ -656,9 +656,6 @@ export const listTickets = /* GraphQL */ `
         available
         startSaleDate
         endSaleDate
-        Offers {
-          nextToken
-        }
         owner
         id
         createdAt
@@ -697,7 +694,8 @@ export const getOffer = /* GraphQL */ `
       owner
       createdAt
       updatedAt
-      ticketOffersId
+      eventOffersId
+      activityOffersId
     }
   }
 `;
@@ -733,7 +731,8 @@ export const listOffers = /* GraphQL */ `
         owner
         createdAt
         updatedAt
-        ticketOffersId
+        eventOffersId
+        activityOffersId
       }
       nextToken
     }
@@ -754,10 +753,10 @@ export const getUser = /* GraphQL */ `
           startingDateTime
           endingDateTime
           category
+          primaryCategory
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -773,7 +772,6 @@ export const getUser = /* GraphQL */ `
           mainPicture
           secondaryPictures
           ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -832,303 +830,6 @@ export const listUsers = /* GraphQL */ `
         owner
         createdAt
         updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getActivityFeedback = /* GraphQL */ `
-  query GetActivityFeedback($id: ID!) {
-    getActivityFeedback(id: $id) {
-      id
-      rating
-      user {
-        id
-        name
-        email
-        profilePicture
-        birthday
-        favouriteEvents {
-          nextToken
-        }
-        favouriteActivities {
-          nextToken
-        }
-        favouriteCompanies {
-          nextToken
-        }
-        preferences
-        credits
-        owner
-        createdAt
-        updatedAt
-      }
-      activity {
-        id
-        name {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        company {
-          id
-          email
-          logo
-          categories
-          phone
-          name
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        categories
-        Location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-          country
-        }
-        mainPicture
-        secondaryPictures
-        Links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        OpenDays {
-          day
-          timeFrom
-          timeTo
-        }
-        ageRestriction
-        Ticket {
-          nextToken
-        }
-        isFree
-        FeedBack {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyActivitiesId
-        userFavouriteActivitiesId
-      }
-      comment
-      createdAt
-      owner
-      updatedAt
-      activityFeedBackId
-    }
-  }
-`;
-export const listActivityFeedbacks = /* GraphQL */ `
-  query ListActivityFeedbacks(
-    $filter: ModelActivityFeedbackFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listActivityFeedbacks(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        rating
-        user {
-          id
-          name
-          email
-          profilePicture
-          birthday
-          preferences
-          credits
-          owner
-          createdAt
-          updatedAt
-        }
-        activity {
-          id
-          categories
-          mainPicture
-          secondaryPictures
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyActivitiesId
-          userFavouriteActivitiesId
-        }
-        comment
-        createdAt
-        owner
-        updatedAt
-        activityFeedBackId
-      }
-      nextToken
-    }
-  }
-`;
-export const getEventFeedback = /* GraphQL */ `
-  query GetEventFeedback($id: ID!) {
-    getEventFeedback(id: $id) {
-      id
-      rating
-      user {
-        id
-        name
-        email
-        profilePicture
-        birthday
-        favouriteEvents {
-          nextToken
-        }
-        favouriteActivities {
-          nextToken
-        }
-        favouriteCompanies {
-          nextToken
-        }
-        preferences
-        credits
-        owner
-        createdAt
-        updatedAt
-      }
-      event {
-        id
-        type
-        startingDateTime
-        endingDateTime
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-          country
-        }
-        category
-        company {
-          id
-          email
-          logo
-          categories
-          phone
-          name
-          owner
-          createdAt
-          updatedAt
-          userFavouriteCompaniesId
-        }
-        mainPicture
-        secondaryPictures
-        description {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        name {
-          fi
-          en
-          sv
-          jp
-          es
-        }
-        Links {
-          mainURL
-          secondaryURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        ageRestriction
-        isFree
-        Ticket {
-          nextToken
-        }
-        FeedBack {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyEventsId
-        userFavouriteEventsId
-      }
-      comment
-      createdAt
-      owner
-      updatedAt
-      eventFeedBackId
-    }
-  }
-`;
-export const listEventFeedbacks = /* GraphQL */ `
-  query ListEventFeedbacks(
-    $filter: ModelEventFeedbackFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listEventFeedbacks(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        rating
-        user {
-          id
-          name
-          email
-          profilePicture
-          birthday
-          preferences
-          credits
-          owner
-          createdAt
-          updatedAt
-        }
-        event {
-          id
-          type
-          startingDateTime
-          endingDateTime
-          category
-          mainPicture
-          secondaryPictures
-          ageRestriction
-          isFree
-          owner
-          createdAt
-          updatedAt
-          companyEventsId
-          userFavouriteEventsId
-        }
-        comment
-        createdAt
-        owner
-        updatedAt
-        eventFeedBackId
       }
       nextToken
     }

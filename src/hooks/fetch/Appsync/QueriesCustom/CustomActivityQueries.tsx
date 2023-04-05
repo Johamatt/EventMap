@@ -37,7 +37,6 @@ export const listActivitiesCustomQuery = /* GraphQL */ `
         Ticket {
           nextToken
         }
-        isFree
         createdAt
         updatedAt
         companyActivitiesId

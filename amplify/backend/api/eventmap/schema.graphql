@@ -8,6 +8,8 @@ type Event @model @auth(rules: [{allow: owner},
   endingDateTime: AWSDateTime!
   location: Location!
   category: [CATEGORY!] 
+  primaryCategory: CATEGORY
+
   company: Company 
   mainPicture: AWSURL
   secondaryPictures: [AWSURL]
@@ -15,10 +17,9 @@ type Event @model @auth(rules: [{allow: owner},
   name: Name!
   Links: Links
   ageRestriction: String
-  isFree: Boolean
   Ticket: [Ticket] @hasMany
-  FeedBack: [EventFeedback] @hasMany
-    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+      Offers: [Offer] @hasMany
+          owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 type Activity @model @auth(rules: [{allow: owner},  
@@ -37,9 +38,8 @@ type Activity @model @auth(rules: [{allow: owner},
   OpenDays: [OpenDays!]
   ageRestriction: String
   Ticket: [Ticket] @hasMany
-  isFree: Boolean
-  FeedBack: [ActivityFeedback] @hasMany
-    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+      Offers: [Offer] @hasMany
+          owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 type Company @model @auth(rules: [{allow: owner},  
@@ -70,7 +70,6 @@ type Ticket @model @auth(rules: [{allow: owner},
     available: Boolean
     startSaleDate: AWSDateTime
     endSaleDate: AWSDateTime
-    Offers: [Offer] @hasMany
       owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
@@ -92,8 +91,7 @@ type Offer @model @auth(rules: [{allow: owner},
 
 type User @model @auth(rules: [{allow: owner},  
 {allow: groups, groups: ["Admin"]}, 
- {allow: groups, groups: ["DefaultUser"], operations: [read]},
- {allow: public, provider: iam operations: [read]}]) {
+ {allow: groups, groups: ["DefaultUser"], operations: [read]}]) {
   id: ID!
   name: String!
   email: String! 
@@ -115,39 +113,13 @@ type Links {
     twitterURL: AWSURL
     instagramURL: AWSURL
     youtubeURL: AWSURL
+    tiktokURL: AWSURL
 }
 
 type OpenDays {
   day: Int
   timeFrom: AWSTime
   timeTo: AWSTime
-}
-
-
-type ActivityFeedback @model @auth(rules: [{allow: owner},  
-{allow: groups, groups: ["Admin"]}, 
- {allow: groups, groups: ["DefaultUser"], operations: [read]},
- {allow: public, provider: iam operations: [read]}]) {
-  id: ID!
-    rating: Int!
-  user: User!
-  activity: Activity!
-  comment: String
-  createdAt: String!
-    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
-}
-
-type EventFeedback @model @auth(rules: [{allow: owner},  
-{allow: groups, groups: ["Admin"]}, 
- {allow: groups, groups: ["DefaultUser"], operations: [read]},
- {allow: public, provider: iam operations: [read]}]) {
-  id: ID!
-    rating: Int!
-  user: User!
-  event: Event!
-  comment: String
-  createdAt: String!
-    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 type Name {

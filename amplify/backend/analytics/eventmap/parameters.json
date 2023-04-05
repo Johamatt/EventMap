@@ -1,11 +1,11 @@
 {
     "appName": "eventmap",
-    "roleName": "pinpointLambdaRole3fe9b53e",
-    "cloudformationPolicyName": "cloudformationPolicy3fe9b53e",
-    "cloudWatchPolicyName": "cloudWatchPolicy3fe9b53e",
-    "pinpointPolicyName": "pinpointPolicy3fe9b53e",
-    "authPolicyName": "pinpoint_amplify_3fe9b53e",
-    "unauthPolicyName": "pinpoint_amplify_3fe9b53e",
+    "roleName": "pinpointLambdaRole858abe2d",
+    "cloudformationPolicyName": "cloudformationPolicy858abe2d",
+    "cloudWatchPolicyName": "cloudWatchPolicy858abe2d",
+    "pinpointPolicyName": "pinpointPolicy858abe2d",
+    "authPolicyName": "pinpoint_amplify_858abe2d",
+    "unauthPolicyName": "pinpoint_amplify_858abe2d",
     "authRoleName": {
         "Ref": "AuthRoleName"
     },

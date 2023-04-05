@@ -26,7 +26,6 @@ export const EventsbyStartingDateTimeCustomQuery = /* GraphQL */ `
         description {
           fi
         }
-        isFree
         company {
           logo
           name
@@ -85,7 +84,6 @@ export const getEventCustomQuery = /* GraphQL */ `
         youtubeURL
       }
       ageRestriction
-      isFree
       Ticket {
         items {
           price
@@ -98,17 +96,6 @@ export const getEventCustomQuery = /* GraphQL */ `
           updatedAt
           eventTicketId
           activityTicketId
-        }
-        nextToken
-      }
-      FeedBack {
-        items {
-          id
-          rating
-          comment
-          createdAt
-          updatedAt
-          eventFeedBackId
         }
         nextToken
       }

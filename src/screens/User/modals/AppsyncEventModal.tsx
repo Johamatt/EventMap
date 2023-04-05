@@ -26,6 +26,8 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
 
   const user = useSelector((state: RootState) => state.UserReducer);
 
+
+
   useEffect(() => {
     async function fetchData() {
       const fetchedEvent = await getEventCustom(
@@ -34,12 +36,12 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
       );
       setEvent(fetchedEvent);
 
-      Analytics.record({
+      await Analytics.record({
         name: "ASEventModalOpened",
         attributes: {
           ITEM_ID: route.params.id,
           USER_ID: user.userAuth?.attributes?.sub,
-          CATEGORIES: JSON.stringify(event?.data?.getEvent?.category),
+          CATEGORIES: event.data.getEvent.primaryCategory.toString(),
           timestamp: new Date().toISOString(),
         },
       });
@@ -51,10 +53,9 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
     return <View />;
   }
 
-  console.log(JSON.stringify(event?.data?.getEvent?.category));
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.name}>{event.data?.getEvent?.name.fi}</Text>
+      <Text style={styles.name}>{event.data!.getEvent!.name.fi}</Text>
 
       {event.data?.getEvent?.mainPicture && (
         <Image
