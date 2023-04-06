@@ -26,8 +26,6 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
 
   const user = useSelector((state: RootState) => state.UserReducer);
 
-
-
   useEffect(() => {
     async function fetchData() {
       const fetchedEvent = await getEventCustom(

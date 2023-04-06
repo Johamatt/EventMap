@@ -15,8 +15,9 @@ import { ApplicationState } from "../Store/reducers";
 import { RootStackParamList, RootTabParamList } from "../types/navigationTypes";
 import { TicketMasterEventModal } from "../screens/User/modals/TicketMasterEventModal";
 import { BottomTabNavigator } from "./BottomTabNavigator";
-import { UserPreferenceModal } from "../screens/User/modals/UserPreferenceModal";
+
 import Colors from "../constants/Colors";
+import UserPreferenceModal from "../screens/User/modals/UserPreferenceModal";
 
 interface NavigationProps {
   authMode: GraphQLOptions["authMode"];
@@ -36,7 +37,6 @@ const _Navigation: React.FC<NavigationProps> = ({ authMode }) => {
           type: "ON_UPDATE_AUTHENTICATIONMODE",
           payload: "AMAZON_COGNITO_USER_POOLS",
         });
-        
       } catch (error) {
         console.log(error);
       }
