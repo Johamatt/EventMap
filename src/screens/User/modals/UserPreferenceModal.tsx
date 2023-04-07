@@ -14,6 +14,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ApplicationState } from "../../../Store/reducers";
 import { connect } from "react-redux";
 import { CATEGORY } from "../../../API";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface UserPreferenceProps {
   userReducer: any;
@@ -110,10 +111,29 @@ const _UserPreferenceModal: React.FC<UserPreferenceProps> = ({
   };
   //
 
-  console.log(userReducer);
-  const handleSubmit = () => {
-    // TODO
-    console.log("Form submitted");
+  const handleSubmit = async () => {
+    const jsonValue = JSON.stringify({
+      categories: selectedCategories,
+      selectedDate: selectedDate,
+    });
+    try {
+      await AsyncStorage.setItem("@storage_Key", jsonValue);
+    } catch (e) {
+      // saving error
+    }
+
+    await getData();
+  };
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@storage_Key");
+      if (value !== null) {
+        console.log(value);
+      }
+    } catch (e) {
+      // error reading value
+    }
   };
 
   return (

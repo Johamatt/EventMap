@@ -42,11 +42,19 @@ export const UserRegisterScreen: React.FC = (props) => {
   const onRegisterPressed = async () => {
     if (passwordRepeat === password) {
       try {
-        const ok = await Auth.signUp({ username, password });
+        await Auth.signUp({ username, password });
         const user: CreateUserInput = {
           name: username,
           email: username,
         };
+
+        await Auth.signUp({
+          username: username, password: password ,
+          attributes: {
+            profilepic: undefined
+
+          }
+        });
 
         navigation.navigate("UserConfirmEmailScreen", { username });
       } catch (error: any) {

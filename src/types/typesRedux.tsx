@@ -5,9 +5,9 @@ import { GraphQLOptions } from "@aws-amplify/api-graphql";
 
 export type UserState = {
   AuthenticationMode: GraphQLOptions["authMode"];
-  location: LocationGeocodedLocation;
   error: String | undefined;
-  preferences: Array<CATEGORY>;
-  userAuth: any;
-  showCurrentlyOpen: boolean;
+  userAuth: CognitoUser;
 };
+
+// preferences: Array<CATEGORY>;
+// selectedDateRange: { startDateTime: Date; endDateTime: Date };

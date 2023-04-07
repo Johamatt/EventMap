@@ -96,7 +96,6 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
     );
   };
 
-  console.log(events[0]);
 
   return (
     <FlatList
