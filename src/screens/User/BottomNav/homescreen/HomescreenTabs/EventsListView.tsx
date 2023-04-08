@@ -2,7 +2,7 @@ import { ActivityIndicator, FlatList, View, Text } from "react-native";
 import { connect } from "react-redux";
 import React, { useEffect, useRef, useState } from "react";
 import { EventCardTicketMaster } from "../../../../../components/Cards/EventCardTicketMaster";
-import { fetchTicketMasterToday } from "../../../../../hooks/fetch/TicketMaster/TicketMasterList";
+import { fetchTicketMaster } from "../../../../../hooks/fetch/TicketMaster/TicketMasterFetch";
 import { CATEGORY, Event } from "../../../../../API";
 import { listEventsCustom } from "../../../../../hooks/fetch/Appsync/AppsyncEvents";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
@@ -12,7 +12,6 @@ import { ApplicationState } from "../../../../../Store/reducers";
 type HomescreenProps = {
   tmCategory?: string;
   asCategory?: CATEGORY | undefined;
-
   etCategory?: string;
 
   authenticationMode: GraphQLOptions["authMode"];
@@ -28,9 +27,16 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
   const isFetchingEventsAS = useRef(false);
 
   useEffect(() => {
-    fetchDataTM(page);
-    fetchDataEventsAS(nextTokenEvents);
-    setIsLoading(false);
+    async function fetchData() {
+      setIsLoading(true);
+      await Promise.all([
+        fetchDataTM(page),
+        fetchDataEventsAS(nextTokenEvents),
+      ]);
+      setIsLoading(false);
+    }
+
+    fetchData();
   }, [page]);
 
   const fetchMoreData = () => {
@@ -41,7 +47,7 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
     const dateTimeNowString = new Date().toISOString();
 
     try {
-      const data = await fetchTicketMasterToday(
+      const data = await fetchTicketMaster(
         page,
         10,
         dateTimeNowString,
@@ -73,7 +79,7 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
           props.asCategory
         );
 
-        if (data) {
+        if (data && data.items && data.items.length !== 0) {
           const { items, nextToken } = data;
 
           setNextTokenEvents(nextToken);
@@ -95,7 +101,6 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
       </View>
     );
   };
-
 
   return (
     <FlatList

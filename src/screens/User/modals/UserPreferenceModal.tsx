@@ -15,14 +15,12 @@ import { ApplicationState } from "../../../Store/reducers";
 import { connect } from "react-redux";
 import { CATEGORY } from "../../../API";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { userOptionsAsyncStorage } from "../../../types/storageType";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../../types/navigationTypes";
 
-interface UserPreferenceProps {
-  userReducer: any;
-}
-
-const _UserPreferenceModal: React.FC<UserPreferenceProps> = ({
-  userReducer,
-}) => {
+const _UserPreferenceModal: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<String>("All");
   const [selectedCategories, setSelectedCategories] = useState<Array<CATEGORY>>(
     []
@@ -30,13 +28,16 @@ const _UserPreferenceModal: React.FC<UserPreferenceProps> = ({
   const [selectAllCategories, setSelectAllCategories] =
     useState<boolean>(false);
 
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const dateButtons = [
     { label: "All", value: "All" },
     { label: "Today", value: "Today" },
     { label: "Tomorrow", value: "Tomorrow" },
     { label: "This week", value: "This week" },
-    { label: "This Weekend", value: "This Weekend" },
-    { label: "Later", value: "Later" },
+    { label: "This weekend", value: "This weekend" },
+    { label: "Next week", value: "Next week" },
   ];
 
   const categoryButtonLabels: Array<CATEGORY> = [
@@ -115,24 +116,12 @@ const _UserPreferenceModal: React.FC<UserPreferenceProps> = ({
     const jsonValue = JSON.stringify({
       categories: selectedCategories,
       selectedDate: selectedDate,
-    });
+    } as userOptionsAsyncStorage);
     try {
       await AsyncStorage.setItem("@storage_Key", jsonValue);
+      navigation.goBack();
     } catch (e) {
-      // saving error
-    }
-
-    await getData();
-  };
-
-  const getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem("@storage_Key");
-      if (value !== null) {
-        console.log(value);
-      }
-    } catch (e) {
-      // error reading value
+      console.log(e);
     }
   };
 

@@ -1,6 +1,4 @@
-import { LocationGeocodedLocation } from "expo-location";
 import { Dispatch } from "react";
-import { CATEGORY } from "../../API";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 
 export interface UpdateAuthAction {

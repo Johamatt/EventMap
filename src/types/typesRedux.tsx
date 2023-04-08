@@ -1,6 +1,4 @@
-import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
-import { LocationGeocodedLocation } from "expo-location";
-import { CATEGORY } from "../API";
+import { CognitoUser } from "amazon-cognito-identity-js";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 
 export type UserState = {

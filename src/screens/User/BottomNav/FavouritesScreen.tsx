@@ -6,7 +6,6 @@ import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../../types/navigationTypes";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import { ApplicationState } from "../../../Store/reducers";
-import { ON_UPDATE_EVENTPREFERENCES } from "../../../Store/actions/userAction";
 
 interface FavouritesScreenProps {
   authenticationMode: GraphQLOptions["authMode"];
@@ -56,9 +55,7 @@ export const mapToStateProps = (state: ApplicationState) => ({
   authenticationMode: state.UserReducer.AuthenticationMode,
 });
 
-const FavouritesScreen = connect(mapToStateProps, {
-  ON_UPDATE_EVENTPREFERENCES,
-})(_FavouritesScreen);
+const FavouritesScreen = connect(mapToStateProps, {})(_FavouritesScreen);
 
 export default FavouritesScreen;
 

@@ -1,45 +1,78 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, View, StyleSheet, TouchableOpacity } from "react-native";
 import MapView, { Marker, Region } from "react-native-maps";
 import { connect } from "react-redux";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation, DrawerActions } from "@react-navigation/native";
-import { fetchTicketMasterToday } from "../../../hooks/fetch/TicketMaster/TicketMasterList";
+import { useNavigation } from "@react-navigation/native";
+import { fetchTicketMaster } from "../../../hooks/fetch/TicketMaster/TicketMasterFetch";
 import { RootStackParamList } from "../../../types/navigationTypes";
 import MapListModal from "../modals/MapListModal";
-import MapModalButton from "../../../components/Buttons/MapModalButton";
 import { ApplicationState } from "../../../Store/reducers";
+import { userOptionsAsyncStorage } from "../../../types/storageType";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Ionicons } from "@expo/vector-icons";
+import { GraphQLOptions } from "@aws-amplify/api-graphql";
+import { listEventsCustom } from "../../../hooks/fetch/Appsync/AppsyncEvents";
+import { calculateOptionsDate } from "../../../util/helpers/calculateOptionsDate";
 
-interface MapProps {}
+interface MapProps {
+  authenticationMode: GraphQLOptions["authMode"];
+}
 
-const _MapScreen: React.FC<MapProps> = (props) => {
+const _MapScreen: React.FC<MapProps> = ({ authenticationMode }) => {
   const mapRef = useRef<MapView>(null);
-  const [showCard, setShowCard] = useState<boolean>(true);
+  const [showCard, setShowCard] = useState<boolean>(false);
   const [region, setRegion] = useState<Region>();
   const [events, setEvents] = useState<Array<any>>([]);
   const [page, setPage] = useState<number>(1);
+  const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
+
+  const [userOptions, setUserOptions] = useState<
+    userOptionsAsyncStorage | null | ""
+  >();
 
   useEffect(() => {
-    fetchEventsMapToday(page);
+    const getStorage = async () => {
+      try {
+        const jsonUserOptions = await AsyncStorage.getItem("@storage_Key");
+        const parsedUserOptions =
+          jsonUserOptions &&
+          (JSON.parse(jsonUserOptions) as userOptionsAsyncStorage);
+        setUserOptions(parsedUserOptions);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    getStorage();
   }, []);
 
+  useEffect(() => {
+    if (userOptions) {
+      fetchData();
+    }
+  }, [userOptions]);
 
+  const fetchData = async () => {
+    const date = calculateOptionsDate(userOptions);
 
-  const fetchEventsMapToday = useCallback(async (page: number) => {
-    const dateTimeNowString = new Date().toISOString();
+    console.log(date);
 
-    const eventsDataList = await fetchTicketMasterToday(
-      page,
-      100,
-      dateTimeNowString
-    );
-    setPage(page + 1);
-    setEvents([
-      ...events,
-      // @ts-ignore
-      ...eventsDataList,
+    const [dataTM, dataAS] = await Promise.all([
+      fetchTicketMaster(page, 10, new Date().toISOString()),
+      listEventsCustom(
+        nextTokenEvents,
+        date.dateFrom,
+        date.dateTo,
+        authenticationMode,
+        10
+      ),
     ]);
-  }, []);
+    const combinedEvents = [...events, ...dataTM, ...dataAS!.items];
+    const nextToken = dataAS!.nextToken;
+    setNextTokenEvents(nextToken);
+    setEvents(combinedEvents);
+  };
 
   const getMyLocation = () => {
     const region: Region = {
@@ -59,10 +92,6 @@ const _MapScreen: React.FC<MapProps> = (props) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const openDrawer = () => {
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
-
   return (
     <View style={styles.container}>
       <MapView
@@ -74,20 +103,37 @@ const _MapScreen: React.FC<MapProps> = (props) => {
         showsUserLocation
       >
         {events.map((ev, i) => {
-          return (
-            <Marker
-              key={i}
-              coordinate={{
-                latitude: parseFloat(ev._embedded.venues[0].location.latitude),
-                longitude: parseFloat(
-                  ev._embedded.venues[0].location.longitude
-                ),
-              }}
-              onPress={() =>
-                navigation.navigate("TicketMasterEventModal", { id: ev.id })
-              }
-            ></Marker>
-          );
+          if (ev.__typename === "ticketmaster") {
+            return (
+              <Marker
+                key={i}
+                coordinate={{
+                  latitude: parseFloat(
+                    ev._embedded.venues[0].location.latitude
+                  ),
+                  longitude: parseFloat(
+                    ev._embedded.venues[0].location.longitude
+                  ),
+                }}
+                onPress={() =>
+                  navigation.navigate("TicketMasterEventModal", { id: ev.id })
+                }
+              ></Marker>
+            );
+          } else {
+            return (
+              <Marker
+                key={i}
+                coordinate={{
+                  latitude: ev.location.lat,
+                  longitude: ev.location.lon,
+                }}
+                onPress={() =>
+                  navigation.navigate("AppSyncEventModal", { id: ev.id })
+                }
+              ></Marker>
+            );
+          }
         })}
       </MapView>
       {showCard ? (
@@ -97,7 +143,24 @@ const _MapScreen: React.FC<MapProps> = (props) => {
           events={events}
         />
       ) : (
-        <MapModalButton openModal={() => setShowCard(true)} />
+        <React.Fragment>
+          <View style={styles.filterButtonContainer}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("UserPreferenceModal")}
+              style={styles.button}
+            >
+              <Ionicons name="options-outline" size={24} color="black" />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.cardButtonContainer}>
+            {/* <TouchableOpacity
+              onPress={() => setShowCard(true)}
+              style={styles.button}
+            >
+              <Feather name="settings" size={24} color="black" />
+            </TouchableOpacity> */}
+          </View>
+        </React.Fragment>
       )}
     </View>
   );
@@ -120,5 +183,26 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
+  },
+
+  button: {
+    width: 50,
+    height: 50,
+    backgroundColor: "#f3f4f6",
+    borderRadius: 100,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  cardButtonContainer: {
+    position: "absolute",
+    right: 18,
+    bottom: 35,
+  },
+  filterButtonContainer: {
+    position: "absolute",
+    right: 18,
+    bottom: 100,
   },
 });

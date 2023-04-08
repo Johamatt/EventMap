@@ -39,7 +39,7 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
         attributes: {
           ITEM_ID: route.params.id,
           USER_ID: user.userAuth?.attributes?.sub,
-          CATEGORIES: event.data.getEvent.primaryCategory.toString(),
+          // CATEGORIES: event.data.getEvent.primaryCategory.toString(),
           timestamp: new Date().toISOString(),
         },
       });
@@ -47,7 +47,7 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
     fetchData();
   }, []);
 
-  if (event === undefined) {
+  if (event?.data === undefined) {
     return <View />;
   }
 

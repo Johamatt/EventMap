@@ -19,6 +19,7 @@ import { ApplicationState } from "../../../../../Store/reducers";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../../../types/navigationTypes";
+import { CATEGORY } from "../../../../../API";
 
 type HomescreenProps = {
   authenticationMode: GraphQLOptions["authMode"];
@@ -45,12 +46,28 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
         return <EventsListView key="All" />;
       case "Activities & Games":
         return (
-          <EventsListView key="Activities & Games" tmCategory="Miscellaneous" />
+          <EventsListView
+            key="Activities & Games"
+            tmCategory="Miscellaneous"
+            asCategory={CATEGORY.GAMES}
+          />
         );
       case "Festivals":
-        return <EventsListView key="Festivals" tmCategory="festival" />;
+        return (
+          <EventsListView
+            key="Festivals"
+            tmCategory="festival"
+            asCategory={CATEGORY.FESTIVAL}
+          />
+        );
       case "Sports":
-        return <EventsListView key="Sports" tmCategory="sport" />;
+        return (
+          <EventsListView
+            key="Sports"
+            tmCategory="sport"
+            asCategory={CATEGORY.SPORT}
+          />
+        );
       case "Entertainment":
         return (
           <EventsListView key="Entertainment" tmCategory="Entertainment" />

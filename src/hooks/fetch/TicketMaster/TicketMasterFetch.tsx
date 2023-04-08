@@ -1,7 +1,7 @@
 import axios from "axios";
 import Constants from "expo-constants";
 
-export const fetchTicketMasterToday = async (
+export const fetchTicketMaster = async (
   page: number,
   size: number,
   datetimeISOstring: string,
@@ -33,7 +33,7 @@ export const fetchTicketMasterToday = async (
   return [];
 };
 
-export const fetchEvent = async (
+export const fetchTicketMasterEvent = async (
   id: string
 ): Promise<TicketMasterEvent | undefined> => {
   try {

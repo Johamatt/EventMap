@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { StyleSheet } from "react-native";
 import { RootStackParamList } from "../../../types/navigationTypes";
-import { fetchEvent } from "../../../hooks/fetch/TicketMaster/TicketMasterList";
+import { fetchTicketMasterEvent } from "../../../hooks/fetch/TicketMaster/TicketMasterFetch";
 import { modalLinkIcon } from "../../../util/modalLinkIcon";
 import { Analytics } from "aws-amplify";
 import { useSelector } from "react-redux";
@@ -34,7 +34,7 @@ export const TicketMasterEventModal: React.FC<TicketMasterEventModalProps> = (
 
   useEffect(() => {
     async function fetchData() {
-      const fetchedEvent = await fetchEvent(props.route.params.id);
+      const fetchedEvent = await fetchTicketMasterEvent(props.route.params.id);
       setEvent(fetchedEvent);
 
       Analytics.record({

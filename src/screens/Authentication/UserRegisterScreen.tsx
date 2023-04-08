@@ -9,11 +9,9 @@ import {
   Keyboard,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import { API, Auth, graphqlOperation } from "aws-amplify";
+import { Auth } from "aws-amplify";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigationTypes";
-import { createUser } from "../../graphql/mutations";
-import { CreateUserInput } from "../../API";
 
 export const UserRegisterScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
@@ -43,17 +41,15 @@ export const UserRegisterScreen: React.FC = (props) => {
     if (passwordRepeat === password) {
       try {
         await Auth.signUp({ username, password });
-        const user: CreateUserInput = {
-          name: username,
-          email: username,
-        };
 
         await Auth.signUp({
-          username: username, password: password ,
+          username: username,
+          password: password,
           attributes: {
-            profilepic: undefined
-
-          }
+            profilepic: undefined,
+            name: undefined,
+            dateOfBirth: undefined,
+          },
         });
 
         navigation.navigate("UserConfirmEmailScreen", { username });

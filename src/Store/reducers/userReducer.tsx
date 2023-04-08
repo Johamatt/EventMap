@@ -1,12 +1,10 @@
-import { LocationGeocodedLocation } from "expo-location";
-import { CATEGORY } from "../../API";
 import { UserAction } from "../actions/userAction";
 import { UserState } from "../../types/typesRedux";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CognitoUser } from "amazon-cognito-identity-js";
 
 export const initialState: UserState = {
-  userAuth: {} as any,
+  userAuth: {} as CognitoUser,
   error: undefined,
   AuthenticationMode: undefined as GraphQLOptions["authMode"],
 };
@@ -27,7 +25,6 @@ export const userReducer = (
         ...state,
         AuthenticationMode: action.payload,
       };
-
 
     default:
       return state;

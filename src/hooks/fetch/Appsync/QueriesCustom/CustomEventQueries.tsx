@@ -30,6 +30,14 @@ export const EventsbyStartingDateTimeCustomQuery = /* GraphQL */ `
           logo
           name
         }
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+          country
+        }
       }
       nextToken
     }
