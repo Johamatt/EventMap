@@ -1,5 +1,6 @@
 import { Dispatch } from "react";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
+import { userOptionsAsyncStorage } from "../../types/storageType";
 
 export interface UpdateAuthAction {
   readonly type: "ON_UPDATE_AUTH";
@@ -16,10 +17,16 @@ export interface UpdateAuthenticationmode {
   payload: GraphQLOptions["authMode"];
 }
 
+export interface UpdateAsyncStorage {
+  readonly type: "ON_UPDATE_ASYNC_STORAGE";
+  payload: userOptionsAsyncStorage | undefined;
+}
+
 export type UserAction =
   | UserErrorAction
   | UpdateAuthAction
-  | UpdateAuthenticationmode;
+  | UpdateAuthenticationmode
+  | UpdateAsyncStorage;
 
 export const ON_UPDATE_AUTHENTICATIONMODE = (
   AuthenticationMode: GraphQLOptions["authMode"]
@@ -45,6 +52,24 @@ export const ON_UPDATE_AUTH = (userAuth: any) => {
       dispatch({
         type: "ON_UPDATE_AUTH",
         payload: userAuth,
+      });
+    } catch (error) {
+      dispatch({
+        type: "ON_USER_ERROR",
+        payload: error,
+      });
+    }
+  };
+};
+
+export const ON_UPDATE_ASYNC_STORAGE = (
+  storage: userOptionsAsyncStorage | undefined
+) => {
+  return (dispatch: Dispatch<UserAction>) => {
+    try {
+      dispatch({
+        type: "ON_UPDATE_ASYNC_STORAGE",
+        payload: storage,
       });
     } catch (error) {
       dispatch({

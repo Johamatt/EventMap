@@ -7,6 +7,7 @@ export const initialState: UserState = {
   userAuth: {} as CognitoUser,
   error: undefined,
   AuthenticationMode: undefined as GraphQLOptions["authMode"],
+  userOptions: undefined,
 };
 
 export const userReducer = (
@@ -24,6 +25,12 @@ export const userReducer = (
       return {
         ...state,
         AuthenticationMode: action.payload,
+      };
+
+    case "ON_UPDATE_ASYNC_STORAGE":
+      return {
+        ...state,
+        userOptions: action.payload,
       };
 
     default:

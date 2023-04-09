@@ -19,6 +19,7 @@ import { userOptionsAsyncStorage } from "../../../types/storageType";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../types/navigationTypes";
+import { store } from "../../../Store/store";
 
 const _UserPreferenceModal: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<String>("All");
@@ -119,6 +120,12 @@ const _UserPreferenceModal: React.FC = () => {
     } as userOptionsAsyncStorage);
     try {
       await AsyncStorage.setItem("@storage_Key", jsonValue);
+
+      store.dispatch({
+        type: "ON_UPDATE_ASYNC_STORAGE",
+        payload: jsonValue != null ? JSON.parse(jsonValue) : undefined,
+      });
+
       navigation.goBack();
     } catch (e) {
       console.log(e);

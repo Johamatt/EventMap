@@ -17,9 +17,13 @@ import { calculateOptionsDate } from "../../../util/helpers/calculateOptionsDate
 
 interface MapProps {
   authenticationMode: GraphQLOptions["authMode"];
+  userOptions: userOptionsAsyncStorage | undefined;
 }
 
-const _MapScreen: React.FC<MapProps> = ({ authenticationMode }) => {
+const _MapScreen: React.FC<MapProps> = ({
+  authenticationMode,
+  userOptions,
+}) => {
   const mapRef = useRef<MapView>(null);
   const [showCard, setShowCard] = useState<boolean>(false);
   const [region, setRegion] = useState<Region>();
@@ -27,25 +31,7 @@ const _MapScreen: React.FC<MapProps> = ({ authenticationMode }) => {
   const [page, setPage] = useState<number>(1);
   const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
 
-  const [userOptions, setUserOptions] = useState<
-    userOptionsAsyncStorage | null | ""
-  >();
-
-  useEffect(() => {
-    const getStorage = async () => {
-      try {
-        const jsonUserOptions = await AsyncStorage.getItem("@storage_Key");
-        const parsedUserOptions =
-          jsonUserOptions &&
-          (JSON.parse(jsonUserOptions) as userOptionsAsyncStorage);
-        setUserOptions(parsedUserOptions);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    getStorage();
-  }, []);
+  console.log(userOptions);
 
   useEffect(() => {
     if (userOptions) {
@@ -55,8 +41,6 @@ const _MapScreen: React.FC<MapProps> = ({ authenticationMode }) => {
 
   const fetchData = async () => {
     const date = calculateOptionsDate(userOptions);
-
-    console.log(date);
 
     const [dataTM, dataAS] = await Promise.all([
       fetchTicketMaster(page, 10, new Date().toISOString()),
@@ -168,6 +152,7 @@ const _MapScreen: React.FC<MapProps> = ({ authenticationMode }) => {
 
 const mapToStateProps = (state: ApplicationState) => ({
   authenticationMode: state.UserReducer.AuthenticationMode,
+  userOptions: state.UserReducer.userOptions,
 });
 const MapScreen = connect(mapToStateProps)(_MapScreen);
 
