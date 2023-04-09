@@ -30,7 +30,7 @@ export type RootStackParamList = {
 
 export type RootTabParamList = {
   Map: undefined;
-  Favourites: undefined;
+  ShopScreen: undefined;
   HomeScreen: undefined;
   Profile: undefined;
 };

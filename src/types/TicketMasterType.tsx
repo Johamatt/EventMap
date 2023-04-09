@@ -1,4 +1,4 @@
-interface TicketMasterEvent {
+export interface TicketMasterEvent {
   name: string;
   typee: string;
   id: string;

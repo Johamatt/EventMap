@@ -9,17 +9,17 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import { connect } from "react-redux";
-import Colors from "../../../../../constants/Colors";
+import Colors from "../../../../constants/Colors";
 import Constants from "expo-constants";
-import EventsListView from "./EventsListView";
-import HomeTabView from "./HomeTabView";
+import EventsListView from "./HomescreenTabs/EventsTab";
+import HomeTabView from "./HomescreenTabs/HomeTab";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
-import SearchBar from "../../../../../components/Input/SearchBar";
-import { ApplicationState } from "../../../../../Store/reducers";
+import SearchBar from "../../../../components/Input/SearchBar";
+import { ApplicationState } from "../../../../Store/reducers";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../../../../types/navigationTypes";
-import { CATEGORY } from "../../../../../API";
+import { RootStackParamList } from "../../../../types/navigationTypes";
+import { CATEGORY } from "../../../../API";
 
 type HomescreenProps = {
   authenticationMode: GraphQLOptions["authMode"];
@@ -121,7 +121,7 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
                 autoPlay
                 ref={animation}
                 loop={true}
-                source={require("../../../../../assets/lottie/coinLottie.json")}
+                source={require("../../../../assets/lottie/coinLottie.json")}
               />
             </TouchableOpacity>
 

@@ -6,7 +6,6 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { fetchTicketMaster } from "../../../hooks/fetch/TicketMaster/TicketMasterFetch";
 import { RootStackParamList } from "../../../types/navigationTypes";
-import MapListModal from "../modals/MapListModal";
 import { ApplicationState } from "../../../Store/reducers";
 import { userOptionsAsyncStorage } from "../../../types/storageType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import { listEventsCustom } from "../../../hooks/fetch/Appsync/AppsyncEvents";
 import { calculateOptionsDate } from "../../../util/helpers/calculateOptionsDate";
+import MapListModal from "../../../components/Lists/MapListCard";
 
 interface MapProps {
   authenticationMode: GraphQLOptions["authMode"];

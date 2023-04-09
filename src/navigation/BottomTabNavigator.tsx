@@ -1,8 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 
-import FavouritesScreen from "../screens/User/BottomNav/FavouritesScreen";
-import HomeScreen from "../screens/User/BottomNav/homescreen/HomescreenTabs/HomeScreen";
+import ShopScreen from "../screens/User/BottomNav/ShopScreen";
+import HomeScreen from "../screens/User/BottomNav/homescreen/HomeScreen";
 import MapScreen from "../screens/User/BottomNav/MapScreen";
 import UserProfileScreen from "../screens/User/BottomNav/UserProfileScreen";
 
@@ -43,15 +43,15 @@ export function BottomTabNavigator(BottomTab: any): React.ComponentType<any> {
         }}
       />
       <BottomTab.Screen
-        name="Favourites"
-        component={FavouritesScreen}
+        name="Shop"
+        component={ShopScreen}
         options={{
           headerShown: false,
-          title: "Favourites",
+          title: "Shop",
 
           tabBarIcon: ({ focused }: { focused: boolean }) => {
             const color = focused ? Colors.light.primary : "white";
-            return <Feather name="heart" size={24} color={color} />;
+            return <Feather name="shopping-bag" size={24} color={color} />;
           },
         }}
       />

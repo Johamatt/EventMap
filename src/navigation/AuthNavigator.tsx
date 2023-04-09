@@ -1,10 +1,10 @@
 import Colors from "../constants/Colors";
-import { UserConfirmEmailScreen } from "../screens/Authentication/UserConfirmEmailScreen";
-import { UserForgotPasswordScreen } from "../screens/Authentication/UserForgotPasswordScreen";
-import { UserLandingScreen } from "../screens/Authentication/UserLandingScreen";
-import UserLoginScreen from "../screens/Authentication/UserLoginScreen";
-import { UserNewPasswordScreen } from "../screens/Authentication/UserNewPasswordScreen";
-import { UserRegisterScreen } from "../screens/Authentication/UserRegisterScreen";
+import { UserConfirmEmailScreen } from "../screens/Authentication/ConfirmEmailScreen";
+import { UserForgotPasswordScreen } from "../screens/Authentication/ForgotPasswordScreen";
+import { UserLandingScreen } from "../screens/Authentication/LandingScreen";
+import UserLoginScreen from "../screens/Authentication/LoginScreen";
+import { UserNewPasswordScreen } from "../screens/Authentication/NewPasswordScreen";
+import { UserRegisterScreen } from "../screens/Authentication/RegisterScreen";
 
 export const AuthNavigator = (Stack: any) => {
   return (

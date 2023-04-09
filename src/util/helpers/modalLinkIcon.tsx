@@ -1,4 +1,5 @@
 import { FontAwesome5 } from "@expo/vector-icons";
+import React from "react";
 
 export function modalLinkIcon(name: string) {
   if (name === "youtube") {

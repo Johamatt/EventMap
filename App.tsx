@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import Navigation from "./src/navigation";
 import { Amplify } from "aws-amplify";
 import awsmobile from "./src/aws-exports";
-import SplashScreen from "./src/screens/util/SplashScreen";
+import SplashScreen from "./src/screens/SplashScreen";
 import { useCachedResources } from "./src/hooks/useCachedResources";
 import { store } from "./src/Store/store";
 import { loadAsyncStorage } from "./src/hooks/loadAsyncStorage";

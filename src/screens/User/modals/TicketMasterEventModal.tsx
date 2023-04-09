@@ -12,10 +12,12 @@ import MapView, { Marker } from "react-native-maps";
 import { StyleSheet } from "react-native";
 import { RootStackParamList } from "../../../types/navigationTypes";
 import { fetchTicketMasterEvent } from "../../../hooks/fetch/TicketMaster/TicketMasterFetch";
-import { modalLinkIcon } from "../../../util/modalLinkIcon";
+
 import { Analytics } from "aws-amplify";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Store/store";
+import { modalLinkIcon } from "../../../util/helpers/modalLinkIcon";
+import { TicketMasterEvent } from "../../../types/TicketMasterType";
 
 interface TicketMasterEventModalProps {
   navigation: any;

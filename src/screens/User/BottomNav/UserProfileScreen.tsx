@@ -31,29 +31,12 @@ const _UserProfileScreen: React.FC<UserProfileScreenProps> = ({ authMode }) => {
     });
   };
 
-  const handleChangeProfileImage = () => {
-    // TODO: Add code to change profile image here
-  };
-
   return (
     <>
       {authMode === "AMAZON_COGNITO_USER_POOLS" ? (
         <View style={styles.container}>
           <Text style={styles.welcomeText}>Welcome to your profile!</Text>
-          {profileImage ? (
-            <Image source={{ uri: profileImage }} style={styles.profileImage} />
-          ) : (
-            <Image
-              source={require("../../../assets/pictures/profile-Default-Avatar.png")}
-              style={styles.profileImage}
-            />
-          )}
-          <TouchableOpacity
-            style={styles.changeProfileImageButton}
-            onPress={handleChangeProfileImage}
-          >
-            <Text style={styles.buttonText}>Change Profile Image</Text>
-          </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.signOutButton}
             onPress={handleSignOut}

@@ -18,6 +18,7 @@ import { BottomTabNavigator } from "./BottomTabNavigator";
 
 import Colors from "../constants/Colors";
 import UserPreferenceModal from "../screens/User/modals/UserPreferenceModal";
+import React from "react";
 
 interface NavigationProps {
   authMode: GraphQLOptions["authMode"];

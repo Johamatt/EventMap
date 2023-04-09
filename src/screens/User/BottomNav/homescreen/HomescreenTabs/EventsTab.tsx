@@ -8,6 +8,7 @@ import { listEventsCustom } from "../../../../../hooks/fetch/Appsync/AppsyncEven
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import { EventCardAppSync } from "../../../../../components/Cards/EventCardAppsync";
 import { ApplicationState } from "../../../../../Store/reducers";
+import { TicketMasterEvent } from "../../../../../types/TicketMasterType";
 
 type HomescreenProps = {
   tmCategory?: string;
@@ -62,9 +63,6 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
 
   const fetchDataEventsAS = async (nextTokenEvents: string | undefined) => {
     const dateTimeNow = new Date();
-    const dateTimeNowPlusWeek = new Date(
-      dateTimeNow.setDate(dateTimeNow.getDate() + 7)
-    );
     const dateTimeNowPlus10Year = new Date(
       new Date().setFullYear(new Date().getFullYear() + 10)
     );
