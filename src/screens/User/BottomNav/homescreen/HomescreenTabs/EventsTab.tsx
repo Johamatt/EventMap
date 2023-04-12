@@ -1,6 +1,6 @@
-import { ActivityIndicator, FlatList, View, Text } from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 import { connect } from "react-redux";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EventCardTicketMaster } from "../../../../../components/Cards/EventCardTicketMaster";
 import { fetchTicketMaster } from "../../../../../hooks/fetch/TicketMaster/TicketMasterFetch";
 import { CATEGORY, Event } from "../../../../../API";
@@ -23,23 +23,23 @@ type HomescreenProps = {
 };
 
 const _EventsListView: React.FC<HomescreenProps> = (props) => {
-  const [tmDataIsNull, setTmDataIsNull] = useState(false);
-  const [leDataIsNull, setLeDataIsNull] = useState(false);
-
+  //Events
   const [events, setEvents] = useState<
-    Array<TicketMasterEvent | Event | LinkedEvent> //| LinkedEvent
+    Array<TicketMasterEvent | Event | LinkedEvent>
   >([]);
+
+  // nextPage exists
+  const [tmDataHasNextPage, setTmDataHasNextPage] = useState(true);
+  const [leDataHasNextPage, setLeDataHasNextPage] = useState(true);
+
+  //Pages
   const [page, setPage] = useState(0);
+  const [pageLe, setPageLe] = useState(1);
   const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
+
   const [isLoading, setIsLoading] = useState(true);
 
-  const [pageLe, setPageLe] = useState(1);
-
-  // Use useRef to track whether fetchDataEventsAS has been called at least once
-  const isFetchingEventsAS = useRef(false);
-  const isFetchingEventsTM = useRef(false);
-  const isFetchingEventsLE = useRef(false);
-
+  // Fetch data on mount and page change
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
@@ -54,94 +54,80 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
     fetchData();
   }, [page]);
 
+  // Function to fetch more data when user scrolls
   const fetchMoreData = () => {
     setPageLe(pageLe + 1);
     setPage(page + 1);
   };
 
+  // Function to fetch LinkedEvents
   const fetchDataLE = async (page: number) => {
-    if (!leDataIsNull) {
+    if (leDataHasNextPage) {
       const dateTimeNowString = new Date().toISOString();
       const dateTimeNowPlus10Year = new Date(
         new Date().setFullYear(new Date().getFullYear() + 10)
       ).toISOString();
-      try {
-        const data = await fetchLinkedEvents(
-          page,
-          10,
-          dateTimeNowPlus10Year,
-          dateTimeNowString,
 
-          props.leCategory
-        );
+      const data = await fetchLinkedEvents(
+        page,
+        10,
+        dateTimeNowPlus10Year,
+        dateTimeNowString,
+        props.leCategory
+      );
 
-        if (data.length > 0 && data !== undefined) {
-          setEvents((events) => [...events, ...data]);
-        }
-      } catch (error) {
-        console.log(error);
+      if (data.length > 0) {
+        setEvents((events) => [...events, ...data]);
+      } else {
+        setLeDataHasNextPage(false);
       }
-    } else {
-      setLeDataIsNull(true);
     }
   };
 
+  // Function to fetch TicketMaster
   const fetchDataTM = async (page: number) => {
-    if (!isFetchingEventsTM.current) {
-      try {
-        if (!tmDataIsNull) {
-          const data = await fetchTicketMaster(
-            page,
-            10,
-            new Date().toISOString(),
-            props.tmCategory
-          );
-
-          if (data.length > 0 || data === undefined) {
-            setEvents((events) => [...events, ...data]);
-            isFetchingEventsTM.current = true;
-          } else {
-            setTmDataIsNull(true);
-          }
-        }
-      } catch (error) {
-        console.log(error);
+    if (tmDataHasNextPage) {
+      const data = await fetchTicketMaster(
+        page,
+        10,
+        new Date().toISOString(),
+        props.tmCategory
+      );
+      if (data.length > 0) {
+        setEvents((events) => [...events, ...data]);
+      } else {
+        setTmDataHasNextPage(false);
       }
     }
   };
 
+  // Function to fetch Local
   const fetchDataEventsAS = async (nextTokenEvents: string | undefined) => {
     const dateTimeNow = new Date();
     const dateTimeNowPlus10Year = new Date(
       new Date().setFullYear(new Date().getFullYear() + 10)
     );
-    if (!isFetchingEventsAS.current || nextTokenEvents) {
-      try {
-        const data = await listEventsCustom(
-          nextTokenEvents,
-          dateTimeNow.toISOString(),
-          dateTimeNowPlus10Year.toISOString(),
-          props.authenticationMode,
-          10,
-          props.asCategory
-        );
 
-        if (data && data.items && data.items.length !== 0) {
-          const { items, nextToken } = data;
+    if (nextTokenEvents) {
+      const data = await listEventsCustom(
+        nextTokenEvents,
+        dateTimeNow.toISOString(),
+        dateTimeNowPlus10Year.toISOString(),
+        props.authenticationMode,
+        10,
+        props.asCategory
+      );
 
-          setNextTokenEvents(nextToken);
-          setEvents((events) => [...events, ...items]);
-          isFetchingEventsAS.current = true;
-        }
-      } catch (error) {
-        console.log(error);
+      if (data && data.items && data.items.length !== 0) {
+        const { items, nextToken } = data;
+        setNextTokenEvents(nextToken);
+        setEvents((events) => [...events, ...items]);
       }
     }
   };
 
   const renderFooter = () => {
     if (!isLoading) return null;
-
     return (
       <View style={{ paddingVertical: 20 }}>
         <ActivityIndicator size="large" />
@@ -153,18 +139,21 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
     <FlatList
       keyExtractor={(item) => item.id}
       data={events}
-      renderItem={({ item }) =>
-        item.__typename === "ticketmaster" ? (
-          //@ts-ignore
-          <EventCardTicketMaster event={item} />
-        ) : item.__typename === "linkedEvent" ? (
-          //@ts-ignore
-          <EventCardLinkedEvent event={item} />
-        ) : item.__typename === "AppsyncEvent" ? (
-          //@ts-ignore
-          <EventCardAppSync event={item} />
-        ) : null
-      }
+      renderItem={({ item }) => {
+        switch (item.__typename) {
+          case "ticketmaster":
+            //@ts-ignore
+            return <EventCardTicketMaster event={item} />;
+          case "linkedEvent":
+            //@ts-ignore
+            return <EventCardLinkedEvent event={item} />;
+          case "AppsyncEvent":
+            //@ts-ignore
+            return <EventCardAppSync event={item} />;
+          default:
+            return null;
+        }
+      }}
       onEndReached={fetchMoreData}
       onEndReachedThreshold={0.3}
       ListFooterComponent={renderFooter}

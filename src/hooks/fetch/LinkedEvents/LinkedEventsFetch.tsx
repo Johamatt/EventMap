@@ -26,7 +26,7 @@ export const fetchLinkedEvents = async (
       const data: Array<LinkedEvent> = res.data.data;
 
       const dataWithSource = data
-        .filter((event) => {
+        .filter((event: LinkedEvent) => {
           // Skip events where start_time or end_time is null
           if (!event.start_time || !event.end_time) {
             return false;
@@ -95,6 +95,7 @@ export const fetchLinkedEvents = async (
     return dataWithSource;
   } catch (error) {
     console.log(error);
+    return [];
   }
   return [];
 };

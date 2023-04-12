@@ -28,6 +28,7 @@ export const fetchTicketMaster = async (
     }
 
     const data: Array<TicketMasterEvent> = res.data._embedded.events;
+
     const dataWithSource = data.map((event) => ({
       ...event,
       __typename: "ticketmaster",
