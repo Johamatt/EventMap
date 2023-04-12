@@ -25,7 +25,6 @@ type HomescreenProps = {
 const _EventsListView: React.FC<HomescreenProps> = (props) => {
   const [tmDataIsNull, setTmDataIsNull] = useState(false);
   const [leDataIsNull, setLeDataIsNull] = useState(false);
-  const [asDataisNull, setAsDataIsNull] = useState(false);
 
   const [events, setEvents] = useState<
     Array<TicketMasterEvent | Event | LinkedEvent> //| LinkedEvent
@@ -56,7 +55,7 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
   }, [page]);
 
   const fetchMoreData = () => {
-    setPageLe(page + 1);
+    setPageLe(pageLe + 1);
     setPage(page + 1);
   };
 
@@ -76,8 +75,8 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
           props.leCategory
         );
 
-        if (data.length > 0) {
-          setEvents([...events, ...data]);
+        if (data.length > 0 && data !== undefined) {
+          setEvents((events) => [...events, ...data]);
         }
       } catch (error) {
         console.log(error);
@@ -99,7 +98,7 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
           );
 
           if (data.length > 0 || data === undefined) {
-            setEvents([...events, ...data]);
+            setEvents((events) => [...events, ...data]);
             isFetchingEventsTM.current = true;
           } else {
             setTmDataIsNull(true);
@@ -131,7 +130,7 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
           const { items, nextToken } = data;
 
           setNextTokenEvents(nextToken);
-          setEvents([...events, ...items]);
+          setEvents((events) => [...events, ...items]);
           isFetchingEventsAS.current = true;
         }
       } catch (error) {

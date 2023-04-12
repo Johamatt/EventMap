@@ -14,7 +14,10 @@ import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import { listEventsCustom } from "../../../hooks/fetch/Appsync/AppsyncEvents";
 import { calculateOptionsDate } from "../../../util/helpers/calculateOptionsDate";
 import MapListModal from "../../../components/Lists/MapListCard";
-import { fetchLinkedEvents } from "../../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
+import {
+  fetchLinkedEvents,
+  fetchLinkedEventsWithLocation,
+} from "../../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
 
 interface MapProps {
   authenticationMode: GraphQLOptions["authMode"];
@@ -39,7 +42,9 @@ const _MapScreen: React.FC<MapProps> = ({
   const fetchData = async () => {
     const date = calculateOptionsDate(userOptions);
 
-    const [dataTM, dataAS] = await Promise.all([
+    const [dataLE, dataTM, dataAS] = await Promise.all([
+      fetchLinkedEventsWithLocation(1, 10, date.dateTo, date.dateFrom),
+
       fetchTicketMaster(page, 10, new Date().toISOString()),
       listEventsCustom(
         nextTokenEvents,
@@ -49,7 +54,7 @@ const _MapScreen: React.FC<MapProps> = ({
         50
       ),
     ]);
-    const combinedEvents = [...events, ...dataTM, ...dataAS!.items];
+    const combinedEvents = [...events, ...dataTM, ...dataAS!.items, ...dataLE];
 
     const nextToken = dataAS!.nextToken;
     setNextTokenEvents(nextToken);
@@ -103,13 +108,29 @@ const _MapScreen: React.FC<MapProps> = ({
                 }
               ></Marker>
             );
-          } else {
+          }
+          if (ev.__typename === "AppsyncEvent") {
             return (
               <Marker
                 key={i}
                 coordinate={{
                   latitude: ev.location.lat,
                   longitude: ev.location.lon,
+                }}
+                onPress={() =>
+                  navigation.navigate("AppSyncEventModal", { id: ev.id })
+                }
+              ></Marker>
+            );
+          }
+
+          if (ev.__typename === "linkedEvent") {
+            return (
+              <Marker
+                key={i}
+                coordinate={{
+                  latitude: ev.location.position.coordinates[1],
+                  longitude: ev.location.position.coordinates[0],
                 }}
                 onPress={() =>
                   navigation.navigate("AppSyncEventModal", { id: ev.id })

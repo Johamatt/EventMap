@@ -15,7 +15,7 @@ export function calculateOptionsDate(
   ) {
     const dateTimeNow = new Date();
     const dateTimeNowPlus10Year = new Date(
-      new Date().setFullYear(new Date().getFullYear() + 10)
+      new Date().setFullYear(new Date().getFullYear() + 1)
     );
     return {
       dateFrom: dateTimeNow.toISOString(),

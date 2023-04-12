@@ -28,7 +28,7 @@ type HomescreenProps = {
 const tabLabels = [
   "All",
   "Activities & Games",
-  "Festivals",
+  "Festivals & Expos",
   "Entertainment",
   "Sports",
 ];
@@ -53,13 +53,13 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
             leCategory="yso:p6062"
           />
         );
-      case "Festivals":
+      case "Festivals & Expos":
         return (
           <EventsListView
-            key="Festivals"
+            key="Festivals & Expos"
             tmCategory="festival"
             asCategory={CATEGORY.FESTIVAL}
-            leCategory="yso:p1304"
+            leCategory="yso:p1304,yso:p4892"
           />
         );
       case "Sports":
