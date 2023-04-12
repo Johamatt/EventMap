@@ -1,5 +1,6 @@
 import axios from "axios";
 import Constants from "expo-constants";
+import { TicketMasterEvent } from "../../../types/TicketMasterType";
 
 export const fetchTicketMaster = async (
   page: number,
@@ -21,6 +22,11 @@ export const fetchTicketMaster = async (
         },
       }
     );
+
+    if (!res.data._embedded.events) {
+      return new Array<TicketMasterEvent>();
+    }
+
     const data: Array<TicketMasterEvent> = res.data._embedded.events;
     const dataWithSource = data.map((event) => ({
       ...event,
@@ -49,12 +55,6 @@ export const fetchTicketMasterEvent = async (
     );
 
     const event: TicketMasterEvent = res.data._embedded.events[0];
-
-    // for (let key in event) {
-    //   if (typeof event[key] === "object" && event[key] !== null) {
-    //     event[key].source = "Eventmaster";
-    //   }
-    // }
 
     return event;
   } catch (error) {

@@ -14,6 +14,7 @@ import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import { listEventsCustom } from "../../../hooks/fetch/Appsync/AppsyncEvents";
 import { calculateOptionsDate } from "../../../util/helpers/calculateOptionsDate";
 import MapListModal from "../../../components/Lists/MapListCard";
+import { fetchLinkedEvents } from "../../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
 
 interface MapProps {
   authenticationMode: GraphQLOptions["authMode"];
@@ -31,12 +32,8 @@ const _MapScreen: React.FC<MapProps> = ({
   const [page, setPage] = useState<number>(1);
   const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
 
-  console.log(userOptions);
-
   useEffect(() => {
-    if (userOptions) {
-      fetchData();
-    }
+    fetchData();
   }, [userOptions]);
 
   const fetchData = async () => {
@@ -49,12 +46,14 @@ const _MapScreen: React.FC<MapProps> = ({
         date.dateFrom,
         date.dateTo,
         authenticationMode,
-        10
+        50
       ),
     ]);
     const combinedEvents = [...events, ...dataTM, ...dataAS!.items];
+
     const nextToken = dataAS!.nextToken;
     setNextTokenEvents(nextToken);
+    setPage(page + 1);
     setEvents(combinedEvents);
   };
 

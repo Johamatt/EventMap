@@ -120,7 +120,6 @@ const _UserPreferenceModal: React.FC = () => {
     } as userOptionsAsyncStorage);
     try {
       await AsyncStorage.setItem("@storage_Key", jsonValue);
-
       store.dispatch({
         type: "ON_UPDATE_ASYNC_STORAGE",
         payload: jsonValue != null ? JSON.parse(jsonValue) : undefined,

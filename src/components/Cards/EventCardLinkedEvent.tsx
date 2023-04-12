@@ -5,16 +5,16 @@ import { RootStackParamList } from "../../types/navigationTypes";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import moment from "moment";
-import { TicketMasterEvent } from "../../types/TicketMasterType";
+import { LinkedEvent } from "../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
 
 interface EventCardProps {
-  event: TicketMasterEvent;
+  event: LinkedEvent;
 }
 
-export const EventCardTicketMaster: React.FC<EventCardProps> = ({ event }) => {
-  const formattedDate = moment(event.dates.start.localDate).format("MMM D");
-  const formattedTime = event.dates.start.localTime
-    ? moment(event.dates.start.localTime, "HH:mm:ss").format("HH:mm")
+export const EventCardLinkedEvent: React.FC<EventCardProps> = ({ event }) => {
+  const formattedDate = moment(event.start_time).format("MMM D");
+  const formattedTime = event.start_time
+    ? moment(event.start_time, "HH:mm:ss").format("HH:mm")
     : null;
 
   const navigation =
@@ -33,7 +33,9 @@ export const EventCardTicketMaster: React.FC<EventCardProps> = ({ event }) => {
           <Text style={styles.time}>{formattedTime}</Text>
         </View>
         <View style={styles.separator} />
-        <Text style={[styles.cardTitle, { flex: 4 / 4 }]}>{event.name}</Text>
+        <Text style={[styles.cardTitle, { flex: 4 / 4 }]}>
+          {event?.name?.fi ?? event?.name?.en ?? ""}
+        </Text>
       </View>
     </TouchableOpacity>
   );

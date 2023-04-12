@@ -9,28 +9,43 @@ import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import { EventCardAppSync } from "../../../../../components/Cards/EventCardAppsync";
 import { ApplicationState } from "../../../../../Store/reducers";
 import { TicketMasterEvent } from "../../../../../types/TicketMasterType";
+import {
+  fetchLinkedEvents,
+  LinkedEvent,
+} from "../../../../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
+import { EventCardLinkedEvent } from "../../../../../components/Cards/EventCardLinkedEvent";
 
 type HomescreenProps = {
   tmCategory?: string;
   asCategory?: CATEGORY | undefined;
-  etCategory?: string;
-
+  leCategory?: string;
   authenticationMode: GraphQLOptions["authMode"];
 };
 
 const _EventsListView: React.FC<HomescreenProps> = (props) => {
-  const [events, setEvents] = useState<Array<TicketMasterEvent | Event>>([]);
+  const [tmDataIsNull, setTmDataIsNull] = useState(false);
+  const [leDataIsNull, setLeDataIsNull] = useState(false);
+  const [asDataisNull, setAsDataIsNull] = useState(false);
+
+  const [events, setEvents] = useState<
+    Array<TicketMasterEvent | Event | LinkedEvent> //| LinkedEvent
+  >([]);
   const [page, setPage] = useState(0);
   const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(true);
 
+  const [pageLe, setPageLe] = useState(1);
+
   // Use useRef to track whether fetchDataEventsAS has been called at least once
   const isFetchingEventsAS = useRef(false);
+  const isFetchingEventsTM = useRef(false);
+  const isFetchingEventsLE = useRef(false);
 
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
       await Promise.all([
+        fetchDataLE(pageLe),
         fetchDataTM(page),
         fetchDataEventsAS(nextTokenEvents),
       ]);
@@ -41,23 +56,58 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
   }, [page]);
 
   const fetchMoreData = () => {
+    setPageLe(page + 1);
     setPage(page + 1);
   };
 
+  const fetchDataLE = async (page: number) => {
+    if (!leDataIsNull) {
+      const dateTimeNowString = new Date().toISOString();
+      const dateTimeNowPlus10Year = new Date(
+        new Date().setFullYear(new Date().getFullYear() + 10)
+      ).toISOString();
+      try {
+        const data = await fetchLinkedEvents(
+          page,
+          10,
+          dateTimeNowPlus10Year,
+          dateTimeNowString,
+
+          props.leCategory
+        );
+
+        if (data.length > 0) {
+          setEvents([...events, ...data]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setLeDataIsNull(true);
+    }
+  };
+
   const fetchDataTM = async (page: number) => {
-    const dateTimeNowString = new Date().toISOString();
+    if (!isFetchingEventsTM.current) {
+      try {
+        if (!tmDataIsNull) {
+          const data = await fetchTicketMaster(
+            page,
+            10,
+            new Date().toISOString(),
+            props.tmCategory
+          );
 
-    try {
-      const data = await fetchTicketMaster(
-        page,
-        10,
-        dateTimeNowString,
-        props.tmCategory
-      );
-
-      setEvents([...events, ...data]);
-    } catch (error) {
-      console.log(error);
+          if (data.length > 0 || data === undefined) {
+            setEvents([...events, ...data]);
+            isFetchingEventsTM.current = true;
+          } else {
+            setTmDataIsNull(true);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -106,11 +156,15 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
       data={events}
       renderItem={({ item }) =>
         item.__typename === "ticketmaster" ? (
+          //@ts-ignore
           <EventCardTicketMaster event={item} />
-        ) : (
+        ) : item.__typename === "linkedEvent" ? (
+          //@ts-ignore
+          <EventCardLinkedEvent event={item} />
+        ) : item.__typename === "AppsyncEvent" ? (
           //@ts-ignore
           <EventCardAppSync event={item} />
-        )
+        ) : null
       }
       onEndReached={fetchMoreData}
       onEndReachedThreshold={0.3}

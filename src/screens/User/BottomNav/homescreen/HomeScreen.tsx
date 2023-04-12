@@ -50,6 +50,7 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
             key="Activities & Games"
             tmCategory="Miscellaneous"
             asCategory={CATEGORY.GAMES}
+            leCategory="yso:p6062"
           />
         );
       case "Festivals":
@@ -58,6 +59,7 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
             key="Festivals"
             tmCategory="festival"
             asCategory={CATEGORY.FESTIVAL}
+            leCategory="yso:p1304"
           />
         );
       case "Sports":
@@ -66,11 +68,16 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
             key="Sports"
             tmCategory="sport"
             asCategory={CATEGORY.SPORT}
+            leCategory="yso:p916,yso:p965"
           />
         );
       case "Entertainment":
         return (
-          <EventsListView key="Entertainment" tmCategory="Entertainment" />
+          <EventsListView
+            key="Entertainment"
+            tmCategory="Entertainment"
+            leCategory="yso:p916"
+          />
         );
       default:
         return <HomeTabView key="Home" />;

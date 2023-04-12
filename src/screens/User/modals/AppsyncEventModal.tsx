@@ -38,8 +38,11 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
         name: "ASEventModalOpened",
         attributes: {
           ITEM_ID: route.params.id,
-          USER_ID: user.userAuth?.attributes?.sub,
-          // CATEGORIES: event.data.getEvent.primaryCategory.toString(),
+          USER_ID: user.userAuth?.attributes?.sub
+            ? user.userAuth.attributes.sub
+            : "guest user",
+          //@ts-ignore
+          CATEGORIES: event.data.getEvent.primaryCategory.toString(),
           timestamp: new Date().toISOString(),
         },
       });
