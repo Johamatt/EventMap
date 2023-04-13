@@ -1,6 +1,6 @@
 import { ActivityIndicator, FlatList, View } from "react-native";
 import { connect } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { EventCardTicketMaster } from "../../../../../components/Cards/EventCardTicketMaster";
 import { fetchTicketMaster } from "../../../../../hooks/fetch/TicketMaster/TicketMasterFetch";
 import { CATEGORY, Event } from "../../../../../API";
@@ -31,7 +31,7 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
   // nextPage exists
   const [tmDataHasNextPage, setTmDataHasNextPage] = useState(true);
   const [leDataHasNextPage, setLeDataHasNextPage] = useState(true);
-
+  const isASEventsFetched = useRef(false);
   //Pages
   const [page, setPage] = useState(0);
   const [pageLe, setPageLe] = useState(1);
@@ -108,7 +108,8 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
       new Date().setFullYear(new Date().getFullYear() + 10)
     );
 
-    if (nextTokenEvents) {
+    if (!isASEventsFetched.current || nextTokenEvents) {
+      isASEventsFetched.current = true;
       const data = await listEventsCustom(
         nextTokenEvents,
         dateTimeNow.toISOString(),

@@ -7,6 +7,11 @@ import { RootStackParamList } from "../../../types/navigationTypes";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
 import { ApplicationState } from "../../../Store/reducers";
 
+// import Mapbox from "@rnmapbox/maps";
+// import Constants from "expo-constants";
+
+// Mapbox.setAccessToken(Constants.expoConfig.extra.MAPBOXGL_TOKEN);
+
 interface ShopScreenProps {
   authenticationMode: GraphQLOptions["authMode"];
 }
@@ -27,6 +32,10 @@ export const _ShopScreen: React.FC<ShopScreenProps> = ({
       <Text style={styles.welcomeText}>
         Coupon shop not available yet, check again later!
       </Text>
+
+      {/* <View style={styles.container}>
+        <Mapbox.MapView style={styles.map} />
+      </View> */}
     </View>
   );
 };
@@ -57,5 +66,9 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 100,
     margin: 20,
+  },
+
+  map: {
+    flex: 1,
   },
 });

@@ -41,6 +41,8 @@ export const listEventsCustom = async (
         authMode: authMode,
       }
     );
+
+
     //@ts-ignore
     const { items, nextToken } = eventsData.data.byStartingDateTime;
     // Add source "AppsyncEvent" to every item
