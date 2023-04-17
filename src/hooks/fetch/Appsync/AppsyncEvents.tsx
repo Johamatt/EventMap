@@ -23,7 +23,7 @@ export const listEventsCustom = async (
 ) => {
   try {
     const filter = asCategory
-      ? { category: { contains: asCategory } }
+      ? { mainCategory: { eq: asCategory } }
       : undefined;
     const eventsData = await API.graphql<GraphQLQuery<ByStartingDateTimeQuery>>(
       {
@@ -41,7 +41,6 @@ export const listEventsCustom = async (
         authMode: authMode,
       }
     );
-
 
     //@ts-ignore
     const { items, nextToken } = eventsData.data.byStartingDateTime;

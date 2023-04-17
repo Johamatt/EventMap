@@ -20,12 +20,8 @@ export const EventsbyStartingDateTimeCustomQuery = /* GraphQL */ `
         startingDateTime
         endingDateTime
         mainPicture
-        name {
-          fi
-        }
-        description {
-          fi
-        }
+        name
+        description
         company {
           logo
           name
@@ -36,7 +32,6 @@ export const EventsbyStartingDateTimeCustomQuery = /* GraphQL */ `
           streetAddress
           postalCode
           city
-          country
         }
       }
       nextToken
@@ -68,20 +63,8 @@ export const getEventCustomQuery = /* GraphQL */ `
       }
       mainPicture
       secondaryPictures
-      description {
-        fi
-        en
-        sv
-        jp
-        es
-      }
-      name {
-        fi
-        en
-        sv
-        jp
-        es
-      }
+      description 
+      name
       Links {
         mainURL
         secondaryURL

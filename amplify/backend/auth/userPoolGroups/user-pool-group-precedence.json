@@ -4,11 +4,7 @@
     "precedence": 1
   },
   {
-    "groupName": "Organizer",
+    "groupName": "User",
     "precedence": 2
-  },
-  {
-    "groupName": "DefaultUser",
-    "precedence": 3
   }
 ]

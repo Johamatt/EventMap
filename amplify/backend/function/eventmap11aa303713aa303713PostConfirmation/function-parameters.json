@@ -3,16 +3,14 @@
   "modules": [
     "add-to-group"
   ],
-  "parentResource": "eventmap4d4b89934d4b8993",
-  "functionName": "eventmap4d4b89934d4b8993PostConfirmation",
-  "resourceName": "eventmap4d4b89934d4b8993PostConfirmation",
+  "parentResource": "eventmap11aa303713aa303713",
+  "functionName": "eventmap11aa303713aa303713PostConfirmation",
+  "resourceName": "eventmap11aa303713aa303713PostConfirmation",
   "parentStack": "auth",
   "triggerEnvs": "[]",
   "triggerDir": "C:\\snapshot\\repo\\build\\node_modules\\@aws-amplify\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\PostConfirmation",
   "triggerTemplate": "PostConfirmation.json.ejs",
   "triggerEventPath": "PostConfirmation.event.json",
-  "roleName": "eventmap4d4b89934d4b8993PostConfirmation",
-  "skipEdit": true,
-  "GROUP": "DefaultUser",
-  "enableCors": false
+  "roleName": "eventmap11aa303713aa303713PostConfirmation",
+  "skipEdit": true
 }

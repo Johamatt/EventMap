@@ -1,11 +1,11 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "eventmap",
+    "apiName": "eventmap11",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "AMAZON_COGNITO_USER_POOLS",
-      "cognitoUserPoolId": "autheventmap4d4b89934d4b8993"
+      "cognitoUserPoolId": "autheventmap11aa303713aa303713"
     },
     "additionalAuthTypes": [
       {

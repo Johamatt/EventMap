@@ -42,16 +42,6 @@ export const UserRegisterScreen: React.FC = (props) => {
       try {
         await Auth.signUp({ username, password });
 
-        await Auth.signUp({
-          username: username,
-          password: password,
-          attributes: {
-            profilepic: undefined,
-            name: undefined,
-            dateOfBirth: undefined,
-          },
-        });
-
         navigation.navigate("UserConfirmEmailScreen", { username });
       } catch (error: any) {
         Alert.alert("Oops!", error.message);

@@ -1,19 +1,12 @@
 export type AmplifyDependentResourcesAttributes = {
-  "analytics": {
-    "eventmap": {
-      "Id": "string",
-      "Region": "string",
-      "appName": "string"
-    }
-  },
   "api": {
-    "eventmap": {
+    "eventmap11": {
       "GraphQLAPIEndpointOutput": "string",
       "GraphQLAPIIdOutput": "string"
     }
   },
   "auth": {
-    "eventmap4d4b89934d4b8993": {
+    "eventmap11aa303713aa303713": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
@@ -24,22 +17,15 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "userPoolGroups": {
       "AdminGroupRole": "string",
-      "DefaultUserGroupRole": "string",
-      "OrganizerGroupRole": "string"
+      "UserGroupRole": "string"
     }
   },
   "function": {
-    "eventmap4d4b89934d4b8993PostConfirmation": {
+    "eventmap11aa303713aa303713PostConfirmation": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
-      "Region": "string"
-    }
-  },
-  "storage": {
-    "s35fd90945": {
-      "BucketName": "string",
       "Region": "string"
     }
   }
