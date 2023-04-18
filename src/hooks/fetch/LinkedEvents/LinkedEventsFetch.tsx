@@ -169,7 +169,7 @@ export const fetchLinkedEventsWithLocation = async (
     const dataWithSource = data
       .filter((event) => {
         // Skip events where start_time or end_time is null
-        if (!event.start_time || !event.end_time) {
+        if (!event.start_time || !event.end_time || !event.location) {
           return false;
         }
 

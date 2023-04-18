@@ -15,7 +15,7 @@ import { listEventsCustom } from "../../../hooks/fetch/Appsync/AppsyncEvents";
 import { calculateOptionsDate } from "../../../util/helpers/calculateOptionsDate";
 import MapListModal from "../../../components/Lists/MapListCard";
 import { fetchLinkedEventsWithLocation } from "../../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
-
+import { PROVIDER_GOOGLE } from "react-native-maps";
 interface MapProps {
   authenticationMode: GraphQLOptions["authMode"];
   userOptions: userOptionsAsyncStorage | undefined;
@@ -33,15 +33,17 @@ const _MapScreen: React.FC<MapProps> = ({
   const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
 
   useEffect(() => {
-    setEvents([]);
     fetchData();
   }, [userOptions]);
 
   const fetchData = async () => {
+    setEvents([]);
     const date = calculateOptionsDate(userOptions);
+    console.log("From: " + date!.dateFrom);
+    console.log("To: " + date!.dateTo);
 
     const [dataLE /*dataTM*/ /*dataAS*/, ,] = await Promise.all([
-      fetchLinkedEventsWithLocation(1, 100, date.dateTo, date.dateFrom),
+      fetchLinkedEventsWithLocation(1, 100, date!.dateTo, date!.dateFrom),
       // fetchTicketMaster(page, 10, new Date().toISOString()),
       // listEventsCustom(
       //   nextTokenEvents,
@@ -51,11 +53,11 @@ const _MapScreen: React.FC<MapProps> = ({
       //   50
       // ),
     ]);
-    const combinedEvents = [...events, /*...dataAS!.items, */ ...dataLE]; //...dataTM,
+    // const combinedEvents = [...events, /*...dataAS!.items, */ ...dataLE]; //...dataTM,
 
     // setNextTokenEvents(dataAS!.nextToken);
     setPage(page + 1);
-    setEvents(combinedEvents);
+    setEvents(dataLE);
   };
 
   const getMyLocation = () => {
@@ -79,6 +81,7 @@ const _MapScreen: React.FC<MapProps> = ({
   return (
     <View style={styles.container}>
       <MapView
+        provider={PROVIDER_GOOGLE}
         style={styles.map}
         ref={mapRef}
         region={region || getMyLocation()}

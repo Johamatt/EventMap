@@ -3,7 +3,7 @@ import { store } from "../Store/store";
 
 export async function loadAsyncStorage() {
   try {
-    const jsonValue = await AsyncStorage.getItem("@storage_Key12421");
+    const jsonValue = await AsyncStorage.getItem("@storage_Key");
 
     store.dispatch({
       type: "ON_UPDATE_ASYNC_STORAGE",

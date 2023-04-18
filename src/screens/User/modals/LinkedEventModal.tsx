@@ -18,9 +18,6 @@ export const LinkedEventModal: React.FC<LinkedEventModalProps> = (props) => {
   function removeHtmlTags(text: string): string {
     return text.replace(/(<([^>]+)>|&nbsp;)/gi, "\n");
   }
-
-  console.log(event);
-
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.eventTitle}>
