@@ -126,7 +126,7 @@ export const fetchLinkedEventsWithLocation = async (
       const dataWithSource = data
         .filter((event) => {
           // Skip events where start_time or end_time is null
-          if (!event.start_time || !event.end_time) {
+          if (!event.start_time || !event.end_time || !event.location) {
             return false;
           }
 
@@ -173,6 +173,8 @@ export const fetchLinkedEventsWithLocation = async (
           return false;
         }
 
+        // Skip events where coordinates is not defined
+
         const startTime = new Date(event.start_time);
         const endTime = new Date(event.end_time);
 
@@ -209,7 +211,7 @@ export interface LinkedEvent {
   super_event: null;
   event_status: string;
   type_id: string;
-  external_links: never[];
+  external_links: string[];
   offers: {
     is_free: boolean;
     info_url: {

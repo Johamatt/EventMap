@@ -1,59 +1,25 @@
+
+
 type Event @model @auth(rules: [{allow: owner},  
  {allow: groups, groups: ["Admin"]},  
  {allow: groups, groups: ["User"], operations: [read]},
  {allow: public, provider: iam operations: [read]}]) {
   id: ID!
+  name: String!
+  description: String!
+  Links: Links
   type: String! @index(name: "eventByDates", queryField: "byStartingDateTime", sortKeyFields: ["startingDateTime"])
   startingDateTime: AWSDateTime! 
   endingDateTime: AWSDateTime!
-
-  location: Location!
-
   categories: [CATEGORY!]
   mainCategory: CATEGORY!
-
-  company: Company!
-
   mainPicture: AWSURL
   secondaryPictures: [AWSURL]
-
-  description: String!
-  name: String!
-
-  Links: Links
+  location: Location!
   ageRestriction: String!
-  
   isFree: Boolean
+  company: Company!
   Ticket: [Ticket] @hasMany
-      owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
-}
-
-type Activity @model @auth(rules: [{allow: owner},  
- {allow: groups, groups: ["User"], operations: [read]},
- {allow: groups, groups: ["Admin"]},
- {allow: public, provider: iam operations: [read]}]) {
-  id: ID!
-
-  name: String!
-  description: String!
-
-  company: Company
-
-  categories: [CATEGORY!] 
-  mainCategory: CATEGORY!
-
-  Location: Location!
-
-  mainPicture: AWSURL
-  secondaryPictures: [AWSURL]
-
-  Links: Links
-  OpenDays: [OpenDays!]
-
-  ageRestriction: String
-
-  Ticket: [Ticket] @hasMany
-  isFree: Boolean
       owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
@@ -62,21 +28,17 @@ type Company @model @auth(rules: [{allow: owner},
  {allow: groups, groups: ["User"], operations: [read]},
  {allow: public, provider: iam operations: [read]}]) {
   id: ID! 
-
   email: String
   name: String!
   description: String
   phone: String
-
   logo: String
   categories: [CATEGORY]
   mainCategory: CATEGORY
-
-
   links: Links
   events: [Event] @hasMany
   activities: [Activity] @hasMany
-    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 type Ticket @model @auth(rules: [{allow: owner},  
@@ -84,41 +46,53 @@ type Ticket @model @auth(rules: [{allow: owner},
  {allow: groups, groups: ["User"], operations: [read]},
  {allow: public, provider: iam operations: [read]}]) {
   id: ID! 
-
-    TicketName: String
-    description: String
-
-    Ticket: Float
-    currency: String
-
-    available: Boolean
-    startSaleDate: AWSDateTime
-    endSaleDate: AWSDateTime
-
-    owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  name: String
+  description: String
+  Price: Float
+  currency: String
+  available: Boolean
+  startSaleDate: AWSDateTime
+  endSaleDate: AWSDateTime
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
+
+type Activity @model @auth(rules: [{allow: owner},  
+ {allow: groups, groups: ["User"], operations: [read]},
+ {allow: groups, groups: ["Admin"]},
+ {allow: public, provider: iam operations: [read]}]) {
+  id: ID!
+  name: String!
+  description: String!
+  company: Company
+  categories: [CATEGORY!] 
+  mainCategory: CATEGORY!
+  Location: Location!
+  mainPicture: AWSURL
+  secondaryPictures: [AWSURL]
+  Links: Links
+  OpenDays: [OpenDays!]
+  ageRestriction: String
+  Ticket: [Ticket] @hasMany
+  isFree: Boolean
+      owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
 
 type Offer @model @auth(rules: [{allow: owner},  
 {allow: groups, groups: ["Admin"]}, 
  {allow: groups, groups: ["User"], operations: [read]},
  {allow: public, provider: iam operations: [read]}]) {
   id: ID!
-
   name: String!
   description: String!
-
   type: OfferType
   creditCost: Int
-
-    company: Company!
-    Event: Event
-    Activity: Activity
-
+  company: Company!
+  Event: Event
+  Activity: Activity
   price: Float
   currency: String
   discount: Float 
-
   bundleSize: Int 
     owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
@@ -138,7 +112,6 @@ type User @model @auth(rules: [{allow: owner},
 type Links {
   mainURL: AWSURL
   storeURL: AWSURL
-
   facebookURL: AWSURL
   twitterURL: AWSURL
   instagramURL: AWSURL
@@ -150,8 +123,6 @@ type OpenDays {
   timeFrom: AWSTime
   timeTo: AWSTime
 }
-
-
 
 type Location {
   lat: Float!

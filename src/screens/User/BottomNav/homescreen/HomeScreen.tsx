@@ -31,6 +31,8 @@ const tabLabels = [
   "Festivals & Expos",
   "Entertainment",
   "Sports",
+  "Concerts",
+  "Exhibitions",
 ];
 
 const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
@@ -69,6 +71,24 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
             tmCategory="sport"
             asCategory={CATEGORY.SPORT}
             leCategory="yso:p916,yso:p965"
+          />
+        );
+      case "Concerts":
+        return (
+          <EventsListView
+            key="Concerts"
+            tmCategory="CONCERT"
+            asCategory={CATEGORY.CONCERT}
+            leCategory="yso:p11185"
+          />
+        );
+      case "Exhibitions":
+        return (
+          <EventsListView
+            key="Exhibitions"
+            tmCategory="Exhibitions"
+            asCategory={CATEGORY.CONCERT}
+            leCategory="yso:p5121"
           />
         );
       case "Entertainment":

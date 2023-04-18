@@ -56,7 +56,7 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.name}>{event.data!.getEvent!.name.fi}</Text>
+      <Text style={styles.name}>{event.data!.getEvent!.name}</Text>
 
       {event.data?.getEvent?.mainPicture && (
         <Image

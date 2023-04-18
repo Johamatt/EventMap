@@ -23,9 +23,7 @@ export const EventCardLinkedEvent: React.FC<EventCardProps> = ({ event }) => {
   return (
     <TouchableOpacity
       style={styles.cardContainer}
-      onPress={() =>
-        navigation.navigate("TicketMasterEventModal", { id: event.id })
-      }
+      onPress={() => navigation.navigate("LinkedEventModal", { event: event })}
     >
       <View style={{ flexDirection: "row", flex: 1 }}>
         <View style={[styles.cardTimeContainer, { flex: 1 / 4 }]}>

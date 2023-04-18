@@ -26,6 +26,7 @@ export type RootStackParamList = {
   UserPreferenceModal: undefined;
   TicketMasterEventModal: { id: string };
   AppSyncEventModal: { id: string };
+  LinkedEventModal: { event: any };
 };
 
 export type RootTabParamList = {

@@ -19,6 +19,7 @@ import { BottomTabNavigator } from "./BottomTabNavigator";
 import Colors from "../constants/Colors";
 import UserPreferenceModal from "../screens/User/modals/UserPreferenceModal";
 import React from "react";
+import { LinkedEventModal } from "../screens/User/modals/LinkedEventModal";
 
 interface NavigationProps {
   authMode: GraphQLOptions["authMode"];
@@ -93,7 +94,14 @@ const MainNavigation = () => {
           name="UserPreferenceModal"
           component={UserPreferenceModal}
         />
+
+        <Stack.Screen
+          name="LinkedEventModal"
+          component={LinkedEventModal}
+        />
       </Stack.Group>
     </Stack.Group>
   );
 };
+
+

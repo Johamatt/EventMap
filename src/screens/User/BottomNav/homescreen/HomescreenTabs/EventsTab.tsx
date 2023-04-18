@@ -45,8 +45,8 @@ const _EventsListView: React.FC<HomescreenProps> = (props) => {
       setIsLoading(true);
       await Promise.all([
         fetchDataLE(pageLe),
-        fetchDataTM(page),
-        fetchDataEventsAS(nextTokenEvents),
+        // fetchDataTM(page),
+        // fetchDataEventsAS(nextTokenEvents),
       ]);
       setIsLoading(false);
     }
