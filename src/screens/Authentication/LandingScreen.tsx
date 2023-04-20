@@ -23,15 +23,13 @@ export const UserLandingScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.lottieContainer}>
-        <LottieView
-          resizeMode="cover"
-          autoPlay
-          ref={animation}
-          loop={true}
-          source={require("../../assets/lottie/welcomeScreenLottie.json")}
-        />
-      </View>
+      <LottieView
+        autoPlay
+        ref={animation}
+        loop={true}
+        source={require("../../assets/lottie/background-polygon.json")}
+      />
+
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
           style={styles.button}
@@ -56,60 +54,48 @@ export const UserLandingScreen: React.FC = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-
-  lottieContainer: {
-    flex: 0.5,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   buttonsContainer: {
-    flex: 0.5,
+    justifyContent: "space-around",
     alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 20,
-    backgroundColor: "#ffffff",
+    width: "90%",
+    backgroundColor: "transparent",
+    borderRadius: 25,
+    position: "absolute",
+    bottom: 40,
+    marginTop: 20, // add margin top to create space between buttons
   },
-  logo: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 36,
-    fontWeight: "800",
-    marginBottom: 20,
-    textAlign: "center",
-    color: "#fff",
-  },
+
   button: {
-    backgroundColor: "#0084ff",
-    borderRadius: 8,
-    marginBottom: 10,
+    backgroundColor: "#FF6F61",
+    borderRadius: 50,
+    marginBottom: 25,
     paddingVertical: 15,
     width: "100%",
   },
   buttonTitle: {
-    color: "#fff",
-    fontSize: 16,
+    color: "#FFFFFF",
+    fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
+    textTransform: "uppercase",
   },
+
   guestButton: {
-    backgroundColor: "transparent",
-    borderWidth: 1,
-    borderColor: "#000000",
+    backgroundColor: "#333333",
     borderRadius: 8,
     paddingVertical: 15,
     width: "100%",
-    position: "absolute",
-    bottom: 50,
   },
   guestButtonTitle: {
-    color: "#000000",
+    color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",

@@ -8,27 +8,25 @@ export default function SplashScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.absoluteView}>
-        <Text
-          style={{
-            fontSize: 64,
-            color: "white",
-          }}
-        >
-          EventMap
-        </Text>
-      </View>
+      <LottieView
+        resizeMode="cover"
+        autoPlay
+        ref={animation}
+        style={styles.lottie}
+        loop={true}
+        source={require("../assets/lottie/splashScreenLottie.json")}
+      ></LottieView>
 
-      <View>
-        <LottieView
-          resizeMode="cover"
-          autoPlay
-          ref={animation}
-          style={styles.lottie}
-          loop={true}
-          source={require("../assets/lottie/splashScreenLottie.json")}
-        ></LottieView>
-      </View>
+      <Text
+        style={{
+          fontSize: 64,
+          color: "white",
+          position: "absolute",
+          justifyContent: "center",
+        }}
+      >
+        EventMap
+      </Text>
     </View>
   );
 }
@@ -36,7 +34,7 @@ export default function SplashScreen() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
-    zIndex: -1,
+    flex: 1,
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",

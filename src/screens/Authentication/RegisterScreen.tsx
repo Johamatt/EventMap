@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/core";
 import { Auth } from "aws-amplify";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigationTypes";
+import LottieView from "lottie-react-native";
 
 export const UserRegisterScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
@@ -53,6 +54,12 @@ export const UserRegisterScreen: React.FC = (props) => {
 
   return (
     <View style={styles.container}>
+      <LottieView
+        source={require("../../assets/lottie/background-polygon.json")}
+        autoPlay
+        loop
+        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+      />
       <View style={styles.formContainer}>
         <TextInput
           style={styles.TextInput}
@@ -104,7 +111,7 @@ export const UserRegisterScreen: React.FC = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "white",
     justifyContent: "center",
   },
 
@@ -138,11 +145,11 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     paddingHorizontal: 16,
     marginBottom: 16,
-    color: "white",
+    color: "black",
   },
 
   confirmEmailButtonText: {
-    color: "white",
+    color: "black",
   },
 
   confirmEmailContainer: {

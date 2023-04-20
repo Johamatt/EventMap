@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/core";
 import { Auth } from "aws-amplify";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigationTypes";
+import LottieView from "lottie-react-native";
 
 export const UserForgotPasswordScreen: React.FC = (props) => {
   const [username, setUsername] = useState("");
@@ -28,6 +29,12 @@ export const UserForgotPasswordScreen: React.FC = (props) => {
 
   return (
     <View style={styles.container}>
+      <LottieView
+        source={require("../../assets/lottie/background-polygon.json")}
+        autoPlay
+        loop
+        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+      />
       <Text style={styles.title}>Enter your email</Text>
       <TextInput
         style={styles.input}
@@ -51,7 +58,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "white",
   },
   backButton: {
     position: "absolute",
@@ -63,7 +70,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 24,
-    color: "white",
+    color: "black",
   },
   input: {
     width: "80%",

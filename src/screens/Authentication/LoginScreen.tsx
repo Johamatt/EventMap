@@ -16,6 +16,7 @@ import { store } from "../../Store/store";
 import { ApplicationState } from "../../Store/reducers";
 import { connect } from "react-redux";
 import Colors from "../../constants/Colors";
+import LottieView from "lottie-react-native";
 
 const UserLoginScreen: React.FC = (props) => {
   const navigation =
@@ -78,6 +79,12 @@ const UserLoginScreen: React.FC = (props) => {
 
   return (
     <View style={styles.container}>
+      <LottieView
+        source={require("../../assets/lottie/background-polygon.json")}
+        autoPlay
+        loop
+        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+      />
       <View style={{ flex: 0.33 }} />
 
       <View style={styles.formContainer}>
@@ -107,10 +114,7 @@ const UserLoginScreen: React.FC = (props) => {
         <TouchableOpacity
           onPress={() => navigation.navigate("UserForgotPasswordScreen")}
         >
-          <Text style={{ color: "white", paddingTop: 25 }}>
-            {" "}
-            Forgot Password?
-          </Text>
+          <Text style={{ paddingTop: 25 }}> Forgot Password?</Text>
         </TouchableOpacity>
       </View>
 
@@ -134,7 +138,7 @@ const UserLoginScreen: React.FC = (props) => {
             onPress={() => navigation.navigate("UserRegisterScreen")}
             style={{ paddingBottom: 20 }}
           >
-            <Text style={{ color: "white" }}>
+            <Text>
               Don't have an account?{" "}
               <Text style={styles.linkText}>Sign up</Text>
             </Text>
@@ -148,7 +152,7 @@ const UserLoginScreen: React.FC = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "white",
   },
 
   TextInput: {
@@ -156,17 +160,17 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#cccc",
     paddingHorizontal: 16,
     marginBottom: 16,
-    color: "white",
+    color: "black",
   },
 
   button: {
     width: "100%",
     height: 48,
     backgroundColor: "#007AFF",
-    borderRadius: 8,
+    borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
   },

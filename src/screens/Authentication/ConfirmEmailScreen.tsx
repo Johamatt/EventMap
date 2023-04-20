@@ -14,6 +14,7 @@ import { RouteProp } from "@react-navigation/native";
 import { Auth } from "aws-amplify";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigationTypes";
+import LottieView from "lottie-react-native";
 
 type UserConfirmEmailScreenProp = RouteProp<
   RootStackParamList,
@@ -75,6 +76,12 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
   };
   return (
     <View style={styles.container}>
+      <LottieView
+        source={require("../../assets/lottie/background-polygon.json")}
+        autoPlay
+        loop
+        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+      />
       <View style={styles.formContainer}>
         {!props.route.params?.username ? (
           <TextInput
@@ -116,7 +123,7 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "white",
     justifyContent: "center",
   },
   TextInput: {
@@ -127,7 +134,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     paddingHorizontal: 16,
     marginBottom: 16,
-    color: "white",
+    color: "black",
   },
 
   title: {
@@ -147,15 +154,13 @@ const styles = StyleSheet.create({
   },
 
   resendButton: {
-    backgroundColor: "black",
-
     height: 50,
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 30,
   },
   buttonText: {
-    color: "white",
+    color: "black",
     fontWeight: "bold",
   },
 

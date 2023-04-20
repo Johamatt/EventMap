@@ -20,8 +20,8 @@ const App: React.FC = () => {
     const loadResources = async () => {
       try {
         await useCachedResources();
-        await loadAsyncStorage(); //
-        setIsLoadingComplete(true);
+        await loadAsyncStorage();
+        setTimeout(() => setIsLoadingComplete(true), 1500);
       } catch (err) {
         console.error(err);
       }
