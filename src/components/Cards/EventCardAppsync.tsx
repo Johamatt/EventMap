@@ -29,7 +29,7 @@ export const EventCardAppSync: React.FC<EventCardProps> = ({ event }) => {
           <Text style={styles.time}>{formattedTime}</Text>
         </View>
         <View style={styles.separator} />
-        <Text style={[styles.cardTitle, { flex: 4 / 4 }]}>{event.name.fi}</Text>
+        <Text style={[styles.cardTitle, { flex: 4 / 4 }]}>{event.name}</Text>
       </View>
     </TouchableOpacity>
   );

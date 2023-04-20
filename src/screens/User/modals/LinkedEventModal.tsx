@@ -18,6 +18,9 @@ export const LinkedEventModal: React.FC<LinkedEventModalProps> = (props) => {
   function removeHtmlTags(text: string): string {
     return text.replace(/(<([^>]+)>|&nbsp;)/gi, "\n");
   }
+
+  console.log(event.start_time);
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.eventTitle}>
@@ -42,13 +45,13 @@ export const LinkedEventModal: React.FC<LinkedEventModalProps> = (props) => {
       </ScrollView>
 
       <Text style={styles.date}>
-        {moment(event.start_time).format("DD.MM.YYYY")}{" "}
+        {moment.utc(event.start_time).utcOffset("+03:00").format("DD.MM.YYYY")}{" "}
         <Text style={styles.time}>
-          {moment(event.start_time).format("HH:mm")}
+          {moment.utc(event.start_time).utcOffset("+03:00").format("HH:mm")}
         </Text>{" "}
-        - {moment(event.end_time).format("DD.MM.YYYY")}{" "}
+        - {moment.utc(event.end_time).utcOffset("+03:00").format("DD.MM.YYYY")}{" "}
         <Text style={styles.time}>
-          {moment(event.end_time).format("HH:mm")}
+          {moment.utc(event.end_time).utcOffset("+03:00").format("HH:mm")}
         </Text>
       </Text>
 

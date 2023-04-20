@@ -14,7 +14,10 @@ interface EventCardProps {
 export const EventCardLinkedEvent: React.FC<EventCardProps> = ({ event }) => {
   const formattedDate = moment(event.start_time).format("MMM D");
   const formattedTime = event.start_time
-    ? moment(event.start_time, "HH:mm:ss").format("HH:mm")
+    ? moment
+        .utc(event.start_time, "YYYY-MM-DDTHH:mm:ssZ")
+        .utcOffset("+03:00")
+        .format("HH:mm")
     : null;
 
   const navigation =

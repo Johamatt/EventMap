@@ -4,11 +4,9 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
   FlatList,
   Dimensions,
 } from "react-native";
-import Colors from "../../../constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ApplicationState } from "../../../Store/reducers";
@@ -21,13 +19,22 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../types/navigationTypes";
 import { store } from "../../../Store/store";
 
-const _UserPreferenceModal: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<String>("All");
-  const [selectedCategories, setSelectedCategories] = useState<Array<CATEGORY>>(
-    []
+interface UserPreferenceModalProps {
+  userOptions: userOptionsAsyncStorage | undefined;
+}
+
+const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
+  userOptions,
+}) => {
+  const [selectedDate, setSelectedDate] = useState<String>(
+    userOptions?.selectedDate || "All"
   );
-  const [selectAllCategories, setSelectAllCategories] =
-    useState<boolean>(false);
+  const [selectedCategories, setSelectedCategories] = useState<Array<CATEGORY>>(
+    userOptions?.categories || []
+  );
+  const [selectAllCategories, setSelectAllCategories] = useState<boolean>(
+    userOptions?.categories.length === 0 ? true : false
+  );
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -48,13 +55,9 @@ const _UserPreferenceModal: React.FC = () => {
     CATEGORY.SPORT,
     CATEGORY.GAMES,
     CATEGORY.PARTY,
-    CATEGORY.FOODDRINKS,
     CATEGORY.TRIP,
     CATEGORY.STANDUP,
-    CATEGORY.FAMILY,
-    CATEGORY.HEALTH,
     CATEGORY.MUSEUM,
-    CATEGORY.NATURE,
   ];
 
   // <--------- Render buttons ------->
@@ -175,7 +178,7 @@ const _UserPreferenceModal: React.FC = () => {
 };
 
 const mapToStateProps = (state: ApplicationState) => ({
-  userReducer: state.UserReducer,
+  userOptions: state.UserReducer.userOptions,
 });
 
 const UserPreferenceModal = connect(mapToStateProps)(_UserPreferenceModal);

@@ -16,6 +16,7 @@ import { calculateOptionsDate } from "../../../util/helpers/calculateOptionsDate
 import MapListModal from "../../../components/Lists/MapListCard";
 import { fetchLinkedEventsWithLocation } from "../../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
 import { PROVIDER_GOOGLE } from "react-native-maps";
+import { parseCategoryString } from "../../../util/helpers/parseCategoryString";
 interface MapProps {
   authenticationMode: GraphQLOptions["authMode"];
   userOptions: userOptionsAsyncStorage | undefined;
@@ -39,11 +40,19 @@ const _MapScreen: React.FC<MapProps> = ({
   const fetchData = async () => {
     setEvents([]);
     const date = calculateOptionsDate(userOptions);
-    console.log("From: " + date!.dateFrom);
-    console.log("To: " + date!.dateTo);
+
+    const categorystring = parseCategoryString(userOptions?.categories);
+
+    console.log(categorystring);
 
     const [dataLE /*dataTM*/ /*dataAS*/, ,] = await Promise.all([
-      fetchLinkedEventsWithLocation(1, 100, date!.dateTo, date!.dateFrom),
+      fetchLinkedEventsWithLocation(
+        1,
+        100,
+        date!.dateTo,
+        date!.dateFrom,
+        categorystring
+      ),
       // fetchTicketMaster(page, 10, new Date().toISOString()),
       // listEventsCustom(
       //   nextTokenEvents,

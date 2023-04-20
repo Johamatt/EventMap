@@ -87,7 +87,7 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
           <EventsListView
             key="Exhibitions"
             tmCategory="Exhibitions"
-            asCategory={CATEGORY.CONCERT}
+            asCategory={CATEGORY.MUSEUM}
             leCategory="yso:p5121"
           />
         );
