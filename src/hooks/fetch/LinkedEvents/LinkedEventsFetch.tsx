@@ -1,92 +1,38 @@
 import axios from "axios";
-import Constants from "expo-constants";
-import { TicketMasterEvent } from "../../../types/TicketMasterType";
 
 export const fetchLinkedEvents = async (
   page: number,
   size: number,
   endTimeISOString: string,
   startTimeISOstring: string,
-  category?: string
+  category?: string,
+  audience?: string
 ): Promise<Array<LinkedEvent>> => {
   const startDateString = startTimeISOstring.slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
   const endDateString = endTimeISOString.slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
-  if (category === undefined) {
-    try {
-      const res = await axios.get(
-        `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&sort=start_time&max_duration=172800`,
-        {
-          headers: {
-            "Access-Control-Allow-Methods": "GET",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const data: Array<LinkedEvent> = res.data.data;
-
-      const dataWithSource = data
-        .filter((event: LinkedEvent) => {
-          // Skip events where start_time or end_time is null
-          if (!event.start_time || !event.end_time) {
-            return false;
-          }
-
-          const startTime = new Date(event.start_time);
-          const endTime = new Date(event.end_time);
-
-          // Calculate the difference between the event's start and end dates
-          const diffInMs = endTime.getTime() - startTime.getTime();
-          const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-          const diffInMonths = diffInDays / 30;
-
-          // Skip events where the difference is greater than 1 month
-          return diffInMonths <= 1;
-        })
-
-        .map((event) => ({
-          ...event,
-          __typename: "linkedEvent",
-        }));
-
-      return dataWithSource;
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const url = category
+    ? `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&keyword=${category}&sort=start_time&max_duration=172800`
+    : `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&sort=start_time&max_duration=172800`;
 
   try {
-    const res = await axios.get(
-      `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&keyword=${category}&sort=start_time&max_duration=172800`,
-      {
-        headers: {
-          "Access-Control-Allow-Methods": "GET",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
+    const res = await axios.get(url, {
+      headers: {
+        "Access-Control-Allow-Origin": "GET",
+        "Content-Type": "application/json",
+      },
+    });
     const data: Array<LinkedEvent> = res.data.data;
-
     const dataWithSource = data
-      .filter((event) => {
-        // Skip events where start_time or end_time is null
+      .filter((event: LinkedEvent) => {
         if (!event.start_time || !event.end_time) {
           return false;
         }
 
-        const startTime = new Date(event.start_time);
-        const endTime = new Date(event.end_time);
-
-        // Calculate the difference between the event's start and end dates
-        const diffInMs = endTime.getTime() - startTime.getTime();
-        const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-        const diffInMonths = diffInDays / 30;
-
-        // Skip events where the difference is greater than 1 month
-        return diffInMonths <= 1;
+        // Skip events where the difference is greater than 1 month // APPROX milliseconds
+        const startTime = new Date(event.start_time).getTime();
+        const endTime = new Date(event.end_time).getTime();
+        return endTime - startTime <= 2629746000;
       })
-
       .map((event) => ({
         ...event,
         __typename: "linkedEvent",
@@ -95,7 +41,6 @@ export const fetchLinkedEvents = async (
     return dataWithSource;
   } catch (error) {
     console.log(error);
-    return [];
   }
   return [];
 };
@@ -105,93 +50,39 @@ export const fetchLinkedEventsWithLocation = async (
   size: number,
   endTimeISOString: string,
   startTimeISOstring: string,
-  category?: string
+  category?: string,
+  audience?: string
 ): Promise<Array<LinkedEvent>> => {
   const startDateString = startTimeISOstring.slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
   const endDateString = endTimeISOString.slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
-  if (category === undefined) {
-    try {
-      const res = await axios.get(
-        `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&sort=start_time&max_duration=172800&include=location`,
-        {
-          headers: {
-            "Access-Control-Allow-Methods": "GET",
-            "Content-Type": "application/json",
-          },
-        }
-      );
 
-      const data: Array<LinkedEvent> = res.data.data;
+  const url = category
+    ? `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&keyword=${category}&sort=start_time&max_duration=172800&include=location`
+    : `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&sort=start_time&max_duration=172800&include=location`;
 
-      const dataWithSource = data
-        .filter((event) => {
-          // Skip events where start_time or end_time is null
-          if (!event.start_time || !event.end_time || !event.location) {
-            return false;
-          }
-
-          const startTime = new Date(event.start_time);
-          const endTime = new Date(event.end_time);
-
-          // Calculate the difference between the event's start and end dates
-          const diffInMs = endTime.getTime() - startTime.getTime();
-          const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-          const diffInMonths = diffInDays / 30;
-
-          // Skip events where the difference is greater than 1 month
-          return diffInMonths <= 1;
-        })
-
-        .map((event) => ({
-          ...event,
-          __typename: "linkedEvent",
-        }));
-
-      return dataWithSource;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
+  console.log(url);
   try {
-    const res = await axios.get(
-      `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&keyword=${category}&sort=start_time&max_duration=172800&include=location`,
-      {
-        headers: {
-          "Access-Control-Allow-Methods": "GET",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const data: Array<LinkedEvent> = res.data.data;
-
-    const dataWithSource = data
+    const { data } = await axios.get(url, {
+      headers: {
+        "Access-Control-Allow-Methods": "GET",
+        "Content-Type": "application/json",
+      },
+    });
+    const linkedEvents: LinkedEvent[] = data.data;
+    const dataWithSource = linkedEvents
       .filter((event) => {
-        // Skip events where start_time or end_time is null
-        if (!event.start_time || !event.end_time || !event.location) {
+        if (!event.start_time || !event.end_time) {
           return false;
         }
-
-        // Skip events where coordinates is not defined
-
-        const startTime = new Date(event.start_time);
-        const endTime = new Date(event.end_time);
-
-        // Calculate the difference between the event's start and end dates
-        const diffInMs = endTime.getTime() - startTime.getTime();
-        const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-        const diffInMonths = diffInDays / 30;
-
-        // Skip events where the difference is greater than 1 month
-        return diffInMonths <= 1;
+        // Skip events where the difference is greater than 1 month // APPROX milliseconds
+        const startTime = new Date(event.start_time).getTime();
+        const endTime = new Date(event.end_time).getTime();
+        return endTime - startTime <= 2629746000;
       })
-
       .map((event) => ({
         ...event,
         __typename: "linkedEvent",
       }));
-
     return dataWithSource;
   } catch (error) {
     console.log(error);
@@ -211,7 +102,7 @@ export interface LinkedEvent {
   super_event: null;
   event_status: string;
   type_id: string;
-  external_links: string[];
+  external_links: never[];
   offers: {
     is_free: boolean;
     info_url: {
@@ -245,7 +136,7 @@ export interface LinkedEvent {
   name: { fi: string; en: string };
   videos: never[];
   in_language: never[];
-  audience: never[];
+  audience: string[];
   created_time: string;
   last_modified_time: string;
   date_published: null;

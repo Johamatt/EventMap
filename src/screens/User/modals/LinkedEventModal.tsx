@@ -15,11 +15,12 @@ export const LinkedEventModal: React.FC<LinkedEventModalProps> = (props) => {
   if (event === undefined) {
     return <View />;
   }
+
   function removeHtmlTags(text: string): string {
     return text.replace(/(<([^>]+)>|&nbsp;)/gi, "\n");
   }
 
-  console.log(event.start_time);
+  console.log(event.audience);
 
   return (
     <ScrollView style={styles.container}>

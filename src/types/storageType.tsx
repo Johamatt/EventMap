@@ -2,5 +2,7 @@ import { CATEGORY } from "../API";
 
 export type userOptionsAsyncStorage = {
   categories: Array<CATEGORY>;
-  selectedDate: string;
+  selectedDate?: string;
+
+  audience?: string;
 };

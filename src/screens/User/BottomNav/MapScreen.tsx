@@ -17,6 +17,8 @@ import MapListModal from "../../../components/Lists/MapListCard";
 import { fetchLinkedEventsWithLocation } from "../../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 import { parseCategoryString } from "../../../util/helpers/parseCategoryString";
+import { requestLocation } from "../../../hooks/RequestLocation";
+import * as Location from "expo-location";
 interface MapProps {
   authenticationMode: GraphQLOptions["authMode"];
   userOptions: userOptionsAsyncStorage | undefined;
@@ -32,26 +34,34 @@ const _MapScreen: React.FC<MapProps> = ({
   const [events, setEvents] = useState<Array<any>>([]);
   const [page, setPage] = useState<number>(1);
   const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
+  const [location, setLocation] = useState<Location.LocationObject | undefined>(
+    undefined
+  );
 
   useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
     fetchData();
   }, [userOptions]);
 
   const fetchData = async () => {
     setEvents([]);
     const date = calculateOptionsDate(userOptions);
-
     const categorystring = parseCategoryString(userOptions?.categories);
-
-    console.log(categorystring);
-
     const [dataLE /*dataTM*/ /*dataAS*/, ,] = await Promise.all([
       fetchLinkedEventsWithLocation(
         1,
         100,
         date!.dateTo,
         date!.dateFrom,
-        categorystring
+        categorystring,
+        userOptions?.audience
       ),
       // fetchTicketMaster(page, 10, new Date().toISOString()),
       // listEventsCustom(
@@ -63,7 +73,6 @@ const _MapScreen: React.FC<MapProps> = ({
       // ),
     ]);
     // const combinedEvents = [...events, /*...dataAS!.items, */ ...dataLE]; //...dataTM,
-
     // setNextTokenEvents(dataAS!.nextToken);
     setPage(page + 1);
     setEvents(dataLE);
@@ -71,8 +80,8 @@ const _MapScreen: React.FC<MapProps> = ({
 
   const getMyLocation = () => {
     const region: Region = {
-      latitude: 60.192059,
-      longitude: 24.945831,
+      latitude: location ? location.coords.latitude : 37.78825,
+      longitude: location ? location.coords.longitude : -122.4324,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     };
@@ -96,7 +105,7 @@ const _MapScreen: React.FC<MapProps> = ({
         region={region || getMyLocation()}
         onRegionChangeComplete={onRegionChangeComplete}
         mapType="satellite"
-        showsUserLocation
+        showsUserLocation={true}
       >
         {events.map((ev, i) => {
           /*

@@ -4,9 +4,6 @@ import { userOptionsAsyncStorage } from "../../types/storageType";
 export function calculateOptionsDate(
   userOptions: userOptionsAsyncStorage | undefined | "" | null
 ) {
-  const dateTimeNowPlus10Year = new Date(
-    new Date().setFullYear(new Date().getFullYear() + 10)
-  );
   if (
     !userOptions ||
     !userOptions.selectedDate ||
