@@ -60,8 +60,7 @@ const _MapScreen: React.FC<MapProps> = ({
         100,
         date!.dateTo,
         date!.dateFrom,
-        categorystring,
-        userOptions?.audience
+        categorystring
       ),
       // fetchTicketMaster(page, 10, new Date().toISOString()),
       // listEventsCustom(

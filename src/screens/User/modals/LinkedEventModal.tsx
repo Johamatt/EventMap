@@ -1,9 +1,10 @@
 import { ScrollView } from "react-native";
 import { View, Text, Image } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { LinkedEvent } from "../../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
 import moment from "moment";
+import { Analytics } from "aws-amplify";
 
 interface LinkedEventModalProps {
   navigation: any;
@@ -19,8 +20,6 @@ export const LinkedEventModal: React.FC<LinkedEventModalProps> = (props) => {
   function removeHtmlTags(text: string): string {
     return text.replace(/(<([^>]+)>|&nbsp;)/gi, "\n");
   }
-
-  console.log(event.audience);
 
   return (
     <ScrollView style={styles.container}>

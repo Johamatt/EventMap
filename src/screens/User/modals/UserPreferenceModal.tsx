@@ -36,10 +36,6 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
     userOptions?.categories.length === 0 ? true : false
   );
 
-  const [selectedAudience, setSelectedAudience] = useState<string>(
-    userOptions?.audience || "All"
-  );
-
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -64,14 +60,6 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
     CATEGORY.MUSEUM,
   ];
 
-  const audienceButtons = [
-    { label: "All", value: "All" },
-    { label: "Children", value: "yso:p4354" },
-    { label: "Family", value: "yso:p13050" },
-    { label: "Young people", value: "yso:p11617" },
-    { label: "Adults", value: "yso:p5590" },
-  ];
-
   // <--------- Render buttons ------->
   const renderDateButton = ({
     item,
@@ -83,25 +71,6 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
         onPress={() => handleDateSelectPress(item.value)}
         style={
           selectedDate === item.value ? styles.selectedButton : styles.button
-        }
-      >
-        <Text style={styles.buttonLabel}>{item.label}</Text>
-      </TouchableOpacity>
-    );
-  };
-
-  const renderAudienceButton = ({
-    item,
-  }: {
-    item: { label: string; value: string };
-  }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => handleAudienceSelectPress(item.value)}
-        style={
-          selectedAudience === item.value
-            ? styles.selectedButton
-            : styles.button
         }
       >
         <Text style={styles.buttonLabel}>{item.label}</Text>
@@ -130,10 +99,6 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
     setSelectedDate(value);
   };
 
-  const handleAudienceSelectPress = (value: string) => {
-    setSelectedAudience(value);
-  };
-
   const handleCategorySelectPress = (label: CATEGORY) => {
     const index = selectedCategories.indexOf(label);
     if (index > -1) {
@@ -153,7 +118,6 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
     const jsonValue = JSON.stringify({
       categories: selectedCategories,
       selectedDate: selectedDate,
-      audience: selectedAudience,
     } as userOptionsAsyncStorage);
     try {
       await AsyncStorage.setItem("@storage_Key", jsonValue);
@@ -185,13 +149,6 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
         <MaterialCommunityIcons name="lightning-bolt" size={18} color="white" />
         <Text style={styles.optionsTitle}> Select Audience</Text>
       </View>
-
-      <FlatList
-        keyExtractor={(item) => item.value}
-        data={audienceButtons}
-        renderItem={(item) => renderAudienceButton(item)}
-        numColumns={3}
-      />
 
       <View style={styles.buttonGroupHeader}>
         <MaterialCommunityIcons name="lightning-bolt" size={18} color="white" />

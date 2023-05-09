@@ -9,9 +9,19 @@ export const onCreateEvent = /* GraphQL */ `
   ) {
     onCreateEvent(filter: $filter, owner: $owner) {
       id
+      name
+      description
       type
       startingDateTime
       endingDateTime
+      links {
+        mainURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
       location {
         lat
         lon
@@ -19,8 +29,14 @@ export const onCreateEvent = /* GraphQL */ `
         postalCode
         city
       }
+      priceRange {
+        min
+        max
+      }
       categories
       mainCategory
+      mainPicture
+      secondaryPictures
       company {
         id
         email
@@ -38,6 +54,9 @@ export const onCreateEvent = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
+        deals {
+          nextToken
+        }
         events {
           nextToken
         }
@@ -48,35 +67,25 @@ export const onCreateEvent = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      mainPicture
-      secondaryPictures
-      description
-      name
-      Links {
-        mainURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      ageRestriction
-      isFree
-      Ticket {
+      Deal {
         items {
           id
-          TicketName
+          name
           description
-          Ticket
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
           currency
-          available
-          startSaleDate
-          endSaleDate
+          discount
           owner
           createdAt
           updatedAt
-          eventTicketId
-          activityTicketId
+          eventDealId
+          companyDealsId
+          activityDealId
         }
         nextToken
       }
@@ -94,9 +103,19 @@ export const onUpdateEvent = /* GraphQL */ `
   ) {
     onUpdateEvent(filter: $filter, owner: $owner) {
       id
+      name
+      description
       type
       startingDateTime
       endingDateTime
+      links {
+        mainURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
       location {
         lat
         lon
@@ -104,8 +123,14 @@ export const onUpdateEvent = /* GraphQL */ `
         postalCode
         city
       }
+      priceRange {
+        min
+        max
+      }
       categories
       mainCategory
+      mainPicture
+      secondaryPictures
       company {
         id
         email
@@ -123,6 +148,9 @@ export const onUpdateEvent = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
+        deals {
+          nextToken
+        }
         events {
           nextToken
         }
@@ -133,35 +161,25 @@ export const onUpdateEvent = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      mainPicture
-      secondaryPictures
-      description
-      name
-      Links {
-        mainURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      ageRestriction
-      isFree
-      Ticket {
+      Deal {
         items {
           id
-          TicketName
+          name
           description
-          Ticket
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
           currency
-          available
-          startSaleDate
-          endSaleDate
+          discount
           owner
           createdAt
           updatedAt
-          eventTicketId
-          activityTicketId
+          eventDealId
+          companyDealsId
+          activityDealId
         }
         nextToken
       }
@@ -179,9 +197,19 @@ export const onDeleteEvent = /* GraphQL */ `
   ) {
     onDeleteEvent(filter: $filter, owner: $owner) {
       id
+      name
+      description
       type
       startingDateTime
       endingDateTime
+      links {
+        mainURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
       location {
         lat
         lon
@@ -189,8 +217,14 @@ export const onDeleteEvent = /* GraphQL */ `
         postalCode
         city
       }
+      priceRange {
+        min
+        max
+      }
       categories
       mainCategory
+      mainPicture
+      secondaryPictures
       company {
         id
         email
@@ -208,6 +242,9 @@ export const onDeleteEvent = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
+        deals {
+          nextToken
+        }
         events {
           nextToken
         }
@@ -218,35 +255,25 @@ export const onDeleteEvent = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      mainPicture
-      secondaryPictures
-      description
-      name
-      Links {
-        mainURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      ageRestriction
-      isFree
-      Ticket {
+      Deal {
         items {
           id
-          TicketName
+          name
           description
-          Ticket
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
           currency
-          available
-          startSaleDate
-          endSaleDate
+          discount
           owner
           createdAt
           updatedAt
-          eventTicketId
-          activityTicketId
+          eventDealId
+          companyDealsId
+          activityDealId
         }
         nextToken
       }
@@ -254,267 +281,6 @@ export const onDeleteEvent = /* GraphQL */ `
       createdAt
       updatedAt
       companyEventsId
-    }
-  }
-`;
-export const onCreateActivity = /* GraphQL */ `
-  subscription OnCreateActivity(
-    $filter: ModelSubscriptionActivityFilterInput
-    $owner: String
-  ) {
-    onCreateActivity(filter: $filter, owner: $owner) {
-      id
-      name
-      description
-      company {
-        id
-        email
-        name
-        description
-        phone
-        logo
-        categories
-        mainCategory
-        links {
-          mainURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        events {
-          nextToken
-        }
-        activities {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-      }
-      categories
-      mainCategory
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-      }
-      mainPicture
-      secondaryPictures
-      Links {
-        mainURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      ageRestriction
-      Ticket {
-        items {
-          id
-          TicketName
-          description
-          Ticket
-          currency
-          available
-          startSaleDate
-          endSaleDate
-          owner
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
-    }
-  }
-`;
-export const onUpdateActivity = /* GraphQL */ `
-  subscription OnUpdateActivity(
-    $filter: ModelSubscriptionActivityFilterInput
-    $owner: String
-  ) {
-    onUpdateActivity(filter: $filter, owner: $owner) {
-      id
-      name
-      description
-      company {
-        id
-        email
-        name
-        description
-        phone
-        logo
-        categories
-        mainCategory
-        links {
-          mainURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        events {
-          nextToken
-        }
-        activities {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-      }
-      categories
-      mainCategory
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-      }
-      mainPicture
-      secondaryPictures
-      Links {
-        mainURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      ageRestriction
-      Ticket {
-        items {
-          id
-          TicketName
-          description
-          Ticket
-          currency
-          available
-          startSaleDate
-          endSaleDate
-          owner
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
-    }
-  }
-`;
-export const onDeleteActivity = /* GraphQL */ `
-  subscription OnDeleteActivity(
-    $filter: ModelSubscriptionActivityFilterInput
-    $owner: String
-  ) {
-    onDeleteActivity(filter: $filter, owner: $owner) {
-      id
-      name
-      description
-      company {
-        id
-        email
-        name
-        description
-        phone
-        logo
-        categories
-        mainCategory
-        links {
-          mainURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        events {
-          nextToken
-        }
-        activities {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-      }
-      categories
-      mainCategory
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-      }
-      mainPicture
-      secondaryPictures
-      Links {
-        mainURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      ageRestriction
-      Ticket {
-        items {
-          id
-          TicketName
-          description
-          Ticket
-          currency
-          available
-          startSaleDate
-          endSaleDate
-          owner
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
     }
   }
 `;
@@ -540,9 +306,33 @@ export const onCreateCompany = /* GraphQL */ `
         instagramURL
         youtubeURL
       }
+      deals {
+        items {
+          id
+          name
+          description
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
+          currency
+          discount
+          owner
+          createdAt
+          updatedAt
+          eventDealId
+          companyDealsId
+          activityDealId
+        }
+        nextToken
+      }
       events {
         items {
           id
+          name
+          description
           type
           startingDateTime
           endingDateTime
@@ -550,10 +340,6 @@ export const onCreateCompany = /* GraphQL */ `
           mainCategory
           mainPicture
           secondaryPictures
-          description
-          name
-          ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -570,8 +356,6 @@ export const onCreateCompany = /* GraphQL */ `
           mainCategory
           mainPicture
           secondaryPictures
-          ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -607,9 +391,33 @@ export const onUpdateCompany = /* GraphQL */ `
         instagramURL
         youtubeURL
       }
+      deals {
+        items {
+          id
+          name
+          description
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
+          currency
+          discount
+          owner
+          createdAt
+          updatedAt
+          eventDealId
+          companyDealsId
+          activityDealId
+        }
+        nextToken
+      }
       events {
         items {
           id
+          name
+          description
           type
           startingDateTime
           endingDateTime
@@ -617,10 +425,6 @@ export const onUpdateCompany = /* GraphQL */ `
           mainCategory
           mainPicture
           secondaryPictures
-          description
-          name
-          ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -637,8 +441,6 @@ export const onUpdateCompany = /* GraphQL */ `
           mainCategory
           mainPicture
           secondaryPictures
-          ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -674,9 +476,33 @@ export const onDeleteCompany = /* GraphQL */ `
         instagramURL
         youtubeURL
       }
+      deals {
+        items {
+          id
+          name
+          description
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
+          currency
+          discount
+          owner
+          createdAt
+          updatedAt
+          eventDealId
+          companyDealsId
+          activityDealId
+        }
+        nextToken
+      }
       events {
         items {
           id
+          name
+          description
           type
           startingDateTime
           endingDateTime
@@ -684,10 +510,6 @@ export const onDeleteCompany = /* GraphQL */ `
           mainCategory
           mainPicture
           secondaryPictures
-          description
-          name
-          ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -704,8 +526,6 @@ export const onDeleteCompany = /* GraphQL */ `
           mainCategory
           mainPicture
           secondaryPictures
-          ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -719,83 +539,43 @@ export const onDeleteCompany = /* GraphQL */ `
     }
   }
 `;
-export const onCreateTicket = /* GraphQL */ `
-  subscription OnCreateTicket(
-    $filter: ModelSubscriptionTicketFilterInput
+export const onCreateActivity = /* GraphQL */ `
+  subscription OnCreateActivity(
+    $filter: ModelSubscriptionActivityFilterInput
     $owner: String
   ) {
-    onCreateTicket(filter: $filter, owner: $owner) {
-      id
-      TicketName
-      description
-      Ticket
-      currency
-      available
-      startSaleDate
-      endSaleDate
-      owner
-      createdAt
-      updatedAt
-      eventTicketId
-      activityTicketId
-    }
-  }
-`;
-export const onUpdateTicket = /* GraphQL */ `
-  subscription OnUpdateTicket(
-    $filter: ModelSubscriptionTicketFilterInput
-    $owner: String
-  ) {
-    onUpdateTicket(filter: $filter, owner: $owner) {
-      id
-      TicketName
-      description
-      Ticket
-      currency
-      available
-      startSaleDate
-      endSaleDate
-      owner
-      createdAt
-      updatedAt
-      eventTicketId
-      activityTicketId
-    }
-  }
-`;
-export const onDeleteTicket = /* GraphQL */ `
-  subscription OnDeleteTicket(
-    $filter: ModelSubscriptionTicketFilterInput
-    $owner: String
-  ) {
-    onDeleteTicket(filter: $filter, owner: $owner) {
-      id
-      TicketName
-      description
-      Ticket
-      currency
-      available
-      startSaleDate
-      endSaleDate
-      owner
-      createdAt
-      updatedAt
-      eventTicketId
-      activityTicketId
-    }
-  }
-`;
-export const onCreateOffer = /* GraphQL */ `
-  subscription OnCreateOffer(
-    $filter: ModelSubscriptionOfferFilterInput
-    $owner: String
-  ) {
-    onCreateOffer(filter: $filter, owner: $owner) {
+    onCreateActivity(filter: $filter, owner: $owner) {
       id
       name
       description
-      type
-      creditCost
+      links {
+        mainURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      location {
+        lat
+        lon
+        streetAddress
+        postalCode
+        city
+      }
+      priceRange {
+        min
+        max
+      }
+      categories
+      mainCategory
+      mainPicture
+      secondaryPictures
+      openHours {
+        day
+        timeFrom
+        timeTo
+      }
       company {
         id
         email
@@ -813,6 +593,9 @@ export const onCreateOffer = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
+        deals {
+          nextToken
+        }
         events {
           nextToken
         }
@@ -823,127 +606,72 @@ export const onCreateOffer = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      Event {
-        id
-        type
-        startingDateTime
-        endingDateTime
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-        }
-        categories
-        mainCategory
-        company {
+      Deal {
+        items {
           id
-          email
           name
           description
-          phone
-          logo
-          categories
-          mainCategory
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
+          currency
+          discount
           owner
           createdAt
           updatedAt
+          eventDealId
+          companyDealsId
+          activityDealId
         }
-        mainPicture
-        secondaryPictures
-        description
-        name
-        Links {
-          mainURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        ageRestriction
-        isFree
-        Ticket {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyEventsId
+        nextToken
       }
-      Activity {
-        id
-        name
-        description
-        company {
-          id
-          email
-          name
-          description
-          phone
-          logo
-          categories
-          mainCategory
-          owner
-          createdAt
-          updatedAt
-        }
-        categories
-        mainCategory
-        Location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-        }
-        mainPicture
-        secondaryPictures
-        Links {
-          mainURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        OpenDays {
-          day
-          timeFrom
-          timeTo
-        }
-        ageRestriction
-        Ticket {
-          nextToken
-        }
-        isFree
-        owner
-        createdAt
-        updatedAt
-        companyActivitiesId
-      }
-      price
-      currency
-      discount
-      bundleSize
       owner
       createdAt
       updatedAt
+      companyActivitiesId
     }
   }
 `;
-export const onUpdateOffer = /* GraphQL */ `
-  subscription OnUpdateOffer(
-    $filter: ModelSubscriptionOfferFilterInput
+export const onUpdateActivity = /* GraphQL */ `
+  subscription OnUpdateActivity(
+    $filter: ModelSubscriptionActivityFilterInput
     $owner: String
   ) {
-    onUpdateOffer(filter: $filter, owner: $owner) {
+    onUpdateActivity(filter: $filter, owner: $owner) {
       id
       name
       description
-      type
-      creditCost
+      links {
+        mainURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      location {
+        lat
+        lon
+        streetAddress
+        postalCode
+        city
+      }
+      priceRange {
+        min
+        max
+      }
+      categories
+      mainCategory
+      mainPicture
+      secondaryPictures
+      openHours {
+        day
+        timeFrom
+        timeTo
+      }
       company {
         id
         email
@@ -961,6 +689,9 @@ export const onUpdateOffer = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
+        deals {
+          nextToken
+        }
         events {
           nextToken
         }
@@ -971,127 +702,72 @@ export const onUpdateOffer = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      Event {
-        id
-        type
-        startingDateTime
-        endingDateTime
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-        }
-        categories
-        mainCategory
-        company {
+      Deal {
+        items {
           id
-          email
           name
           description
-          phone
-          logo
-          categories
-          mainCategory
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
+          currency
+          discount
           owner
           createdAt
           updatedAt
+          eventDealId
+          companyDealsId
+          activityDealId
         }
-        mainPicture
-        secondaryPictures
-        description
-        name
-        Links {
-          mainURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        ageRestriction
-        isFree
-        Ticket {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyEventsId
+        nextToken
       }
-      Activity {
-        id
-        name
-        description
-        company {
-          id
-          email
-          name
-          description
-          phone
-          logo
-          categories
-          mainCategory
-          owner
-          createdAt
-          updatedAt
-        }
-        categories
-        mainCategory
-        Location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-        }
-        mainPicture
-        secondaryPictures
-        Links {
-          mainURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        OpenDays {
-          day
-          timeFrom
-          timeTo
-        }
-        ageRestriction
-        Ticket {
-          nextToken
-        }
-        isFree
-        owner
-        createdAt
-        updatedAt
-        companyActivitiesId
-      }
-      price
-      currency
-      discount
-      bundleSize
       owner
       createdAt
       updatedAt
+      companyActivitiesId
     }
   }
 `;
-export const onDeleteOffer = /* GraphQL */ `
-  subscription OnDeleteOffer(
-    $filter: ModelSubscriptionOfferFilterInput
+export const onDeleteActivity = /* GraphQL */ `
+  subscription OnDeleteActivity(
+    $filter: ModelSubscriptionActivityFilterInput
     $owner: String
   ) {
-    onDeleteOffer(filter: $filter, owner: $owner) {
+    onDeleteActivity(filter: $filter, owner: $owner) {
       id
       name
       description
-      type
-      creditCost
+      links {
+        mainURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      location {
+        lat
+        lon
+        streetAddress
+        postalCode
+        city
+      }
+      priceRange {
+        min
+        max
+      }
+      categories
+      mainCategory
+      mainPicture
+      secondaryPictures
+      openHours {
+        day
+        timeFrom
+        timeTo
+      }
       company {
         id
         email
@@ -1109,6 +785,9 @@ export const onDeleteOffer = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
+        deals {
+          nextToken
+        }
         events {
           nextToken
         }
@@ -1119,11 +798,72 @@ export const onDeleteOffer = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      Deal {
+        items {
+          id
+          name
+          description
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
+          currency
+          discount
+          owner
+          createdAt
+          updatedAt
+          eventDealId
+          companyDealsId
+          activityDealId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      companyActivitiesId
+    }
+  }
+`;
+export const onCreateDeal = /* GraphQL */ `
+  subscription OnCreateDeal(
+    $filter: ModelSubscriptionDealFilterInput
+    $owner: String
+  ) {
+    onCreateDeal(filter: $filter, owner: $owner) {
+      id
+      name
+      description
+      conditions
+      redemptionInstructions
+      expiresAt
+      redemptionTimes {
+        day
+        timeFrom
+        timeTo
+      }
+      availableQuantity
+      soldQuantity
+      price
+      currency
+      discount
       Event {
         id
+        name
+        description
         type
         startingDateTime
         endingDateTime
+        links {
+          mainURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
         location {
           lat
           lon
@@ -1131,8 +871,14 @@ export const onDeleteOffer = /* GraphQL */ `
           postalCode
           city
         }
+        priceRange {
+          min
+          max
+        }
         categories
         mainCategory
+        mainPicture
+        secondaryPictures
         company {
           id
           email
@@ -1146,21 +892,7 @@ export const onDeleteOffer = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        mainPicture
-        secondaryPictures
-        description
-        name
-        Links {
-          mainURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        ageRestriction
-        isFree
-        Ticket {
+        Deal {
           nextToken
         }
         owner
@@ -1172,6 +904,34 @@ export const onDeleteOffer = /* GraphQL */ `
         id
         name
         description
+        links {
+          mainURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+        }
+        priceRange {
+          min
+          max
+        }
+        categories
+        mainCategory
+        mainPicture
+        secondaryPictures
+        openHours {
+          day
+          timeFrom
+          timeTo
+        }
         company {
           id
           email
@@ -1185,18 +945,24 @@ export const onDeleteOffer = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        Deal {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyActivitiesId
+      }
+      company {
+        id
+        email
+        name
+        description
+        phone
+        logo
         categories
         mainCategory
-        Location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-        }
-        mainPicture
-        secondaryPictures
-        Links {
+        links {
           mainURL
           storeURL
           facebookURL
@@ -1204,79 +970,355 @@ export const onDeleteOffer = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
-        OpenDays {
+        deals {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+      }
+      owner
+      createdAt
+      updatedAt
+      eventDealId
+      companyDealsId
+      activityDealId
+    }
+  }
+`;
+export const onUpdateDeal = /* GraphQL */ `
+  subscription OnUpdateDeal(
+    $filter: ModelSubscriptionDealFilterInput
+    $owner: String
+  ) {
+    onUpdateDeal(filter: $filter, owner: $owner) {
+      id
+      name
+      description
+      conditions
+      redemptionInstructions
+      expiresAt
+      redemptionTimes {
+        day
+        timeFrom
+        timeTo
+      }
+      availableQuantity
+      soldQuantity
+      price
+      currency
+      discount
+      Event {
+        id
+        name
+        description
+        type
+        startingDateTime
+        endingDateTime
+        links {
+          mainURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+        }
+        priceRange {
+          min
+          max
+        }
+        categories
+        mainCategory
+        mainPicture
+        secondaryPictures
+        company {
+          id
+          email
+          name
+          description
+          phone
+          logo
+          categories
+          mainCategory
+          owner
+          createdAt
+          updatedAt
+        }
+        Deal {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyEventsId
+      }
+      Activity {
+        id
+        name
+        description
+        links {
+          mainURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+        }
+        priceRange {
+          min
+          max
+        }
+        categories
+        mainCategory
+        mainPicture
+        secondaryPictures
+        openHours {
           day
           timeFrom
           timeTo
         }
-        ageRestriction
-        Ticket {
+        company {
+          id
+          email
+          name
+          description
+          phone
+          logo
+          categories
+          mainCategory
+          owner
+          createdAt
+          updatedAt
+        }
+        Deal {
           nextToken
         }
-        isFree
         owner
         createdAt
         updatedAt
         companyActivitiesId
       }
+      company {
+        id
+        email
+        name
+        description
+        phone
+        logo
+        categories
+        mainCategory
+        links {
+          mainURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        deals {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+      }
+      owner
+      createdAt
+      updatedAt
+      eventDealId
+      companyDealsId
+      activityDealId
+    }
+  }
+`;
+export const onDeleteDeal = /* GraphQL */ `
+  subscription OnDeleteDeal(
+    $filter: ModelSubscriptionDealFilterInput
+    $owner: String
+  ) {
+    onDeleteDeal(filter: $filter, owner: $owner) {
+      id
+      name
+      description
+      conditions
+      redemptionInstructions
+      expiresAt
+      redemptionTimes {
+        day
+        timeFrom
+        timeTo
+      }
+      availableQuantity
+      soldQuantity
       price
       currency
       discount
-      bundleSize
+      Event {
+        id
+        name
+        description
+        type
+        startingDateTime
+        endingDateTime
+        links {
+          mainURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+        }
+        priceRange {
+          min
+          max
+        }
+        categories
+        mainCategory
+        mainPicture
+        secondaryPictures
+        company {
+          id
+          email
+          name
+          description
+          phone
+          logo
+          categories
+          mainCategory
+          owner
+          createdAt
+          updatedAt
+        }
+        Deal {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyEventsId
+      }
+      Activity {
+        id
+        name
+        description
+        links {
+          mainURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+        }
+        priceRange {
+          min
+          max
+        }
+        categories
+        mainCategory
+        mainPicture
+        secondaryPictures
+        openHours {
+          day
+          timeFrom
+          timeTo
+        }
+        company {
+          id
+          email
+          name
+          description
+          phone
+          logo
+          categories
+          mainCategory
+          owner
+          createdAt
+          updatedAt
+        }
+        Deal {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyActivitiesId
+      }
+      company {
+        id
+        email
+        name
+        description
+        phone
+        logo
+        categories
+        mainCategory
+        links {
+          mainURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        deals {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+      }
       owner
       createdAt
       updatedAt
-    }
-  }
-`;
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onCreateUser(filter: $filter, owner: $owner) {
-      id
-      name
-      email
-      birthday
-      credits
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onUpdateUser(filter: $filter, owner: $owner) {
-      id
-      name
-      email
-      birthday
-      credits
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onDeleteUser(filter: $filter, owner: $owner) {
-      id
-      name
-      email
-      birthday
-      credits
-      owner
-      createdAt
-      updatedAt
+      eventDealId
+      companyDealsId
+      activityDealId
     }
   }
 `;

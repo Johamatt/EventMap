@@ -42,7 +42,7 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
             ? user.userAuth.attributes.sub
             : "guest user",
           //@ts-ignore
-          CATEGORIES: event.data.getEvent.primaryCategory.toString(),
+          CATEGORY: event.data.getEvent.primaryCategory.toString(),
           timestamp: new Date().toISOString(),
         },
       });
@@ -74,21 +74,18 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
       </Text>
       <Text style={styles.promoter}>{event.data?.getEvent?.company?.name}</Text>
       <Text style={styles.title}>Ticket Types:</Text>
-      {event.data?.getEvent?.Ticket?.items.map((ticket: any, index: number) => {
-        return (
-          <View key={index}>
-            <Text style={styles.ticketName}>{ticket.type}</Text>
-            <Text style={styles.ticketPrice}>
-              {ticket.currency} {ticket.min} - {ticket.max}
-            </Text>
-          </View>
-        );
-      })}
+
+      <View>
+        <Text style={styles.ticketPrice}>
+          {event.data?.getEvent?.priceRange?.min} -{" "}
+          {event.data?.getEvent?.priceRange?.max}
+        </Text>
+      </View>
 
       <View style={styles.linksContainer}>
-        {event.data?.getEvent?.Links && (
+        {event.data?.getEvent?.links && (
           <>
-            {Object.entries(event.data.getEvent.Links).map(([key, value]) => {
+            {Object.entries(event.data.getEvent.links).map(([key, value]) => {
               if (value) {
                 return (
                   <TouchableOpacity

@@ -1,4 +1,10 @@
 {
+  "analytics": {
+    "eventmap11": {
+      "providerPlugin": "awscloudformation",
+      "service": "Pinpoint"
+    }
+  },
   "api": {
     "eventmap11": {
       "dependsOn": [

@@ -6,9 +6,19 @@ export const getEvent = /* GraphQL */ `
   query GetEvent($id: ID!) {
     getEvent(id: $id) {
       id
+      name
+      description
       type
       startingDateTime
       endingDateTime
+      links {
+        mainURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
       location {
         lat
         lon
@@ -16,8 +26,14 @@ export const getEvent = /* GraphQL */ `
         postalCode
         city
       }
+      priceRange {
+        min
+        max
+      }
       categories
       mainCategory
+      mainPicture
+      secondaryPictures
       company {
         id
         email
@@ -35,6 +51,9 @@ export const getEvent = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
+        deals {
+          nextToken
+        }
         events {
           nextToken
         }
@@ -45,35 +64,25 @@ export const getEvent = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      mainPicture
-      secondaryPictures
-      description
-      name
-      Links {
-        mainURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      ageRestriction
-      isFree
-      Ticket {
+      Deal {
         items {
           id
-          TicketName
+          name
           description
-          Ticket
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
           currency
-          available
-          startSaleDate
-          endSaleDate
+          discount
           owner
           createdAt
           updatedAt
-          eventTicketId
-          activityTicketId
+          eventDealId
+          companyDealsId
+          activityDealId
         }
         nextToken
       }
@@ -93,9 +102,19 @@ export const listEvents = /* GraphQL */ `
     listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        name
+        description
         type
         startingDateTime
         endingDateTime
+        links {
+          mainURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
         location {
           lat
           lon
@@ -103,8 +122,14 @@ export const listEvents = /* GraphQL */ `
           postalCode
           city
         }
+        priceRange {
+          min
+          max
+        }
         categories
         mainCategory
+        mainPicture
+        secondaryPictures
         company {
           id
           email
@@ -118,21 +143,7 @@ export const listEvents = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        mainPicture
-        secondaryPictures
-        description
-        name
-        Links {
-          mainURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        ageRestriction
-        isFree
-        Ticket {
+        Deal {
           nextToken
         }
         owner
@@ -163,72 +174,11 @@ export const byStartingDateTime = /* GraphQL */ `
     ) {
       items {
         id
+        name
+        description
         type
         startingDateTime
         endingDateTime
-        location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-        }
-        categories
-        mainCategory
-        company {
-          id
-          email
-          name
-          description
-          phone
-          logo
-          categories
-          mainCategory
-          owner
-          createdAt
-          updatedAt
-        }
-        mainPicture
-        secondaryPictures
-        description
-        name
-        Links {
-          mainURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        ageRestriction
-        isFree
-        Ticket {
-          nextToken
-        }
-        owner
-        createdAt
-        updatedAt
-        companyEventsId
-      }
-      nextToken
-    }
-  }
-`;
-export const getActivity = /* GraphQL */ `
-  query GetActivity($id: ID!) {
-    getActivity(id: $id) {
-      id
-      name
-      description
-      company {
-        id
-        email
-        name
-        description
-        phone
-        logo
-        categories
-        mainCategory
         links {
           mainURL
           storeURL
@@ -237,78 +187,21 @@ export const getActivity = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
-        events {
-          nextToken
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
         }
-        activities {
-          nextToken
+        priceRange {
+          min
+          max
         }
-        owner
-        createdAt
-        updatedAt
-      }
-      categories
-      mainCategory
-      Location {
-        lat
-        lon
-        streetAddress
-        postalCode
-        city
-      }
-      mainPicture
-      secondaryPictures
-      Links {
-        mainURL
-        storeURL
-        facebookURL
-        twitterURL
-        instagramURL
-        youtubeURL
-      }
-      OpenDays {
-        day
-        timeFrom
-        timeTo
-      }
-      ageRestriction
-      Ticket {
-        items {
-          id
-          TicketName
-          description
-          Ticket
-          currency
-          available
-          startSaleDate
-          endSaleDate
-          owner
-          createdAt
-          updatedAt
-          eventTicketId
-          activityTicketId
-        }
-        nextToken
-      }
-      isFree
-      owner
-      createdAt
-      updatedAt
-      companyActivitiesId
-    }
-  }
-`;
-export const listActivities = /* GraphQL */ `
-  query ListActivities(
-    $filter: ModelActivityFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listActivities(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        description
+        categories
+        mainCategory
+        mainPicture
+        secondaryPictures
         company {
           id
           email
@@ -322,39 +215,13 @@ export const listActivities = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        categories
-        mainCategory
-        Location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-        }
-        mainPicture
-        secondaryPictures
-        Links {
-          mainURL
-          storeURL
-          facebookURL
-          twitterURL
-          instagramURL
-          youtubeURL
-        }
-        OpenDays {
-          day
-          timeFrom
-          timeTo
-        }
-        ageRestriction
-        Ticket {
+        Deal {
           nextToken
         }
-        isFree
         owner
         createdAt
         updatedAt
-        companyActivitiesId
+        companyEventsId
       }
       nextToken
     }
@@ -379,9 +246,33 @@ export const getCompany = /* GraphQL */ `
         instagramURL
         youtubeURL
       }
+      deals {
+        items {
+          id
+          name
+          description
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
+          currency
+          discount
+          owner
+          createdAt
+          updatedAt
+          eventDealId
+          companyDealsId
+          activityDealId
+        }
+        nextToken
+      }
       events {
         items {
           id
+          name
+          description
           type
           startingDateTime
           endingDateTime
@@ -389,10 +280,6 @@ export const getCompany = /* GraphQL */ `
           mainCategory
           mainPicture
           secondaryPictures
-          description
-          name
-          ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -409,8 +296,6 @@ export const getCompany = /* GraphQL */ `
           mainCategory
           mainPicture
           secondaryPictures
-          ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -448,6 +333,9 @@ export const listCompanies = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
+        deals {
+          nextToken
+        }
         events {
           nextToken
         }
@@ -462,59 +350,40 @@ export const listCompanies = /* GraphQL */ `
     }
   }
 `;
-export const getTicket = /* GraphQL */ `
-  query GetTicket($id: ID!) {
-    getTicket(id: $id) {
-      id
-      TicketName
-      description
-      Ticket
-      currency
-      available
-      startSaleDate
-      endSaleDate
-      owner
-      createdAt
-      updatedAt
-      eventTicketId
-      activityTicketId
-    }
-  }
-`;
-export const listTickets = /* GraphQL */ `
-  query ListTickets(
-    $filter: ModelTicketFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listTickets(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        TicketName
-        description
-        Ticket
-        currency
-        available
-        startSaleDate
-        endSaleDate
-        owner
-        createdAt
-        updatedAt
-        eventTicketId
-        activityTicketId
-      }
-      nextToken
-    }
-  }
-`;
-export const getOffer = /* GraphQL */ `
-  query GetOffer($id: ID!) {
-    getOffer(id: $id) {
+export const getActivity = /* GraphQL */ `
+  query GetActivity($id: ID!) {
+    getActivity(id: $id) {
       id
       name
       description
-      type
-      creditCost
+      links {
+        mainURL
+        storeURL
+        facebookURL
+        twitterURL
+        instagramURL
+        youtubeURL
+      }
+      location {
+        lat
+        lon
+        streetAddress
+        postalCode
+        city
+      }
+      priceRange {
+        min
+        max
+      }
+      categories
+      mainCategory
+      mainPicture
+      secondaryPictures
+      openHours {
+        day
+        timeFrom
+        timeTo
+      }
       company {
         id
         email
@@ -532,6 +401,9 @@ export const getOffer = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
+        deals {
+          nextToken
+        }
         events {
           nextToken
         }
@@ -542,11 +414,54 @@ export const getOffer = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      Event {
+      Deal {
+        items {
+          id
+          name
+          description
+          conditions
+          redemptionInstructions
+          expiresAt
+          availableQuantity
+          soldQuantity
+          price
+          currency
+          discount
+          owner
+          createdAt
+          updatedAt
+          eventDealId
+          companyDealsId
+          activityDealId
+        }
+        nextToken
+      }
+      owner
+      createdAt
+      updatedAt
+      companyActivitiesId
+    }
+  }
+`;
+export const listActivities = /* GraphQL */ `
+  query ListActivities(
+    $filter: ModelActivityFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listActivities(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
         id
-        type
-        startingDateTime
-        endingDateTime
+        name
+        description
+        links {
+          mainURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
         location {
           lat
           lon
@@ -554,8 +469,19 @@ export const getOffer = /* GraphQL */ `
           postalCode
           city
         }
+        priceRange {
+          min
+          max
+        }
         categories
         mainCategory
+        mainPicture
+        secondaryPictures
+        openHours {
+          day
+          timeFrom
+          timeTo
+        }
         company {
           id
           email
@@ -569,11 +495,45 @@ export const getOffer = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        mainPicture
-        secondaryPictures
-        description
+        Deal {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyActivitiesId
+      }
+      nextToken
+    }
+  }
+`;
+export const getDeal = /* GraphQL */ `
+  query GetDeal($id: ID!) {
+    getDeal(id: $id) {
+      id
+      name
+      description
+      conditions
+      redemptionInstructions
+      expiresAt
+      redemptionTimes {
+        day
+        timeFrom
+        timeTo
+      }
+      availableQuantity
+      soldQuantity
+      price
+      currency
+      discount
+      Event {
+        id
         name
-        Links {
+        description
+        type
+        startingDateTime
+        endingDateTime
+        links {
           mainURL
           storeURL
           facebookURL
@@ -581,9 +541,35 @@ export const getOffer = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
-        ageRestriction
-        isFree
-        Ticket {
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+        }
+        priceRange {
+          min
+          max
+        }
+        categories
+        mainCategory
+        mainPicture
+        secondaryPictures
+        company {
+          id
+          email
+          name
+          description
+          phone
+          logo
+          categories
+          mainCategory
+          owner
+          createdAt
+          updatedAt
+        }
+        Deal {
           nextToken
         }
         owner
@@ -595,31 +581,7 @@ export const getOffer = /* GraphQL */ `
         id
         name
         description
-        company {
-          id
-          email
-          name
-          description
-          phone
-          logo
-          categories
-          mainCategory
-          owner
-          createdAt
-          updatedAt
-        }
-        categories
-        mainCategory
-        Location {
-          lat
-          lon
-          streetAddress
-          postalCode
-          city
-        }
-        mainPicture
-        secondaryPictures
-        Links {
+        links {
           mainURL
           storeURL
           facebookURL
@@ -627,44 +589,26 @@ export const getOffer = /* GraphQL */ `
           instagramURL
           youtubeURL
         }
-        OpenDays {
+        location {
+          lat
+          lon
+          streetAddress
+          postalCode
+          city
+        }
+        priceRange {
+          min
+          max
+        }
+        categories
+        mainCategory
+        mainPicture
+        secondaryPictures
+        openHours {
           day
           timeFrom
           timeTo
         }
-        ageRestriction
-        Ticket {
-          nextToken
-        }
-        isFree
-        owner
-        createdAt
-        updatedAt
-        companyActivitiesId
-      }
-      price
-      currency
-      discount
-      bundleSize
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listOffers = /* GraphQL */ `
-  query ListOffers(
-    $filter: ModelOfferFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listOffers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        description
-        type
-        creditCost
         company {
           id
           email
@@ -678,8 +622,81 @@ export const listOffers = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        Deal {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+        companyActivitiesId
+      }
+      company {
+        id
+        email
+        name
+        description
+        phone
+        logo
+        categories
+        mainCategory
+        links {
+          mainURL
+          storeURL
+          facebookURL
+          twitterURL
+          instagramURL
+          youtubeURL
+        }
+        deals {
+          nextToken
+        }
+        events {
+          nextToken
+        }
+        activities {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+      }
+      owner
+      createdAt
+      updatedAt
+      eventDealId
+      companyDealsId
+      activityDealId
+    }
+  }
+`;
+export const listDeals = /* GraphQL */ `
+  query ListDeals(
+    $filter: ModelDealFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDeals(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        conditions
+        redemptionInstructions
+        expiresAt
+        redemptionTimes {
+          day
+          timeFrom
+          timeTo
+        }
+        availableQuantity
+        soldQuantity
+        price
+        currency
+        discount
         Event {
           id
+          name
+          description
           type
           startingDateTime
           endingDateTime
@@ -687,10 +704,6 @@ export const listOffers = /* GraphQL */ `
           mainCategory
           mainPicture
           secondaryPictures
-          description
-          name
-          ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
@@ -704,55 +717,30 @@ export const listOffers = /* GraphQL */ `
           mainCategory
           mainPicture
           secondaryPictures
-          ageRestriction
-          isFree
           owner
           createdAt
           updatedAt
           companyActivitiesId
         }
-        price
-        currency
-        discount
-        bundleSize
+        company {
+          id
+          email
+          name
+          description
+          phone
+          logo
+          categories
+          mainCategory
+          owner
+          createdAt
+          updatedAt
+        }
         owner
         createdAt
         updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      name
-      email
-      birthday
-      credits
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listUsers = /* GraphQL */ `
-  query ListUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        email
-        birthday
-        credits
-        owner
-        createdAt
-        updatedAt
+        eventDealId
+        companyDealsId
+        activityDealId
       }
       nextToken
     }

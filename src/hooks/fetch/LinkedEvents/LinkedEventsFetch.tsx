@@ -5,8 +5,7 @@ export const fetchLinkedEvents = async (
   size: number,
   endTimeISOString: string,
   startTimeISOstring: string,
-  category?: string,
-  audience?: string
+  category?: string
 ): Promise<Array<LinkedEvent>> => {
   const startDateString = startTimeISOstring.slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
   const endDateString = endTimeISOString.slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
@@ -50,8 +49,7 @@ export const fetchLinkedEventsWithLocation = async (
   size: number,
   endTimeISOString: string,
   startTimeISOstring: string,
-  category?: string,
-  audience?: string
+  category?: string
 ): Promise<Array<LinkedEvent>> => {
   const startDateString = startTimeISOstring.slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
   const endDateString = endTimeISOString.slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end

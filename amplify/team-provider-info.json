@@ -26,6 +26,9 @@
       },
       "api": {
         "eventmap11": {}
+      },
+      "analytics": {
+        "eventmap11": {}
       }
     }
   }
