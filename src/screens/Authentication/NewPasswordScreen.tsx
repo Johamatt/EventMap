@@ -50,14 +50,23 @@ export const UserNewPasswordScreen: React.FC<Props> = ({ route }) => {
       <TextInput
         style={styles.TextInput}
         secureTextEntry
-        placeholder="Enter your new password"
+        placeholder="Enter new password"
         textAlign="center"
         placeholderTextColor="#003f5c"
         onChangeText={setNewPassword}
       />
+
       <TextInput
         style={styles.TextInput}
-        placeholder="Code"
+        secureTextEntry
+        placeholder="Repeat new password"
+        textAlign="center"
+        placeholderTextColor="#003f5c"
+      />
+
+      <TextInput
+        style={styles.TextInput}
+        placeholder="Confirmation code"
         textAlign="center"
         placeholderTextColor="#003f5c"
         onChangeText={setCode}
@@ -72,7 +81,7 @@ export const UserNewPasswordScreen: React.FC<Props> = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },

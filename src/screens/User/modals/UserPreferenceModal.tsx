@@ -147,11 +147,6 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
 
       <View style={styles.buttonGroupHeader}>
         <MaterialCommunityIcons name="lightning-bolt" size={18} color="white" />
-        <Text style={styles.optionsTitle}> Select Audience</Text>
-      </View>
-
-      <View style={styles.buttonGroupHeader}>
-        <MaterialCommunityIcons name="lightning-bolt" size={18} color="white" />
         <Text style={styles.optionsTitle}> Select Categories</Text>
       </View>
 

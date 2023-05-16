@@ -7,9 +7,8 @@ import { Auth } from "aws-amplify";
 import { connect } from "react-redux";
 import { AuthNavigator } from "./AuthNavigator";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
-import { useSelector } from "react-redux";
 import { AppsyncEventModal } from "../screens/User/modals/AppsyncEventModal";
-import { RootState, store } from "../Store/store";
+import { store } from "../Store/store";
 
 import { ApplicationState } from "../Store/reducers";
 import { RootStackParamList, RootTabParamList } from "../types/navigationTypes";
@@ -95,13 +94,8 @@ const MainNavigation = () => {
           component={UserPreferenceModal}
         />
 
-        <Stack.Screen
-          name="LinkedEventModal"
-          component={LinkedEventModal}
-        />
+        <Stack.Screen name="LinkedEventModal" component={LinkedEventModal} />
       </Stack.Group>
     </Stack.Group>
   );
 };
-
-

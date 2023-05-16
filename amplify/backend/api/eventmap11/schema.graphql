@@ -11,21 +11,16 @@ type Event @model @auth(
   id: ID!
   name: String!
   description: String!
-
   type: String! @index(name: "eventByDates", queryField: "byStartingDateTime", sortKeyFields: ["startingDateTime"])
   startingDateTime: AWSDateTime! 
   endingDateTime: AWSDateTime!
-
   links: Links
   location: Location!
   priceRange: PriceRange
-
   categories: [CATEGORY!]
   mainCategory: CATEGORY!
-
   mainPicture: AWSURL
   secondaryPictures: [AWSURL]
-
   company: Company!
   Deal: [Deal] @hasMany
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
