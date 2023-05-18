@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  Dimensions,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ApplicationState } from "../../../Store/reducers";
@@ -18,6 +11,9 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../types/navigationTypes";
 import { store } from "../../../Store/store";
+import DateOptionsList from "../../../components/Lists/DateOptionsList";
+import { CategoryOptionsList } from "../../../components/Lists/CategoryOptionsList";
+import RadiusSlider from "../../../components/Sliders/RadiusSlider";
 
 interface UserPreferenceModalProps {
   userOptions: userOptionsAsyncStorage | undefined;
@@ -36,70 +32,26 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
     userOptions?.categories.length === 0 ? true : false
   );
 
+  const [selectedRadius, setSelectedRadius] = useState<number>(
+    userOptions?.radius || 10
+  );
+
+  console.log(userOptions);
+
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-  const dateButtons = [
-    { label: "All", value: "All" },
-    { label: "Today", value: "Today" },
-    { label: "Tomorrow", value: "Tomorrow" },
-    { label: "This week", value: "This week" },
-    { label: "This weekend", value: "This weekend" },
-    { label: "Next week", value: "Next week" },
-  ];
-
-  const categoryButtonLabels: Array<CATEGORY> = [
-    CATEGORY.CONCERT,
-    CATEGORY.FESTIVAL,
-    CATEGORY.EXPO,
-    CATEGORY.SPORT,
-    CATEGORY.GAMES,
-    CATEGORY.PARTY,
-    CATEGORY.TRIP,
-    CATEGORY.STANDUP,
-    CATEGORY.MUSEUM,
-  ];
-
-  // <--------- Render buttons ------->
-  const renderDateButton = ({
-    item,
-  }: {
-    item: { label: string; value: string };
-  }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => handleDateSelectPress(item.value)}
-        style={
-          selectedDate === item.value ? styles.selectedButton : styles.button
-        }
-      >
-        <Text style={styles.buttonLabel}>{item.label}</Text>
-      </TouchableOpacity>
-    );
-  };
-
-  const renderCategoryButton = ({ item }: { item: CATEGORY }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => handleCategorySelectPress(item)}
-        style={
-          selectedCategories.includes(item)
-            ? styles.selectedButton
-            : styles.button
-        }
-      >
-        <Text style={styles.buttonLabel}>{item}</Text>
-      </TouchableOpacity>
-    );
-  };
-  //
 
   // <----- Handle Select Press ------>
   const handleDateSelectPress = (value: string) => {
     setSelectedDate(value);
   };
 
+  const handleSliderChange = (value: number) => {
+    setSelectedRadius(value);
+  };
+
   const handleCategorySelectPress = (label: CATEGORY) => {
+    console.log(selectedCategories);
     const index = selectedCategories.indexOf(label);
     if (index > -1) {
       // Remove the label from the array if it's already selected
@@ -118,6 +70,7 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
     const jsonValue = JSON.stringify({
       categories: selectedCategories,
       selectedDate: selectedDate,
+      radius: selectedRadius,
     } as userOptionsAsyncStorage);
     try {
       await AsyncStorage.setItem("@storage_Key", jsonValue);
@@ -138,11 +91,10 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
         <FontAwesome name="calendar" size={18} color="white" />
         <Text style={styles.optionsTitle}> Select Date</Text>
       </View>
-      <FlatList
-        keyExtractor={(item) => item.value}
-        data={dateButtons}
-        renderItem={(item) => renderDateButton(item)}
-        numColumns={3}
+
+      <DateOptionsList
+        selectedDate={selectedDate}
+        handleDateSelectPress={handleDateSelectPress}
       />
 
       <View style={styles.buttonGroupHeader}>
@@ -150,25 +102,15 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
         <Text style={styles.optionsTitle}> Select Categories</Text>
       </View>
 
-      <TouchableOpacity
-        onPress={() => {
-          setSelectAllCategories(true);
-          setSelectedCategories([]);
-        }}
-        style={[
-          selectAllCategories === true ? styles.selectedButton : styles.button,
-          { width: Dimensions.get("window").width - 10 },
-        ]}
-      >
-        <Text style={styles.buttonLabel}>Select All</Text>
-      </TouchableOpacity>
-
-      <FlatList
-        keyExtractor={(item) => item}
-        data={categoryButtonLabels}
-        renderItem={(item) => renderCategoryButton(item)}
-        numColumns={3}
+      <CategoryOptionsList
+        selectedCategories={selectedCategories}
+        setSelectedCategories={setSelectedCategories}
+        handleCategorySelectPress={handleCategorySelectPress}
+        selectAllCategories={selectAllCategories}
+        setSelectAllCategories={setSelectAllCategories}
       />
+
+      <RadiusSlider onValueChange={handleSliderChange} />
 
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
         <Text style={styles.submitButtonText}>Submit</Text>
@@ -196,49 +138,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontWeight: "bold",
   },
-  datebuttonsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    marginHorizontal: 20,
-    marginVertical: 10,
-    flex: 1,
-  },
-  button: {
-    backgroundColor: "white",
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 3,
-    margin: 5,
-    flex: 1,
-    width: 100, // add a fixed width
-    height: 40, // add a fixed height
-    alignItems: "center",
-    justifyContent: "center",
-  },
 
   submitButtonText: {
     color: "black",
     fontSize: 16,
-    fontWeight: "bold",
-  },
-
-  selectedButton: {
-    backgroundColor: "#f1c40f",
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 3,
-    margin: 5,
-    flex: 1,
-    width: 100, // add a fixed width
-    height: 40, // add a fixed height
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  buttonLabel: {
-    color: "#1a1a1a",
-    fontSize: 14,
     fontWeight: "bold",
   },
 
