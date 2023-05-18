@@ -3,27 +3,23 @@ const EARTH_RADIUS = 6371; // Earth's radius in kilometers
 export function calculateBboxRadius(
   latitude: number,
   longitude: number,
-  distance: number
+  distance: number | undefined
 ) {
-  const latRadian = (latitude * Math.PI) / 180;
-  const lonRadian = (longitude * Math.PI) / 180;
-  const angularDistance = distance / EARTH_RADIUS;
+  if (distance === undefined) {
+    distance = 10;
+  }
 
-  const minLat = latRadian - angularDistance;
-  const maxLat = latRadian + angularDistance;
+  const latRadian = latitude * (Math.PI / 180); // convert latitude to radians
 
-  const minLon = lonRadian - angularDistance / Math.cos(latRadian);
-  const maxLon = lonRadian + angularDistance / Math.cos(latRadian);
+  const deltaLat = distance / EARTH_RADIUS; // 1 kilometer in latitude
+  const deltaLng = Math.asin(Math.sin(deltaLat) / Math.cos(latRadian)); // 1 kilometer in longitude
 
-  const minLatDegree = (minLat * 180) / Math.PI;
-  const maxLatDegree = (maxLat * 180) / Math.PI;
-  const minLonDegree = (minLon * 180) / Math.PI;
-  const maxLonDegree = (maxLon * 180) / Math.PI;
+  const minLat = latitude - deltaLat * (180 / Math.PI);
+  const maxLat = latitude + deltaLat * (180 / Math.PI);
+  const minLng = longitude - deltaLng * (180 / Math.PI);
+  const maxLng = longitude + deltaLng * (180 / Math.PI);
 
-  return [
-    minLatDegree.toString(),
-    maxLatDegree.toString(),
-    minLonDegree.toString(),
-    maxLonDegree.toString(),
-  ];
+  console.log(minLng + minLat + maxLng + maxLat);
+
+  return `${minLng},${minLat},${maxLng},${maxLat}`;
 }

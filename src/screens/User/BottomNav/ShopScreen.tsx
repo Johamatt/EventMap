@@ -16,7 +16,6 @@ export const _ShopScreen: React.FC<ShopScreenProps> = ({
 }) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const [events, setEvents] = useState<string | null>(null); // todo fetch user
 
   return (
     <View style={styles.container}>
@@ -25,7 +24,7 @@ export const _ShopScreen: React.FC<ShopScreenProps> = ({
         style={styles.image}
       />
       <Text style={styles.welcomeText}>
-        Coupon shop not available yet, check again later!
+        Deals not available yet, check again later!
       </Text>
     </View>
   );

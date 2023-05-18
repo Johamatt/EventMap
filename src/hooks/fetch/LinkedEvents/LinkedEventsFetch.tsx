@@ -49,16 +49,19 @@ export const fetchLinkedEventsWithLocation = async (
   size: number,
   endTimeISOString: string,
   startTimeISOstring: string,
+  bbox: string,
   category?: string
 ): Promise<Array<LinkedEvent>> => {
   const startDateString = startTimeISOstring.slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
   const endDateString = endTimeISOString.slice(0, -5) + "Z"; // Removes the last 5 characters (the dot and 4 digits) and adds the 'Z' at the end
 
-  const url = category
-    ? `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&keyword=${category}&sort=start_time&max_duration=172800&include=location`
-    : `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&sort=start_time&max_duration=172800&include=location`;
+  console.log(bbox);
+  console.log(bbox);
 
-  console.log(url);
+  const url = category
+    ? `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&keyword=${category}&sort=start_time&max_duration=172800&include=location&bbox=${bbox}` //&bbox=${bbox}
+    : `https://api.hel.fi/linkedevents/v1/event?start=${startDateString}&end=${endDateString}&page=${page}&page_size=${size}&sort=start_time&max_duration=172800&include=location&bbox=${bbox}`; //&bbox=${bbox}
+
   try {
     const { data } = await axios.get(url, {
       headers: {

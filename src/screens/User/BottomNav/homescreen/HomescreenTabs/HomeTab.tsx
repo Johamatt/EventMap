@@ -13,9 +13,6 @@ type HomeTabViewProps = {
 const _HomeTabView: React.FC<HomeTabViewProps> = ({ authenticationMode }) => {
   return (
     <View style={styles.container}>
-      {authenticationMode === "AMAZON_COGNITO_USER_POOLS" && (
-        <DailyCoinBanner />
-      )}
       <AutoScrollList data={promotionsPlaceHolder} />
     </View>
   );

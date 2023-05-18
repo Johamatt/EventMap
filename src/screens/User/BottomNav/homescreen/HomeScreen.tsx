@@ -140,31 +140,6 @@ const _HomeScreen: React.FC<HomescreenProps> = ({ authenticationMode }) => {
 
           {isSearchOpen ? <SearchBar onChangeText={handleSearch} /> : <View />}
         </View>
-
-        {authenticationMode === "AMAZON_COGNITO_USER_POOLS" && (
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <TouchableOpacity style={styles.coinButton}>
-              <LottieView
-                autoPlay
-                ref={animation}
-                loop={true}
-                source={require("../../../../assets/lottie/coinLottie.json")}
-              />
-            </TouchableOpacity>
-
-            <Text
-              style={{
-                color: "white",
-                marginLeft: 10,
-                fontWeight: "bold",
-                fontSize: 18,
-                textTransform: "uppercase",
-              }}
-            >
-              0
-            </Text>
-          </View>
-        )}
       </View>
       <View style={styles.tabWrapper}>
         <TouchableOpacity

@@ -19,6 +19,7 @@ import { PROVIDER_GOOGLE } from "react-native-maps";
 import { parseCategoryString } from "../../../util/helpers/parseCategoryString";
 import { requestLocation } from "../../../hooks/RequestLocation";
 import * as Location from "expo-location";
+import { calculateBboxRadius } from "../../../util/helpers/calculateBBox";
 interface MapProps {
   authenticationMode: GraphQLOptions["authMode"];
   userOptions: userOptionsAsyncStorage | undefined;
@@ -54,12 +55,31 @@ const _MapScreen: React.FC<MapProps> = ({
     setEvents([]);
     const date = calculateOptionsDate(userOptions);
     const categorystring = parseCategoryString(userOptions?.categories);
+
+    let bbox;
+    // if (
+    //   location &&
+    //   location.coords &&
+    //   location.coords.latitude !== undefined &&
+    //   location.coords.longitude !== undefined
+    // ) {
+    //   bbox = calculateBboxRadius(
+    //     location.coords.latitude,
+    //     location.coords.longitude,
+    //     userOptions?.radius
+    //   );
+    // } else {
+    // Use a default radius value
+    bbox = calculateBboxRadius(60.192059, 24.945831, userOptions?.radius);
+    // }
+
     const [dataLE /*dataTM*/ /*dataAS*/, ,] = await Promise.all([
       fetchLinkedEventsWithLocation(
         1,
         100,
         date!.dateTo,
         date!.dateFrom,
+        bbox,
         categorystring
       ),
       // fetchTicketMaster(page, 10, new Date().toISOString()),
@@ -79,8 +99,8 @@ const _MapScreen: React.FC<MapProps> = ({
 
   const getMyLocation = () => {
     const region: Region = {
-      latitude: location ? location.coords.latitude : 37.78825,
-      longitude: location ? location.coords.longitude : -122.4324,
+      latitude: 60.192059, //location ? location.coords.latitude : 60.192059,
+      longitude: 24.945831, //location ? location.coords.longitude : 24.945831,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     };
