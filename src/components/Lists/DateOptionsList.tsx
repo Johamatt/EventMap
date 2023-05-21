@@ -62,8 +62,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 3,
     margin: 5,
     flex: 1,
-    width: 100, // add a fixed width
-    height: 40, // add a fixed height
     alignItems: "center",
     justifyContent: "center",
   },
@@ -75,8 +73,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 3,
     margin: 5,
     flex: 1,
-    width: 100, // add a fixed width
-    height: 40, // add a fixed height
     alignItems: "center",
     justifyContent: "center",
   },

@@ -1,79 +1,65 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, View, StyleSheet, TouchableOpacity } from "react-native";
-import MapView, { Marker, Region } from "react-native-maps";
+import React, { useEffect, useState } from "react";
+import {
+  Dimensions,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import { connect } from "react-redux";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { fetchTicketMaster } from "../../../hooks/fetch/TicketMaster/TicketMasterFetch";
 import { RootStackParamList } from "../../../types/navigationTypes";
 import { ApplicationState } from "../../../Store/reducers";
 import { userOptionsAsyncStorage } from "../../../types/storageType";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import { GraphQLOptions } from "@aws-amplify/api-graphql";
-import { listEventsCustom } from "../../../hooks/fetch/Appsync/AppsyncEvents";
 import { calculateOptionsDate } from "../../../util/helpers/calculateOptionsDate";
-import MapListModal from "../../../components/Lists/MapListCard";
-import { fetchLinkedEventsWithLocation } from "../../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
-import { PROVIDER_GOOGLE } from "react-native-maps";
+import {
+  LinkedEvent,
+  fetchLinkedEventsWithLocation,
+} from "../../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
 import { parseCategoryString } from "../../../util/helpers/parseCategoryString";
-import { requestLocation } from "../../../hooks/RequestLocation";
 import * as Location from "expo-location";
 import { calculateBboxRadius } from "../../../util/helpers/calculateBBox";
+import Mapbox, { Camera, MarkerView } from "@rnmapbox/maps";
+import Constants from "expo-constants";
+import LottieView from "lottie-react-native";
+
+//@ts-ignore
+Mapbox.setAccessToken(Constants.expoConfig.extra.MAPBOX_KEY);
+
 interface MapProps {
   authenticationMode: GraphQLOptions["authMode"];
   userOptions: userOptionsAsyncStorage | undefined;
 }
 
-const _MapScreen: React.FC<MapProps> = ({
-  authenticationMode,
-  userOptions,
-}) => {
-  const mapRef = useRef<MapView>(null);
-  const [showCard, setShowCard] = useState<boolean>(false);
-  const [region, setRegion] = useState<Region>();
-  const [events, setEvents] = useState<Array<any>>([]);
-  const [page, setPage] = useState<number>(1);
+const MapScreen: React.FC<MapProps> = ({ authenticationMode, userOptions }) => {
+  const [events, setEvents] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
   const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
   const [location, setLocation] = useState<Location.LocationObject | undefined>(
     undefined
   );
+  const [showCard, setShowCard] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false); // New state for loading
+
+  const [event, setEvent] = useState<LinkedEvent | undefined>(undefined);
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        return;
-      }
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    })();
     fetchData();
   }, [userOptions]);
 
   const fetchData = async () => {
+    setIsLoading(true); // Show loading icon
     setEvents([]);
     const date = calculateOptionsDate(userOptions);
     const categorystring = parseCategoryString(userOptions?.categories);
-
-    let bbox;
-    // if (
-    //   location &&
-    //   location.coords &&
-    //   location.coords.latitude !== undefined &&
-    //   location.coords.longitude !== undefined
-    // ) {
-    //   bbox = calculateBboxRadius(
-    //     location.coords.latitude,
-    //     location.coords.longitude,
-    //     userOptions?.radius
-    //   );
-    // } else {
-    // Use a default radius value
-    bbox = calculateBboxRadius(60.192059, 24.945831, userOptions?.radius);
-    // }
-
-    const [dataLE /*dataTM*/ /*dataAS*/, ,] = await Promise.all([
+    const bbox = calculateBboxRadius(60.192059, 24.945831, userOptions?.radius);
+    const [dataLE] = await Promise.all([
       fetchLinkedEventsWithLocation(
         1,
         100,
@@ -82,144 +68,72 @@ const _MapScreen: React.FC<MapProps> = ({
         bbox,
         categorystring
       ),
-      // fetchTicketMaster(page, 10, new Date().toISOString()),
-      // listEventsCustom(
-      //   nextTokenEvents,
-      //   date.dateFrom,
-      //   date.dateTo,
-      //   authenticationMode,
-      //   50
-      // ),
     ]);
-    // const combinedEvents = [...events, /*...dataAS!.items, */ ...dataLE]; //...dataTM,
-    // setNextTokenEvents(dataAS!.nextToken);
     setPage(page + 1);
     setEvents(dataLE);
+    setIsLoading(false); // Hide loading icon
   };
-
-  const getMyLocation = () => {
-    const region: Region = {
-      latitude: 60.192059, //location ? location.coords.latitude : 60.192059,
-      longitude: 24.945831, //location ? location.coords.longitude : 24.945831,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    };
-    return region;
-  };
-
-  const onRegionChangeComplete = async (region: Region) => {
-    setRegion(region);
-    mapRef.current?.animateToRegion(region, 1000);
-  };
-
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
-    <View style={styles.container}>
-      <MapView
-        provider={PROVIDER_GOOGLE}
-        style={styles.map}
-        ref={mapRef}
-        region={region || getMyLocation()}
-        onRegionChangeComplete={onRegionChangeComplete}
-        mapType="satellite"
-        showsUserLocation={true}
-      >
-        {events.map((ev, i) => {
-          /*
-          if (ev.__typename === "ticketmaster") {
-            return (
-              <Marker
-                key={i}
-                coordinate={{
-                  latitude: parseFloat(
-                    ev._embedded.venues[0].location.latitude
-                  ),
-                  longitude: parseFloat(
-                    ev._embedded.venues[0].location.longitude
-                  ),
-                }}
-                onPress={() =>
-                  navigation.navigate("TicketMasterEventModal", { id: ev.id })
-                }
-              ></Marker>
-            );
-          }
-          if (ev.__typename === "AppsyncEvent") {
-            return (
-              <Marker
-                key={i}
-                coordinate={{
-                  latitude: ev.location.lat,
-                  longitude: ev.location.lon,
-                }}
-                onPress={() =>
-                  navigation.navigate("AppSyncEventModal", { id: ev.id })
-                }
-              ></Marker>
-            );
-          }
-            */
-          if (
-            ev.__typename === "linkedEvent" &&
-            ev.location.position &&
-            ev.location.position.coordinates
-          ) {
-            return (
-              <Marker
-                key={i}
-                coordinate={{
-                  latitude: ev.location.position.coordinates[1],
-                  longitude: ev.location.position.coordinates[0],
-                }}
+    <View style={styles.page}>
+      <View style={styles.container}>
+        <Mapbox.MapView style={styles.map}>
+          <Camera zoomLevel={10} centerCoordinate={[24.945831, 60.192059]} />
+          {events.map((ev, i) => (
+            <MarkerView
+              key={i}
+              coordinate={[
+                ev.location.position.coordinates[0],
+                ev.location.position.coordinates[1],
+              ]}
+              style={markerStyles.container}
+            >
+              <TouchableOpacity
                 onPress={() =>
                   navigation.navigate("LinkedEventModal", { event: ev })
                 }
-              />
-            );
-          }
-        })}
-      </MapView>
-      {showCard ? (
-        <MapListModal
-          closeCard={() => setShowCard(false)}
-          onEventPress={(coordinates) => onRegionChangeComplete(coordinates)}
-          events={events}
-        />
-      ) : (
-        <React.Fragment>
-          <View style={styles.filterButtonContainer}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("UserPreferenceModal")}
-              style={styles.button}
-            >
-              <Ionicons name="options-outline" size={24} color="black" />
-            </TouchableOpacity>
+                style={markerStyles.touchable}
+              >
+                <View style={markerStyles.marker}>
+                  <Text style={markerStyles.text}>{i}</Text>
+                </View>
+              </TouchableOpacity>
+            </MarkerView>
+          ))}
+        </Mapbox.MapView>
+        {isLoading && (
+          <View style={styles.loadingOverlay}>
+            <LottieView
+              source={require("../../../assets/lottie/loadingLottie.json")}
+              autoPlay
+              loop
+            />
           </View>
-          <View style={styles.cardButtonContainer}>
-            {/* <TouchableOpacity
-              onPress={() => setShowCard(true)}
-              style={styles.button}
-            >
-              <Feather name="settings" size={24} color="black" />
-            </TouchableOpacity> */}
-          </View>
-        </React.Fragment>
-      )}
+        )}
+      </View>
+      <React.Fragment>
+        <View style={styles.filterButtonContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("UserPreferenceModal")}
+            style={styles.button}
+          >
+            <Ionicons name="options-outline" size={24} color="white" />
+          </TouchableOpacity>
+        </View>
+      </React.Fragment>
     </View>
   );
 };
 
-const mapToStateProps = (state: ApplicationState) => ({
-  authenticationMode: state.UserReducer.AuthenticationMode,
-  userOptions: state.UserReducer.userOptions,
+const markerStyles = StyleSheet.create({
+  container: { width: 30, height: 30 },
+  touchable: { flex: 1 },
+  marker: { backgroundColor: "red", borderRadius: 15 },
+  text: { color: "white", fontWeight: "bold" },
 });
-const MapScreen = connect(mapToStateProps)(_MapScreen);
-
-export default MapScreen;
 
 const styles = StyleSheet.create({
+  page: { flex: 1, justifyContent: "center", alignItems: "center" },
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -230,25 +144,37 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
   },
-
   button: {
     width: 50,
     height: 50,
-    backgroundColor: "#f3f4f6",
+    backgroundColor: "black",
     borderRadius: 100,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    borderColor: "black",
+    borderWidth: 0.5,
   },
-
-  cardButtonContainer: {
-    position: "absolute",
-    right: 18,
-    bottom: 35,
+  filterButtonContainer: { position: "absolute", right: 18, bottom: 100 },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  filterButtonContainer: {
-    position: "absolute",
-    right: 18,
-    bottom: 100,
+  loadingText: {
+    color: "black",
+    paddingTop: 200,
+    fontWeight: "bold",
+    fontFamily: "Rationale-Regular",
+    fontSize: 24,
+    textAlign: "center",
   },
 });
+
+const mapStateToProps = (state: ApplicationState) => ({
+  authenticationMode: state.UserReducer.AuthenticationMode,
+  userOptions: state.UserReducer.userOptions,
+});
+
+export default connect(mapStateToProps)(MapScreen);

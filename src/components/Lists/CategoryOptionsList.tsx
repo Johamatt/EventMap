@@ -59,10 +59,10 @@ export const CategoryOptionsList: React.FC<CategoryOptionsListProps> = ({
         }}
         style={[
           selectAllCategories ? styles.selectedButton : styles.button,
-          { width: Dimensions.get("window").width - 10 },
+          { width: "30%" },
         ]}
       >
-        <Text style={styles.buttonLabel}>Select All</Text>
+        <Text style={styles.buttonLabel}> All</Text>
       </TouchableOpacity>
 
       <FlatList

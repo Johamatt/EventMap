@@ -110,6 +110,16 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
         setSelectAllCategories={setSelectAllCategories}
       />
 
+      <View style={styles.buttonGroupHeader}>
+        <MaterialCommunityIcons
+          name="map-marker-distance"
+          size={24}
+          color="white"
+        />
+        <Text style={styles.optionsTitle}> Distance: {selectedRadius}km</Text>
+        <Text style={{ color: "white" }}></Text>
+      </View>
+
       <RadiusSlider onValueChange={handleSliderChange} />
 
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
@@ -131,6 +141,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
     paddingBottom: 20,
+    paddingHorizontal: 20,
   },
   optionsTitle: {
     fontSize: 18,
@@ -147,7 +158,7 @@ const styles = StyleSheet.create({
 
   buttonGroupHeader: {
     flexDirection: "row",
-    marginHorizontal: 20,
+
     marginVertical: 10,
     alignContent: "center",
   },

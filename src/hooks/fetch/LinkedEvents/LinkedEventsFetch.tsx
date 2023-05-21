@@ -95,6 +95,7 @@ export interface LinkedEvent {
   __typename: string;
   id: string;
   location: {
+    position: any;
     "@id": string;
   };
   keywords: {

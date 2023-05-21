@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { RootStackParamList } from "../../types/navigationTypes";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import moment from "moment";
 import { LinkedEvent } from "../../hooks/fetch/LinkedEvents/LinkedEventsFetch";
@@ -28,11 +28,20 @@ export const EventCardLinkedEvent: React.FC<EventCardProps> = ({ event }) => {
       style={styles.cardContainer}
       onPress={() => navigation.navigate("LinkedEventModal", { event: event })}
     >
+      <Image
+        style={{ maxWidth: "100%", height: 100 }}
+        source={{
+          uri:
+            event?.images?.[0]?.url ??
+            "https://www.bga.fi/cache/30/640x893-Kameratillbehor_Transcend_Secure_Digital_SDHC_-_16GB.jpg",
+        }}
+      ></Image>
       <View style={{ flexDirection: "row", flex: 1 }}>
         <View style={[styles.cardTimeContainer, { flex: 1 / 4 }]}>
           <Text style={styles.date}>{formattedDate}</Text>
           <Text style={styles.time}>{formattedTime}</Text>
         </View>
+
         <View style={styles.separator} />
         <Text style={[styles.cardTitle, { flex: 4 / 4 }]}>
           {event?.name?.fi ?? event?.name?.en ?? ""}
@@ -61,14 +70,12 @@ const styles = StyleSheet.create({
   },
 
   cardContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     padding: 10,
     borderRadius: 14,
-    backgroundColor: "#000000",
-    flex: 1,
     margin: 10,
-
     borderWidth: 1,
+    overflow: "hidden",
   },
 
   cardTitle: {
@@ -88,3 +95,12 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
 });
+
+// <Image
+// style={{ width: 200, height: 200 }}
+// source={{
+//   uri: event.images[0].url
+//     ? event.images[0].url
+//     : "https://www.bga.fi/cache/30/640x893-Kameratillbehor_Transcend_Secure_Digital_SDHC_-_16GB.jpg",
+// }}
+// ></Image>
