@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ApplicationState } from "../../../Store/reducers";
@@ -51,7 +57,6 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
   };
 
   const handleCategorySelectPress = (label: CATEGORY) => {
-    console.log(selectedCategories);
     const index = selectedCategories.indexOf(label);
     if (index > -1) {
       // Remove the label from the array if it's already selected
@@ -87,40 +92,49 @@ const _UserPreferenceModal: React.FC<UserPreferenceModalProps> = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttonGroupHeader}>
-        <FontAwesome name="calendar" size={18} color="white" />
-        <Text style={styles.optionsTitle}> Select Date</Text>
-      </View>
+      <View style={{ padding: 10 }}>
+        <View style={styles.buttonGroupHeader}>
+          <FontAwesome name="calendar" size={18} color="white" />
+          <Text style={styles.optionsTitle}>Date</Text>
+        </View>
 
-      <DateOptionsList
-        selectedDate={selectedDate}
-        handleDateSelectPress={handleDateSelectPress}
-      />
-
-      <View style={styles.buttonGroupHeader}>
-        <MaterialCommunityIcons name="lightning-bolt" size={18} color="white" />
-        <Text style={styles.optionsTitle}> Select Categories</Text>
-      </View>
-
-      <CategoryOptionsList
-        selectedCategories={selectedCategories}
-        setSelectedCategories={setSelectedCategories}
-        handleCategorySelectPress={handleCategorySelectPress}
-        selectAllCategories={selectAllCategories}
-        setSelectAllCategories={setSelectAllCategories}
-      />
-
-      <View style={styles.buttonGroupHeader}>
-        <MaterialCommunityIcons
-          name="map-marker-distance"
-          size={24}
-          color="white"
+        <DateOptionsList
+          selectedDate={selectedDate}
+          handleDateSelectPress={handleDateSelectPress}
         />
-        <Text style={styles.optionsTitle}> Distance: {selectedRadius}km</Text>
-        <Text style={{ color: "white" }}></Text>
       </View>
 
-      <RadiusSlider onValueChange={handleSliderChange} />
+      <View style={{ padding: 10 }}>
+        <View style={styles.buttonGroupHeader}>
+          <MaterialCommunityIcons
+            name="map-marker-distance"
+            size={24}
+            color="white"
+          />
+          <Text style={styles.optionsTitle}> Distance: {selectedRadius}km</Text>
+        </View>
+        <RadiusSlider onValueChange={handleSliderChange} />
+      </View>
+
+      <View style={{ padding: 10 }}>
+        <View style={styles.buttonGroupHeader}>
+          <MaterialCommunityIcons
+            name="lightning-bolt"
+            size={18}
+            color="white"
+          />
+          <Text style={styles.optionsTitle}>Categories</Text>
+        </View>
+
+          <CategoryOptionsList
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+            handleCategorySelectPress={handleCategorySelectPress}
+            selectAllCategories={selectAllCategories}
+            setSelectAllCategories={setSelectAllCategories}
+          />
+
+      </View>
 
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
         <Text style={styles.submitButtonText}>Submit</Text>
@@ -170,5 +184,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginTop: 20,
+  },
+
+  flatListContainer: {
+    flex: 1,
+    maxHeight: 200, // Adjust the maximum height as needed
   },
 });

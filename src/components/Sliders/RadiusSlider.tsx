@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { View, Slider, Text } from "react-native";
-
+import { View } from "react-native";
+import Slider from "@react-native-community/slider";
 interface SliderComponentProps {
   onValueChange: (value: number) => void;
 }
@@ -16,6 +16,9 @@ const RadiusSlider: React.FC<SliderComponentProps> = ({ onValueChange }) => {
   return (
     <View>
       <Slider
+        maximumTrackTintColor={"white"}
+        minimumTrackTintColor={"red"}
+        thumbTintColor={"red"}
         style={{ width: "80%", alignSelf: "center" }}
         minimumValue={1}
         maximumValue={10}
@@ -23,7 +26,6 @@ const RadiusSlider: React.FC<SliderComponentProps> = ({ onValueChange }) => {
         value={value}
         onValueChange={handleValueChange}
       />
-      <Text style={{ alignSelf: "center" }}>Selected value: {value}</Text>
     </View>
   );
 };

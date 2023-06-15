@@ -16,7 +16,7 @@ interface UserProfileScreenProps {
 
 const _UserProfileScreen: React.FC<UserProfileScreenProps> = ({ authMode }) => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
-
+  console.log(authMode);
   const handleSignOut = async () => {
     await Auth.signOut();
 

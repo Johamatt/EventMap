@@ -6,7 +6,7 @@ import {
 } from "react-native";
 import { View, Text, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import MapView, { Marker } from "react-native-maps";
+// import MapView, { Marker } from "react-native-maps";
 import { StyleSheet } from "react-native";
 import { getEventCustom } from "../../../hooks/fetch/Appsync/AppsyncEvents";
 import { GetEventQuery } from "../../../API";
@@ -102,7 +102,7 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
           </>
         )}
       </View>
-
+      {/* 
       {event.data?.getEvent?.location.lat !== undefined &&
         event.data?.getEvent?.location.lon !== undefined && (
           <MapView
@@ -122,7 +122,7 @@ export const AppsyncEventModal: React.FC<EventModalProps> = ({ route }) => {
               }}
             />
           </MapView>
-        )}
+        )} */}
     </ScrollView>
   );
 };

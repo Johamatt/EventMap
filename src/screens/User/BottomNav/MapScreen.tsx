@@ -22,9 +22,17 @@ import {
 import { parseCategoryString } from "../../../util/helpers/parseCategoryString";
 import * as Location from "expo-location";
 import { calculateBboxRadius } from "../../../util/helpers/calculateBBox";
-import Mapbox, { Camera, MarkerView } from "@rnmapbox/maps";
+import Mapbox, {
+  Callout,
+  Camera,
+  Image,
+  MarkerView,
+  PointAnnotation,
+  UserLocation,
+} from "@rnmapbox/maps";
 import Constants from "expo-constants";
 import LottieView from "lottie-react-native";
+import { requestLocation } from "../../../hooks/RequestLocation";
 
 //@ts-ignore
 Mapbox.setAccessToken(Constants.expoConfig.extra.MAPBOX_KEY);
@@ -38,10 +46,6 @@ const MapScreen: React.FC<MapProps> = ({ authenticationMode, userOptions }) => {
   const [events, setEvents] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [nextTokenEvents, setNextTokenEvents] = useState<string | undefined>();
-  const [location, setLocation] = useState<Location.LocationObject | undefined>(
-    undefined
-  );
-  const [showCard, setShowCard] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false); // New state for loading
 
   const [event, setEvent] = useState<LinkedEvent | undefined>(undefined);
@@ -50,6 +54,7 @@ const MapScreen: React.FC<MapProps> = ({ authenticationMode, userOptions }) => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   useEffect(() => {
+    requestLocation();
     fetchData();
   }, [userOptions]);
 
@@ -79,26 +84,42 @@ const MapScreen: React.FC<MapProps> = ({ authenticationMode, userOptions }) => {
       <View style={styles.container}>
         <Mapbox.MapView style={styles.map}>
           <Camera zoomLevel={10} centerCoordinate={[24.945831, 60.192059]} />
+          <UserLocation />
           {events.map((ev, i) => (
-            <MarkerView
-              key={i}
+            <PointAnnotation
+              key={ev.id}
+              id={ev.id.toString()}
+              title={ev.name.fi}
               coordinate={[
                 ev.location.position.coordinates[0],
                 ev.location.position.coordinates[1],
               ]}
-              style={markerStyles.container}
+              onSelected={() =>
+                navigation.navigate("LinkedEventModal", { event: ev })
+              }
             >
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("LinkedEventModal", { event: ev })
-                }
-                style={markerStyles.touchable}
-              >
-                <View style={markerStyles.marker}>
-                  <Text style={markerStyles.text}>{i}</Text>
-                </View>
-              </TouchableOpacity>
-            </MarkerView>
+              <Callout id={ev.id} title={ev.name.fi}></Callout>
+            </PointAnnotation>
+
+            // // <MarkerView,
+            // //   key={i}
+            // //   coordinate={[
+            // //     ev.location.position.coordinates[0],
+            // //     ev.location.position.coordinates[1],
+            // //   ]}
+            // //   style={markerStyles.container}
+            // // >
+            // //   <TouchableOpacity
+            // //     onPress={() =>
+            // //       navigation.navigate("LinkedEventModal", { event: ev })
+            // //     }
+            // //     style={markerStyles.touchable}
+            // //   >
+            // //     <View style={markerStyles.marker}>
+            // //       <Text style={markerStyles.text}>{i}</Text>
+            // //     </View>
+            // //   </TouchableOpacity>
+            // // </MarkerView>
           ))}
         </Mapbox.MapView>
         {isLoading && (

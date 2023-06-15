@@ -55,9 +55,6 @@ export const LinkedEventModal: React.FC<LinkedEventModalProps> = (props) => {
         </Text>
       </Text>
 
-      <Text style={styles.address}>{event.location["@id"]}</Text>
-      <Text style={styles.promoter}>{event.publisher}</Text>
-
       <Text style={styles.description}>
         {event.description.fi
           ? removeHtmlTags(event.description.fi)

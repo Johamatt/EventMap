@@ -1,5 +1,6 @@
 import { UserConfirmEmailScreen } from "../screens/Authentication/ConfirmEmailScreen";
 import { UserForgotPasswordScreen } from "../screens/Authentication/ForgotPasswordScreen";
+import LandingScreen from "../screens/Authentication/LandingScreen";
 import UserLoginScreen from "../screens/Authentication/LoginScreen";
 import { UserNewPasswordScreen } from "../screens/Authentication/NewPasswordScreen";
 import { UserRegisterScreen } from "../screens/Authentication/RegisterScreen";
@@ -8,6 +9,12 @@ export const AuthNavigator = (Stack: any) => {
   return (
     <Stack.Group>
       <Stack.Screen
+        name="LandingScreen"
+        component={LandingScreen}
+        options={{ headerShown: false }}
+      ></Stack.Screen>
+
+      <Stack.Screen
         name="UserLoginScreen"
         component={UserLoginScreen}
         options={{
@@ -15,8 +22,8 @@ export const AuthNavigator = (Stack: any) => {
         }}
       />
       <Stack.Screen
-        name="UserNewPasswordScreen"
-        component={UserNewPasswordScreen}
+        name="UserConfirmEmailScreen"
+        component={UserConfirmEmailScreen}
         options={{
           headerShown: true,
           headerTitle: "",
@@ -28,8 +35,8 @@ export const AuthNavigator = (Stack: any) => {
       />
 
       <Stack.Screen
-        name="UserConfirmEmailScreen"
-        component={UserConfirmEmailScreen}
+        name="UserNewPasswordScreen"
+        component={UserNewPasswordScreen}
         options={{
           headerShown: true,
           headerTitle: "",

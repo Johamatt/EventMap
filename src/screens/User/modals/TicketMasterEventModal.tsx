@@ -8,7 +8,7 @@ import { View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
-import MapView, { Marker } from "react-native-maps";
+// import MapView, { Marker } from "react-native-maps";
 import { StyleSheet } from "react-native";
 import { RootStackParamList } from "../../../types/navigationTypes";
 import { fetchTicketMasterEvent } from "../../../hooks/fetch/TicketMaster/TicketMasterFetch";
@@ -100,7 +100,7 @@ export const TicketMasterEventModal: React.FC<TicketMasterEventModalProps> = (
           )}
       </View>
 
-      {event._embedded.venues[0].location.latitude !== undefined &&
+      {/* {event._embedded.venues[0].location.latitude !== undefined &&
         event._embedded.venues[0].location.longitude !== undefined && (
           <MapView
             style={styles.mapContainer}
@@ -124,7 +124,7 @@ export const TicketMasterEventModal: React.FC<TicketMasterEventModalProps> = (
               }}
             />
           </MapView>
-        )}
+        )} */}
     </ScrollView>
   );
 };

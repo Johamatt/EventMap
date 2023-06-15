@@ -23,4 +23,13 @@ export default {
     tabIconDefault: "#ccc",
     tabIconSelected: "#fff",
   },
+
+  primary: {
+    text: "#FFFFFF",
+    button: "#00CCFF",
+    background: "#172736",
+    main: "#eb1b66",
+    secondary: "#26a9e1",
+    tertiary: "#293744",
+  },
 };

@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
+  Image,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
@@ -113,7 +114,7 @@ export const UserConfirmEmailScreen: React.FC<Props> = (props) => {
 
       {!keyboardVisible && (
         <TouchableOpacity style={styles.resendButton} onPress={onResendPress}>
-          <Text style={styles.buttonText}>Resend code</Text>
+          <Text style={styles.resendText}>Resend code</Text>
         </TouchableOpacity>
       )}
     </View>
@@ -147,6 +148,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: 48,
     backgroundColor: "#007AFF",
+
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
@@ -160,6 +162,11 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   buttonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+
+  resendText: {
     color: "black",
     fontWeight: "bold",
   },

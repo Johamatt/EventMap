@@ -35,7 +35,7 @@ export const UserForgotPasswordScreen: React.FC = (props) => {
         loop
         style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
       />
-      <Text style={styles.title}>Enter your email</Text>
+      <Text style={styles.title}>Reset password</Text>
       <TextInput
         style={styles.input}
         placeholderTextColor="#003f5c"
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     paddingHorizontal: 16,
     marginBottom: 16,
-    color: "white",
+    color: "black",
   },
   button: {
     width: "80%",
