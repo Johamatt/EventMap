@@ -2,8 +2,6 @@
 
 EventMap is a mobile app that allows users to discover and interact with events in their area (Helsinki metropolitan area). It's built using React Native, Expo, and AWS Amplify for backend services.
 
-**Warning:** Installation guide does not include all required steps, updating later.
-
 ## Getting Started
 
 To get started with the project, follow the instructions below. 
